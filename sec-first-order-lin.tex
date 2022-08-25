@@ -1,0 +1,346 @@
+\section{Linear equations and the integrating factor}
+\label{intfactor:section}
+
+\LAtt{1.4}
+
+\LO{
+\item Identify a linear first-order differential equation and write a first-order linear equation in standard form,
+\item Solve initial value problems for first-order linear differential equations by integrating factors, and
+\item Write solutions to first-order linear initial value problems in integral form if needed.
+}
+
+% \sectionnotes{1 lecture\EPref{, \S1.5 in \cite{EP}}\BDref{,
+% \S2.1 in \cite{BD}}}
+
+One of the most important types of equations we will learn how to solve are
+the so-called
+\emph{linear equations\index{linear equation}}.
+In fact, the majority of the course is about linear
+equations.  In this section we focus on the
+\emph{\myindex{first order linear equation}}.
+
+\begin{definition}
+A first order equation is \emph{linear} if we can put it
+into the form:
+\begin{equation} \label{lineq:eq1}
+y' + p(x) y = f(x) .
+\end{equation}
+\end{definition}
+
+The word
+\myquote{linear} means linear in $y$ and $y'$;
+no higher powers nor functions of $y$ or $y'$ appear.
+The dependence on $x$ can be more
+complicated.
+
+Solutions of linear equations have nice properties.  For example, the
+solution exists wherever $p(x)$ and $f(x)$ are defined, and has the same
+regularity (read: it is just as nice).  We'll see this in detail in \sectionref{existunique:section}. But most importantly for us right now,
+there is a method for solving linear first order equations. 
+In \sectionref{integralsols:section}, we saw that we could easily 
+solve equations of the form \[ \frac{dy}{dx} = f(x) \] because we could 
+directly integrate both sides of the equation, since the left hand side 
+was the derivative of something (in this case, $y$) and the right side 
+was only a function of $x$. We want to do the same here, but the 
+something on the left will not be the derivative of just $y$.
+
+The trick is to rewrite the left-hand side
+of \eqref{lineq:eq1} as a derivative of a product of $y$ with another
+function. Let $r(x)$ be this other function, and we can compute, by the product rule, that
+\begin{equation*}
+\frac{d}{dx}\Bigl[r(x)y\Bigr] = r(x)y' + r'(x) y.
+\end{equation*}
+Now, if we multiply \eqref{lineq:eq1} by the function $r(x)$ on both sides, we get
+\begin{equation*}
+r(x)y' + p(x)r(x)y = f(x)r(x)
+\end{equation*}
+and the first term on the left here matches the first term from our product rule derivative. To make the second terms match up as well, we need that
+\begin{equation*}
+r'(x) = p(x)r(x).
+\end{equation*}
+This equation is separable! We can solve for the $r(x)$ here by separating variables to get that
+\begin{equation*}
+\frac{dr}{r} = p(x)\, dx
+\end{equation*}
+so that 
+\begin{equation*}
+\ln{|r|} = \int p(x)\, dx
+\end{equation*}
+or 
+\begin{equation*}
+r(x) = e^{\int p(x) \,dx} .
+\end{equation*}
+
+With this choice of $r(x)$, we get that 
+\begin{equation*}
+r(x) y' + r(x) p(x) y = \frac{d}{dx}\Bigl[ r(x) y \Bigr], 
+\end{equation*}
+so that if we multiply \eqref{lineq:eq1} by
+$r(x)$, we obtain $r(x) y' + r(x) p(x) y$ on the left-hand side, which we can simplify using our product rule derivative above to obtain
+\begin{equation*}
+ \frac{d}{dx}\Bigl[ r(x) y \Bigr] = r(x)f(x) .
+\end{equation*}
+Now we integrate both sides.
+The right-hand side does not depend on $y$ and the left-hand side
+is written as a derivative of a function.  Afterwards, we solve for $y$.
+The function $r(x)$ is called the \emph{\myindex{integrating factor}} and the
+method is called the \emph{\myindex{integrating factor method}}.
+
+This method works for any first order linear equation, no matter what $p(x)$ and $f(x)$ are. In general, we can compute:
+\begin{align*}
+y' + p(x) y &= f(x) , \\
+e^{\int p(x) \,dx} y' + e^{\int p(x) \,dx} p(x) y & = e^{\int p(x) \,dx} f(x) , \\
+\frac{d}{dx}\left[ e^{\int p(x) \,dx} y \right] & = e^{\int p(x) \,dx} f(x) , \\
+e^{\int p(x) \,dx} y & = \int e^{\int p(x) \,dx} f(x) \,dx + C , \\
+y & = e^{-\int p(x) \,dx} \left( \int e^{\int p(x) \,dx} f(x) \,dx + C \right) .
+\end{align*}
+
+Advice: Do not try to remember the formula itself, that is way too
+hard.  It is easier to remember the process and repeat it.
+
+Of course, to get a closed form formula for $y$,
+we need to be able to find a
+closed form formula for the integrals appearing above.
+
+\begin{example}
+Solve
+\begin{equation*}
+y' + 2xy = e^{x-x^2}, \qquad y(0) = -1 .
+\end{equation*}
+\end{example}
+
+\begin{exampleSol}
+First note that $p(x) = 2x$ and $f(x) = e^{x-x^2}$.
+The integrating factor is $r(x) = e^{\int p(x)\, dx} = e^{x^2}$.
+We multiply both sides of the equation by $r(x)$ to get
+\begin{align*}
+e^{x^2} y' + 2xe^{x^2}y & = e^{x-x^2} e^{x^2} , \\
+\frac{d}{dx} \left[ e^{x^2} y \right] &= e^x .
+\end{align*}
+We integrate
+\begin{align*}
+e^{x^2} y &= e^x +C , \\
+y &= e^{x-x^2} + C e^{-x^2} .
+\end{align*}
+Next, we solve for the initial condition $-1 = y(0) = 1 + C$, so $C=-2$.
+The solution is
+\begin{equation*}
+y = e^{x-x^2} - 2 e^{-x^2} .
+\end{equation*}
+\end{exampleSol}
+
+Note that we do not care which antiderivative we take when computing
+$e^{\int p(x) dx}$.  You can always add a constant of integration,
+but those constants
+will not matter in the end.
+
+\begin{exercise}
+Try it!  Add a constant of integration to the integral in
+the integrating factor and show that the solution you get in the end is the
+same as what we got above.
+\end{exercise}
+
+Since we cannot always evaluate the integrals in closed form, it is useful to
+know how to write the solution in definite integral form.  A definite
+integral is something that
+you can plug into a computer or a calculator.  Suppose we are given
+\begin{equation*}
+y' + p(x) y = f(x) , \qquad y(x_0) = y_0 .
+\end{equation*}
+Look at the solution and write the integrals
+as definite integrals.
+\begin{equation} \label{lei:defsol}
+\mybxbg{
+~~
+y(x) = e^{-\int_{x_0}^x p(s)\, ds} \left( \int_{x_0}^x e^{\int_{x_0}^t p(s)\, ds}
+f(t) \,dt + y_0 \right).
+~~
+}
+\end{equation}
+You should
+be careful to properly use dummy variables here.  If you now plug such a
+formula into a
+computer or a calculator, it will be happy to give you numerical answers.
+
+\begin{exercise}
+Check that $y(x_0) = y_0$ in formula \eqref{lei:defsol}.
+\end{exercise}
+
+\begin{example}
+Solve the initial value problem
+\begin{equation*}
+ty' + 4y = t^2 - 1 \qquad y(1) = 3.
+\end{equation*}
+\end{example}
+\begin{exampleSol}
+In order to solve this equation, we want to put the equation in standard form, which is
+\begin{equation*}
+y' + \frac{4}{t}y = t - \frac{1}{t}.
+\end{equation*}
+In this form, the coefficient $p(t)$ of $y$ is $p(t) = \frac{4}{t}$, so that the integrating factor is 
+\[ r(t) = e^{\int p(t)\ dt} = e^{\int \frac{4}{t}\ dt} = e^{4\ln(t)}. \] Since $4\ln(t) = \ln(t^4)$, we have that $r(t) = t^4$. Multiplying both sides of the equation by $t^4$ gives
+\begin{equation*}
+t^4y' + 4t^3 y = t^5 - t^3
+\end{equation*}
+where the left hand side is $\frac{d}{dt}(t^4y)$. Therefore, we can integrate both sides of the equation in $t$ to give
+\begin{equation*}
+t^4 y = \frac{t^6}{6} - \frac{t^4}{4} + C
+\end{equation*}
+and we can solve out for $y$ as
+\begin{equation*}
+y(t) = \frac{t^2}{6} - \frac{1}{4} + \frac{C}{t^4}.
+\end{equation*}
+To solve for $C$ using the initial condition, we plug in $t=1$ to get that we need
+\begin{equation*}
+3 = \frac{1}{6} - \frac{1}{4} + C \qquad C = \frac{37}{12}.
+\end{equation*}
+Therefore, the solution to the initial value problem is
+\begin{equation*}
+y(t) = \frac{t^2}{6} - \frac{1}{4} + \frac{37/12}{t^4}.
+\end{equation*}
+\end{exampleSol}
+
+\begin{example}
+Solve the initial value problem
+\begin{equation*}
+y' + 2xy = 3 \qquad y(0) = 4.
+\end{equation*}
+\end{example}
+\begin{exampleSol}
+This equation is already in standard form. Since the coefficient of $y$ is $p(x) = 2x$, we know that the integrating factor is 
+\begin{equation*}
+r(x) = e^{\int p(x)\ dx} = e^{x^2}.
+\end{equation*}
+We can multiply both sides of the equation by this integrating factor to give
+\begin{equation*}
+y'e^{x^2} + 2xe^{x^2}y = 3e^{x^2}
+\end{equation*} and then want to integrate both sides. The left-hand side of the equation is $\frac{d}{dx}[e^{x^2}y]$, so the antiderivative of that side is just $ye^{x^2}$. For the right-hand side, we would need to compute
+\[ \int 3e^{x^2}\ dx, \] which does not have a closed-form expression. Therefore, we need to represent this as a definite integral. Since our initial condition gives the value of $y$ at zero, we want to use zero as the bottom limit of the integral. Therefore, we can write the solution as
+\[ ye^{x^2} = \int_0^x 3e^{s^2}\ ds + C \] and so can solve for $y$ as
+\begin{equation*}
+y(x) = e^{-x^2} \int_0^x 3e^{s^2}\ ds + Ce^{-x^2}.
+\end{equation*}
+Plugging in the initial condition gives that
+\begin{equation*}
+y(0) = 4 = e^{-0} \int_0^0 3e^{s^2}\ ds + Ce^{-0} = C.
+\end{equation*}
+Therefore, the solution to the initial value problem is
+\begin{equation*}
+y(x) = e^{-x^2} \int_0^x 3e^{s^2}\ ds + 4e^{-x^2}.
+\end{equation*}
+\end{exampleSol}
+
+
+\begin{exercise}
+Write the solution of the following problem
+as a definite integral, but try to simplify as far as you can.  You will not
+be able to find the solution in closed form.
+\begin{equation*}
+y' + y = e^{x^2-x}, \qquad y(0) = 10 .
+\end{equation*}
+\end{exercise}
+
+%\begin{remark}
+%Before we move on, we should note some interesting properties of linear
+%equations.  First, for the linear initial value problem
+%$y' + p(x) y = f(x)$, $y(x_0) = y_0$,
+%there is always an explicit formula \eqref{lei:defsol} for the
+%solution.  Second, it follows
+%from the formula \eqref{lei:defsol} that if $p(x)$
+%and $f(x)$ are continuous on some interval $(a,b)$, then the 
+%solution $y(x)$ exists and is differentiable on $(a,b)$.  Compare
+%with the simple nonlinear example we have seen previously, $y'=y^2$,
+%and compare to \thmref{slope:picardthm}.
+%\end{remark}
+
+\subsection{Exercises}
+
+In the exercises, feel free to leave answer as a definite integral if a
+closed form solution cannot be found.  If you can find a closed form
+solution, you should give that.
+
+\begin{exercise}
+Solve $y' + xy = x$.
+\end{exercise}
+
+\begin{exercise}
+Solve $y' + 6y = e^x$.
+\end{exercise}
+
+\begin{exercise}
+Solve $y' + 4y = x^2e^{-4x}$.
+\end{exercise}
+
+\begin{exercise}
+Solve $y' - 3y = xe^x$.
+\end{exercise}
+
+\begin{exercise}
+Solve $y' + 3y = e^{4x} - e^{-2x}$ with $y(0) = -3$.
+\end{exercise}
+
+\begin{exercise}
+Solve $y' - 2y = x + 4$.
+\end{exercise}
+
+\begin{exercise}
+Solve $xy' + 4y = x^2 - \frac{1}{x^2}$.
+\end{exercise}
+
+\begin{exercise}
+Solve $xy' - 3y = x-2$ with $y(1) = 3$. 
+\end{exercise}
+
+\begin{exercise}
+Solve $y' - 4y = \cos{(3t)}$.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Solve $y'+3 x^2 y = x^2$.
+\end{exercise}
+\exsol{%
+$y = C e^{-x^3} + \nicefrac{1}{3}$
+}
+
+\begin{exercise}
+Solve $y' + 3x^2y = \sin(x) \, e^{-x^3}$, with $y(0) = 1$.
+\end{exercise}
+
+\begin{exercise}
+Solve $y' + \cos (x) y = \cos(x)$.
+\end{exercise}
+
+\begin{exercise}
+Solve the IVP $4ty'+y=24\sqrt{t};\ y(10000)=100.$ %1.4
+\end{exercise}
+
+\begin{exercise}
+Solve the IVP $(t^2+1)y' - 2ty = t^2+1; \ y(1)=0$. %1.4
+\end{exercise}
+
+\begin{exercise}
+Solve $\frac{1}{x^2+1} \, y' + x y = 3$, with $y(0) = 0$.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Solve $y'+ 2\sin(2x) y = 2\sin(2x)$, $y(\nicefrac{\pi}{2}) = 3$.
+\end{exercise}
+\exsol{%
+$y = 2 e^{\cos(2x)+1} + 1$
+}
+
+\begin{exercise}
+Consider the initial value problem
+\[ 5y' - 3y = e^{-2t} \qquad y(0) = a \] for an undetermined value $a$. Solve the problem and determine the dependence on the the value of $a$. How does the value of the solution as $t \rightarrow \infty$ depend on the value of $a$?
+\end{exercise}
+
+\begin{exercise}
+Find an expression for the general solution to $y' + 3y = \sin(t^2)$ with $y(0) = 2$. Simplfy your answer as much as possible. 
+\end{exercise}
+
+\setcounter{exercise}{100}
+
+
+
+
+

@@ -1,0 +1,597 @@
+\section{Sturm--Liouville problems}
+\label{slproblems:section}
+
+\sectionnotes{Verbatim from Lebl}
+
+\sectionnotes{2 lectures\EPref{, \S10.1 in \cite{EP}}\BDref{,
+\S11.2 in \cite{BD}}}
+
+\subsection{Boundary value problems}
+
+In \chapterref{FS:chapter}
+we encountered several different eigenvalue problems such as:
+\begin{equation*}
+X''(x) + \lambda X(x) = 0 ,
+\end{equation*}
+with different boundary
+conditions\index{Dirichlet boundary conditions}%
+\index{Neumann boundary conditions}%
+\index{Mixed boundary conditions}
+\begin{equation*}
+\begin{array}{rrl}
+X(0) = 0 & ~~X(L) = 0 & ~~\text{(Dirichlet), or} \\
+X'(0) = 0 & ~~X'(L) = 0 & ~~\text{(Neumann), or} \\
+X'(0) = 0 & ~~X(L) = 0 & ~~\text{(Mixed), or} \\
+X(0) = 0 & ~~X'(L) = 0 & ~~\text{(Mixed)}, \ldots
+\end{array}
+\end{equation*}
+For example,
+these boundary problems came up in the study of the heat equation $u_t =
+k u_{xx}$ when we were trying to solve the equation by the method of
+separation of variables in \sectionref{heateq:section}.
+Dirichlet conditions correspond to applying a
+zero temperature at the ends, Neumann means insulating the ends, etc.
+Other types of endpoint conditions also arise naturally, such as
+the \emph{\myindex{Robin boundary conditions}}
+\begin{equation*}
+hX(0) - X'(0) = 0, \qquad hX(L) + X'(L) = 0 ,
+\end{equation*}
+for some constant $h$.  These conditions come up when the ends are immersed
+in some medium.
+
+In the separation of variables computation
+we encountered an eigenvalue problem and found the
+eigenfunctions
+$X_n(x)$.  We then found the \emph{\myindex{eigenfunction decomposition}} of
+the initial
+temperature $f(x) = u(x,0)$,
+\begin{equation*}
+f(x) = \sum_{n=1}^\infty c_n X_n(x) .
+\end{equation*}
+Once we had this decomposition
+and found suitable $T_n(t)$ such that $T_n(0) = 1$
+and such that $T_n(t)X_n(x)$ were solutions to the heat equation,
+we wrote the solution to the original problem, including the initial
+condition, as
+\begin{equation*}
+u(x,t) = \sum_{n=1}^\infty c_n T_n(t) X_n(x) .
+\end{equation*}
+
+\medskip
+
+To study more general problems with this method, we must study
+more general eigenvalue problems.
+First, we study 
+second order linear equations of the form
+\begin{equation} \label{SL:eq}
+\frac{d}{dx} \left( p(x) \frac{dy}{dx} \right)
+- q(x) y + \lambda r(x) y = 0 .
+\end{equation}
+Essentially
+any second order linear equation
+of the form $a(x) y'' + b(x) y' + c(x) y + \lambda d(x) y = 0$
+can be written as \eqref{SL:eq}
+after multiplying by a proper factor.
+
+\begin{example}[Bessel]
+Put the following equation into the form \eqref{SL:eq}:
+\begin{equation*}
+x^2 y'' + xy' + \left(\lambda x^2 - n^2\right)y = 0 .
+\end{equation*}
+Multiply both sides by $\frac{1}{x}$ to obtain
+\begin{equation*}
+\begin{split}
+\frac{1}{x} \left( x^2 y'' + xy' + \left(\lambda x^2 - n^2\right)y \right)
+& =
+x y'' + y' + \left(\lambda x - \frac{n^2}{x}\right)y 
+\\
+& =
+\frac{d}{dx} \left( x \frac{dy}{dx} \right)
+- \frac{n^2}{x} y + \lambda x y  = 0.
+\end{split}
+\end{equation*}
+The Bessel equation turns up for example in the solution of
+the two-dimensional wave equation.
+If you want to see how one solves the equation,
+you can look at \subsectionref{bessel:subsection}.
+\end{example}
+
+The so-called 
+\emph{\myindex{Sturm--Liouville problem}}%
+\footnote{Named after the French mathematicians
+\href{https://en.wikipedia.org/wiki/Jacques_Charles_Fran\%C3\%A7ois_Sturm}{Jacques Charles Fran\c{c}ois Sturm}
+(1803--1855) and
+\href{https://en.wikipedia.org/wiki/Liouville}{Joseph Liouville}
+(1809--1882).} is to seek
+nontrivial solutions to
+\begin{equation} \label{sl:slprob}
+\mybxbg{~~
+\begin{aligned}
+&\frac{d}{dx} \left( p(x) \frac{dy}{dx} \right)
+- q(x) y + \lambda r(x) y = 0, \qquad a < x < b, \\
+&\alpha_1 y(a) - \alpha_2 y'(a) = 0, \\
+&\beta_1 y(b) + \beta_2 y'(b) = 0.
+\end{aligned}
+~~}
+\end{equation}
+In particular, we seek $\lambda$s that allow for nontrivial solutions.
+The $\lambda$s that admit nontrivial solutions
+are called the \emph{eigenvalues\index{eigenvalue}}
+and the corresponding
+nontrivial solutions are called
+\emph{eigenfunctions\index{eigenfunction}}.
+The constants $\alpha_1$ and $\alpha_2$ should not be both zero, same for
+$\beta_1$ and $\beta_2$.
+
+\begin{theorem} \label{sl:slregthm}
+Suppose $p(x)$, $p'(x)$, $q(x)$ and $r(x)$ are continuous on $[a,b]$
+and suppose $p(x) > 0$ and $r(x) > 0$ for all $x$ in $[a,b]$.
+Then the Sturm--Liouville problem \eqref{sl:slprob}
+has an increasing sequence of eigenvalues
+\begin{equation*}
+\lambda_1 < \lambda_2 < \lambda_3 < \cdots 
+\end{equation*}
+such that
+\begin{equation*}
+\lim_{n \to \infty} \lambda_n = +\infty
+\end{equation*}
+and such that to each $\lambda_n$ there is (up to a constant multiple)
+a single eigenfunction $y_n(x)$. 
+
+Moreover, if $q(x) \geq 0$ and $\alpha_1, \alpha_2, \beta_1, \beta_2 \geq 0$,
+then $\lambda_n \geq 0$ for all $n$.
+\end{theorem}
+
+Problems satisfying the hypothesis of the theorem
+(including the \myquote{Moreover})
+are called
+\emph{regular Sturm--Liouville problems\index{regular Sturm--Liouville problem}}%
+\index{Sturm--Liouville problem!regular},
+and we will only consider such problems here.
+That is, a regular problem is one where
+$p(x)$, $p'(x)$, $q(x)$ and $r(x)$ are continuous, $p(x) > 0$, $r(x) > 0$,
+$q(x) \geq 0$, and $\alpha_1, \alpha_2, \beta_1, \beta_2 \geq 0$,
+where neither $\alpha_1$ and $\alpha_2$ are both zero,
+nor
+$\beta_1$ and $\beta_2$ are both zero.
+Note: Be careful about the signs.  Also be careful about the inequalities
+for $r$ and $p$, they
+must be strict for all $x$ in the interval $[a,b]$, including the endpoints!
+
+When zero
+is an eigenvalue, we usually
+start labeling the eigenvalues at 0 rather than at 1 for convenience.
+That is we label the eigenvalues $\lambda_0 < \lambda_1 < \lambda_2 < \cdots$.
+
+\begin{example}
+The problem $y''+\lambda y$, $0 < x < L$, $y(0) = 0$, and $y(L) = 0$
+is a regular Sturm--Liouville problem:  $p(x) = 1$, $q(x) = 0$, $r(x) = 1$,
+and we have $p(x) = 1 > 0$ and $r(x) = 1 > 0$.  We also have
+$a=0$, $b=L$, $\alpha_1 = \beta_1 = 1$, $\alpha_2 = \beta_2 = 0$.
+The eigenvalues are $\lambda_n = \frac{n^2 \pi^2}{L^2}$ and eigenfunctions
+are $y_n(x) = \sin\bigl(\frac{n\pi}{L} x\bigr)$.  All eigenvalues are nonnegative as
+predicted by the theorem.
+\end{example}
+
+\begin{exercise}
+Find eigenvalues and eigenfunctions for
+\begin{equation*}
+y'' + \lambda y = 0, \quad y'(0) = 0, \quad y'(1) = 0.
+\end{equation*}
+Identify
+the $p, q, r, \alpha_j, \beta_j$.
+Can you use the theorem to make the search for eigenvalues easier?
+(Hint: Consider the condition $-y'(0)=0$)
+\end{exercise}
+
+\begin{example}
+Find eigenvalues and eigenfunctions of the problem
+\begin{align*}
+& y''+\lambda y = 0, \quad 0 < x < 1 , \\
+& hy(0)- y'(0) = 0, \quad y'(1)  = 0, \quad h > 0.
+\end{align*}
+
+These equations give a regular Sturm--Liouville problem.
+
+\begin{exercise}
+Identify $p, q, r, \alpha_j, \beta_j$ in the example above.
+\end{exercise}
+
+By \thmref{sl:slregthm},
+$\lambda \geq 0$.
+So the general solution (without boundary conditions) is
+\begin{equation*}
+\begin{aligned}
+ & y(x) = A \cos ( \sqrt{\lambda}\, x) + B \sin (
+\sqrt{\lambda}\, x) & & \qquad \text{if } \; \lambda > 0 , \\
+& y(x) = A x + B & & \qquad \text{if } \; \lambda = 0 .
+\end{aligned}
+\end{equation*}
+
+Let us see if $\lambda = 0$ is an eigenvalue:
+We must satisfy $0 = hB - A$ and $A = 0$, hence $B=0$ (as $h > 0$).
+Therefore, 0 is not an eigenvalue (no nonzero solution, so no eigenfunction).
+
+Now let us
+try $\lambda > 0$.  We plug in the boundary conditions:
+\begin{align*}
+& 0 = h A - \sqrt{\lambda}\, B , \\
+& 0 = -A \sqrt{\lambda}\, \sin (\sqrt{\lambda}) +B \sqrt{\lambda}\,
+\cos (\sqrt{\lambda}) .
+\end{align*}
+If $A=0$, then $B=0$ and vice versa, hence both are nonzero.
+So $B = \frac{hA}{\sqrt{\lambda}}$, and
+$0 = -A \sqrt{\lambda}\, \sin ( \sqrt{\lambda}) + \frac{hA}{\sqrt{\lambda}}
+\sqrt{\lambda}\, \cos ( \sqrt{\lambda})$.  As $A \not= 0$ we get
+\begin{equation*}
+0 = 
+- \sqrt{\lambda}\, \sin ( \sqrt{\lambda}) + h \cos ( \sqrt{\lambda}) ,
+\end{equation*}
+or
+\begin{equation*}
+\frac{h}{\sqrt{\lambda}} = \tan \sqrt{\lambda} .
+\end{equation*}
+
+We use a computer to find $\lambda_n$.  There are tables available,
+though using a computer or a graphing calculator
+is far more convenient nowadays.
+Easiest method is to plot the functions 
+$\nicefrac{h}{x}$ and $\tan x$ and see for which $x$ they intersect.
+There is an infinite number of intersections.  Denote
+the first intersection
+by $\sqrt{\lambda_1}$,
+the second intersection by $\sqrt{\lambda_2}$, etc.
+For example, when
+$h=1$, we get $\sqrt{\lambda_1} \approx 0.86$, 
+$\sqrt{\lambda_2} \approx 3.43$, \ldots.
+That is $\lambda_1 \approx 0.74$, $\lambda_2 \approx 11.73$, \ldots.
+A plot for $h=1$ is given in \figurevref{sl:tanx1overxfig}.
+The appropriate eigenfunction
+(let $A = 1$ for convenience, then
+$B=\nicefrac{h}{\sqrt{\lambda}}$) is
+\begin{equation*}
+y_n(x) = \cos ( \sqrt{\lambda_n}\, x ) + \frac{h}{\sqrt{\lambda_n}}
+\sin (\sqrt{\lambda_n} \, x ) .
+\end{equation*}
+When $h=1$ we get (approximately)
+\begin{equation*}
+y_1(x) \approx \cos (0.86\, x ) + \frac{1}{0.86}
+\sin (0.86 \, x ) , \qquad
+y_2(x) \approx \cos (3.43\, x ) + \frac{1}{3.43}
+\sin (3.43 \, x ) , \qquad \ldots .
+\end{equation*}
+\begin{myfig}
+\capstart
+\diffyincludegraphics{width=3in}{width=4.5in}{sl-tanx1overx}
+\caption{Plot of $\frac{1}{x}$ and $\tan x$.%
+\label{sl:tanx1overxfig}}
+\end{myfig}
+\end{example}
+
+\subsection{Orthogonality}
+
+We have seen the notion of orthogonality before.  For example,
+we have shown that $\sin (nx)$ are orthogonal for distinct $n$ on $[0,\pi]$.
+For general Sturm--Liouville problems we need a more general setup.
+Let $r(x)$
+be a \emph{\myindex{weight function}} (any function, though generally we
+assume it is positive) on $[a,b]$.  Two functions $f(x)$, $g(x)$
+are said to be
+\emph{orthogonal\index{orthogonal!with respect to a weight}} 
+with respect to the weight function
+$r(x)$ when
+\begin{equation*}
+\int_a^b f(x) \, g(x) \, r(x) \,dx = 0 .
+\end{equation*}
+In this setting,
+we define the \emph{inner product\index{inner product of functions}} as
+\begin{equation*}
+\langle f , g \rangle \overset{\text{def}}{=} \int_a^b f(x) \, g(x) \, r(x)
+\,dx ,
+\end{equation*}
+and then say $f$ and $g$ are orthogonal whenever $\langle f , g \rangle = 0$.
+The results and concepts are again analogous to 
+finite-dimensional linear algebra.
+
+The idea of the given inner product is that those $x$ where $r(x)$
+is greater have more weight.
+Nontrivial (nonconstant)
+$r(x)$ arise naturally, for example from a change of variables.
+Hence, you could
+think of a change of variables such that $d\xi = r(x)\, dx$.
+
+Eigenfunctions of a
+regular Sturm--Liouville problem satisfy an orthogonality property, just
+like the eigenfunctions in \sectionref{bvp:section}.
+Its proof is very similar to the analogous 
+\thmvref{bvp:orthogonaleigen}.
+
+\begin{theorem}
+Suppose we have a regular Sturm--Liouville problem
+\begin{align*}
+&\frac{d}{dx} \left( p(x) \frac{dy}{dx} \right)
+- q(x) y + \lambda r(x) y = 0 , \\
+&\alpha_1 y(a) - \alpha_2 y'(a) = 0 , \\
+&\beta_1 y(b) + \beta_2 y'(b) = 0 .
+\end{align*}
+Let $y_j$ and $y_k$ be two distinct eigenfunctions for two
+distinct eigenvalues $\lambda_j$ and $\lambda_k$.  Then
+\begin{equation*}
+\int_a^b y_j(x) \, y_k(x) \, r(x) \,dx = 0,
+\end{equation*}
+that is, $y_j$ and $y_k$ are orthogonal with respect to the weight function
+$r$.
+\end{theorem}
+
+
+\subsection{Fredholm alternative}
+
+The \emph{Fredholm alternative} theorem we talked about before
+(\thmvref{thm:fredholmsimple})
+holds for all regular Sturm--Liouville problems.
+We state it here for completeness.
+
+\begin{theorem}[Fredholm alternative]%
+\index{Fredholm alternative!Sturm--Liouville problems}
+Suppose that we have a regular Sturm--Liouville problem.
+Then either
+\begin{align*}
+&\frac{d}{dx} \left( p(x) \frac{dy}{dx} \right)
+- q(x) y + \lambda r(x) y = 0 , \\
+&\alpha_1 y(a) - \alpha_2 y'(a) = 0 , \\
+&\beta_1 y(b) + \beta_2 y'(b) = 0 ,
+\end{align*}
+has a nonzero solution ($\lambda$ is an eigenvalue), or
+\begin{align*}
+&\frac{d}{dx} \left( p(x) \frac{dy}{dx} \right)
+- q(x) y + \lambda r(x) y = f(x) , \\
+&\alpha_1 y(a) - \alpha_2 y'(a) = 0 , \\
+&\beta_1 y(b) + \beta_2 y'(b) = 0 ,
+\end{align*}
+has a unique solution for any $f(x)$ continuous on $[a,b]$.
+\end{theorem}
+
+This theorem is used in much the same way as we did before in
+\sectionref{sec:scs}.  It is used when solving more general nonhomogeneous
+boundary value problems.  The theorem does not help us solve the problem, but
+it tells us when a unique solution exists, so
+that we know when to spend time looking for it.  To solve the problem
+we decompose $f(x)$ and $y(x)$ in terms of eigenfunctions of the
+homogeneous
+problem, and then solve for the coefficients of the series for $y(x)$.
+
+\subsection{Eigenfunction series}
+
+What we want to do with the eigenfunctions once we have them is to
+compute the \emph{\myindex{eigenfunction decomposition}} of an arbitrary
+function $f(x)$.  That is, we wish to write
+\begin{equation} \label{sl:fdecomp}
+f(x) = \sum_{n=1}^\infty c_n y_n(x) ,
+\end{equation}
+where $y_n(x)$ are eigenfunctions.
+We wish to find out if we can represent
+any function $f(x)$ in this way,
+and if so, we wish to calculate $c_n$ (and of course we would want to know if
+the sum converges).  OK\@, so imagine
+we could write $f(x)$ as \eqref{sl:fdecomp}.  We will assume convergence and
+the ability to integrate the series term by term.
+Because of orthogonality we have
+\begin{equation*}
+\begin{split}
+\langle f , y_m \rangle
+ = \int_a^b f(x) \, y_m (x) \, r(x) \, dx
+& = \int_a^b \left( \sum_{n=1}^\infty c_n y_n(x) \right) \, y_m (x) \, r(x)
+\, dx\\
+&= \sum_{n=1}^\infty c_n \int_a^b y_n(x) \, y_m (x) \, r(x) \, dx\\
+&= c_m \int_a^b y_m(x) \, y_m (x) \, r(x) \, dx = c_m \langle y_m , y_m \rangle
+.
+\end{split}
+\end{equation*}
+Hence,
+\begin{equation} \label{sl:cm}
+\mybxbg{~~
+c_m = \frac{\langle f , y_m \rangle}{\langle y_m , y_m \rangle}
+=
+\frac{\int_a^b f(x) \, y_m (x)\, r(x) \, dx}%
+{\int_a^b {\bigl(y_m(x)\bigr)}^2 \, r(x) \,dx} .
+~~}
+\end{equation}
+
+Note that $y_m$ are known up to a constant multiple, so we could have picked
+a scalar multiple of an eigenfunction such that
+$\langle y_m , y_m \rangle = 1$ (if we had an arbitrary eigenfunction
+$\tilde{y}_m$, divide it
+by $\sqrt{\langle \tilde{y}_m , \tilde{y}_m \rangle}$).
+When
+$\langle y_m , y_m \rangle = 1$
+we have the
+simpler form $c_m = \langle f, y_m \rangle$.
+% as we did for the Fourier series.
+The following theorem holds
+more generally, but the statement given is enough for our purposes.
+
+\begin{theorem}
+Suppose $f$ is a piecewise smooth continuous function on $[a,b]$.  If $y_1,
+y_2, \ldots$ are eigenfunctions of a regular Sturm--Liouville problem,
+one for each eigenvalue,
+then there exist real constants $c_1, c_2, \ldots$ given by \eqref{sl:cm}
+such that
+\eqref{sl:fdecomp} converges and holds for $a < x < b$.
+\end{theorem}
+
+\begin{example}
+Consider
+\begin{align*}
+& y'' + \lambda y = 0, \quad 0 < x < \nicefrac{\pi}{2} , \\
+& y(0) =0, \quad y'(\nicefrac{\pi}{2}) = 0 .
+\end{align*}
+The above is a regular Sturm--Liouville problem, and
+\thmvref{sl:slregthm}
+says that if $\lambda$ is an eigenvalue then
+$\lambda \geq 0$.
+
+Suppose $\lambda = 0$.  The general solution is $y(x) = Ax + B$.
+We plug in the
+initial conditions to get $0=y(0) = B$, and $0 = y'(\nicefrac{\pi}{2}) = A$.
+Hence $\lambda = 0$ is not an eigenvalue.
+
+So let us consider $\lambda > 0$, where
+the general solution is
+\begin{equation*}
+y(x) = A \cos ( \sqrt{\lambda} \, x ) + B \sin ( \sqrt{\lambda} \, x) .
+\end{equation*}
+Plugging in the boundary conditions we get
+$0 = y(0) = A$ and $0 = y'(\nicefrac{\pi}{2})
+= \sqrt{\lambda} \, B \cos \bigl(\sqrt{\lambda} \, \frac{\pi}{2}\bigr)$.
+Since $A$ is zero, then
+$B$ cannot be zero.  Hence $\cos \bigl( \sqrt{\lambda} \,
+\frac{\pi}{2}\bigr) = 0$.
+This means that
+$\sqrt{\lambda} \,\frac{\pi}{2}$ is an odd integral multiple of
+$\nicefrac{\pi}{2}$,
+i.e.\ $(2n-1)\frac{\pi}{2} = \sqrt{\lambda_n} \,\frac{\pi}{2}$.
+Solving for $\lambda_n$ we get
+\begin{equation*}
+\lambda_n = {(2n-1)}^2 .
+\end{equation*}
+We can take $B = 1$.  Our eigenfunctions are
+\begin{equation*}
+y_n(x) = \sin \bigl( (2n-1)x \bigr) .
+\end{equation*}
+A little bit of calculus shows
+\begin{equation*}
+\int_0^{\frac{\pi}{2}} {\Bigl( \sin \bigl( (2n-1)x \bigr) \Bigr)}^2 \, dx
+= \frac{\pi}{4} .
+\end{equation*}
+
+So any piecewise smooth function $f(x)$ on $[0,\nicefrac{\pi}{2}]$ can be written as
+\begin{equation*}
+f(x) = \sum_{n=1}^\infty c_n \sin \bigl( (2n-1)x \bigr) ,
+\end{equation*}
+where
+\begin{equation*}
+c_n = \frac{\langle f , y_n \rangle}{\langle y_n , y_n \rangle}
+= \frac{\int_0^{\frac{\pi}{2}} f(x) \, \sin \bigl( (2n-1)x \bigr) \, dx
+}{\int_0^{\frac{\pi}{2}} {\Bigl(\sin \bigl((2n-1)x\bigr)\Bigr)}^2 \, dx}
+= \frac{4}{\pi} \int_0^{\frac{\pi}{2}} f(x) \,\sin \bigl( (2n-1)x \bigr) \, dx .
+\end{equation*}
+
+Note that the series converges to an odd $2\pi$-periodic
+extension of $f(x)$.  With the regular sine series we would expect
+a function with period $2 \, \frac{\pi}{2} = \pi$.
+
+\begin{exercise}[challenging]
+In the example above, the function is defined on $0 < x < \nicefrac{\pi}{2}$,
+yet the series with respect to the eigenfunctions
+$\sin \bigl( (2n-1)x \bigr)$ converges to an odd $2\pi$-periodic extension of $f(x)$.
+Find out how is the extension defined for $\nicefrac{\pi}{2} < x < \pi$.
+\end{exercise}
+
+Let us compute an example.
+Consider $f(x) = x$ for $0 < x <  \nicefrac{\pi}{2}$.  Some
+calculus later we find
+\begin{equation*}
+c_n = 
+\frac{4}{\pi} \int_0^{\frac{\pi}{2}} f(x) \,\sin \bigl( (2n-1)x \bigr) \, dx 
+=
+\frac{4{(-1)}^{n+1}}{\pi {(2n-1)}^2} ,
+\end{equation*}
+and so for $x$ in $[0,\nicefrac{\pi}{2}]$,
+\begin{equation*}
+f(x) = \sum_{n=1}^\infty \frac{4{(-1)}^{n+1}}{\pi {(2n-1)}^2}
+\sin \bigl( (2n-1)x \bigr) .
+\end{equation*}
+This is different from the $\pi$-periodic regular sine series which can
+be computed to be
+\begin{equation*}
+f(x) = \sum_{n=1}^\infty \frac{{(-1)}^{n+1}}{n}  \sin ( 2nx ) .
+\end{equation*}
+Both sums converge are equal to $f(x)$ for $0 < x < \nicefrac{\pi}{2}$, but
+the eigenfunctions involved come from different eigenvalue problems.
+\end{example}
+
+\subsection{Exercises}
+
+\begin{exercise}
+Find eigenvalues and eigenfunctions of
+\begin{equation*}
+y''+\lambda y = 0, \quad y(0)- y'(0) = 0, \quad y(1) = 0 .
+\end{equation*}
+\end{exercise}
+
+\begin{exercise}
+Expand the function $f(x) = x$ on $0 \leq x \leq 1$ using eigenfunctions
+of the system
+\begin{equation*}
+y'' + \lambda y = 0, \quad y'(0) = 0, \quad y(1) = 0 .
+\end{equation*}
+\end{exercise}
+
+\begin{exercise}
+Suppose that you had a Sturm--Liouville problem on the interval
+$[0,1]$ and came up with
+$y_n(x) = \sin (\gamma n x)$, where $\gamma > 0$ is some constant.
+Decompose $f(x) = x$, $0 < x < 1$ in terms of these eigenfunctions.
+\end{exercise}
+
+\begin{exercise}
+Find eigenvalues and eigenfunctions of
+\begin{equation*}
+y^{(4)}+\lambda y = 0, \quad y(0) = 0, \quad y'(0) = 0, \quad y(1) = 0, \quad
+y'(1) = 0 .
+\end{equation*}
+This problem is not a Sturm--Liouville problem, but the idea is the same.
+\end{exercise}
+
+\begin{exercise}[more challenging]
+Find eigenvalues and eigenfunctions for
+\begin{equation*}
+\frac{d}{dx} (e^x y') + \lambda e^x y = 0, \quad y(0) = 0, \quad y(1) = 0 .
+\end{equation*}
+%Or at least set up the integrals you would need to solve.
+Hint: First write the system as a constant coefficient system to find
+general solutions.  Do note that \thmvref{sl:slregthm} guarantees $\lambda \geq 0$.
+\end{exercise}
+
+\setcounter{exercise}{100}
+
+\begin{exercise}
+Find eigenvalues and eigenfunctions of
+\begin{equation*}
+y'' + \lambda y = 0, \quad y(-1) = 0, \quad y(1) = 0 .
+\end{equation*}
+\end{exercise}
+\exsol{%
+$\lambda_n = \frac{(2n-1)\pi}{2}$, $n=1,2,3,\ldots$, 
+$y_n = \cos\left(\frac{(2n-1)\pi}{2} x\right)$
+}
+
+\begin{exercise}
+Put the following problems into the standard form for Sturm--Liouville
+problems, that is, find $p(x)$, $q(x)$, $r(x)$,
+$\alpha_1$,
+$\alpha_2$,
+$\beta_1$, and
+$\beta_2$,
+and decide if the problems are regular or not.
+\begin{tasks}
+\task $x y'' + \lambda y = 0$
+\enspace for $0 < x < 1$,
+\enspace $y(0) = 0$,
+\enspace $y(1) = 0$.
+\task
+$(1+x^2) y'' + 2xy' + (\lambda-x^2) y = 0$
+\enspace for $-1 < x < 1$,
+\enspace $y(-1) = 0$,
+\enspace $y(1)+y'(1) = 0$.\footnote{%
+In an earlier version of this book, a typo rendered the equation
+as $(1+x^2) y'' - 2xy' + (\lambda-x^2) y = 0$ ending up with something
+harder than intended.  Try this equation for a further challenge.}
+\end{tasks}
+\end{exercise}
+\exsol{%
+a)~$p(x) = 1$, $q(x) = 0$, $r(x) = \frac{1}{x}$, $\alpha_1 = 1$, $\alpha_2 =
+0$, $\beta_1 = 1$, $\beta_2 = 0$.  The problem is not regular.
+b)~$p(x) = 1+x^2$, $q(x) = x^2$, $r(x) = 1$, $\alpha_1 = 1$, $\alpha_2 =
+0$, $\beta_1 = 1$, $\beta_2 = 1$.  The problem is regular.
+}

@@ -1,0 +1,707 @@
+\section{Exact equations}
+\label{exact:section}
+
+\LAtt{1.8}
+
+\LO{
+\item Determine if a first order differential equation is exact,
+\item Find the general solution to an exact equation,
+\item Solve initial value problems for exact equations, and
+\item Use integrating factors to make some non-exact equations exact in order to solve them.
+}
+
+% \sectionnotes{1--2 lectures, can safely be skipped\EPref{, \S1.6 in \cite{EP}}\BDref{, \S2.6 in \cite{BD}}}
+
+Another type of equation that comes up quite often in physics and
+engineering is an
+\emph{\myindex{exact equation}}.
+%  To truly make sense out of these
+%equations requires a little bit of multivariable calculus and a tiny
+%bit of physics.
+Suppose $F(x,y)$ is a function of two variables, which we call the
+\emph{\myindex{potential function}}.  The naming should suggest 
+potential energy, or electric potential.  Exact equations and potential
+functions appear when there is a conservation law at play, such as 
+conservation of energy.
+Let us make up a simple example.  Let
+\begin{equation*}
+F(x,y) = x^2+y^2 .
+\end{equation*}
+
+%17 is the number of lines, must be adjusted
+\begin{mywrapfig}[17]{3.25in}
+\capstart
+\diffyincludegraphics{width=3in}{width=4.5in}{circlesfig}
+\caption{Solutions to $F(x,y) = x^2+y^2 = C$ for various
+$C$.\label{exact:circlesfig}}
+\end{mywrapfig}
+We are interested in the lines of constant energy, that is lines where
+the energy is conserved;  we want curves where $F(x,y) = C$,
+for some constant $C$, since $F$ represents the energy of the system.  In
+our example, the curves $x^2+y^2=C$ are circles.  See
+\figurevref{exact:circlesfig}.
+
+We take the
+\emph{\myindex{total derivative}} of
+$F$:
+\begin{equation*}
+dF = \frac{\partial F}{\partial x} dx + \frac{\partial F}{\partial y} dy .
+\end{equation*}
+For convenience,
+we will make use of the notation of
+$F_x = \frac{\partial F}{\partial x}$ and
+$F_y = \frac{\partial F}{\partial y}$.
+In our example,
+\begin{equation*}
+dF = 2x \, dx + 2y \, dy .
+\end{equation*}
+We apply the total derivative to $F(x,y) = C$, to find
+the differential equation $dF = 0$.  The differential equation we obtain in such a way
+has the form
+\begin{equation*}
+M \, dx + N \, dy = 0, \qquad
+\text{or} \qquad
+M + N \, \frac{dy}{dx} = 0 .
+\end{equation*}
+
+\begin{definition}
+An equation of the form
+\[ M(x,y) + N(x, y)\ \frac{dy}{dx} = 0 \]
+is called \emph{exact} if it was obtained as $dF = 0$ for some potential
+function $F$.
+\end{definition}
+
+In our simple example, we obtain the equation
+\begin{equation*}
+2x \, dx + 2y \, dy = 0, \qquad
+\text{or} \qquad
+2x + 2y \, \frac{dy}{dx} = 0 .
+\end{equation*}
+Since we obtained this equation by differentiating $x^2+y^2=C$, 
+the equation is exact.
+We often wish to solve for $y$ in terms of $x$.  In our example,
+\begin{equation*}
+y = \pm \sqrt{C^2-x^2} .
+\end{equation*}
+
+An interpretation of the setup is that at each point in the plane $\vec{v} = (M,N)$ is
+a vector, that is, a direction and a magnitude.
+As $M$ and $N$ are functions of $(x,y)$, we have a \emph{\myindex{vector field}}.  The particular 
+vector field $\vec{v}$ that comes from an exact equation is a so-called
+\emph{\myindex{conservative vector field}}, that is, a vector field that comes with a
+potential function $F(x,y)$, such that
+\begin{equation*}
+\vec{v} = \left( \frac{\partial F}{\partial x} ,\frac{\partial F}{\partial
+y} \right) .
+\end{equation*} This is something that you may have seen in your Calculus 3 course, and if so, the process for solving exact equations is basically identical to the process of finding a potential function for a conservative vector field.  The physical interpretation of conservative vector fields is as follows. Let
+$\gamma$ be a path in the plane starting at $(x_1,y_1)$ and ending at
+$(x_2,y_2)$.
+If we think of $\vec{v}$ as force, then the work required to
+move along $\gamma$ is
+\begin{equation*}
+\int_\gamma \vec{v}(\vec{r}) \cdot d\vec{r}
+=
+\int_\gamma M \, dx + N \, dy
+=
+F(x_2,y_2) - F(x_1,y_1) .
+\end{equation*}
+That is, the work done only depends on endpoints, that is where we start and
+where we end.   For example, suppose $F$ is gravitational potential.  The
+derivative of $F$ given by $\vec{v}$ is the gravitational force.
+What we
+are saying is that the work required to move a heavy box from the ground
+floor to the roof only depends on the change in potential energy.  That is,
+the work done is the same
+no matter what path we took; if we took the stairs or the elevator.
+Although if we took the elevator, the elevator is doing the work for us.
+The curves $F(x,y) = C$ are those where no work need be done, such as
+the heavy box sliding along without accelerating or breaking on a perfectly
+flat roof, on a cart with incredibly well oiled wheels. Effectively, an exact equation is a conservative vector field, and the implicit solution of this equation is the potential function. 
+
+\subsection{Solving exact equations}
+
+Now you, the reader, should ask: Where did we solve a differential equation?
+Well, in applications we generally know $M$ and $N$, but we do not
+know $F$.  That is, we may have just started with
+$2x + 2y \frac{dy}{dx} = 0$, or perhaps even
+\begin{equation*}
+x + y \frac{dy}{dx} = 0 .
+\end{equation*}
+It is up to us to find some potential $F$ that works.  Many different $F$
+will work; adding a constant to $F$ does not change the equation.
+Once we have a potential function $F$, the equation 
+$F\bigl(x,y(x)\bigr) = C$
+gives an implicit solution of the ODE\@.
+
+\begin{example}
+Let us find the general solution to
+$2x + 2y \frac{dy}{dx} = 0$.  Forget we knew
+what $F$ was.
+\end{example}
+
+\begin{exampleSol}
+If we know that this is an exact equation, we start looking for a potential
+function $F$.
+We have $M = 2x$ and $N=2y$.
+If $F$ exists, it must be such that
+$F_x (x,y) = 2x$.
+Integrate in the $x$ variable to find
+\begin{equation} \label{eq:exact:fint}
+F(x,y) = x^2 + A(y) ,
+\end{equation}
+for some function $A(y)$.  The function $A$ is the \myquote{constant of
+integration}, though it is only constant as far as $x$ is concerned, and
+may still depend on $y$.  Now differentiate \eqref{eq:exact:fint} in $y$ 
+and set it equal to $N$, which is what $F_y$ is supposed to be:
+\begin{equation*}
+2y = F_y (x,y) = A'(y) .
+\end{equation*}
+Integrating, we find $A(y) = y^2$.  We could add a constant of integration
+if we wanted to, but there is no need.  We found $F(x,y) = x^2+y^2$.
+Next for a constant $C$, we solve
+\begin{equation*}
+F\bigl(x,y(x)\bigr) = C .
+\end{equation*}
+for $y$ in terms of $x$.  In this case, we obtain $y = \pm \sqrt{C^2-x^2}$
+as we did before.
+\end{exampleSol}
+
+\begin{exercise}
+Why did we not need to add a constant of integration when integrating $A'(y)
+= 2y$?  Add a constant of integration, say $3$, and see what $F$ you get.
+What is the difference from what we got above, and why does it not matter?
+\end{exercise}
+
+In the previous example, you may have also noticed that the equation $2x + 2y\frac{dy}{dx} = 0$ is separable, and we could have solved it via that method as well. This is not a coincidence, as every separable equation is exact (see \exerciseref{ex:separableExact} for the details) but there are many exact equations that are not separable, which we will see throughout the examples here. 
+
+The procedure, once we know that the equation is exact, is:
+\begin{enumerate}[(i)]
+\item Integrate $F_x = M$ in $x$ resulting in $F(x,y) = \text{something} + A(y)$.
+\item Differentiate this $F$ in $y$, and set that equal to
+$N$, so that we may find $A(y)$ by integration.
+\end{enumerate}
+The procedure can also be done by first integrating in $y$ and then
+differentiating in $x$.
+Pretty easy huh?  Let's try this again.
+
+\begin{example}
+Consider now $2x+y + xy \frac{dy}{dx} = 0$.
+\end{example}
+
+\begin{exampleSol}
+OK\@, so $M = 2x+y$ and $N=xy$.  We try to proceed as before.
+Suppose 
+$F$ exists.  Then $F_x (x,y) = 2x+y$.
+We integrate:
+\begin{equation*}
+F(x,y) = x^2 + xy + A(y)
+\end{equation*}
+for some function $A(y)$.  Differentiate in $y$ and set equal to $N$:
+\begin{equation*}
+N = xy = F_y (x,y) = x+A'(y) .
+\end{equation*}
+But there is no way to satisfy this requirement!  The function $xy$ cannot
+be written as $x$ plus a function of $y$.  The equation is not
+exact; no potential function $F$ exists.
+\end{exampleSol}
+
+Is there an easier way to check for the existence of $F$, other than failing
+in trying to
+find it?  Turns out there is.  Suppose
+$M = F_x$ and
+$N = F_y$.  Then
+as long as the second derivatives are continuous,
+\begin{equation*}
+\frac{\partial M}{\partial y}
+=
+\frac{\partial^2 F}{\partial y \partial x}
+=
+\frac{\partial^2 F}{\partial x \partial y}
+=
+\frac{\partial N}{\partial x} .
+\end{equation*}
+Let us state it as
+a theorem.  Usually this is called the Poincar\'e Lemma\footnote{Named for the French polymath
+\href{https://en.wikipedia.org/wiki/Henri_Poincar\%C3\%A9}{Jules Henri
+Poincar\'e} (1854--1912).}.
+
+\begin{theorem1}[thm:Poincare]{Poincar\'e}
+If $M$ and $N$ are continuously differentiable functions of $(x,y)$, and
+$\frac{\partial M}{\partial y} = \frac{\partial N}{\partial x}$,
+then near any point there is a function $F(x,y)$
+such that
+$M = \frac{\partial F}{\partial x}$ and
+$N = \frac{\partial F}{\partial y}$.
+\end{theorem1}
+
+The theorem doesn't give us a global $F$ defined everywhere.  In
+general, we can only find the potential locally, near some initial point.
+By this time, we have come to expect this from differential
+equations.
+
+Let us return to the example above where $M = 2x + y$ and $N = xy$.  
+Notice 
+$M_y = 1$ and  $N_x =
+y$, which are clearly not equal.  The equation is not exact.
+
+\begin{example}
+Solve
+\begin{equation*}
+\frac{dy}{dx} = \frac{-2x-y}{x-1}, \qquad y(0) = 1.
+\end{equation*}
+\end{example}
+
+\begin{exampleSol}
+We write the equation as
+\begin{equation*}
+(2x+y) + (x-1)\frac{dy}{dx} = 0 ,
+\end{equation*}
+so $M = 2x+y$ and $N = x-1$.  Then
+\begin{equation*}
+M_y = 1 = N_x .
+\end{equation*}
+The equation is exact.
+Integrating $M$ in $x$, we find
+\begin{equation*}
+F(x,y) = x^2+xy + A(y) .
+\end{equation*}
+Differentiating in $y$ and setting to $N$, we find
+\begin{equation*}
+x-1 = x + A'(y) .
+\end{equation*}
+So $A'(y) = -1$, and $A(y) = -y$ will work.  Take $F(x,y) = x^2+xy-y$.  We
+wish to solve $x^2+xy-y = C$.  First let us find $C$.  As $y(0)=1$ then
+$F(0,1) = C$.  Therefore $0^2+0\times 1 - 1 = C$, so $C=-1$.  Now we solve
+$x^2+xy-y = -1$ for $y$ to get
+\begin{equation*}
+y = \frac{-x^2-1}{x-1} .
+\end{equation*}
+\end{exampleSol}
+
+\begin{example}
+Solve
+\begin{equation*}
+-\frac{y}{x^2+y^2} dx + \frac{x}{x^2+y^2} dy = 0 , \qquad y(1) = 2.
+\end{equation*}
+\end{example}
+
+\begin{exampleSol}
+We leave to the reader to check that
+$M_y = N_x$.
+
+This vector field $(M,N)$ is not conservative if considered as a vector
+field of the entire plane minus the origin.  The problem is that if the curve $\gamma$
+is a circle around the origin, say starting at $(1,0)$ and
+ending at $(1,0)$ going counterclockwise, then if $F$ existed we would expect
+\begin{equation*}
+0 = F(1,0) - F(1,0) = \int_\gamma F_x \, dx + F_y \, dy = \int_\gamma \frac{-y}{x^2+y^2} \, dx +
+\frac{x}{x^2+y^2} \, dy = 2\pi .
+\end{equation*}
+That is nonsense!
+We leave the computation of the path integral to the interested reader, or
+you can consult your multivariable calculus textbook.  So there is no
+potential function $F$ defined everywhere outside the origin $(0,0)$.
+
+If we think back to the theorem, it does not guarantee such a function
+anyway.  It only guarantees a potential function locally, that is only in
+some region near the initial point.  As $y(1) = 2$
+we start at the point $(1,2)$.  Considering $x > 0$ and
+integrating $M$ in $x$ or $N$ in $y$, we find
+\begin{equation*}
+F(x,y) = \operatorname{arctan} \bigl( \nicefrac{y}{x} \bigr) .
+\end{equation*}
+The implicit solution is 
+$\operatorname{arctan} \bigl( \nicefrac{y}{x} \bigr) = C$.  Solving,
+$y = \tan(C) x$.  That is, the solution is a straight line.  Solving $y(1) =
+2$ gives us that $\tan(C) = 2$, and so $y= 2x$ is the desired solution.
+See \figurevref{exact:y2x}, and note that the solution only exists for $x >
+0$.
+\begin{myfig}
+\capstart
+\diffyincludegraphics{width=3in}{width=4.5in}{exact-y2x}
+\caption{Solution to 
+$-\frac{y}{x^2+y^2} dx + \frac{x}{x^2+y^2} dy = 0$, $y(1) = 2$,
+with initial point marked.\label{exact:y2x}}
+\end{myfig}
+\end{exampleSol}
+
+\begin{example} \label{exact:exampleabove}
+Solve
+\begin{equation*}
+x^2+y^2 + 2y(x+1) \frac{dy}{dx} = 0 .
+\end{equation*}
+\end{example}
+
+\begin{exampleSol}
+The reader should check that this equation is exact.
+Let $M= x^2+y^2$ and $N=2y(x+1)$.
+We follow the procedure for exact equations
+\begin{equation*}
+F(x,y) = \frac{1}{3}x^3 + xy^2 + A(y) ,
+\end{equation*}
+and
+\begin{equation*}
+2y(x+1) = 2xy + A'(y) .
+\end{equation*}
+Therefore $A'(y) = 2y$ or $A(y) = y^2$ and $F(x,y) = \frac{1}{3}x^3 + xy^2 +
+y^2$.
+We try to solve $F(x,y) = C$.  We easily solve for $y^2$ and then just take
+the square root:
+\begin{equation*}
+y^2 = \frac{C-(\nicefrac{1}{3})x^3}{x+1},
+\qquad \text{so} \qquad
+y = \pm \sqrt{\frac{C-(\nicefrac{1}{3})x^3}{x+1}} .
+\end{equation*}
+When $x=-1$, the term in front of $\frac{dy}{dx}$ vanishes.  You can also
+see that our solution is not valid in that case.  However, one could in that
+case try to solve for $x$ in terms of $y$ starting from the implicit
+solution $\frac{1}{3}x^3 + xy^2 + y^2 = C$.  The solution is 
+somewhat messy and we leave it as implicit.
+\end{exampleSol}
+
+\subsection{Integrating factors}
+
+Sometimes an equation $M\, dx + N \, dy = 0$ is not exact, but it can be
+made exact by multiplying with a function $u(x,y)$.  That is, perhaps
+for some nonzero function $u(x,y)$,
+\begin{equation*}
+u(x,y) M(x,y) \, dx + u(x,y) N(x,y) \, dy = 0
+\end{equation*}
+is exact.  Any solution to this new equation is also a solution to
+$M\, dx + N \, dy = 0$.
+
+In fact, a linear equation
+\begin{equation*}
+\frac{dy}{dx} + p(x) y = f(x), \qquad
+\text{or} \qquad
+\bigl( p(x) y - f(x) \bigr)\, dx +  dy  = 0
+\end{equation*}
+is always such an equation.  Let $r(x) = e^{\int p(x)\,dx}$ be the
+integrating factor for a linear equation.  Multiply the equation by $r(x)$
+and write it in the form of $M + N \frac{dy}{dx} = 0$.
+\begin{equation*}
+r(x) p(x) y - r(x) f(x) + r(x) \frac{dy}{dx} = 0 .
+\end{equation*}
+Then $M = r(x) p(x) y - r(x) f(x)$, so
+$M_y = r(x) p(x)$, while $N = r(x)$, so
+$N_x = r'(x) = r(x) p(x)$.  In other words, we have an exact equation.
+Integrating
+factors for linear functions are just a special case of integrating
+factors for exact equations.
+
+But how do we find the integrating factor $u$?  Well, given an equation
+\begin{equation*}
+M \, dx + N \, dy = 0 ,
+\end{equation*}
+$u$ should be a
+function such that
+\begin{equation*}
+\frac{\partial}{\partial y} \bigl[ u M \bigr] = 
+u_y M + u M_y = 
+\frac{\partial}{\partial x} \bigl[ u N \bigr] = 
+u_x N + u N_x .
+\end{equation*}
+Therefore,
+\begin{equation*}
+(M_y-N_x)u = u_x N - u_y M .
+\end{equation*}
+At first it may seem we replaced one differential equation by another.
+True, but all hope is not lost.
+
+A strategy that often works is to look for a $u$ that is a function
+of $x$ alone, or a function of $y$ alone.  If $u$ is a function of $x$
+alone,
+that is $u(x)$, then we write $u'(x)$ instead of $u_x$, and $u_y$ is just
+zero.
+Then
+\begin{equation*}
+\frac{M_y-N_x}{N}u = u' .
+\end{equation*}
+In particular, $\frac{M_y-N_x}{N}$ ought to be a function of $x$ alone (not
+depend on $y$).  If so, then we have a linear equation
+\begin{equation*}
+u' - \frac{M_y-N_x}{N} u = 0 .
+\end{equation*}
+Letting $p(x) = \frac{M_y-N_x}{N}$,
+we solve using the standard integrating factor method,
+to find $u(x) = C e^{\int p(x) \, dx}$.  The constant in the
+solution is not relevant, we need any nonzero solution,
+so we take $C=1$.
+Then $u(x) = e^{\int p(x) \, dx}$ is the integrating factor.
+
+Similarly we could try a function of the form $u(y)$.
+Then
+\begin{equation*}
+\frac{M_y-N_x}{M} u = - u' .
+\end{equation*}
+In particular, $\frac{M_y-N_x}{M}$ ought to be a function of $y$ alone.
+If so, then we have a linear equation
+\begin{equation*}
+u' + \frac{M_y-N_x}{M} u = 0 .
+\end{equation*}
+Letting $q(y) = \frac{M_y-N_x}{M}$,
+we find $u(y) = C e^{-\int q(y) \, dy}$.  We
+take $C=1$.  So $u(y) = e^{-\int q(y) \, dy}$ is the integrating factor.
+
+\begin{example}
+Solve
+\begin{equation*}
+\frac{x^2+y^2}{x+1} + 2y \frac{dy}{dx} = 0 .
+\end{equation*}
+\end{example}
+
+\begin{exampleSol}
+Let $M= \frac{x^2+y^2}{x+1}$ and $N=2y$.
+Compute
+\begin{equation*}
+M_y-N_x = \frac{2y}{x+1} - 0 = \frac{2y}{x+1} .
+\end{equation*}
+As this is not zero, the equation is not exact.  We notice 
+\begin{equation*}
+P(x) = \frac{M_y-N_x}{N} = \frac{2y}{x+1} \frac{1}{2y} = \frac{1}{x+1} 
+\end{equation*}
+is a function of $x$ alone.    We compute the integrating factor
+\begin{equation*}
+e^{\int  P(x) \, dx}
+=
+e^{\ln |x+1|} = |x+1| .
+\end{equation*}
+Assuming that we want to look at $x > -1$, we multiply our given equation by $(x+1)$ to obtain
+\begin{equation*}
+x^2+y^2 + 2y(x+1) \frac{dy}{dx} = 0 ,
+\end{equation*}
+which is an exact equation that we solved in
+\exampleref{exact:exampleabove}.  The solution was
+\begin{equation*}
+y = \pm \sqrt{\frac{C-(\nicefrac{1}{3})x^3}{x+1}} .
+\end{equation*}
+If, instead, we had wanted a solution with $x < -1$, we would have needed to multiply by $-(x+1)$, which would have given a very similar result. 
+\end{exampleSol}
+
+\begin{example}
+Solve
+\begin{equation*}
+y^2 + (xy+1) \frac{dy}{dx} = 0 .
+\end{equation*}
+\end{example}
+
+\begin{exampleSol}
+First compute
+\begin{equation*}
+M_y-N_x = 2y-y = y .
+\end{equation*}
+As this is not zero, the equation is not exact.  We observe
+\begin{equation*}
+Q(y) = \frac{M_y-N_x}{M} = \frac{y}{y^2} = \frac{1}{y} 
+\end{equation*}
+is a function of $y$ alone.    We compute the integrating factor
+\begin{equation*}
+e^{-\int  Q(y) \, dy}
+=
+e^{-\ln y} = \frac{1}{y} .
+\end{equation*}
+Therefore we look at the exact equation
+\begin{equation*}
+y + \frac{xy+1}{y} \frac{dy}{dx} = 0 .
+\end{equation*}
+The reader should double check that this equation is exact.
+We follow the procedure for exact equations
+\begin{equation*}
+F(x,y) = xy + A(y) ,
+\end{equation*}
+and
+\begin{equation}
+\frac{xy+1}{y} = x+\frac{1}{y} = x+ A'(y) .
+\end{equation}
+Consequently $A'(y) = \frac{1}{y}$ or $A(y) = \ln y$.  Thus $F(x,y) = xy + \ln y$.
+It is not possible to solve $F(x,y)=C$ for $y$
+in terms of elementary functions, so 
+let us be content with the implicit solution:
+\begin{equation*}
+xy + \ln y = C .
+\end{equation*}
+We are looking for the general solution and we divided by
+$y$ above.  We should check what happens when $y=0$, as the equation itself
+makes perfect sense in that case.  We plug in $y=0$ to find the
+equation is satisfied.  So $y(x)=0$ is also a solution.
+\end{exampleSol}
+
+\subsection{Exercises}
+
+\begin{exercise}
+Solve the following exact equations, implicit general solutions
+will suffice:
+\begin{tasks}(2)
+\task
+$(2 xy + x^2) \, dx + (x^2+y^2+1) \, dy = 0$
+\task
+$x^5 + y^5 \frac{dy}{dx} = 0$
+\task
+$e^x+y^3 + 3xy^2 \frac{dy}{dx} = 0$
+\task
+$(x+y)\cos(x)+\sin(x) + \sin(x)y' = 0$
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Solve the following exact equations, implicit general solutions
+will suffice:
+\begin{tasks}(2)
+\task
+$\cos(x)+ye^{xy} + xe^{xy} y' = 0$
+\task
+$(2x+y)\, dx + (x-4y) \, dy = 0$
+\task
+$e^x + e^y \frac{dy}{dx} = 0$
+\task
+$(3x^2+3y)\,dx + (3y^2+3x)\, dy = 0$
+\end{tasks}
+\end{exercise}
+\exsol{%
+a) $e^{xy}+\sin(x)=C$ \quad
+b) $x^2+xy-2y^2=C$ \quad
+c) $e^x+e^y=C$ \quad
+d) $x^3 + 3xy+ y^3 = C$
+}
+
+\begin{exercise}
+Solve the differential equation $(2ye^{2xy} - 2x) + (2xe^{2xy} + \cos(y))y' = 0$
+\end{exercise}
+
+\begin{exercise}
+Solve the differential equation $(-y\sin(xy) - 2xe^{x^2}) + (-x\sin(xy) + 1)y' = 0$
+\end{exercise}
+
+\begin{exercise}
+Solve the differential equation $(2x + 3y\sin(xy)) + (3x\sin(xy) - e^y)y' = 0$ with $y(2) = 0$. 
+\end{exercise}
+
+\begin{exercise}
+Solve the differential equation $x + yy' = 0$ with $y(0) = 8$. Write this as an explicit function and determine the interval of $x$ values where the solution is valid. 
+\end{exercise}
+
+\begin{exercise}
+Solve the differential equation $2x-2 + (8y+16)y' = 0$ with $y(2) = 0$. Write this as an explicit function and determine the interval of $x$ values where the solution is valid. 
+\end{exercise}
+
+\begin{exercise}
+Find the integrating factor for the following equations making them into
+exact equations:
+\begin{tasks}(2)
+\task
+$e^{xy} \, dx + \frac{y}{x} e^{xy} \, dy = 0$
+\task
+$\frac{e^x+y^3}{y^2} \, dx + 3x \, dy = 0$
+\task
+$4(y^2+x) \, dx + \frac{2x+2y^2}{y} \, dy = 0$
+\task
+$2\sin(y) \, dx + x\cos(y)\, dy = 0$
+\end{tasks}
+\end{exercise}
+
+\begin{samepage}
+\begin{exercise}\ansMark%
+Find the integrating factor for the following equations making them into
+exact equations:
+\begin{tasks}(2)
+\task
+$\frac{1}{y}\, dx + 3y \, dy = 0$
+\task
+$dx - e^{-x-y} \, dy = 0$
+\task
+$\bigl( \frac{\cos(x)}{y^2} + \frac{1}{y} \bigr) \, dx + \frac{x}{y^2} \, dy = 0$
+\task
+$\bigl( 2y + \frac{y^2}{x} \bigr) \, dx + ( 2y+x )\, dy = 0$
+\end{tasks}
+\end{exercise}
+\end{samepage}
+\exsol{%
+a) Integrating factor is $y$, equation becomes $dx + 3y^2\,dy = 0$.
+\quad
+b) Integrating factor is $e^x$, equation becomes $e^x \, dx - e^{-y}\,dy
+= 0$.
+\quad
+c) Integrating factor is $y^2$, equation becomes $(\cos(x)+y)\, dx +
+x\,dy = 0$.
+\quad
+d) Integrating factor is $x$, equation becomes $( 2xy+y^2 )\, dx +
+(x^2+2xy)\,dy = 0$.
+}
+
+\begin{exercise}
+Suppose you have an equation of the form:
+$f(x) + g(y) \frac{dy}{dx} = 0$.
+\begin{tasks}
+\task
+Show it is exact.
+\task
+Find the form of the potential function in terms of $f$ and $g$.
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}
+Suppose that we have the equation $f(x) \, dx - dy = 0$.
+\begin{tasks}
+\task
+Is this equation exact?
+\task
+Find the general solution using a definite integral.
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}
+Find the potential function $F(x,y)$ of the exact equation $\frac{1+xy}{x}\, dx +
+\bigl(\nicefrac{1}{y} + x \bigr) \, dy = 0$ in two different ways.
+\begin{tasks}
+\task
+Integrate $M$ in terms of $x$ and then differentiate in $y$ and set to
+$N$.
+\task
+Integrate $N$ in terms of $y$ and then differentiate in $x$ and set to
+$M$.
+\end{tasks}
+\end{exercise}
+
+\begin{samepage}
+\begin{exercise}
+A function $u(x,y)$ is said to be a \emph{\myindex{harmonic function}} if
+$u_{xx} + u_{yy} = 0$.
+\begin{tasks}
+\task
+Show if $u$ is harmonic, $-u_y \, dx + u_x \, dy = 0$ is an exact
+equation.  So there exists (at least locally)
+the so-called \emph{\myindex{harmonic conjugate}} function
+$v(x,y)$ such that $v_x = -u_y$ and $v_y = u_x$.
+\end{tasks}
+Verify that the following $u$ are harmonic and 
+find the corresponding harmonic conjugates $v$:
+\begin{tasks}[resume](3)
+\task $u = 2xy$
+\task $u = e^x \cos y$
+\task $u = x^3-3xy^2$
+\end{tasks}
+\end{exercise}
+\end{samepage}
+
+\begin{exercise}\label{ex:separableExact}\ansMark%
+\leavevmode
+\begin{tasks}
+\task Show that every
+separable equation $y' = f(x)g(y)$ can be written as an exact equation,
+and verify that it is indeed exact.
+\task Using this rewrite $y' = xy$ as an exact equation, solve it and verify
+that the solution is the same as it was in \exampleref{example:yprimeisxy}.
+\end{tasks}
+\end{exercise}
+\exsol{%
+a) The equation is $ - f(x) \, dx + \frac{1}{g(y)} \, dy$,
+and this is exact
+because $M = -f(x)$, $N = \frac{1}{g(y)}$, so $M_y = 0 = N_x$.
+\quad
+b) $-x \, dx + \frac{1}{y} \, dy = 0$, leads to
+potential function $F(x,y) = -\frac{x^2}{2} + \ln \lvert y \rvert$, solving
+$F(x,y) = C$ leads to the same solution as the example.
+}
+
+\setcounter{exercise}{100}
+

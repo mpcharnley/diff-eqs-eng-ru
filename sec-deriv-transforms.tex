@@ -1,0 +1,533 @@
+\section{Transforms of derivatives and ODEs}
+\label{transformsofders:section}
+
+\LAtt{6.2}
+
+\LO{
+\item Relate the Laplace transform of a derivative to the transform of the original function,
+\item Use the Laplace transform to solve ordinary differential equations, and
+\item Find the Laplace transform of an integral using the properties of the transform.
+}
+
+% \sectionnotes{Verbatim from Lebl}
+
+%\sectionnotes{2 lectures\EPref{, \S7.2--7.3 in \cite{EP}}\BDref{,
+% \S6.2 and \S6.3 in \cite{BD}}}
+
+\subsection{Transforms of derivatives}
+
+Let us see how the Laplace transform is used for differential equations.
+First let us try to find the Laplace transform of a function that is a
+derivative.  Suppose $g(t)$ is a differentiable function
+of exponential order, that is, $\lvert g(t) \rvert \leq M e^{ct}$ for some
+$M$ and $c$.  So $\mathcal{L} \bigl\{ g(t) \bigr\}$ exists, and what is more,
+$\lim_{t\to\infty} e^{-st}g(t) = 0$ when $s > c$.  Then
+\begin{equation*}
+\mathcal{L} \bigl\{ g'(t) \bigr\}
+=
+\int_0^\infty
+e^{-st}
+g'(t) \,dt
+=
+\Bigl[e^{-st} g(t) \Bigr]_{t=0}^\infty
+-
+\int_0^\infty
+(-s)\,
+e^{-st}
+g(t) \,dt
+=
+-g(0) + s \mathcal{L} \bigl\{ g(t) \bigr\} .
+\end{equation*}
+We repeat this procedure for higher derivatives.
+The results are
+listed in \tablevref{ltd:table}.  The procedure also works for piecewise
+smooth functions, that is functions that are piecewise continuous with a
+piecewise continuous derivative.
+%The fact that the function is of
+%exponential order is used to show that the limits appearing above 
+%exist.  We will not worry much about this fact.
+
+\begin{table}[h!t]
+\mybeginframe
+\capstart
+\begin{center}
+\begin{tabular}{@{}ll@{}}
+\toprule
+$f(t)$ & $\mathcal{L} \bigl\{ f(t) \bigr\} = F(s)$ \\
+\midrule
+$g'(t)$ & $sG(s)-g(0)$ \\[4pt]
+$g''(t)$ & $s^2G(s)-sg(0)-g'(0)$ \\[4pt]
+$g'''(t)$ & $s^3G(s)-s^2g(0)-sg'(0)-g''(0)$ \\[4pt]
+\bottomrule
+\end{tabular}
+\end{center}
+\caption{Laplace transforms of derivatives
+($G(s) = \mathcal{L} \bigl\{ g(t) \bigr\}$
+as usual).\label{ltd:table}}
+\myendframe
+\end{table}
+
+\begin{exercise}
+Verify \tablevref{ltd:table}.
+\end{exercise}
+
+\subsection{Solving ODEs with the Laplace transform}
+
+Notice that the Laplace transform turns differentiation into
+multiplication by $s$.  Let us see how to apply this fact to differential
+equations.
+
+\begin{example}
+Solve the differential equation
+\begin{equation*}
+x''(t) + x(t) = \cos (2t), \quad x(0) = 0, \quad x'(0) = 1 .
+\end{equation*}
+using the Laplace transform.
+\end{example}
+
+\begin{exampleSol}
+We will take the Laplace transform of both sides.
+By $X(s)$ we will, as usual, denote the Laplace transform of
+$x(t)$.
+\begin{align*}
+\mathcal{L} \bigl\{ x''(t) + x(t) \bigr\} & = \mathcal{L} \bigl\{ \cos (2t) \bigr\} , \\
+s^2 X(s) -sx(0)-x'(0) + X(s) & = \frac{s}{s^2 + 4} .
+\end{align*}
+We plug in the initial conditions now---this makes the computations more
+streamlined---to obtain
+\begin{equation*}
+s^2 X(s) -1 + X(s) = \frac{s}{s^2 + 4} .
+\end{equation*}
+We solve for $X(s)$,
+\begin{equation*}
+X(s) = \frac{s}{(s^2+1)(s^2 + 4)} + \frac{1}{s^2+1} .
+\end{equation*}
+We use partial fractions (exercise) to write
+\begin{equation*}
+X(s) =\frac{1}{3} \, \frac{s}{s^2+1} - 
+\frac{1}{3}\, \frac{s}{s^2+4} + \frac{1}{s^2+1} .
+\end{equation*}
+Now take the inverse Laplace transform to obtain
+\begin{equation*}
+x(t) =\frac{1}{3}  \cos (t) -
+\frac{1}{3} \cos (2t) + \sin (t) .
+\end{equation*}
+\end{exampleSol}
+
+The procedure for linear constant coefficient equations is as follows.
+We take an ordinary differential
+equation in the time variable $t$.  We apply the Laplace transform
+to transform the equation into an algebraic (non differential) equation in
+the frequency domain.  All the $x(t)$, $x'(t)$, $x''(t)$, and so on, will
+be converted to $X(s)$, $sX(s) - x(0)$, $s^2X(s) - sx(0) - x'(0)$,
+and so on.
+We solve the equation for $X(s)$.
+Then taking the inverse transform, if possible, we find $x(t)$.
+
+It should be noted that since not every function has a Laplace transform,
+not every equation can be solved in this manner.  Also if the equation
+is not a linear constant coefficient ODE\@,
+then by applying the Laplace transform we may not
+obtain an algebraic equation.
+
+\subsection{Using the Heaviside function}
+
+Before we move on to more general equations
+than those we could solve before,
+we want to consider the Heaviside function.  See \figurevref{lt:heavisidefig}
+for the graph.
+\begin{equation*}
+u(t) =
+\begin{cases}
+0 & \text{if } \; t < 0 , \\ 
+1 & \text{if } \; t \geq 0 .
+\end{cases}
+\end{equation*}
+
+\begin{myfig}
+\capstart
+\diffyincludegraphics{width=3in}{width=4.5in}{lt-heaviside}
+\caption{Plot of the Heaviside (unit step) function
+$u(t)$.\label{lt:heavisidefig}}
+\end{myfig}
+
+This function is useful for
+putting together functions, or cutting functions off.  Most commonly it is
+used as $u(t-a)$ for some constant $a$.  This just shifts the graph to the
+right by $a$.  That is, it is a function that is 0 when $t < a$ and 1
+when $t \geq a$.  Suppose for example that $f(t)$ is a \myquote{signal} and
+you started receiving the signal
+$\sin t$ at time $t=\pi$.  The function $f(t)$ should then be defined as
+\begin{equation*}
+f(t) =
+\begin{cases}
+0 & \text{if } \; t < \pi , \\ 
+\sin t & \text{if } \; t \geq \pi .
+\end{cases}
+\end{equation*}
+Using the Heaviside function, $f(t)$ can
+be written as
+\begin{equation*}
+f(t) = u(t - \pi) \, \sin t .
+\end{equation*}
+Similarly the step function that is 1 on the interval $[1,2)$ and zero
+everywhere else can be written as
+\begin{equation*}
+u(t - 1) - u(t-2) .
+\end{equation*}
+The Heaviside function is useful to define functions defined piecewise.  If
+you want to define $f(t)$ such that $f(t) = t$ when $t$ is in $[0,1]$,
+$f(t) = -t+2$
+when $t$ is in $[1,2]$, and $f(t) = 0$ otherwise, then you can use the expression
+\begin{equation*}
+f(t) = t \, \bigl( u(t) - u(t-1) \bigr) + 
+(-t+2) \, \bigl( u(t - 1) - u(t-2) \bigr) .
+\end{equation*}
+
+Hence it is 
+useful to know how the Heaviside function interacts with the Laplace
+transform.  We have already seen that
+\begin{equation*}
+\mathcal{L} \bigl\{ u(t-a) \bigr\} = \frac{e^{-as}}{s} .
+\end{equation*}
+This can be generalized into a \emph{\myindex{shifting property}}
+or \emph{\myindex{second shifting property}}.
+\begin{equation} \label{ltd:sseq}
+\mybxbg{~~
+\mathcal{L} \bigl\{ f(t-a) \, u(t-a) \bigr\}
+= e^{-as} \mathcal{L} \bigl\{ f(t) \bigr\} .
+~~}
+\end{equation}
+
+\begin{example} \label{lt:rocketex}
+Suppose that the forcing function is not periodic.  For example,
+suppose that we had a mass-spring system
+\begin{equation*}
+x''(t) + x(t) = f(t) , \quad x(0) = 0, \quad x'(0) = 0,
+\end{equation*}
+where $f(t) = 1$ if $1 \leq t < 5$ and zero otherwise.  We could imagine a
+mass-spring system, where a rocket is fired for 4 seconds starting at
+$t=1$.  Or perhaps an RLC circuit, where the voltage is raised
+at a constant rate for 4 seconds starting at $t=1$, and then held steady 
+again
+starting at $t=5$. Solve this differential equation using the Laplace transform.
+\end{example}
+
+\begin{exampleSol}
+We can
+write $f(t) = u(t-1) - u(t-5)$.  We transform the equation and we plug in
+the initial conditions as before to obtain
+\begin{equation*}
+s^2 X(s) + X(s) = \frac{e^{-s}}{s} - \frac{e^{-5s}}{s} .
+\end{equation*}
+We solve for $X(s)$ to obtain
+\begin{equation*}
+X(s) = \frac{e^{-s}}{s(s^2+1)} - \frac{e^{-5s}}{s(s^2+1)} .
+\end{equation*}
+We leave it as an exercise to the reader to show that
+\begin{equation*}
+{\mathcal{L}}^{-1} \left\{ \frac{1}{s(s^2+1)} \right\}
+= 1 - \cos t .
+\end{equation*}
+In other words 
+$\mathcal{L} \{ 1 - \cos t  \} = 
+\frac{1}{s(s^2+1)}$.  So using \eqref{ltd:sseq} we find
+\begin{equation*}
+{\mathcal{L}}^{-1} \left\{ \frac{e^{-s}}{s(s^2+1)} \right\}
+=
+{\mathcal{L}}^{-1} \left\{
+e^{-s}
+\mathcal{L} \{ 1 - \cos t \}
+\right\}
+=
+\bigl( 1 - \cos (t-1) \bigr) \, u(t-1) .
+\end{equation*}
+Similarly
+\begin{equation*}
+{\mathcal{L}}^{-1} \left\{ \frac{e^{-5s}}{s(s^2+1)} \right\}
+=
+{\mathcal{L}}^{-1} \left\{
+e^{-5s}
+\mathcal{L} \{ 1 - \cos t \}
+\right\}
+=
+\bigl( 1 - \cos (t-5) \bigr) \, u(t-5) .
+\end{equation*}
+Hence, the solution is
+\begin{equation*}
+x(t) = 
+\bigl( 1 - \cos (t-1) \bigr) \, u(t-1) -
+\bigl( 1 - \cos (t-5) \bigr) \, u(t-5) .
+\end{equation*}
+The plot of this solution is given in \figurevref{lt:heavisideexfig}.
+
+\begin{myfig}
+\capstart
+\diffyincludegraphics{width=3in}{width=4.5in}{lt-heavisideex}
+\caption{Plot of $x(t)$.\label{lt:heavisideexfig}}
+\end{myfig}
+\end{exampleSol}
+
+\subsection{Transfer functions}
+
+The Laplace transform leads to the following useful concept for studying the
+steady state behavior of a linear system.  Consider an equation of the
+form
+\begin{equation*}
+L x = f(t) ,
+\end{equation*}
+where $L$ is a linear constant coefficient differential operator.
+Then $f(t)$ is usually thought of as input of the system and $x(t)$ is
+thought of as the output of the system.  For example, for a mass-spring
+system the input is the forcing function and the output is the behavior of the
+mass.  We would like to have a convenient way to study the behavior of
+the system for different inputs.
+
+Let us suppose that
+all the initial conditions are zero and take the Laplace transform
+of the equation, we obtain the equation
+\begin{equation*}
+A(s) X(s) = F(s) .
+\end{equation*}
+Solving for the ratio $\nicefrac{X(s)}{F(s)}$ we obtain the so-called
+\emph{\myindex{transfer function}}
+$H(s) = \nicefrac{1}{A(s)}$,
+that is,
+\begin{equation*}
+H(s) = \frac{X(s)}{F(s)} .
+\end{equation*}
+In other words, $X(s) = H(s) F(s)$.  We obtain an algebraic dependence of
+the output of the system based on the input.  We can now easily study the
+steady state behavior of the system given different inputs by simply
+multiplying by the transfer function.
+
+\begin{example}
+Find the transfer function for the differnetial equation $x'' + \omega_0^2 x = f(t)$
+(assuming the initial conditions are zero).
+\end{example}
+
+\begin{exampleSol}
+First, we take the Laplace transform of the equation.
+\begin{equation*}
+s^2 X(s) + \omega_0^2 X(s) = F(s) .
+\end{equation*}
+Now we solve for the transfer function $\nicefrac{X(s)}{F(s)}$.
+\begin{equation*}
+H(s) = \frac{X(s)}{F(s)} = \frac{1}{s^2 + \omega_0^2} .
+\end{equation*}
+
+Let us see how to use the transfer function.  Suppose we have the constant input
+$f(t) = 1$.  Hence $F(s) = \nicefrac{1}{s}$, and
+\begin{equation*}
+X(s) = H(s) F(s) = \frac{1}{s^2+\omega_0^2} \frac{1}{s} .
+\end{equation*}
+Taking the inverse Laplace transform of $X(s)$ we obtain
+\begin{equation*}
+x(t) = \frac{1-\cos(\omega_0 t)}{\omega_0^2} .
+\end{equation*}
+\end{exampleSol}
+
+\subsection{Transforms of integrals}
+
+A feature of Laplace transforms is that it is also able to easily deal
+with integral equations.  That is, equations in which integrals rather than
+derivatives of functions appear.  The basic property, which can be proved
+by applying the definition and doing integration by parts, is 
+\begin{equation*}
+\mybxbg{~~
+\mathcal{L} \left\{
+\int_0^t f(\tau) ~ d\tau
+\right\} = \frac{1}{s} \, F(s) .
+~~}
+\end{equation*}
+It is sometimes useful (e.g.\ for computing the inverse transform) to write
+this as
+\begin{equation*}
+\int_0^t f(\tau) ~ d\tau
+=
+{\mathcal{L}}^{-1} \left\{
+\frac{1}{s} \, F(s) \right\} .
+\end{equation*}
+
+\begin{example}
+To compute ${\mathcal{L}}^{-1} \left\{\frac{1}{s(s^2+1)}\right\}$ we could
+proceed by applying this integration rule.  
+\begin{equation*}
+{\mathcal{L}}^{-1} \left\{
+\frac{1}{s} \, \frac{1}{s^2+1} \right\} 
+=
+\int_0^t 
+{\mathcal{L}}^{-1} \left\{
+\frac{1}{s^2+1} \right\} ~ d\tau
+=
+\int_0^t 
+\sin \tau ~ d\tau
+=
+1 - \cos t .
+\end{equation*}
+\end{example}
+
+\begin{example}
+An equation containing an integral of the unknown function is
+called an \emph{\myindex{integral equation}}.  For example, take
+\begin{equation*}
+t^2 = \int_0^t e^{\tau} x(\tau) ~d\tau ,
+\end{equation*}
+where we wish to solve for $x(t)$.
+We apply the Laplace transform and the shifting property to get
+\begin{equation*}
+\frac{2}{s^3} = \frac{1}{s} \, \mathcal{L} \bigl\{ e^{t} x(t) \bigr\}
+=
+\frac{1}{s} \, X(s-1) ,
+\end{equation*}
+where $X(s) = \mathcal{L} \bigl\{ x(t) \bigr\}$.  Thus
+\begin{equation*}
+X(s-1) =
+\frac{2}{s^2} \qquad \text{or} \qquad
+X(s) =
+\frac{2}{{(s+1)}^2}.
+\end{equation*}
+We use the shifting property again
+\begin{equation*}
+x(t) = 2 e^{-t} t .
+\end{equation*}
+%More complicated integral
+%equations can also be solved using convolution, about which we will
+%learn in the next section.
+\end{example}
+
+\subsection{Exercises}
+
+\begin{exercise}
+Using the Heaviside function write down the piecewise function
+that is 0 for $t < 0$, $t^2$ for $t$ in $[0,1]$ and $t$ for $t > 1$.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Using the Heaviside function $u(t)$, write down the function
+\begin{equation*}
+f(t) =
+\begin{cases}
+0 & \text{if } \; \phantom{1 \leq {}} t < 1  , \\
+t-1 & \text{if } \; 1 \leq t < 2 , \\
+1 & \text{if } \; 2 \leq t .
+\end{cases}
+\end{equation*}
+\end{exercise}
+\exsol{%
+$f(t) =
+(t-1)\bigl(u(t-1) - u(t-2)\bigr) + 
+u(t-2)$
+}
+
+\begin{exercise}
+Using the Laplace transform solve
+\begin{equation*}
+m x'' + c x' + k x = 0 , \quad x(0) = a, \quad x'(0) = b ,
+\end{equation*}
+where $m > 0$, $c > 0$, $k > 0$, and
+$c^2 - 4km > 0$ (system is overdamped).
+\end{exercise}
+
+\begin{exercise}
+Using the Laplace transform solve
+\begin{equation*}
+m x'' + c x' + k x = 0 , \quad x(0) = a, \quad x'(0) = b ,
+\end{equation*}
+where $m > 0$, $c > 0$, $k > 0$, and
+$c^2 - 4km < 0$ (system is underdamped).
+\end{exercise}
+
+\begin{exercise}
+Using the Laplace transform solve
+\begin{equation*}
+m x'' + c x' + k x = 0 , \quad x(0) = a, \quad x'(0) = b ,
+\end{equation*}
+where $m > 0$, $c > 0$, $k > 0$, and
+$c^2 = 4km$ (system is critically damped).
+\end{exercise}
+
+\begin{exercise}
+Solve $x'' + x = u(t-1)$ for initial conditions $x(0) = 0$ and $x'(0) = 0$.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Solve $x''-x = (t^2-1) u(t-1)$ for initial conditions $x(0)=1$, $x'(0) = 2$
+using the Laplace transform.
+\end{exercise}
+\exsol{%
+$x(t) = (2e^{t-1}-t^2-1) u(t-1) -\frac{1}{2}e^{-t}+\frac{3}{2}e^t$
+}
+ 
+
+\begin{exercise}
+Show the differentiation of the transform property.  Suppose
+$\mathcal{L} \bigl\{ f(t) \bigr\} = F(s)$, then show
+\begin{equation*}
+\mathcal{L} \bigl\{ -t f(t) \bigr\} = F'(s) .
+\end{equation*}
+Hint: Differentiate under the integral sign.
+\end{exercise}
+
+\begin{exercise}
+Solve $x''' + x = t^3 u(t-1)$ for initial conditions $x(0) = 1$ and $x'(0) =
+0$, $x''(0) = 0$.
+\end{exercise}
+
+\begin{exercise}
+Show the second shifting property: 
+$\mathcal{L} \bigl\{ f(t-a) \, u(t-a) \bigr\}
+= e^{-as} \mathcal{L} \bigl\{ f(t) \bigr\}$.
+\end{exercise}
+
+\begin{exercise}
+Let us think of the mass-spring system with a rocket from
+\exampleref{lt:rocketex}.  We noticed that the solution kept oscillating
+after the rocket stopped running.  The amplitude of the oscillation depends
+on the time that the rocket was fired (for 4 seconds in the example).
+\begin{tasks}
+\task
+Find a formula for the amplitude of the resulting oscillation
+in terms of the amount of time the rocket is fired.
+\task
+ Is there
+a nonzero time (if so what is it?)
+for which the rocket fires and the resulting oscillation
+has amplitude 0 (the mass is not moving)?
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}
+Define
+\begin{equation*}
+f(t) =
+\begin{cases}
+{(t-1)}^2 & \text{if } \; 1 \leq t < 2, \\
+3-t & \text{if } \; 2 \leq t < 3, \\
+0 & \text{otherwise} .
+\end{cases}
+\end{equation*}
+\begin{tasks}
+\task Sketch the graph of $f(t)$.
+\task Write down $f(t)$ using the Heaviside function.
+\task Solve $x''+x=f(t)$, $x(0)=0$, $x'(0) = 0$ using Laplace transform.
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}
+Find the transfer function for 
+$m x'' + c x' + kx = f(t)$
+(assuming the initial conditions are zero).
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Find the transfer function for 
+$x' + x = f(t)$
+(assuming the initial conditions are zero).
+\end{exercise}
+\exsol{%
+$H(s) = \frac{1}{s+1}$
+}
+
+\setcounter{exercise}{100}
+

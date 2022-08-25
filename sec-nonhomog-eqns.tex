@@ -1,0 +1,784 @@
+\section{Nonhomogeneous equations}
+\label{sec:nonhom}
+
+\LAtt{2.5}
+
+\LO{
+\item Find the corresponding homogeneous equation for a non-homogeneous equation,
+\item Use the method of undetermined coefficients to solve non-homogeneous equations,
+\item Use variation of parameters to solve non-homogeneous equations, and
+\item Solve for the necessary coefficients to solve initial value problems for non-homogeneous equations.
+}
+
+% \sectionnotes{2 lectures\EPref{, \S3.5 in \cite{EP}}\BDref{,
+% \S3.5 and \S3.6 in \cite{BD}}}
+
+\subsection{Solving nonhomogeneous equations}
+
+We have solved linear constant coefficient homogeneous 
+equations.
+What about nonhomogeneous linear ODEs?
+For example, the equations for forced mechanical vibrations, where we add a ``forcing'' term, which is a function on the right-hand side of the equation.
+%Now suppose that we drop the requirement of homogeneity.
+%This
+%usually corresponds to some outside input to the system we are trying to
+%model, like the forcing function for the mechanical vibrations of last
+%section.
+That is, suppose we have an equation such as
+\begin{equation} \label{eq3.5:nh}
+y'' + 5y'+ 6y = 2x+1 .
+\end{equation}
+%We still say this equation is constant coefficient equation.  We
+%only require constants in front of the $y''$, $y'$, and $y$.
+
+% \TODO{Brackets for operator notation. The rest of this looks pretty good.}
+
+We will write $L[y] = 2x+1$, where $L[y]$ represents the entire left-hand side of $y'' + 5y' + 6y$, when the exact form of the operator is not
+important.
+We solve \eqref{eq3.5:nh} in the following manner.  First, we find the general
+solution $y_c$
+to the \emph{\myindex{associated homogeneous equation}}
+\begin{equation} \label{eq3.5:h}
+y'' + 5y'+ 6y = 0 .
+\end{equation}
+We call $y_c$ the \emph{\myindex{complementary solution}}.
+Next, we find a
+single \emph{\myindex{particular solution}} $y_p$ to \eqref{eq3.5:nh} in some
+way (that is the point of this section).  Then
+\begin{equation*}
+y = y_c + y_p
+\end{equation*}
+is the general solution to \eqref{eq3.5:nh}.  
+We have $L[y_c] = 0$ and $L[y_p] = 2x+1$.  As
+$L$ is a \emph{\myindex{linear operator}}
+we verify that $y$ is a solution, $L[y] = L [y_c + y_p] = L[y_c] + L[y_p] = 0
++ (2x+1)$.  Let us see
+why we obtain the \emph{general} solution.
+
+Let $y_p$ and $\tilde{y}_p$ be two different
+particular solutions 
+to \eqref{eq3.5:nh}.
+Write the difference as
+$w = y_p - \tilde{y}_p$.  Then plug $w$
+into the left-hand side of the equation to get
+\begin{equation*}
+w'' + 5w'+ 6w =
+(y_p'' + 5y_p'+ 6y_p) -
+(\tilde{y}_p'' + 5\tilde{y}_p'+ 6\tilde{y}_p) =
+(2x+1) - (2x+1) = 0 .
+\end{equation*}
+Using the operator notation the calculation becomes simpler.
+%As $L$ is a \emph{\myindex{linear operator}} and so we could just
+As $L$ is a linear operator we write
+\begin{equation*}
+L[w] = L[y_p - \tilde{y}_p] =
+L[y_p] - L[\tilde{y}_p] =
+(2x+1)-(2x+1) = 0 .
+\end{equation*}
+So $w = y_p - \tilde{y}_p$ is a solution to \eqref{eq3.5:h}, that is
+$Lw = 0$. However, we know what all solutions to $Lw = 0$ look like, as this is a homogeneous equation that we have solved previously. Therefore, any two
+solutions of \eqref{eq3.5:nh} differ by a solution to the homogeneous
+equation \eqref{eq3.5:h}.  The solution $y = y_c + y_p$ includes \emph{all}
+solutions to \eqref{eq3.5:nh},
+since $y_c$ is the general solution to the associated homogeneous equation.
+
+\begin{theorem1}{}
+Let $L[y]=f(x)$ be a linear ODE (not necessarily constant
+coefficient).  Let $y_c$ be the complementary solution
+(the general
+solution to the associated homogeneous equation $L[y] = 0$) and let $y_p$
+be any particular solution to $L[y]=f(x)$.  Then the general
+solution to $L[y]=f(x)$ is
+\begin{equation*}
+y = y_c + y_p.
+\end{equation*}
+\end{theorem1}
+
+The moral of the story is that we can find the particular solution in any old
+way.  If we find a different particular solution (by a different method,
+or simply by guessing),
+then we still get the same general solution.
+The formula may 
+look different, and the constants we have to choose to
+satisfy
+the initial conditions may be different, but it is the same solution.
+
+\subsection{Undetermined coefficients}
+\index{undetermined coefficients}
+
+The trick is to somehow, in a smart way, guess one particular solution to
+\eqref{eq3.5:nh}.  Note that $2x+1$ is a polynomial, and the left-hand 
+side of the equation (with all of the derivatives) will still be a polynomial if we let $y$ be a polynomial of
+the same degree.  Let us try
+\begin{equation*}
+y_p = Ax + B .
+\end{equation*}
+We plug $y_p$ into the left hand side to obtain
+\begin{equation*}
+\begin{split}
+y_p'' + 5y_p'+ 6y_p & =
+(Ax+B)'' + 5(Ax+B)' + 6(Ax+B)
+\\
+& = 
+0 + 5A + 6Ax + 6B = 6Ax+ (5A+6B) .
+\end{split}
+\end{equation*}
+So $6Ax+(5A+6B) = 2x+1$. If we match up the coefficients of $x$ in this equation, we get that $6A = 2$ or $A = \nicefrac{1}{3}$. In order for the constant terms to match, we need that $5A + 6B = 1$. Since we know the value of $A$, this tells us that $B = \nicefrac{-1}{9}$.
+That means
+$y_p = \frac{1}{3}\, x - \frac{1}{9} = \frac{3x-1}{9}$.
+Solving the complementary
+problem (exercise!) we get
+\begin{equation*}
+y_c = C_1 e^{-2x} + C_2 e^{-3x}.
+\end{equation*}
+Hence the general solution to \eqref{eq3.5:nh} is
+\begin{equation*}
+y = C_1 e^{-2x} + C_2 e^{-3x} + \frac{3x-1}{9} .
+\end{equation*}
+Now suppose we are further given some initial conditions.  For example, $y(0) = 0$ and
+$y'(0) = \nicefrac{1}{3}$.  First find $y' = - 2C_1 e^{-2x} - 3C_2 e^{-3x}
++ \nicefrac{1}{3}$.
+Then
+\begin{equation*}
+0 = y(0) = C_1 + C_2 -\frac{1}{9} , \qquad
+\frac{1}{3} = y'(0) = - 2C_1 - 3C_2 + \frac{1}{3} .
+\end{equation*}
+We solve to get $C_1 = \nicefrac{1}{3}$ and $C_2 = \nicefrac{-2}{9}$.
+The particular solution we want is
+\begin{equation*}
+y(x) = \frac{1}{3} e^{-2x} - \frac{2}{9} e^{-3x} + \frac{3x-1}{9} =
+\frac{3 e^{-2x} - 2 e^{-3x} + 3x-1}{9} .
+\end{equation*}
+
+\begin{exercise}
+Check that $y$ really solves the equation \eqref{eq3.5:nh}
+and the given initial conditions.
+\end{exercise}
+
+Note: A common mistake is to solve for constants using the initial
+conditions with $y_c$ and only add the particular solution $y_p$ after that.
+That will \emph{not} work.  You need to first compute $y = y_c + y_p$ and
+\emph{only then} solve for the constants using the initial conditions.
+
+\medskip
+
+A right-hand side consisting of exponentials, sines, and cosines
+can be handled similarly.  
+\begin{example} One example of this is 
+\begin{equation*}
+y''+2y'+2y = \cos (2x) .
+\end{equation*}
+\end{example}
+\begin{exampleSol}
+Let us find some $y_p$.  We start by guessing that the solution
+includes some multiple of $\cos(2x)$. We try
+\begin{equation*}
+y_p = A \cos(2x) .
+\end{equation*}
+Plugging this into the differential equation gives
+\begin{equation*}
+\underbrace{-4 A \cos (2x)}_{y_p''}
++2 \underbrace{\bigl(-2A \sin (2x)\bigr)}_{y_p'}
++
+2 \underbrace{\bigl(A \cos (2x)\bigr)}_{y_p}
+= \cos (2x).
+\end{equation*}
+Simplifying this expression gives
+\begin{equation*}
+-2A\cos(2x) - 4A\sin(2x) = \cos(2x)
+\end{equation*}
+and we have a problem. Since there is no sine term on the right-hand side, we are forced to pick $A = 0$, which means our non-homogeneous solution is zero, and that's not good. What happened here? In the previous example, when we differentiated a polynomial (as part of the $y_p$ guess) the function stayed a polynomial, and so we did not add any new types of terms. In this case, however, when we differentiate the cosine term in our guess, it becomes a sine, which we did \emph{not} have in our initial guess. 
+
+Thus, we will also want to add a multiple of $\sin (2x)$ to our guess since derivatives of cosine are
+sines.  We try
+\begin{equation*}
+y_p = A \cos (2x) + B \sin (2x) .
+\end{equation*}
+We plug $y_p$ into the equation and we get
+\begin{multline*}
+\underbrace{-4 A \cos (2x) - 4 B \sin (2x)}_{y_p''}
++2 \underbrace{\bigl(-2A \sin (2x) + 2B \cos (2x)\bigr)}_{y_p'}
+\\
++
+2 \underbrace{\bigl(A \cos (2x) + 2B \sin (2x)\bigr)}_{y_p}
+= \cos (2x) ,
+\end{multline*}
+or
+\begin{equation*}
+(-4A+4B+2A) \cos(2x) +
+(-4B-4A+2B) \sin(2x)
+= \cos(2x) .
+\end{equation*}
+The left-hand side must equal to right-hand side.  Namely,
+$-4A + 4B + 2A = 1$ and
+$-4B - 4A + 2B = 0$.  So $-2A+4B =1$ and $2A+B=0$. We can solve this system of equations to get that $A=\nicefrac{-1}{10}$ and $B=\nicefrac{1}{5}$.  So
+\begin{equation*}
+y_p = A \cos (2x) + B \sin (2x) = \frac{-\cos (2x) + 2 \sin (2x)}{10} .
+\end{equation*}
+\end{exampleSol}
+
+Similarly, if the right-hand side contains exponentials we try
+exponentials.  If
+%if the equation is (where $L$ is a linear constant coefficient operator)
+\begin{equation*}
+L[y] = e^{3x},
+\end{equation*}
+we try $y = A e^{3x}$ as our guess and try to solve for $A$.
+
+\medskip
+
+When the right-hand side is a multiple of sines, cosines, exponentials,
+and polynomials, we can use the product rule
+for differentiation to come up with a guess.  We
+need to guess a
+form for $y_p$ such that $L[y_p]$ is of the same form, and 
+has all the terms needed to for 
+the right-hand side.
+For example,
+\begin{equation*}
+L[y] = (1+3x^2)\,e^{-x}\cos (\pi x) .
+\end{equation*}
+For this equation, we guess
+\begin{equation*}
+y_p = (A + Bx + Cx^2)\,e^{-x} \cos (\pi x) + 
+(D + Ex + Fx^2)\,e^{-x} \sin (\pi x) .
+\end{equation*}
+We plug in and then hopefully get equations that we can solve for
+$A$, $B$, $C$, $D$, $E$, and $F$.
+As you can see this can make for a very long and
+\myindex{tedious} % a bit of fun
+calculation very quickly.  C'est \myindex{la vie}! %bit more fun
+
+\medskip
+
+There is one hiccup in all this.  It could be that our guess actually
+solves the associated homogeneous equation.  That is, suppose we have
+\begin{equation*}
+y'' - 9y = e^{3x} .
+\end{equation*}
+We would love to guess $y = Ae^{3x}$, but if we plug this into the
+left-hand side of the equation we get
+\begin{equation*}
+y''-9y = 9Ae^{3x} - 9Ae^{3x} = 0 \not= e^{3x} .
+\end{equation*}
+There is no way we can choose $A$ to make the left-hand side be $e^{3x}$.
+The trick in
+this case
+is to multiply our guess by $x$ to get rid of duplication with the
+complementary solution.  That is first we compute $y_c$ (solution to $L[y] =
+0$)
+\begin{equation*}
+y_c = C_1 e^{-3x} + C_2 e^{3x} ,
+\end{equation*}
+and we note that the $e^{3x}$ term is a duplicate with our desired guess.
+We modify our guess to $y = Axe^{3x}$ so that there is no
+duplication anymore.  Let us try:
+$y' = Ae^{3x} + 3Axe^{3x}$ and 
+$y'' = 6Ae^{3x} + 9Axe^{3x}$, so
+\begin{equation*}
+y'' -9y = 6Ae^{3x} + 9Axe^{3x} - 9Axe^{3x} = 
+6Ae^{3x} .
+\end{equation*}
+Thus $6Ae^{3x}$ is supposed to equal $e^{3x}$.  Hence,
+$6A = 1$ and so $A=\nicefrac{1}{6}$.  We can now write the general
+solution as
+\begin{equation*}
+y = y_c + y_p = 
+C_1 e^{-3x} + C_2 e^{3x} + \frac{1}{6}\,xe^{3x} .
+\end{equation*}
+
+Notice that the term of the form $xe^{3x}$ does not show up on the left-hand side after differentiating the equation, and the only term that survives is the $e^{3x}$ term that showed up from the derivatives. This works out because $e^{3x}$ solves the homogeneous problem. With that though, make sure to remember to include the $xe^{3x}$ when you write out the general solution at the end of the problem, because it does appear there.
+\medskip
+
+It is possible that
+multiplying by $x$ does not get rid of all
+duplication.  For example,
+\begin{equation*}
+y''-6y'+9y = e^{3x} .
+\end{equation*}
+The complementary solution is
+$y_c = C_1 e^{3x} + C_2 x e^{3x}$.  Guessing $y=A xe^{3x}$
+would not get us anywhere.  In this case we want to guess
+$y_p = Ax^2e^{3x}$. Basically, we want to multiply our guess by $x$
+until all duplication is gone.  \emph{But no more!}  Multiplying too many
+times will not work (in that case, the derivatives won't actually get down to the plain $e^{3x}$ term that you need in order to solve the problem).
+
+\medskip
+
+Finally, what if the right-hand side has several terms, such as
+\begin{equation*}
+L[y] = e^{2x} + \cos x .
+\end{equation*}
+In this case we find $u$ that solves $L[u] = e^{2x}$ and $v$ that
+solves $L[v] = \cos x$ (that is, do each term separately).  Then note
+that if $y = u+ v$, then $L[y] = e^{2x} + \cos x$.  This is because
+$L$ is linear; we have
+$L[y] = L[u+v] = L[u] + L[v] = e^{2x} + \cos x$.
+
+To summarize all of this, we can make a table of the different guesses we should make given the form of the right hand side.
+
+\begin{table}[h!]
+\begin{center}
+\begin{tabular}{|c|c|}\hline
+\textbf{Right hand side} & \textbf{Guess}  \\\hline 
+$a_nx^n + a_{n-1}x^{n-1} + \cdots  + a_1x + a_0$ & $Ax^n + Bx^{n-1} + \cdots + Nx + P$ \\
+$e^{ax}$ & $Ae^{ax}$ \\
+$\cos{ax}$ & $A\cos{ax} + B\sin{ax}$ \\
+$\sin{ax}$ & $A\cos{ax} + B\sin{ax}$ \\\hline
+\end{tabular}
+\end{center}
+\begin{itemize}
+\item If there is a product of above terms, guess the product of the guesses. So, for a right hand side of $ xe^{ax}$, the guess should be $(Ax + B)e^{ax}$, and for a right hand side of $x\cos{ax}$, the guess should be $(Ax + B)\cos{ax} + (Cx+D)\sin{ax}$.
+\item If any part solves the homogeneous problem, multiply that entire component by $x$ until nothing does.
+\end{itemize}
+\end{table}
+
+\begin{example}
+Find the solution to the initial value problem
+\begin{equation*}
+y'' - 3y' - 4y = 2e^{-x} + 4 \sin(x) \qquad y(0) = -2,\ y'(0) = 1
+\end{equation*}
+\end{example}
+
+\begin{exampleSol}
+To start this problem, we look for the solution to the homogeneous problem. The characteristic equation for the left hand side is $r^2 - 3r - 4$, which factors as $(r-4)(r+1)$. Therefore the general solution to the homogeneous problem (or the complementary solution) is 
+\begin{equation*}
+y_c(x) = C_1e^{4x} + C_2e^{-x} .
+\end{equation*} 
+
+Next, we want to use undetermined coefficients to solve the non-homogeneous problem. Note that we have to wait until after this part to meet the initial conditions. Since our right-hand side is $2e^{-x} + 4 \sin(x)$, we need to guess two components for the two different terms in this function. For the first term, we would want to guess $Ae^{-x}$, but this function solves the homogeneous problem. Therefore, we need to multiply by $x$ to use $Axe^{-x}$ as our guess. For the sine term, we need to guess both sine and cosine, so we add $B\sin(x) + C\cos(x)$ to our guess. Therefore, our total guess for the non-homogeneous solution is
+\begin{equation*}
+y_p(x) = Axe^{-x} + B\sin(x) + C\cos(x).
+\end{equation*}
+
+We take two derivatives of this function and then plug it into the differential equation
+\begin{equation*}
+\begin{split}
+y_p(x) &= Axe^{-x} + B\sin(x) + C\cos(x) \\
+y_p'(x) &= Ae^{-x} - Axe^{-x} + B\cos(x) - C\sin(x) \\
+y_p''(x) &= Axe^{-x} - 2Ae^{-x} - B\sin(x) - C\cos(x)
+\end{split}
+\end{equation*}
+so that 
+\begin{equation*}
+\begin{split}
+y_p'' - 3y_p' - 4y_p &= (Axe^{-x} - 2Ae^{-x} - B\sin(x) - C\cos(x))\\
+&\ \ - 3(Ae^{-x} - Axe^{-x} + B\cos(x) - C\sin(x))\\
+& \ \  - 4(Axe^{-x} + B\sin(x) + C\cos(x))
+\end{split}
+\end{equation*}
+which can be simplified to
+\begin{equation*}
+y_p'' - 3y_p' - 4y_p = -5Ae^{-x} + (3B + 3C)\sin(x) + (3C - 3B)\cos(x).
+\end{equation*}
+Since we want this to equal $2e^{-x} + 4\sin(x)$, this means that we need $-5A = 2$, so $A = -\nicefrac{2}{5}$, as well as $3B + 3C = 4$ and $3C - 3B = 0$. The second of these implies that $B = C$, and the first equation then gives that $6B = 4$ or $B = C = \nicefrac{2}{3}$. Therefore, the general solution to this non-homogeneous problem is
+\begin{equation*}
+y(x) = C_1e^{4x} + C_2e^{-x} - \frac{2}{5}xe^{-x} + \frac{2}{3}\sin(x) + \frac{2}{3}\cos(x).
+\end{equation*}
+
+Now we can look to meet the initial conditions. We want to differentiate this expression to get
+\begin{equation*}
+y'(x) = 4C_1e^{4x} - C_2e^{-x} - \frac{2}{5}e^{-x} + \frac{2}{5}xe^{-x} + \frac{2}{3}\cos(x) - \frac{2}{3}\sin(x)
+\end{equation*}
+and then plug zero into both $y$ and $y'$ to get that
+\begin{equation*}
+\begin{split}
+y(0) &= C_1 + C_2 + \frac{2}{3} = -2 \\
+y'(0) &= 4C_1 - C_2 - \frac{2}{5} + \frac{2}{3} = 1
+\end{split}
+\end{equation*}
+which gives rise to the system
+\begin{equation*}
+C_1 + C_2 = -\frac{8}{3} \qquad 4C_1 - C_2 = \frac{11}{15}.
+\end{equation*}
+Adding the equations together gives $5C_1 = - \frac{29}{15}$ so that $C_1 = -\frac{29}{75}$ and then $C_2 = -\frac{171}{75}$. Therefore the solution to the initial value problem is
+\begin{equation*}
+y(x) = -\frac{29}{75}e^{4x} - \frac{171}{75}e^{-x} - \frac{2}{5}xe^{-x} + \frac{2}{3}\sin(x) + \frac{2}{3}\cos(x).
+\end{equation*}
+\end{exampleSol}
+
+\begin{exercise}
+Verify that this $y(x)$ solves the initial value problem!
+\end{exercise}
+
+\subsection{Variation of parameters}
+
+The method of undetermined coefficients works for many basic
+problems that crop up.  But it does not work all the time.  It only works
+when the right-hand side of the equation $L[y] = f(x)$ has finitely many
+linearly independent derivatives, so that we can write a guess that consists
+of them all.  Some equations are a bit tougher.  Consider
+\begin{equation*}
+y''+y = \tan x .
+\end{equation*}
+Each new derivative of $\tan x$ looks completely different and
+cannot be written as a linear combination of the previous derivatives.
+If we start differentiating $\tan x$, we get:
+\begin{multline*}
+\sec^2 x, \quad
+2\sec^2 x \, \tan x, \quad
+4 \sec^2 x \, \tan^2 x + 2 \sec^4 x, \\
+8 \sec^2 x \, \tan^3 x + 16 \sec^4 x \, \tan x, \quad
+16\sec^2 x \, \tan^4 x + 88 \sec^4 x \tan^2 x + 16 \sec^6 x, \quad
+\ldots
+\end{multline*}
+
+This equation calls for a different method.  We present the method of
+\emph{\myindex{variation of parameters}}, which handles any equation of
+the form $L[y] = f(x)$,
+provided we can solve certain integrals.  For simplicity, we restrict
+ourselves to second order constant coefficient equations,
+but the method works for higher
+order equations just as well (the computations become more
+\myindex{tedious}). % a bit of fun 
+The method also works for equations with nonconstant coefficients,
+provided we can solve the associated homogeneous equation.
+
+Perhaps it is best to explain this method by example.
+Let us try to solve the equation
+\begin{equation*}
+L[y] = y''+y = \tan x .
+\end{equation*}
+First we find the complementary solution (solution to $L[y_c] = 0$).  
+We get $y_c = C_1 y_1 + C_2 y_2$, where $y_1 = \cos x$ and $y_2 = \sin x$.
+To find a particular solution to the nonhomogeneous equation we try
+\begin{equation*}
+y_p = y = u_1 y_1 + u_2 y_2 ,
+\end{equation*}
+where $u_1$ and $u_2$ are \emph{functions} and not constants.
+We are trying to satisfy $L[y] = \tan x$.  That gives us one condition on the
+functions $u_1$ and $u_2$.
+Compute (note the product rule!)
+\begin{equation*}
+y' = (u_1' y_1 + u_2' y_2) + (u_1 y_1' + u_2 y_2').
+\end{equation*}
+We can still
+impose one more condition at our discretion to simplify computations (we have two unknown functions,
+so we should be allowed two conditions).  We require that
+$(u_1' y_1 + u_2' y_2) = 0$.  This makes computing the second derivative
+easier.
+\begin{align*}
+& y' = u_1 y_1' + u_2 y_2' , \\
+& y'' = (u_1' y_1' + u_2' y_2') + (u_1 y_1'' + u_2 y_2'') .
+\end{align*}
+Since $y_1$ and $y_2$ are solutions to $y''+y = 0$, we find
+$y_1'' = - y_1$
+and $y_2'' = - y_2$.
+(If the equation was a more general $y''+p(x)y' +q(x)y = 0$, we would have
+$y_i'' = -p(x)y_i' -q(x)y_i$.) So 
+\begin{equation*}
+y'' = (u_1' y_1' + u_2' y_2') - (u_1 y_1 + u_2 y_2) .
+\end{equation*}
+We have $(u_1 y_1 + u_2 y_2) = y$ and so
+\begin{equation*}
+y'' = (u_1' y_1' + u_2' y_2') - y ,
+\end{equation*}
+and hence
+\begin{equation*}
+y'' + y = L[y] = u_1' y_1' + u_2' y_2' .
+\end{equation*}
+For $y$ to satisfy $L[y] = f(x)$ we must have
+$f(x) = u_1' y_1' + u_2' y_2'$.
+
+What we need to solve are the two equations (conditions) we imposed
+on $u_1$ and $u_2$:
+\begin{equation*}
+\mybxbg{~~
+\begin{aligned}
+& u_1' y_1 + u_2' y_2 = 0 ,\\
+& u_1' y_1' + u_2' y_2' = f(x) .
+\end{aligned}
+~~}
+\end{equation*}
+We solve for $u_1'$ and $u_2'$ in terms of $f(x)$, $y_1$ and $y_2$.
+We always get these formulas for any $L[y] = f(x)$, where $L[y] =
+y''+p(x)y'+q(x)y$.  There is a general
+formula for the solution we could just plug into, but instead of memorizing
+that, it is better, and easier, to
+just repeat what we do below.  In our case the two equations are
+\begin{align*}
+u_1' \cos (x) + u_2' \sin (x) &= 0 ,\\
+-u_1' \sin (x) + u_2' \cos (x) &= \tan (x) .
+\end{align*}
+Hence
+\begin{align*}
+u_1' \cos (x) \sin (x) + u_2' \sin^2 (x) & = 0 ,\\
+-u_1' \sin (x) \cos (x) + u_2' \cos^2 (x) & = \tan (x) \cos (x) = \sin (x) .
+\end{align*}
+And thus
+\begin{align*}
+& u_2' \bigl(\sin^2 (x) + \cos^2 (x)\bigr) = \sin (x) , \\
+& u_2' = \sin (x) , \\
+& u_1' = \frac{- \sin^2 (x)}{\cos (x)} = - \tan (x) \sin (x) .
+\end{align*}
+We integrate $u_1'$ and $u_2'$ to get $u_1$ and $u_2$.
+\begin{align*}
+& u_1 = \int u_1'\,dx 
+= \int - \tan (x) \sin (x)\,dx
+= \frac{1}{2}
+\ln \left\lvert \frac{\sin (x)-1}{\sin (x) + 1} \right\rvert
++ \sin (x) , \\
+& u_2 = \int u_2'\,dx 
+= \int \sin (x)\,dx = -\cos (x) .
+\end{align*}
+So our particular solution is
+\begin{multline*}
+y_p = u_1 y_1 + u_2 y_2 =
+\frac{1}{2} \cos (x) \ln \left\lvert \frac{\sin (x)-1}{\sin (x) + 1}
+\right\rvert
++ \cos (x) \sin (x)
+-\cos (x) \sin (x)
+= \\ =
+\frac{1}{2} \cos (x) \ln \left\lvert \frac{\sin (x)-1}{\sin (x) + 1}
+\right\rvert .
+\end{multline*}
+The general solution to $y'' + y = \tan x$ is, therefore,
+\begin{equation*}
+y = C_1 \cos (x) + C_2 \sin (x) +
+\frac{1}{2} \cos (x) \ln \left\lvert \frac{\sin (x)-1}{\sin (x) + 1}
+\right\rvert .
+\end{equation*}
+
+In more generality, we can take the system of equations 
+\begin{equation*}
+\mybxbg{~~
+\begin{aligned}
+& u_1' y_1 + u_2' y_2 = 0 ,\\
+& u_1' y_1' + u_2' y_2' = f(x) .
+\end{aligned}
+~~}
+\end{equation*}
+and solve out for $u_1'$ and $u_2'$ using elimination. If we do that, we get that
+\begin{equation*}
+u_1' = -\frac{y_2(x)f(x)}{y_1(x)y_2'(x) - y_1'(x)y_2(x)} \qquad u_2' = \frac{y_1(x)f(x)}{y_1(x)y_2'(x) - y_1'(x)y_2(x)}.
+\end{equation*} 
+
+We know that solving the equations this way will work out because we start with the assumption that $y_1$ and $y_2$ are linearly independent solutions, and the denominator of both of these fractions is exactly what we know is not zero from this assumption. Therefore, both of these functions can be written this way, we can integrate both of them, and set up our particular solution of the form $y_p(x) = u_1y_1 + u_2y_2$ to get
+\begin{equation}
+y_p(x) = -y_1(x)\int_{x_0}^x \frac{y_2(r)f(r)}{y_1(r)y_2'(r) - y_1'(r)y_2(r)}\ dr + y_2(x)\int_{x_0}^x \frac{y_1(r)f(r)}{y_1(r)y_2'(r) - y_1'(r)y_2(r)}\ dr
+\label{varpar:eqn}
+\end{equation}
+where $x_0$ is any conveniently chosen value (usually zero). Notice the use of $r$ as a dummy variable here to separate the functions being integrated from the actual variable that shows up in the solution. This formula will always work for finding a particular solution to a non-homogeneous equation given that we know the solution to the homogeneous equation, but we may not be able to work out the integrals explicitly. This is the downside of this method, it may always work, but can be very tedious and may not result in nice, closed-form expressions like we might get from other methods. 
+
+\begin{example}
+Find the general solution to the differential equation
+\begin{equation*}
+y'' + 4y' + 3y = e^{3x} + 2
+\end{equation*}
+using both undetermined coefficients and variation of parameters.
+\end{example}
+
+\begin{exampleSol}
+For both methods of solving non-homogeneous equations, we need the solution to the homogeneous problem. For this equation, the characteristic polynomial is $r^2 + 4r + 3$, which factors as $(r+1)(r+3)$, so the general solution to the homogeneous problem is
+\begin{equation*}
+y_c(x) = C_1 e^{-x} + C_2e^{-3x}.
+\end{equation*}
+
+To use undetermined coefficients, we need to get the appropriate guess for the right-hand side, which in this case is $y_p(x) = Ae^{3x} + B$. Plugging this in to the differential equation gives
+\begin{equation*}
+9Ae^{3x} + 4(3Ae^{3x}) + 3(Ae^{3x} + B) = e^{3x} + 2
+\end{equation*}
+which simplifies to
+\begin{equation*}
+24Ae^{3x} + 3B = e^{3x} + 2
+\end{equation*}
+so that $A = \nicefrac{1}{24}$ and $B = \nicefrac{2}{3}$. Thus, the general solution to the non-homogeneous equation is
+\begin{equation*}
+y(x) = C_1e^{-x} + C_2e^{-3x} + \frac{1}{24}e^{3x} + \frac{2}{3}.
+\end{equation*}
+
+In order to use variation of parameters, we let $y_1(x) = e^{-x}$ and $y_2(x) = e^{-3x}$ be the two linearly independent solutions that we found to the homogeneous problem. Our right-hand side function is $f(x) = e^{3x} + 2$ and we can compute the expression
+\begin{equation*}
+y_1(x)y_2'(x) - y_1'(x)y_2(x) = e^{-x}(-3e^{-3x}) - (-e^{-x})e^{-3x} = -2e^{-4x}.
+\end{equation*}
+
+Therefore, we can use the formulas from the method of variation of parameters to compute that
+\begin{equation*}
+\begin{split}
+u_1' &= -\frac{y_2(x)f(x)}{y_1(x)y_2'(x) - y_1'(x)y_2(x)} = -\frac{e^{-3x}(e^{3x} + 2)}{-2e^{-4x}} = \frac{1}{2}e^{4x} + e^x \\
+u_2' &= \frac{y_1(x)f(x)}{y_1(x)y_2'(x) - y_1'(x)y_2(x)} = \frac{e^{-x}(e^{3x} + 2)}{-2e^{-4x}} = -\frac{1}{2}e^{6x} - e^{3x}.
+\end{split}
+\end{equation*} 
+Then we can compute
+\begin{equation*}
+u_1 = \frac{1}{8}e^{4x} + e^x + C_1 \qquad u_2 = -\frac{1}{12}e^{6x} - \frac{1}{3}e^{3x} + C_2.
+\end{equation*}
+Then, we can write out the full general solution as $y(x) = u_1(x)y_1(x) + u_2(x)y_2(x)$ or
+\begin{equation*}
+\begin{split}
+y(x) &= e^{-x}\left( \frac{1}{8}e^{4x} + e^x + C_1 \right) + e^{-3x}\left(-\frac{1}{12}e^{6x} - \frac{1}{3}e^{3x} + C_2 \right) \\
+&= \frac{1}{8}e^{3x} + 1 + C_1e^{-x} - \frac{1}{12}e^{3x} - \frac{1}{3} + C_2e^{-3x}
+\end{split}
+\end{equation*}
+which, after combining the terms, is the same as the solution that we obtained via undetermined coefficients.
+\end{exampleSol}
+
+\subsection{Exercises}
+
+\begin{exercise}
+Find a particular solution of
+$y''-y' -6y = e^{2x}$.
+\end{exercise}
+
+\begin{exercise}
+Find a particular solution of
+$y''-4y' +4y = e^{2x}$.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Find a particular solution to $y''-y'+y=2\sin(3x)$
+\end{exercise}
+\exsol{%
+$y=\frac{-16\sin(3x)+6\cos(3x)}{73}$
+}
+
+\begin{exercise}
+Solve the initial value problem
+$y''+9y = \cos (3x) + \sin (3x)$ for $y(0) = 2$, $y'(0) = 1$.
+\end{exercise}
+
+\begin{exercise}
+Set up the form of the particular solution but do not solve
+for the coefficients for $y^{(4)}-2y'''+y'' = e^x$.
+\end{exercise}
+
+\begin{exercise}
+Set up the form of the particular solution but do not solve
+for the coefficients for $y^{(4)}-2y'''+y'' = e^x + x + \sin x$.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Solve $y''+2y'+y = x^2$, $y(0)=1$, $y'(0)=2$.
+\end{exercise}
+\exsol{%
+$y(x) = x^2-4 x+6+e^{-x}(x-5)$
+}
+
+\begin{exercise}
+Use the {\it method of undetermined coefficients} to solve the DE $y''+4y'=2t+30$. %2.5
+\end{exercise}
+
+\begin{exercise}
+\pagebreak[2]
+\leavevmode
+\begin{tasks}
+\task Using variation of parameters find a particular solution of
+$y''-2y'+y = e^x$.
+\task Find a particular solution using undetermined
+coefficients.
+\task Are the two solutions you found the same?
+See also \exerciseref{exercise:diffvarparunder}.
+\end{tasks}
+\end{exercise}
+
+\begin{samepage}
+\begin{exercise}\ansMark%
+\leavevmode
+\begin{tasks}
+\task Find a particular solution to $y''+2y=e^x + x^3$.
+\task Find the general solution.
+\end{tasks}
+\end{exercise}
+\end{samepage}
+\exsol{%
+a) $y=\frac{2e^x+3x^3-9x}{6}$ \quad
+b) $y=C_1 \cos(\sqrt{2} x) + C_2 \sin(\sqrt{2} x) + \frac{2e^x+3x^3-9x}{6}$
+}
+
+\begin{exercise}
+Find the general solution to $y'' - 3y' - 4y = e^{2t} + 1$.
+\end{exercise}
+
+\begin{exercise}
+Find the general solution to $y'' - 2y' - 5y = \sin(3t) + 2\cos(3t)$.
+\end{exercise}
+
+\begin{exercise}
+Find the general solution to $y'' - 4y' - 21y = e^{-3t} + e^{4t}$.
+\end{exercise}
+
+\begin{exercise}
+Find the general solution to $y'' - 2y' + y = e^t - t$.
+\end{exercise}
+
+\begin{exercise}
+Find the general solution to $y'' + 4y = \sec(2t)$ using variation of parameters.
+\end{exercise}
+
+\begin{exercise}
+Find the solution of the initial value problem $y'' - 2y' - 15y = e^{5t} + 3$, $y(0) = 2$, $y'(0) = -1$. 
+\end{exercise}
+
+\begin{exercise}
+Find the solution of the initial value problem $y'' + 4y' + 5y = \cos(3t) + t$, $y(0) = 0$, $y'(0) = 2$.  
+\end{exercise}
+
+\begin{exercise}
+The following differential equations are all related. Find the general solution to each of them and compare and contrast the different solutions and the methods used to approach them.
+\begin{tasks}
+\task $y'' - 2y' - 15y = e^t + 5e^{-4t}$
+\task $y'' - 2y' - 15y = 2e^{2t} + 3e^{-t}$
+\task $y'' - 2y' - 15y = 3\cos(2t)$
+\task $y'' - 2y' - 15y = 2e^{5t} - \sin(t)$
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}
+The following differential equations are all related. Find the general solution to each of them and compare and contrast the different solutions and the methods used to approach them.
+\begin{tasks}
+\task $y'' + 4y' + 3y = e^{2t} + 3e^{4t}$
+\task $y'' - 2y' + 5y = e^{2t} + 3e^{4t}$
+\task $y'' - 3y' - 10y = e^{2t} + 3e^{4t}$
+\task $y'' - 8y'  + 16y = e^{2t} + 3e^{4t}$
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}
+Find a particular solution of
+$y''-2y' +y = \sin (x^2)$.  It is OK to leave the answer as a definite
+integral.
+\end{exercise}
+
+\begin{exercise}
+Use variation of parameters to
+find a particular solution of $y''-y = \frac{1}{e^x+e^{-x}}$.
+\end{exercise}
+\exsol{%
+$y = \frac{2xe^x-(e^x+e^{-x})\log(e^{2x}+1)}{4}$
+}
+
+\begin{exercise}
+Recall that a homogeneous \emph{\myindex{Euler equation}} is one of the form $t^2y'' + aty' + by = 0$ and is solved by using the guess $y(t) = t^r$ and solving for the potential values of $r$. 
+\begin{tasks}
+\task Solve $t^2y''-2ty'-10y=0$. %2.5, Euler eq
+\task Let $y_1$ and $y_2$ be a fundamental set for the above equation. Use the variation of parameters equations $\displaystyle u_1=-\int \frac{y_2\, g(t)}{y_1y_2' - y_2y_1'}\,dt$, $\displaystyle y_2=\int \frac{y_1\, g(t)}{y_1y_2' - y_2y_1'}\,dt$ to solve the non-homogeneous equation $\displaystyle y''-\frac{2}{t} - \frac{10}{t^2}=t^3$. \hfill\break (Do not attempt method of undetermined coefficients instead; it won't work.)
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}
+For an arbitrary constant $c$ find the general solution
+to $y''-2y=\sin(x+c)$.
+\end{exercise}
+\exsol{%
+$y=\frac{-\sin(x+c)}{3}+C_1 e^{\sqrt{2}\,x}+C_2 e^{-\sqrt{2}\,x}$
+}
+
+\begin{exercise}
+For an arbitrary constant $c$ find a particular solution
+to $y''-y=e^{cx}$.  Hint: Make sure to handle every possible real $c$.
+\end{exercise}
+
+\begin{exercise} \label{exercise:diffvarparunder}
+\pagebreak[2]
+\leavevmode
+\begin{tasks}
+\task Using variation of parameters find a particular solution of
+$y''-y = e^x$.
+\task Find a particular solution using undetermined
+coefficients.
+\task Are the two solutions you found the same?
+What is going on?
+\end{tasks}
+\end{exercise}
+
+\setcounter{exercise}{100}

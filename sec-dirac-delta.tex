@@ -1,0 +1,505 @@
+\section{Dirac delta and impulse response}
+\label{diracdelta:section}
+
+\LAtt{6.4}
+
+\LO{
+\item Understand the Dirac delta function as an impulse test for a differential equation, and
+\item Use the Laplace transform to solve differential equations using the Dirac delta function.
+}
+
+% \sectionnotes{Verbatim from Lebl}
+
+%\sectionnotes{1 or 1.5 lecture\EPref{, \S7.6 in \cite{EP}}\BDref{,
+%\S6.5 in \cite{BD}}}
+
+\subsection{Rectangular pulse}
+
+Often in applications we study a physical system by putting in a short pulse 
+and then seeing what the system does.  The resulting behavior is
+often called \emph{\myindex{impulse response}}.
+Let us see what we mean by a pulse.
+The simplest kind of a pulse is a simple rectangular pulse defined by
+\begin{equation*}
+\varphi(t) = 
+\begin{cases}
+0 & \text{if } \; \phantom{a \leq {}} t < a , \\
+M & \text{if } \; a \leq t < b , \\
+0 & \text{if } \; b \leq t .
+\end{cases}
+\end{equation*}
+See \figurevref{lt:sqpulse} for a graph.
+
+%15 is number of lines, must be adjusted
+\begin{mywrapfig}[15]{3.25in}
+\capstart
+\diffyincludegraphics{width=3in}{width=4.5in}{lt-sqpulse}
+\caption{Sample square pulse with $a=0.5$, $b=1$ and $M = 2$.\label{lt:sqpulse}}
+\end{mywrapfig}
+
+Notice that
+\begin{equation*}
+\varphi(t) = M \bigl( u(t-a) - u(t-b) \bigr) ,
+\end{equation*}
+where $u(t)$ is the unit step function.
+
+Let us take the Laplace transform of a square pulse,
+\begin{equation*}
+\begin{split}
+{\mathcal{L}} \bigl\{ \varphi(t) \bigr\}
+& =
+{\mathcal{L}} \bigl\{ M \bigl( u(t-a) - u(t-b) \bigr)  \bigr\}
+\\
+& =
+M
+\frac{e^{-as} - e^{-bs}}{s} .
+\end{split}
+\end{equation*}
+
+For simplicity we let $a=0$, and it is convenient
+to set $M = \nicefrac{1}{b}$ to have
+\begin{equation*}
+\int_0^\infty \varphi(t) \,dt = 1 .
+\end{equation*}
+That is, to have the pulse have \myquote{unit mass.}
+For such a pulse we
+compute
+\begin{equation*}
+{\mathcal{L}} \bigl\{ \varphi(t) \bigr\}
+=
+{\mathcal{L}} \left\{ \frac{u(t) - u(t-b)}{b}  \right\}
+=
+\frac{1 - e^{-bs}}{bs} .
+\end{equation*}
+We generally want $b$ to be very small.  That is, we wish to have
+the pulse be very short and very tall.  By letting $b$ go to zero we arrive
+at the concept of the Dirac delta function.
+
+\subsection{The delta function}
+
+The \emph{\myindex{Dirac delta function}}\index{delta function}%
+\footnote{Named after the English physicist and mathematician
+\href{https://en.wikipedia.org/wiki/Paul_Dirac}{Paul Adrien Maurice Dirac}
+(1902--1984).}
+is not exactly a function; it is sometimes called a
+\emph{\myindex{generalized function}}.  We
+avoid unnecessary details and simply say that it is an object
+that does not really make sense unless we integrate it.  The motivation is
+that we would like a \myquote{function} $\delta(t)$
+such that 
+for any continuous function $f(t)$ we have
+\begin{equation*}
+\mybxbg{~~
+\int_{-\infty}^\infty \delta(t) f(t) \,dt = f(0) .
+~~}
+\end{equation*}
+The formula should hold if we integrate over any interval that contains 0,
+not just $(-\infty,\infty)$.
+So $\delta(t)$ is a \myquote{function} 
+with all its \myquote{mass} at the single point $t=0$.  In other words, for any
+interval $[c,d]$
+\begin{equation*}
+\int_c^d \delta(t) \,dt = 
+\begin{cases}
+1 & \text{if the interval $[c,d]$ contains 0, i.e.\ } c \leq 0 \leq d, \\
+0 & \text{otherwise.}
+\end{cases}
+\end{equation*}
+Unfortunately there is no such function in the classical sense.  You could
+informally think that $\delta(t)$ is zero for $t\not=0$ and somehow
+infinite at $t=0$.
+
+A good way to think about $\delta(t)$ is as a limit of short pulses
+whose integral is $1$.  For example, suppose that
+we have a square pulse $\varphi(t)$ as above with $a=0$,
+$M=\nicefrac{1}{b}$, that is $\varphi(t) = \frac{u(t) - u(t-b)}{b}$.
+Compute
+\begin{equation*}
+\int_{-\infty}^\infty \varphi(t) f(t) \,dt =
+\int_{-\infty}^\infty \frac{u(t) - u(t-b)}{b} f(t) \,dt =
+\frac{1}{b} \int_{0}^b f(t) \,dt .
+\end{equation*}
+If $f(t)$ is continuous at $t=0$, then
+for very small $b$, the function $f(t)$ is approximately equal to $f(0)$ on
+the interval $[0,b]$.  We approximate the integral
+\begin{equation*}
+\frac{1}{b} \int_{0}^b f(t) \,dt \approx
+\frac{1}{b} \int_{0}^b f(0) \,dt = f(0) .
+\end{equation*}
+Hence,
+\begin{equation*}
+\lim_{b\to 0}
+\int_{-\infty}^\infty \varphi(t) f(t) \,dt =
+\lim_{b\to 0}
+\frac{1}{b} \int_{0}^b f(t) \,dt  = f(0) .
+\end{equation*}
+
+Let us therefore accept $\delta(t)$ as an object that is possible to
+integrate.  We often want to shift $\delta$ to another point, for example
+$\delta(t-a)$.  In that case we have
+\begin{equation*}
+\int_{-\infty}^\infty \delta(t-a) f(t) \,dt = f(a) .
+\end{equation*}
+Note that $\delta(a-t)$ is the same object as $\delta(t-a)$.
+In other words, the convolution of $\delta(t)$ with $f(t)$ is again $f(t)$,
+\begin{equation*}
+(f * \delta) (t) = 
+\int_{0}^t \delta(t-s) f(s) \,ds
+= f(t) .
+\end{equation*}
+
+As we can integrate $\delta(t)$, let us compute its Laplace transform.
+\begin{equation*}
+\mybxbg{~~
+{\mathcal{L}} \bigl\{ \delta(t-a) \bigr\}
+=
+\int_{0}^\infty e^{-st} \delta(t-a) \,dt = e^{-as} .
+~~}
+\end{equation*}
+In particular,
+\begin{equation*}
+{\mathcal{L}} \bigl\{ \delta(t) \bigr\} = 1 .
+\end{equation*}
+
+\begin{remark}
+Notice that the Laplace transform of $\delta(t-a)$ looks like
+the Laplace transform of the derivative of the Heaviside function
+$u(t-a)$, if we could differentiate the Heaviside function.
+First notice
+\begin{equation*}
+{\mathcal{L}} \bigl\{ u(t-a) \bigr\} = \frac{e^{-as}}{s}.
+\end{equation*}
+To obtain what the Laplace transform of the derivative would be
+we multiply by $s$, to obtain $e^{-as}$, which is the Laplace transform
+of $\delta(t-a)$.
+We see the same thing using integration,
+\begin{equation*}
+\int_0^t \delta(s-a)\,ds = u(t-a) .
+\end{equation*}
+So in a certain sense
+\begin{equation*}
+%mbxSTARTIGNORE
+\text{``}
+%mbxENDIGNORE
+%mbxlatex \text{"}
+\quad \frac{d}{dt} \Bigl[ u(t-a) \Bigr] = \delta(t-a) . \quad
+%mbxSTARTIGNORE
+\text{''}
+%mbxENDIGNORE
+%mbxlatex \text{"}
+\end{equation*}
+This line of reasoning allows us to talk about derivatives of functions with jump
+discontinuities.
+We can think of
+the derivative of the Heaviside function $u(t-a)$ as being somehow infinite
+at $a$, which is precisely our intuitive understanding of the delta
+function.
+\end{remark}
+
+\begin{example}
+Let us compute ${\mathcal{L}}^{-1} \left\{ \frac{s+1}{s} \right\}$.  So
+far we have always looked at proper rational functions in the $s$ variable.
+That is, the numerator was always of lower degree than the denominator.
+Not so with $\frac{s+1}{s}$.
+We write,
+\begin{equation*}
+{\mathcal{L}}^{-1} \left\{ \frac{s+1}{s} \right\}
+=
+{\mathcal{L}}^{-1} \left\{ 1 + \frac{1}{s} \right\}
+=
+{\mathcal{L}}^{-1} \{ 1 \}
++
+{\mathcal{L}}^{-1} \left\{ \frac{1}{s} \right\}
+=
+\delta(t) + 1 .
+\end{equation*}
+The resulting object is a generalized
+function and only makes sense when put underneath an integral.
+\end{example}
+
+\subsection{Impulse response}
+
+As we said before, in the differential equation
+$L x = f(t)$,
+we think of $f(t)$ as input, and $x(t)$ as the output.  Often it is important
+to find the response to an impulse, and then we use
+the delta function in place of $f(t)$.
+The solution to
+\begin{equation*}
+L x = \delta(t)
+\end{equation*}
+is called the
+\emph{\myindex{impulse response}}.
+
+\begin{example}
+Solve (find the impulse response)
+\begin{equation} \label{eq:lteximpulseresp}
+x'' + \omega_0^2 x = \delta(t) , \quad x(0) = 0, \quad x'(0) = 0 .
+\end{equation}
+\end{example}
+
+\begin{exampleSol}
+We first apply the Laplace transform to the equation.  Denote
+the transform of $x(t)$ by $X(s)$.
+\begin{equation*}
+s^2 X(s) + \omega_0^2 X(s) = 1 ,
+\qquad \text{and so} \qquad
+X(s) = \frac{1}{s^2+ \omega_0^2} .
+\end{equation*}
+Taking the inverse Laplace transform we obtain
+\begin{equation*}
+x(t) = 
+\frac{\sin (\omega_0 t)}{\omega_0} .
+\end{equation*}
+\end{exampleSol}
+
+Let us notice something about the example above.  We showed before that
+when the input is $f(t)$, then the solution to $Lx = f(t)$
+is given by
+\begin{equation*}
+x(t) = 
+\int_0^t
+f(\tau) 
+\frac{\sin \bigl( \omega_0 (t-\tau) \bigr)}{\omega_0} ~ d\tau .
+\end{equation*}
+That is, the solution for an arbitrary input is given as
+convolution with the impulse response.  Let us see why.
+The key is to notice that for functions $x(t)$ and $f(t)$,
+\begin{equation*}
+(x * f)''(t) =
+\frac{d^2}{dt^2}\left[
+\int_0^t
+f(\tau) 
+x(t-\tau) ~ d\tau \right]
+=
+\int_0^t
+f(\tau) 
+x''(t-\tau) ~ d\tau
+= (x'' * f)(t) .
+\end{equation*}
+We simply differentiate twice under the
+integral\footnote{You should really think of the integral going over
+$(-\infty,\infty)$ rather than over $[0,t]$ and simply assume that $f(t)$ and
+$x(t)$ are continuous and zero for negative $t$.}, the details are
+left as an exercise.
+If we convolve the entire equation \eqref{eq:lteximpulseresp},
+the left-hand side becomes
+\begin{equation*}
+(x'' + \omega_0^2 x) * f =
+(x'' * f) + \omega_0^2 (x * f) =
+(x * f)'' + \omega_0^2 (x * f) .
+\end{equation*}
+The right-hand side becomes
+\begin{equation*}
+(\delta * f)(t) = f(t).
+\end{equation*}
+Therefore $y(t) = (x * f)(t)$ is the solution to
+\begin{equation*}
+y'' + \omega_0^2 y = f(t) .
+\end{equation*}
+This procedure works in general for other linear
+equations $Lx = f(t)$.  If you determine the impulse response,
+you also know how to obtain the output $x(t)$ for any input $f(t)$
+by simply convolving
+the impulse response and the input $f(t)$.
+
+\subsection{Three-point beam bending}
+\index{three-point beam bending}
+
+Let us give another quite different
+example where delta functions turn up.  In this case 
+representing point loads on a steel beam.  Suppose we have a beam
+of length $L$, resting on two simple supports at the ends.  Let $x$ denote
+the position on the beam, and let $y(x)$ denote the deflection of the beam in
+the vertical direction.  The deflection $y(x)$ satisfies the
+\emph{\myindex{Euler--Bernoulli equation}}%
+\footnote{Named for the Swiss mathematicians
+\href{https://en.wikipedia.org/wiki/Jacob_Bernoulli}{Jacob Bernoulli}
+(1654--1705),
+\href{https://en.wikipedia.org/wiki/Daniel_Bernoulli}{Daniel Bernoulli}
+(1700--1782), the nephew of Jacob,
+and
+\href{https://en.wikipedia.org/wiki/Euler}{Leonhard Paul Euler}
+(1707--1783).},
+\begin{equation*}
+EI \frac{d^4 y}{dx^4} = F(x) ,
+\end{equation*}
+where $E$ and $I$ are constants\footnote{$E$ is the elastic modulus and $I$
+is the second moment of area.  Let us not worry about the details and simply
+think of these as some given constants.} and
+$F(x)$ is the force applied per unit length at position $x$.  The situation
+we are interested in is when the force is applied at a single point as in
+\figurevref{lt:beambendingfig}.
+
+\begin{myfig}
+\capstart
+\inputpdft{beam-bending}
+\caption{Three-point bending.\label{lt:beambendingfig}}
+\end{myfig}
+
+In this case the equation becomes
+\begin{equation*}
+EI \frac{d^4 y}{dx^4} = -F \delta(x-a) ,
+\end{equation*}
+where $x=a$ is the point where the mass is applied.  $F$ is the force
+applied and the minus sign indicates that the force is downward, that is, in the
+negative $y$ direction.  The end points of the
+beam satisfy the conditions,
+\begin{align*}
+& y(0) = 0, \qquad y''(0) = 0, \\
+& y(L) = 0, \qquad y''(L) = 0.
+\end{align*}
+% See \sectionref{sec:appeig} for further information about endpoint
+% conditions applied to beams.
+
+
+\begin{example} \label{lt:examplebeam}
+Suppose that length of the beam is 2, and suppose that $EI=1$ for
+simplicity.  Further suppose that the force $F=1$ is applied at $x=1$.
+That is, we have the equation
+\begin{equation*}
+\frac{d^4 y}{dx^4} = -\delta(x-1) ,
+\end{equation*}
+and the endpoint conditions are
+\begin{equation*}
+y(0) = 0, \qquad y''(0) = 0, \qquad
+y(2) = 0, \qquad y''(2) = 0.
+\end{equation*}
+\end{example}
+
+\begin{exampleSol}
+We could integrate, but using the Laplace transform
+is even easier.
+We apply the transform
+in the $x$ variable rather than the $t$ variable.  Let us again denote the
+transform of $y(x)$ as $Y(s)$.
+\begin{equation*}
+s^4Y(s)-s^3y(0)-s^2y'(0)-sy''(0)-y'''(0)
+= -e^{-s}.
+\end{equation*}
+We notice that $y(0) = 0$ and $y''(0) = 0$.  Let us
+call $C_1 = y'(0)$ and $C_2=y'''(0)$.
+We solve for $Y(s)$,
+\begin{equation*}
+Y(s) = \frac{-e^{-s}}{s^4} + \frac{C_1}{s^2}+ \frac{C_2}{s^4} .
+\end{equation*}
+We take the inverse Laplace transform utilizing the 
+second shifting property \eqref{ltd:sseq} to take the inverse of the first
+term.
+\begin{equation*}
+y(x) = \frac{-{(x-1)}^3}{6} u(x-1) + C_1 x + \frac{C_2}{6} x^3 .
+\end{equation*}
+We still need to apply two of the endpoint conditions.  As the conditions
+are at $x=2$ we can simply replace $u(x-1) = 1$ when taking
+the derivatives.  Therefore,
+\begin{equation*}
+0 = y(2) = \frac{-{(2-1)}^3}{6} + C_1 (2) + \frac{C_2}{6} 2^3 =
+\frac{-1}{6} + 2 C_1 + \frac{4}{3} C_2 ,
+\end{equation*}
+and
+\begin{equation*}
+0 = y''(2) = \frac{-3\cdot 2 \cdot (2-1)}{6} + \frac{C_2}{6} 3\cdot 2 \cdot 2
+ = -1 + 2 C_2 .
+\end{equation*}
+Hence $C_2 = \frac{1}{2}$ and solving for $C_1$ using the first
+equation we obtain
+$C_1 = \frac{-1}{4}$.  Our solution for the beam deflection is
+\begin{equation*}
+y(x) = \frac{-{(x-1)}^3}{6} u(x-1) - \frac{x}{4} + \frac{x^3}{12} .
+\end{equation*}
+\end{exampleSol}
+
+\subsection{Exercises}
+
+\begin{exercise}
+Solve (find the impulse response)
+$x'' + x' + x = \delta(t)$, $x(0) = 0$, $x'(0)=0$.
+\end{exercise}
+
+\begin{exercise}
+Solve (find the impulse response)
+$x'' + 2 x' + x = \delta(t)$, $x(0) = 0$, $x'(0)=0$.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Solve (find the impulse response)
+$x'' = \delta(t)$, $x(0) = 0$, $x'(0)=0$.
+\end{exercise}
+\exsol{%
+$x(t) = t$
+}
+
+\begin{exercise}\ansMark%
+Solve (find the impulse response)
+$x' + a x = \delta(t)$, $x(0) = 0$, $x'(0)=0$.
+\end{exercise}
+\exsol{%
+$x(t) = e^{-at}$
+}
+%$sX+aX = 1$
+%$X = \frac{1}{s+a}$
+
+\begin{exercise}
+A pulse can come later and can be bigger.
+Solve 
+$x'' + 4 x = 4\delta(t-1)$, $x(0) = 0$, $x'(0)=0$.
+\end{exercise}
+
+\begin{exercise}
+Suppose that $f(t)$ and $g(t)$ are differentiable functions
+and suppose that $f(t) = g(t) = 0$ for all $t \leq 0$.  Show that
+\begin{equation*}
+(f * g)'(t) = (f' * g)(t) = (f * g')(t) .
+\end{equation*}
+\end{exercise}
+
+\begin{exercise}
+Suppose that $L x = \delta(t)$, $x(0) = 0$, $x'(0) = 0$, has the solution
+$x = e^{-t}$ for $t > 0$.  Find the solution to
+$Lx = t^2$, $x(0) = 0$, $x'(0) = 0$ for $t > 0$.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Suppose that $L x = \delta(t)$, $x(0) = 0$, $x'(0) = 0$, has the solution
+$x(t) = \cos(t)$ for $t > 0$.  Find (in closed form) the solution to
+$Lx = \sin(t)$, $x(0) = 0$, $x'(0) = 0$ for $t > 0$.
+\end{exercise}
+\exsol{%
+$x(t) = (\cos * \sin)(t) = \frac{1}{2} t \sin(t)$
+}
+
+\begin{exercise}
+Compute
+${\mathcal{L}}^{-1} \left\{ \frac{s^2+s+1}{s^2} \right\}$.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Compute
+${\mathcal{L}}^{-1} \left\{ \frac{s^2}{s^2+1} \right\}$.
+\end{exercise}
+\exsol{%
+$\delta(t) - \sin(t)$
+}
+%1 - 1/(s^2+1)
+
+\begin{exercise}\ansMark%
+Compute
+${\mathcal{L}}^{-1} \left\{ \frac{3 s^2 e^{-s} + 2}{s^2} \right\}$.
+\end{exercise}
+\exsol{%
+$3 \delta(t-1) + 2 t$
+}
+
+\begin{exercise}[challenging]
+Solve \exampleref{lt:examplebeam} via integrating 4 times in the $x$ variable.
+\end{exercise}
+
+\begin{exercise}
+Suppose we have a beam of length $1$ simply supported at the ends and
+suppose that force $F=1$ is applied at $x=\frac{3}{4}$ in the downward
+direction.  Suppose that $EI=1$ for simplicity.  Find the beam deflection
+$y(x)$.
+\end{exercise}
+
+\setcounter{exercise}{100}
+

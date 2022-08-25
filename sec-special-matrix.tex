@@ -1,0 +1,481 @@
+\section{Special Matrices} \label{specmat:section}
+
+\LO{
+\item Compute the adjoint of a matrix,
+\item Determine if a matrix is orthogonal, and
+\item Diagonalize a matrix using eigenvalues and eigenvectors if possible.
+}
+
+
+In this section, we will discuss several different types of matrices that have nice properties related to the inner product on vectors. 
+
+\subsection{Adjoint Matrix}
+
+To begin this section, we want to discuss how matrices, when applied to vectors, interact with the inner product on those vectors. 
+
+\begin{definition}
+Let $A$ be an $n \times n$ matrix. The \emph{adjoint}\index{adjoint} matrix of $A$, written $A^*$, is another $n \times n$ matrix so that for all n-component vectors $\vec{v}$ and $\vec{w}$
+\[ \langle A\vec{v} , \vec{w} \rangle = \langle \vec{v}, A^*\vec{w} \rangle.\]
+\end{definition}
+
+The idea of the adjoint is that if we want to move a matrix to the other side of an inner product, we need to convert it to the adjoint. 
+
+\begin{example}
+Compute the adjoint of the matrix
+\[ A = \begin{bmatrix} 1 & 2 \\ 3 & -1 \end{bmatrix}. \]
+\end{example}
+
+\begin{exampleSol}
+All we have to go from is the definition of the adjoint. Let's start with two vectors 
+\[ \vec{v} = \begin{bmatrix} v_1 \\ v_2 \end{bmatrix} \qquad \vec{w} = \begin{bmatrix} w_1 \\ w_2 \end{bmatrix} \] and as a place-holder, set
+\[ A^* = \begin{bmatrix} a & b \\ c & d \end{bmatrix} \] because we know it is a $2\times 2$ matrix. We want to satisfy
+\[  \langle A\vec{v} , \vec{w} \rangle = \langle \vec{v}, A^*\vec{w} \rangle. \] With this, we can compute that
+\[ A\vec{v} = \begin{bmatrix} 1v_1 + 2v_2 \\ 3v_1 - v_2 \end{bmatrix} \] so that 
+\begin{equation}
+\langle A\vec{v} , \vec{w} \rangle = \left\langle \begin{bmatrix} 1v_1 + 2v_2 \\ 3v_1 - v_2 \end{bmatrix}, \begin{bmatrix} w_1 \\ w_2 \end{bmatrix} \right\rangle = v_1w_1 + 2v_2w_1 + 3v_1w_2 - v_2w_2 .
+\label{eq:adjoint1}
+\end{equation} Similarly, we have that
+\[ A^*\vec{w} = \begin{bmatrix} aw_1 + bw_2 \\ cw_1 + dw_2 \end{bmatrix} \] so that
+\begin{equation}
+\langle \vec{v}, A^*\vec{w} \rangle = \left\langle \begin{bmatrix} v_1 \\ v_2 \end{bmatrix}, \begin{bmatrix} aw_1 + bw_2 \\ cw_1 + dw_2 \end{bmatrix} \right\rangle = aw_1v_1 + bv_1w_2 + cv_2w_1 + dv_2w_2.
+\label{eq:adjoint2}
+\end{equation}
+
+In order to make \eqref{eq:adjoint1} and \eqref{eq:adjoint2} match, we need to set $a=1$, $b=3$, $c=2$ and $d=-1$. Thus, the adjoint matrix $A^*$ is
+\[ A^* = \begin{bmatrix} 1 & 3 \\ 2 & -1 \end{bmatrix}. \]
+\end{exampleSol}
+
+This result looks fairly similar to the original matrix $A$; in fact, it looks like it is the \emph{transpose}\index{transpose} of the matrix $A$. It turns out that this is always the case.
+
+\begin{theorem1}{}
+Let $A$ be a \emph{real} $n \times n$ matrix, and $\langle \cdot, \cdot \rangle$ the standard inner product on $n$ component real vectors. Then $A^* = A^T$. 
+\end{theorem1}
+
+\begin{proof}
+The idea is exactly the same as the example that we went through. If we take real vectors $\vec{v}$ and $\vec{w}$ with components $v_i$ and $w_i$ respectively, and let $A$ be the $n \times n$ matrix with components $a_{ij}$, we can write out the inner product as a sum.
+\[
+\begin{split}
+\langle A\vec{v}, \vec{w} \rangle &= \left\langle \sum_{j=1}^n a_{ij}v_j, \vec{w} \right\rangle \\
+&= \sum_{i=1}^n \left(\sum_{j=1}^n a_{ij}v_j \right)w_i \\
+&= \sum_{i=1}^n \sum_{j=1}^n a_{ij}v_jw_i
+\end{split}
+\]
+In order to get the adjoint matrix, we need to group the terms to match with $\langle vec{v}, A^*\vec{w} \rangle$, which means we want the $\vec{v}$ part to be last. We can then see that
+\[ \langle A \vec{v}, \vec{w} \rangle = \sum_{i=1}^n \sum_{j=1}^n a_{ij}v_jw_i = \sum_{j=1}^n \left( \sum_{i=1}^n a_{ij}w_i \right) v_j = \langle \vec{v}, \sum_{i=1}^n a_{ij}w_i \rangle.  \]
+Thus, we have that
+\[ A^*\vec{w} = \sum_{j=1}^n a_{ij}w_i . \]
+This is \emph{almost} the matrix-vector product $A\vec{w}$, but the $i$ and $j$ are backwards. If we swap the $i$ and $j$, that is the same as swapping the rows and columns of a matrix, which gives rise to the transpose. Therefore, for the matrix $B = A^T$, we have that
+\[ B\vec{w} = \sum_{i=1}^n b_{ji}w_i = \sum_{i=1}^n a_{ij}w_i = A^*\vec{w}.\]
+Thus, we have that $A^* = A^T$
+\end{proof}
+
+\begin{remark}
+The same ideas work for complex vector spaces and complex inner products. In that case, the inner product is defined by 
+\[ \langle \vec{v}, \vec{w} \rangle = \sum_{k=1}^n v_k\overline{w_k} \] and the adjoint is \[ A^* = A^H,\] which is the Hermitian transpose of $A$. This is sometimes also called the conjugate transpose; for the matrix $A$ we take the transpose, and then take the complex conjugate of each entry of the matrix. The proof follows all of the same steps.
+\end{remark}
+
+\begin{example}
+Determine the adjoint of the following matrices.
+\[ A = \begin{bmatrix}1 & -3 \\ 2 & 5 \end{bmatrix} \qquad B = \begin{bmatrix} 1 & 3 & 0 \\ 3 & -2 & 1 \\ 0 & 1 & -1 \end{bmatrix}. \]
+\end{example}
+
+\begin{exampleSol}
+Since we know that the adjoint is just the transpose, we can compute these fairly easily.
+\[ A^* = \begin{bmatrix} 1 & 2 \\ -3 & 5 \end{bmatrix} \] and
+\[ B^* = \begin{bmatrix} 1 & 3 & 0 \\ 3 & -2 & 1 \\ 0 & 1 & -1 \end{bmatrix}. \]
+\end{exampleSol}
+
+The matrix $B$ is a special matrix because the adjoint is the same as the original matrix. This is called a \emph{self-adjoint ! matrix}\index{self-adjoint} matrix. The language of the adjoint will allow us to be able to talk about some more special matrices and how they interact with the inner product.
+
+
+\subsection{Orthogonal Matrices}
+
+We know how to discuss if two vectors are orthogonal, namely, that their inner product is zero. In general, we say that any set of vectors $\{\vec{v}_1, \cdots, \vec{v}_k\}$ is \emph{orthogonal} if any pair of them have inner product zero. This is the same idea of the orthogonal basis discussed in \sectionref{innerproduct:section}, but without the requirement that it span the entire space. If we also have that the length of each vector in this set is $1$, that means that the set is \emph{orthonormal}. 
+
+We can extend this definition of orthogonal vectors to talk about matrices. 
+
+\begin{definition}
+An $n\times n$ matrix $A$ is \emph{orthogonal}\index{orthogonal ! matrix} if the columns of $A$ are orthonormal. That is, if $\vec{v}_1, \vec{v}_2, ..., \vec{v}_n$ are the columns of $A$, then we have
+\begin{itemize}
+\item $\langle v_i, v_i \rangle = 1$ for all $i$,
+\item $\langle v_i, v_j \rangle = 0$ for all $i \neq j$. 
+\end{itemize}
+\end{definition}
+
+Note that for matrices, we are only talking about a single matrix being orthogonal, unlike for vectors where we talk about a pair or set of vectors being orthogonal. 
+
+\begin{example}
+Determine if each of the following matrices are orthogonal.
+\[ A = \begin{bmatrix} \frac{3}{5} & 1 \\ \frac{4}{5} & 0 \end{bmatrix} \qquad B = \begin{bmatrix} -1 & 0 & 0 \\ 0 & 0 & 1 \\ 0 & 1  & 0 \end{bmatrix}.\]
+\end{example}
+
+\begin{exampleSol}
+For matrix $A$, we check the length of each column vector and then the inner product of the two vectors. For the first column we get that
+\[ ||\vec{v}_1|| = \sqrt{\left(\frac{3}{5}\right)^2 + \left(\frac{4}{5}\right)^2} = \sqrt{\frac{9}{25} + \frac{16}{25}} = 1 \] and $||\vec{v}_2|| = 1$. So, these vectors are both length 1. However
+\[ \langle v_1, v_2 \rangle = \frac{3}{5}(1) + \frac{4}{5}(0) = \frac{3}{5} \neq 0, \] so these vectors are not orthogonal. Therefore, $A$ is not an orthogonal matrix.
+
+For matrix $B$, each column has exactly one non-zero entry of absolute value $1$, so the columns all have length 1. In addition, none of the columns have this non-zero entry in the same row, so if we were to take the inner product of any two columns, we would get zero. Therefore $B$ is an orthogonal matrix. 
+\end{exampleSol}
+
+So what are these orthogonal matrices? There is one main property of these matrices that drives their use and description. Let $A$ be an orthogonal matrix and consider the matrix product $B = A^TA$. If we look at a single entry of $B$, the definition of matrix multiplication says that $b_{ij}$ is the dot product of the $i$th row of $A^T$ with the $j$th column of $A$. Since the first matrix is $A^T$, the $i$th row of $A^T$ is the same as the $i$th column of $A$, so that $b_{ij}$ is the dot product of the $i$th column of $A$ with the $j$th column of $A$. 
+
+However, we know things about this. Since $A$ is orthogonal, we know that the columns of $A$ form an orthonormal set. Therefore, if $i \neq j$, the dot product is zero, and if they are the same, it is $1$. Therefore, we know that $b_{ij} = 1$ if $i=j$ and $0$ if $i \neq j$. Therefore, $B$ is the identity matrix. This means that the transpose of an orthogonal matrix is equal to its inverse.
+
+\begin{theorem1}{}
+If $A$ is an orthogonal matrix, then $A^T = A^{-1}$, so that \[ AA^T = A^TA = I. \]
+\end{theorem1} 
+
+By our discussion in the previous section, this means that the adjoint of an orthogonal matrix is also its inverse. This allows us to come up with several nice properties of orthogonal matrices.
+
+\begin{theorem1}{}
+Let $A$ be an $n\times n$ orthogonal matrix and $\vec{v}$ and $\vec{w}$ two $n$-component real vectors. Then
+\begin{enumerate}
+\item $\det(A) = \pm1$
+\item $\langle A\vec{v}, A\vec{w} \rangle = \langle \vec{v}, \vec{w} \rangle$
+\item $||A\vec{v}|| = ||\vec{v}||$.
+\end{enumerate}
+\end{theorem1}
+
+\begin{proof}
+\begin{enumerate}
+\item Since we know that $AA^T = I$ and that $\det(A) = \det(A^T)$, we have that
+\[ 1 = \det(I) = \det(AA^T) = \det(A)\det(A^T) = \det(A)^2.\] Thus, we know that $\det(A)$ must be either $1$ or $-1$. 
+\item Using the properties of the adjoint, we know that
+\[ \langle A \vec{v}, A\vec{w} \rangle = \langle \vec{v}, A^*A\vec{w} \rangle. \] However, $A^* = A^T = A^{-1}$, so that $A^*A = A^{-1}A = I$. Therefore, this expression equals $\langle \vec{v}, \vec{w} \rangle$, which is what we wanted.
+\item Using the previous part, we have that
+\[ ||A\vec{v}||^2 = \langle A\vec{v}, A\vec{v} \rangle = \langle \vec{v}, \vec{v} \rangle = ||\vec{v}||^2, \] which gives the desired result after taking square roots.
+\end{enumerate}
+\end{proof}
+
+What do these properties tell us? Since the inner product discusses angles between vectors, we see that orthogonal matrices are transformations that preserve lengths and angles. This means that they are composed of different ``rigid motions'', either reflections or rotations around different axes. For the two dimensional case, we have the matrix
+\[ \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix} \] which represents a reflection over the $x$-axis, and for any angle $\theta$, the matrix
+\[ \begin{bmatrix} \cos(\theta) & \sin(\theta) \\ \sin(\theta) & -\cos(\theta) \end{bmatrix} \] gives a rotation of angle $\theta$ in the counterclockwise direction.
+
+\begin{exercise}
+Verify that these two matrices are orthogonal.
+\end{exercise} 
+
+These (and products of them) are the only options for $2\times 2$ matrices. Once we get beyond that, there isn't necessarily a single rotation and reflection that can define everything, but the idea of an orthogonal matrix being composed of different rotations and reflections is still true.
+
+\subsection{Symmetric Matrices}
+
+Another type of matrix that interacts nicely with the inner product is a symmetric matrix. A matrix $A$ is \emph{symmetric}\index{symmetric ! matrix} if $A = A^T$. For example, the matrix
+\[ A = \begin{bmatrix} 1 & 4 \\ 4 & 3 \end{bmatrix} \] is symmetric, because if we swap the rows and columns, we get the original matrix back. However, the matrix
+\[ B = \begin{bmatrix} 1 & 2 & 3 \\ -1 & 2 & 1 \\ 0 & 3 & -2 \end{bmatrix} \] is not symmetric, because
+\[ B^T = \begin{bmatrix} 1 & -1 & 0 \\ 2 & 2 & 3 \\ 3 & 1 & -2 \end{bmatrix}, \] which does not match $B$. 
+
+From our discussion of the adjoint, we know that for a real matrix $A$, the transpose is the same as the adjoint. This means that for symmetric matrices, the matrix also equals the adjoint, and is so all symmetric matrices are self-adjoint. This means that if we have a symmetric matrix $A$, then for any two vectors $\vec{v}$ and $\vec{w}$, 
+\[ \langle A\vec{v}, \vec{w} \rangle = \langle \vec{v}, A \vec{w} \rangle. \] So, if we have a symmetric matrix, we can move it to the other side of the inner product without changing anything. This has some nice consequences for these matrices, particularly with respect to eigenvalues.
+
+\begin{theorem1}{}
+Let $A$ be a symmetric real matrix. Let $\lambda_1$ and $\lambda_2$ be two \emph{different} eigenvalues of $A$ with corresponding eigenvectors $\vec{v}_1$ and $\vec{v}_2$. Then $\vec{v}_1$ and $\vec{v}_2$ are orthogonal. 
+\end{theorem1}
+
+\begin{proof}
+Consider the expression $\langle A \vec{v}_1, \vec{v}_2 \rangle$. We will compute this two ways. First is by using the fact that $\vec{v}_1$ is an eigenvector. This means that $A\vec{v}_1 = \lambda_1\vec{v}_1$ so
+\begin{equation}
+\langle A\vec{v}_1, \vec{v}_2 \rangle = \lambda_1\langle \vec{v}_1, \vec{v}_2 \rangle.
+\label{eq:orthoEvec1}
+\end{equation}
+For a second computation, we will use the fact the fact that $A$ is self-adjoint and that $\vec{v}_2$ is an eigenvector. This gives
+\begin{equation}
+\langle A\vec{v}_1, \vec{v}_2 \rangle = \langle \vec{v}_1, A\vec{v}_2 \rangle = \langle \vec{v}_1, \lambda_2\vec{v}_2 \rangle = \lambda_2\langle\vec{v}_1, \vec{v}_2 \rangle.
+\label{eq:orthoEvec2}
+\end{equation}
+
+Since \eqref{eq:orthoEvec1} and \eqref{eq:orthoEvec2} must be equal, we have that
+\[ \lambda_1 \langle \vec{v}_1, \vec{v}_2 \rangle = \lambda_2 \langle \vec{v}_1, \vec{v}_2 \rangle \] or, by subtracting to the other side, 
+\[ (\lambda_1 - \lambda_2) \langle \vec{v}_1, \vec{v}_2 \rangle = 0.\]
+Since $\lambda_1 \neq \lambda_2$, the only way this can be true is if $\langle \vec{v}_1, \vec{v}_2 \rangle = 0.$. Therefore $\vec{v}_1$ and $\vec{v}_2$ are orthogonal. 
+\end{proof}
+
+\begin{example}
+Find all of the eigenvalues and eigenvectors of the matrix \[ A = \begin{bmatrix} 3 & 0 & \\ 0 & 5 & 2\\ 0 & 2 & 2 \end{bmatrix} \] and verify that the eigenvectors are orthogonal.
+\end{example}
+
+\begin{exampleSol}
+To find the eigenvalues of this matrix, we compute
+\[ \det(A - \lambda I) = (3-\lambda)\left( (5-\lambda)(2-\lambda) - 4\right) = (3-\lambda)(\lambda^2 - 7\lambda + 6) = (3-\lambda)(\lambda - 1)(\lambda - 6). \]
+
+Therefore, the eigenvalues are $1$, $3$, and $6$. For $\lambda = 1$, the system of equations $(A - I) \vec{v}_1 = 0$ becomes
+\[ \begin{bmatrix} 2 & 0 & 0 \\ 0 & 4 & 2 \\ 0 & 2 &1 \end{bmatrix}\vec{v} = 0 \] which has solution $\vec{v}_1 = \begin{bmatrix} 0 \\ -1 \\ 2 \end{bmatrix}.$
+
+For $\lambda = 3$, the system becomes
+\[ \begin{bmatrix} 0 & 0 & 0 \\ 0 & 2 & 2 \\ 0 & 2 & -1 \end{bmatrix} \vec{v}_3 = 0 \] which has solution $\vec{v}_3 = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}.$
+
+Finally, for $\lambda = 6$, we get the system
+\[ \begin{bmatrix} -3 & 0 & 0 \\ 0 & -1 & 2 \\ 0 & 2 & -4 \end{bmatrix} \vec{v}_6 = 0 \] which has solution $\vec{v}_6 = \begin{bmatrix} 0 \\ 2 \\ 1 \end{bmatrix}.$
+
+We can then check that
+\[ \langle \vec{v}_1, \vec{v}_3 \rangle = 0 \quad \langle \vec{v}_1, \vec{v}_6 \rangle = 0  \quad \langle \vec{v}_3, \vec{v}_6 \rangle = 0 \] which tells us that the eigenvectors of this matrix are orthogonal. 
+\end{exampleSol}
+
+There are a few additional properties of symmetric matrices in terms of their eigenvalues and eigenvectors that we will not prove here. Firstly, the eigenvalues of a symmetric matrix are always real; that is, it is impossible to have a real symmetric matrix with complex eigenvalues. Secondly, a real symmetric matrix will always have a basis of eigenvectors. While this doesn't necessarily mean that the matrix does not have repeated eigenvalues, it means that none of these eigenvalues are defective, so the problems that come from them do not arise. This is particularly relevent for diagonalization, which we cover next.
+
+\subsection{Diagonalizable Matrices}
+
+We used the idea of diagonalization in \sectionref{nonhomogsys:section} to solve non-homogeneous systems of differential equations. However, the idea of being able to diagonalize a matrix has independent uses, so we analyze it further here. 
+
+\begin{definition}
+A square matrix $A$ is diagonalizable if there exists an invertible matrix $P$ and a diagonal matrix $D$ so that $A = PDP^{-1}$. 
+\end{definition}
+
+This essentially means that there is a set of coordinates in which $A$ acts like a diagonal matrix, or a set of directions in which $A$ acts like a scalar. We already know some directions where that happens, and those are the eigenvectors. 
+
+\begin{theorem1}{}
+Let $A$ be an $n \times n$ square matrix. If there is a set of vectors $S = \{\vec{v}_1, \cdots, \vec{v}_n\}$ so that
+\begin{itemize}
+\item S is a basis of $\R^n$
+\item Each of the vectors in $S$ is an eigenvector of $A$,
+\end{itemize}
+then $A$ is diagonalizable. 
+\end{theorem1} 
+
+\begin{proof}
+Define the matrix $P$ to be the matrix whose columns are the vectors $\vec{v}_1$, $\vec{v}_2$, ..., $\vec{v}_n$ in the set $S$ and let $D$ be the diagonal matrix whose entries are $\lambda_1$, $\lambda_2$, ..., $\lambda_n$, which are the eigenvalues of each vector in $S$ in the same order as those vectors. We want to show that $A = PDP^{-1}$. Firstly, we know that $P$ is invertible since the vectors in $S$ are linearly independent. Since the vectors in $S$ form a basis for $\R^n$, we can do this by showing that $A\vec{v}_i = PDP^{-1}\vec{v}_i$ for each $i$ from $1$ to $n$. We know that, since $\vec{v}_i$ is an eigenvector of $A$, we have that $A\vec{v}_i = \lambda_i\vec{v}_i$. 
+
+For the other side of the desired equality, we first look at $P^{-1}\vec{v}_i$. Assuming this equals the vector $\vec{w}$, then we have that $\vec{v}_i = P\vec{w}$. Since $\vec{v}_i$ is the $i$th column of $P$, the properties of matrix multiplication means that we want $\vec{w}$ to have a $1$ in the $i$th component and $0$ in every other component, which will extract the $i$th column of $P$. So, we have that $P^{-1}\vec{v}_i = \vec{e}_i$, where this denotes exactly the vector described previously.
+
+The next step is to multiply by $D$. Since the $i$th column of $D$ just has $\lambda_i$ in the $i$th component, the product $D\vec{e}_i$ is $\lambda_ie_i$. Finally, we need to multiply this matrix by $P$, which will give us exactly $\lambda_i$ times the $i$th column of $P$. Since that is exactly $\vec{v}_i$, the final product of $PDP^{-1}\vec{v}_i$ is $\lambda_i\vec{v}_i$, which is the same as we got from $A\vec{v}_i$.  
+
+Finally, to justify why this proves the two matrices are equal, we see that for any vector $\vec{v}$, there are coefficients $c_1, ..., c_n$ so that
+\[ \vec{v} = c_1\vec{v}_1 + c_2\vec{v}_2 + \cdots + c_n\vec{v}_n \] because $S$ is a basis of $\R^n$. Then, by linearity of matrix multiplication, we have that
+\[ 
+\begin{split}
+A\vec{v} &= A\left(c_1\vec{v}_1 + c_2\vec{v}_2 + \cdots + c_n\vec{v}_n\right) \\
+&= c_1A\vec{v}_1 + c_2A\vec{v}_2 + \cdots + c_nA\vec{v}_n \\
+&= c_1PDP^{-1}\vec{v}_1 + c_2PDP^{-1}\vec{v}_2 + \cdots + c_nPDP^{-1}\vec{v}_n \\
+&= PDP^{-1}\left(c_1\vec{v}_1 + c_2\vec{v}_2 + \cdots + c_n\vec{v}_n\right) \\
+&= PDP^{-1}\vec{v}.
+\end{split}
+\]
+
+Therefore, $A = PDP^{-1}$, and $A$ is a diagonalizable matrix.
+\end{proof}
+
+\begin{example}
+Diagonalize the matrix 
+\[ A = \begin{bmatrix} 1 & 5 \\ 2 & -2 \end{bmatrix} \] by finding the matrix $P$ and $D$. Verify that $PDP^{-1} = A$. 
+\end{example}
+
+\begin{exampleSol}
+In order to diagonalize the matrix, we look for the eigenvalues and eigenvectors. For the eigenvalues, we compute
+\[ \det(A - \lambda I) = (1-\lambda)(-2-\lambda) - 10 = \lambda^2 + \lambda - 12 = (\lambda +4)(\lambda - 3). \]
+
+So the eigenvalues of the matrix are $-4$ and $3$. For $\lambda = -4$, the system becomes
+\[ \begin{bmatrix} 5 & 5 \\ 2 & 2 \end{bmatrix} \vec{v} = 0 \] which gives an eigenvector $\vec{v} = \begin{bmatrix} 1 \\ -1 \end{bmatrix}$. 
+
+For $\lambda = 3$, we get the system
+\[ \begin{bmatrix} -2 & 5 \\ 2 & -5 \end{bmatrix}\vec{v} = 0 \] which gives an eigenvector $\vec{v} = \begin{bmatrix} 5 \\ 2 \end{bmatrix}.$
+
+Therefore, we can write the matrices $P$ and $D$ from the proof of the previous theorem. $P$ should contain the eigenvectors of $A$, and $D$ should contain the eigenvalues in the same order as the eigenvectors in $P$. This means we can take
+\[ P = \begin{bmatrix} 1 & 5 \\ -1 & 2 \end{bmatrix} \qquad D = \begin{bmatrix} -4 & 0 \\ 0 & 3 \end{bmatrix}.\]
+
+To verify if this works, we need to compute $P^{-1}.$ Using the formula for $2\times 2$ matrices, we know that
+\[ P^{-1} = \frac{1}{2 + 5}\begin{bmatrix} 2 & -5 \\ 1 & 1 \end{bmatrix} = \begin{bmatrix} \frac{2}{7} & \frac{-5}{7} \\ \frac{1}{7} & \frac{1}{7}\end{bmatrix}. \] Then, we can compute
+
+\[
+\begin{split}
+PDP^{-1} &= \begin{bmatrix} 1 & 5 \\ -1 & 2 \end{bmatrix}\begin{bmatrix} -4 & 0 \\ 0 & 3 \end{bmatrix}\begin{bmatrix} \frac{2}{7} & \frac{-5}{7} \\ \frac{1}{7} & \frac{1}{7}\end{bmatrix} \\
+&= \begin{bmatrix} 1 & 5 \\ -1 & 2 \end{bmatrix} \begin{bmatrix} -\frac{8}{7} & \frac{20}{7} \\ \frac{3}{7} & \frac{3}{7} \end{bmatrix} \\
+&= \begin{bmatrix} 1 & 5 \\ 2 & -2 \end{bmatrix} = A.
+\end{split}
+\]
+
+So the diagonalization works as intended.
+\end{exampleSol}
+
+The main question that needs to be answered is when is diagonalization possible? The main thing we need is this basis of eigenvectors from the matrix $A$. We know that this happens in two main situations:
+\begin{itemize}
+\item If the matrix $A$ is symmetric (from the previous section), or,
+\item If the matrix $A$ has all real and distinct eigenvalues, from \sectionref{eig:section}.
+\end{itemize}
+
+In both of those cases, we know we have the appropriate setup and can use this process to diagonalize the matrix. What happens in other situations? If there are complex eigenvalues (and complex eigenvectors) then it is possible to use them to diagonalize the matrix, but it brings complex numbers into the picture, which can make things much more complicated. The case where this really does not work is in the case of repeated eigenvalues, in particular, defective eigenvalues. 
+
+When we have defective eigenvalues, we can not get a full basis of eigenvectors. The best we can do here is to find as many eigenvectors as possible, and then fill out a basis with generalized eigenvectors. Let's see what this looks like in an example.
+
+\begin{example}
+Consider the matrix 
+\[ A = \begin{bmatrix} 1 & 1 \\ -1 & 3 \end{bmatrix}. \] Find the eigenvalue, eigenvector, and generalized eigenvector. Form the matrix $P$ with the eigenvector in the first column and generalized eigenvector in the second. Compute $P^{-1}AP$, which would be $D$ in the previous cases.
+\end{example}
+
+\begin{exampleSol}
+The eigenvalues of this matrix can be found by
+\[ \det(A - \lambda I) = (1-\lambda)(3-\lambda) + 1 = \lambda^2 - 4\lambda + 4 = (\lambda - 2)^2. \]
+
+For the only eigenvalue of $\lambda = 2$, the system becomes
+\[ \begin{bmatrix} -1 & 1 \\ -1 & 1 \end{bmatrix} \vec{v} = 0\] so the eigenvector is $\begin{bmatrix} 1 \\ 1 \end{bmatrix}$. To find a generalized eigenvector, we want to find a solution to
+\[ \begin{bmatrix} -1 & 1 \\ -1 & 1 \end{bmatrix} \vec{w} = \begin{bmatrix} 1 \\ 1 \end{bmatrix}.\] There are many vectors that can do this, one of which is $\begin{bmatrix} 0 \\ 1 \end{bmatrix}$. Thus, the matrix $P$ that we want to construct is 
+\[ P = \begin{bmatrix} 1 & 0 \\ 1 & 1 \end{bmatrix},\] whose inverse is
+\[ P^{-1} = \begin{bmatrix} 1 & 0 \\ -1 & 1 \end{bmatrix}.\]
+
+Then, we can compute 
+\[ 
+\begin{split}
+P^{-1}AP &= \begin{bmatrix} 1 & 0 \\ -1 & 1 \end{bmatrix}\begin{bmatrix} 1 & 1 \\ -1 & 3 \end{bmatrix}\begin{bmatrix} 1 & 0 \\ 1 & 1 \end{bmatrix} \\
+&= \begin{bmatrix} 1 & 0 \\ -1 & 1 \end{bmatrix}\begin{bmatrix} 2 & 1 \\ 2 & 3 \end{bmatrix} \\
+&= \begin{bmatrix} 2 & 1 \\ 0 & 2 \end{bmatrix}.
+\end{split}
+\]
+\end{exampleSol}
+
+So, the matrix we get is almost of the normal form, but has an extra $1$ in the top right corner. The diagonal entries are also both $2$, which is the same as the eigenvalue that these vectors came from. The form that we have here, with a 1 sitting between the repeated eigenvalue, is the best we can do in terms of getting close to a diagonalizable matrix when we have defective eigenvalues. This gives rise to the definition of a the Jordan form of a matrix.
+
+\begin{definition}
+A \emph{Jordan Block} is an $m \times m$ square matrix with the same number in every diagonal entry and a $1$ in each entry that is immediately above the diagonal. 
+
+A matrix $J$ is in \emph{Jordan form} if it consist of Jordan blocks along the diagonal of $J$ and zeros everywhere else.
+\end{definition}
+
+\begin{example}
+An example of $1\times 1$, $2\times 2$ and $3\times 3$ Jordan blocks are
+\[ J_1 = \begin{bmatrix} 2 \end{bmatrix} \quad J_2 = \begin{bmatrix} 3 & 1 \\ 0 & 3 \end{bmatrix} \quad J_3 = \begin{bmatrix} -1 & 1 & 0 \\ 0 & -1 & 1 \\ 0 & 0 & -1 \end{bmatrix}. \] The first of these has eigenvalue 2, the second has eigenvalue 3, and the third has eigenvalue $-1$. 
+\end{example}
+
+\begin{remark}
+The number of $1$s above the diagonal in a Jordan block indicates the defect of the corresponding eigenvalue. For the example above, we had a defect of $1$, so we ended up with a block that looked like $J_2$. 
+\end{remark} 
+
+\begin{example}
+The matrix $J$ below is in Jordan form
+\begin{center}
+\begin{tikzpicture}
+ \matrix (m)[
+    matrix of math nodes,
+    nodes in empty cells,
+    minimum width=width("98"), left delimiter={[},right delimiter={]}
+  ] {
+    1 & 0 & 0 & 0 & 0 \\
+     0 & 3 & 1 & 0 & 0 \\ 
+     0 &0 & 3 &0 &0 \\
+      0 & 0 & 0 &4& 0 \\ 
+      0 & 0 & 0 & 0 & 4 \\
+  } ;
+  \draw (m-1-1.south west) rectangle (m-1-1.north east);
+  \draw (m-1-1.south east) rectangle (m-4-4.north west);
+  \draw (m-4-4.south west) rectangle (m-4-4.north east);
+  \draw (m-4-4.south east) rectangle (m-5-5.south east);
+\end{tikzpicture}
+\end{center}
+
+\[ J = \begin{bmatrix} 1 & 0 & 0 & 0 & 0 \\ 0 & 3 & 1 & 0 & 0 \\ 0 &0 & 3 &0 &0 \\ 0 & 0 & 0 &4& 0 \\ 0 & 0 & 0 & 0 & 4 \end{bmatrix}.\] 
+For this matrix, we have a 1-dimensional Jordan block of eigenvalue $1$, which means there will be a single eigenvector with eigenvalue $1$. Then there is a 2-dimensional Jordan block of eigenvalue $3$, which means that there will be one eigenvector with eigenvalue $3$ and a generalized eigenvector will be needed to make up the defect. Then there are two 1-dimensional Jordan blocks of eigenvalue $4$, which means there will be two linearly independent eigenvalues with this eigenvalue. The characteristic polynomial of this matrix is
+\[ (\lambda - 1)(\lambda-3)^2(\lambda-4)^2. \]
+\end{example}
+
+\begin{remark}
+Note that a diagonal matrix is in Jordan form, but all of the Jordan blocks are 1-dimensional. In that sense, these Jordan form matrices are an extension of diagonal matrices. 
+\end{remark}
+
+It is a theorem in linear algebra that, if we are allowed to take the eigenvalues to be complex numbers, then every matrix can be represented as $PJP^{-1}$, where $P$ is an invertible matrix and $J$ is a matrix in Jordan form. If we want to stick with real numbers, we have to be a bit more complicated with what our Jordan blocks look like, but it can be done. 
+
+\subsection{Exercises}
+
+% \TODO{Add Exercises}
+
+\begin{exercise}\ansMark%
+Determine if each of the following matrices are orthogonal.
+\begin{tasks}
+\task $\displaystyle \begin{bmatrix}2 & 1 \\ 1 & -2 \end{bmatrix}$
+\task $\displaystyle \begin{bmatrix}0 & 1 \\ 1 & 0 \end{bmatrix}$
+\task $\displaystyle \begin{bmatrix} 0 & -1 & 0 & 0 \\ 0& 0 & 0 & 1 \\ 1 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 \end{bmatrix}$
+\task $\displaystyle \begin{bmatrix} \frac{1}{9} & 0 & -\frac{4}{3\sqrt{2}} \\ \frac{2}{9} & \frac{1}{\sqrt{2}} & \frac{1}{3\sqrt{2}} \\ \frac{2}{9} & -\frac{1}{\sqrt{2}} & \frac{1}{3\sqrt{2}}  \end{bmatrix}$
+\end{tasks}
+\end{exercise}
+\exsol{%
+a)~No. b)~Yes. c)~Yes. d)~Yes.
+}%
+
+\begin{exercise}\ansMark%
+Find all of the eigenvalues and eigenvectors of the matrix
+\[ \begin{bmatrix}1 & 1 \\ -4 & 6 \end{bmatrix}. \]
+Check if the eigenvectors for different eigenvalues are orthogonal. Does this make sense based on the original matrix?
+\end{exercise}
+\exsol{%
+$\lambda_1 = 2$, $\vec{v}_1 = \begin{bmatrix} 1 \\ 1 \end{bmatrix}$. $\lambda_2 = 5$, $\vec{v}_2 = \begin{bmatrix} 1\\ 4 \end{bmatrix}$. Not orthogonal. 
+}%
+% 2, [1,1]. 5, [1,4]. No.
+
+\begin{exercise}
+Find all of the eigenvalues and eigenvectors of the matrix
+\[ \begin{bmatrix}-3 & -6 \\ -6 & 13 \end{bmatrix}. \]
+Check if the eigenvectors for different eigenvalues are orthogonal. Does this make sense based on the original matrix?
+\end{exercise}
+% 15, [1, -3]. 5, [3, 1]. Yes.
+
+\begin{exercise}\ansMark%
+Find all of the eigenvalues and eigenvectors of the matrix
+\[ \begin{bmatrix}1 & 0 & 0 \\ 0 & 2 & 2 \\ 0 & 2 & -1 \end{bmatrix}. \]
+Check if the eigenvectors for different eigenvalues are orthogonal. Does this make sense based on the original matrix?
+\end{exercise}
+\exsol{%
+$\lambda_1 = 1$, $\vec{v}_1 = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}$. $\lambda_2 = 3$, $\vec{v}_2 = \begin{bmatrix} 0 \\ 2 \\ 1 \end{bmatrix}$.  $\lambda_3 = -2$, $\vec{v}_3 = \begin{bmatrix} 0 \\1 \\-2 \end{bmatrix}$. Orthogonal. 
+}%
+% 1, [1, 0, 0]. 3, [0, 2, 1]. -2 [0, 1, -2]. Yes
+
+\begin{exercise}
+Find all of the eigenvalues and eigenvectors of the matrix
+\[ \begin{bmatrix} -1 & -2 & 5 \\ -2 & 2 & 2 \\ 0 & 0 & 2 \end{bmatrix}. \]
+Check if the eigenvectors for different eigenvalues are orthogonal. Does this make sense based on the original matrix?
+\end{exercise}
+% 2, [1, 1, 1] . -2, [2, 1, 0]. 3, [-1, 2, 0]. No.
+
+\begin{exercise}
+Diagonalize the matrix below using real numbers, if possible. To do so, find an invertible matrix $P$ and diagonal matrix $D$ so that $A = PDP^{-1}$. If this is not possible because of a repeated eigenvalue, state so, and find an invertible matrix $P$ and Jordan Form matrix $J$ so that $A = PJP^{-1}$. 
+\[ A = \begin{bmatrix} -6 & -1 \\ 6 & -1 \end{bmatrix}.\]
+\end{exercise} 
+% P =   -0.4472    0.3162 \\  0.8944   -0.9487    D =-4     0 \\  0    -3
+
+\begin{exercise}\ansMark%
+Diagonalize the matrix below using real numbers, if possible. To do so, find an invertible matrix $P$ and diagonal matrix $D$ so that $A = PDP^{-1}$. If this is not possible because of a repeated eigenvalue, state so, and find an invertible matrix $P$ and Jordan Form matrix $J$ so that $A = PJP^{-1}$. 
+\[ A = \begin{bmatrix} 7 & -8 \\ 3 & -3 \end{bmatrix}.\]
+\end{exercise} 
+\exsol{%
+$P = \begin{bmatrix} 2 & 4 \\ 1 & 3 \end{bmatrix}$, $D = \begin{bmatrix} 3 & 0 \\  0 & 1 \end{bmatrix}$.
+}%
+%P = 0.8944    0.8000 \\ 0.4472    0.6000     D =  3     0 \\  0     1
+
+\begin{exercise}\ansMark%
+Diagonalize the matrix below using real numbers, if possible. To do so, find an invertible matrix $P$ and diagonal matrix $D$ so that $A = PDP^{-1}$. If this is not possible because of a repeated eigenvalue, state so, and find an invertible matrix $P$ and Jordan Form matrix $J$ so that $A = PJP^{-1}$. 
+\[ A = \begin{bmatrix} 2 & -5 \\ 1 & 4 \end{bmatrix}.\]
+\end{exercise} 
+\exsol{%
+There are complex eigenvalues, so this can not be done. 
+}%
+% Complex Eigenvalues 
+
+\begin{exercise}\ansMark%
+Diagonalize the matrix below using real numbers, if possible. To do so, find an invertible matrix $P$ and diagonal matrix $D$ so that $A = PDP^{-1}$. If this is not possible because of a repeated eigenvalue, state so, and find an invertible matrix $P$ and Jordan Form matrix $J$ so that $A = PJP^{-1}$. 
+\[ A = \begin{bmatrix} -2 & -2 \\ 8 & 6 \end{bmatrix}.\]
+\end{exercise} 
+\exsol{%
+$P = \begin{bmatrix} -1 & 0 \\  2 &0.5 \end{bmatrix}$, $J = \begin{bmatrix} 2 & 1\\ 0 & 2\end{bmatrix}$.
+}%
+% P = -1   0 //  2   0.5 J = [2, 1; 0 2];
+
+\begin{exercise}
+Diagonalize the matrix below using real numbers, if possible. To do so, find an invertible matrix $P$ and diagonal matrix $D$ so that $A = PDP^{-1}$. If this is not possible because of a repeated eigenvalue, state so, and find an invertible matrix $P$ and Jordan Form matrix $J$ so that $A = PJP^{-1}$. 
+\[ A = \begin{bmatrix} 2 &  0 &  4 \\ 3  &-1 & 4 \\ 0  & 0 &-4 \end{bmatrix}.\]
+\end{exercise} 
+\exsol{%
+$ P = \begin{bmatrix}  0 & 1 & -2 \\ 1 & 1 & -2 \\  0 &  0 & 3 \end{bmatrix}$, $D = \begin{bmatrix} -1 & 0 & 0 \\ 0&  2 &   0 \\  0 & 0 & -4 \end{bmatrix}$.
+}%
+% P =   0    0.7071   -0.4851 \\ 1.0000    0.7071   -0.4851 \\   0         0    0.7276
+%D = -1     0     0 \\ 0     2     0 \\  0     0    -4
+
+\begin{exercise}
+Diagonalize the matrix below using real numbers, if possible. To do so, find an invertible matrix $P$ and diagonal matrix $D$ so that $A = PDP^{-1}$. If this is not possible because of a repeated eigenvalue, state so, and find an invertible matrix $P$ and Jordan Form matrix $J$ so that $A = PJP^{-1}$. 
+\[ A = \begin{bmatrix} -2 & 4 &8\\ -3 & -2& 12\\ 1 & 0 & -6 \end{bmatrix}.\]
+\end{exercise} 
+\exsol{%
+$ P = \begin{bmatrix}  2 & 1 & 4 \\ -3 & 0 & -2 \\  1 &  0 & 1 \end{bmatrix}$, $J = \begin{bmatrix} -4 & 1 & 0 \\ 0&  -4 &   0 \\  0 & 0 & -2 \end{bmatrix}$.
+}%
+%  P=   2   1    0.8729 \\ -3    0   -0.4364 \\  1   0    0.2182
+% J =    -4.0000    1     0\\   0   -4.0000  0 \\   0         0   -2.0000
+
+\begin{exercise}
+Diagonalize the matrix below using real numbers, if possible. To do so, find an invertible matrix $P$ and diagonal matrix $D$ so that $A = PDP^{-1}$. If this is not possible because of a repeated eigenvalue, state so, and find an invertible matrix $P$ and Jordan Form matrix $J$ so that $A = PJP^{-1}$. 
+\[ A = \begin{bmatrix} -2 &0 & 0\\-1 & 0 &-3\\ -3 &  6 & -6 \end{bmatrix}.\]
+\end{exercise} 
+% Complex Eigenvalues

@@ -1,0 +1,138 @@
+\chapter*{Preface}
+
+\section*{Attributions}
+
+The main inspiration for this book, as well as the vast majority of the source material, is \emph{Notes on Diffy Qs} by Ji\v{r}\'{i} Lebl \cite{JL}. The fact that the book is freely available and open-source provided the main motivation for creating this current text. It allowed this book to be put together in a timely manner to be useful. It significantly reduced the work needed to put together a free textbook that fit the course exactly.
+
+\section*{Introduction to this Version}
+
+This text was originally designed for the Math 244 class at Rutgers University. This class is a first course in Differential Equations for Engineering majors. This class is taken immediately after Multivariable Calculus and does not assume any knowledge of linear algebra. Prior to the design of this book, the course used Boyce and DiPrima's \emph{Elementary
+ Differential Equations and Boundary Value Problems}~\cite{BD}. The course provided a very brief introduction to matrices in order to get to the information necessary to handle first order systems of differential equations. With the course being redesigned to include more linear algebra, I was pointed in the direction of Ji\v{r}\'{i} Lebl's \emph{Notes on Diffy Qs}~\cite{JL}, which was meant to be a drop-in replacement for the Boyce and DiPrima text, and as of a more recent version of the text, contained an appendix on Linear Algebra. 
+
+In creating this book, I wanted to retain the style of \emph{Notes on Diffy Qs} \cite{JL} but shape the text into something that directly fit the course that we wanted to run. This included reorganizing some of the topics, extra contextualization of the concept of differential equations, sections devoted to modeling principles and how these equations can be derived, and guidance in using MATLAB to solve differential equations numerically. Specifically, the content added to this book is
+\begin{itemize}
+\item \Appendixref{matlab:appendix} that gives an introduction or review to coding in MATLAB, as well as references to sample MATLAB files that can be used to easily sketch slope fields and solution curves to differential equations.
+\item Section \ref{modelfirst:section} on the accumulation equation and its use in mathematical models, and \sectionref{modelfirstestim:section} which contains a discussion of parameter estimation, with inspiration taken from \href{https://www.simiode.org/}{SIMIODE}.
+\item The work on the eigenvalue method was split into three sections to account for real, complex, and repeated eigenvalues. 
+\item A discussion of the trace-determinant plane and applications to analysis of linear (and non-linear) systems was added in \sectionref{sec:twodimaut}.
+% \item \Chapterref{Ortho:chapter} contains a discussion of orthogonality from vectors, to matrices, and then to function spaces, moving towards the idea of Fourier series.
+\item \Appendixref{chap:prereq} on prerequisite material to be referred to when needed. Some of the material here was pulled from Stitz and Zeager's book \emph{Precalculus} \cite{SZ}.
+% \item \Chapterref{FT:chapter} contains definitions and the basics of Fourier transforms in the context of solving partial differential equations, with some information adapted from \cite{ZW}.  
+\item Exercises were added at the end of most sections of the text.
+\end{itemize}
+
+% After designing this text for Math 244, only about half of the material in \cite{JL} was used, and the rest of the material fit nicely with the next class in the sequence, Math 421. This class previously used \emph{Advanced Engineering Mathematics} by Zill and Wright \cite{ZW}, and covered a smattering of topics throughout that book. The second half of this book was designed to put these topics in a single, freely-available text in the order that the course discussed them. 
+
+\subsection*{Acknowledgements}
+
+I would like to acknowledge David Molnar, who initially referred me to the \emph{Notes on Diffy Qs} text \cite{JL}, as well as the \emph{Precalculus} text \cite{SZ}, and provided inspiration and motivation to work on designing this text. For feedback during the development of the text, I want to acknowledge David Herrera, Yi-Zhi Huang, and many others who have helped over the development and refinement of this text. Finally, I want to acknowledge the Rutgers Open and Affordable Textbook Program for supporting the development and implementation of this text.  
+
+\vfill
+
+\pagebreak
+
+\section*{Introduction to \emph{Notes on Diffy Qs}}
+
+This book \cite{JL} originated from my class notes for Math 286
+at the \href{https://www.math.uiuc.edu/}{University of Illinois at
+Urbana-Champaign} (UIUC)
+in Fall 2008 and
+Spring 2009.
+It is a first course on differential equations for engineers.
+Using this book, I also taught Math 285 at UIUC\@,
+Math 20D at
+\href{https://www.math.ucsd.edu/}{University of California, San Diego} (UCSD),
+and Math 4233 at 
+\href{https://math.okstate.edu/}{Oklahoma State University} (OSU).
+Normally these courses are taught with
+Edwards and Penney, \emph{Differential
+Equations and Boundary Value Problems: Computing and Modeling}~\cite{EP}, or
+Boyce and DiPrima's
+\emph{Elementary
+Differential Equations and Boundary Value Problems}~\cite{BD},
+and this book aims to be more or less a drop-in replacement.
+Other books I used as sources of information and inspiration
+are E.L.\ Ince's classic (and inexpensive)
+\emph{Ordinary Differential Equations}~\cite{I},
+Stanley Farlow's \emph{Differential Equations and Their
+Applications}~\cite{F}, now available from Dover,
+Berg and McGregor's
+\emph{Elementary Partial Differential Equations}~\cite{BM},
+and William Trench's free book
+\emph{Elementary
+Differential Equations with Boundary Value Problems}~\cite{T}.
+See the \hyperref[furtherreading:chapter]{Further Reading} chapter at the end of the book.
+
+
+\subsection*{Computer resources}
+
+The book's
+website \url{https://www.jirka.org/diffyqs/}
+contains the following resources:
+\begin{enumerate}
+\item Interactive SAGE demos.
+\item Online WeBWorK homeworks
+(using either your own WeBWorK installation or Edfinity)
+for most sections, customized for this book.
+\item The PDFs of the figures used in this book.
+\end{enumerate}
+
+I taught the UIUC courses using IODE\index{IODE software}
+(\url{https://faculty.math.illinois.edu/iode/}).
+IODE is a free software package that
+works with Matlab (proprietary) or Octave (free software).
+%Unfortunately IODE is not kept up to date at this point, and may have
+%trouble running on newer versions of Matlab.
+The graphs in the book were made with
+the Genius\index{Genius software} software
+(see \url{https://www.jirka.org/genius.html}).  I use Genius
+in class to show these (and other) graphs.
+
+%\medskip
+
+%\textbf{Acknowlegements:}
+
+\subsection*{Acknowledgments}
+
+Firstly, I would like to acknowledge Rick Laugesen.  I used his handwritten
+class notes
+the first time I taught
+Math 286.  My organization of this book through chapter 5,
+and the choice of
+material covered, is heavily influenced by his notes.  Many
+examples and computations are taken from his notes.  I am also heavily
+indebted to Rick for all the advice he has given me, not just on teaching
+Math 286.
+For spotting errors and other suggestions,
+I would also like to acknowledge (in no particular order):
+John P.\ D'Angelo,
+Sean Raleigh, Jessica Robinson, Michael Angelini, Leonardo Gomes, Jeff
+Winegar, Ian Simon, Thomas Wicklund, Eliot Brenner, Sean Robinson,
+Jannett Susberry, Dana Al-Quadi, Cesar Alvarez, Cem Bagdatlioglu,
+Nathan Wong, Alison Shive, Shawn White, Wing Yip Ho, Joanne Shin,
+Gladys Cruz, Jonathan Gomez, Janelle Louie, Navid Froutan,
+Grace Victorine, Paul Pearson, Jared Teague, Ziad Adwan,
+Martin Weilandt, S\"{o}nmez \c{S}ahuto\u{g}lu,
+Pete Peterson, Thomas Gresham, Prentiss Hyde, Jai Welch,
+Simon Tse, Andrew Browning, James Choi, Dusty Grundmeier,
+John Marriott,
+Jim Kruidenier,
+Barry Conrad,
+Wesley Snider,
+Colton Koop,
+Sarah Morse,
+Erik Boczko,
+Asif Shakeel,
+Chris Peterson,
+Nicholas Hu,
+Paul Seeburger,
+Jonathan McCormick,
+David Leep,
+William Meisel,
+Shishir Agrawal,
+Tom Wan,
+Andres Valloud,
+and probably others I
+have forgotten.
+Finally, I would like
+to acknowledge NSF grants DMS-0900885 and DMS-1362337.

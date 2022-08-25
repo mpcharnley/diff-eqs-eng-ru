@@ -1,0 +1,473 @@
+\section{Solving PDEs with the Laplace transform}
+\label{laplacepde:section}
+
+\LAtt{6.5}
+
+\LO{
+\item Use the Laplace transform in one variable to solve PDE
+}
+
+% \sectionnotes{Verbatim from Lebl}
+
+% \sectionnotes{1--1.5 lecture, can be skipped}
+
+The Laplace transform comes from the same family of transforms as does the
+Fourier series\footnote{There is a corresponding Fourier transform
+on the real line as well that looks sort of like the Laplace transform.},
+which we used in \chapterref{FS:chapter} to solve partial differential
+equations (PDEs).
+It is therefore not surprising that we can also solve PDEs with the Laplace
+transform.
+
+Given a PDE in two independent variables $x$ and $t$,  we use the
+Laplace transform on one of the variables (taking the transform
+of everything in sight), and derivatives in that variable become
+multiplications by the transformed variable $s$.
+The PDE becomes an ODE, which we solve.
+Afterwards we invert the transform to find a solution to the original
+problem.
+It is best to see the procedure on an example.
+
+\begin{example}
+Consider the first order PDE
+\begin{equation*}
+y_t = - \alpha y_x, \qquad \text{for } x > 0, \enspace t > 0,
+\end{equation*}
+with side conditions
+\begin{equation*}
+y(0,t) = C, \qquad y(x,0) = 0 .
+\end{equation*}
+This equation is 
+called the \emph{\myindex{convection equation}} or sometimes
+the \emph{\myindex{transport equation}}. %, and it already made
+%an appearance in \sectionref{fopde:section}, with different conditions.
+See \figureref{lt:half-infinite-goo-river} for a diagram of the setup.
+
+\begin{mywrapfig}{3.1in}
+\capstart
+\inputpdft{half-infinite-goo-river}
+\caption{Transport equation on a half line.\label{lt:half-infinite-goo-river}}
+\end{mywrapfig}
+
+A physical setup of this equation is a river of solid goo,
+as we do not want anything to diffuse.  The function
+$y$ is the concentration of
+some toxic substance\footnote{It's a river of goo already,
+we're not hurting the environment much more.}.
+The variable $x$ denotes position where $x=0$
+is the location of a factory spewing the toxic substance into the
+river.  The toxic substance flows into the river so that at $x=0$ the
+concentration is always $C$.  We wish to see what happens past the factory,
+that is at $x > 0$.  Let $t$ be the time, and assume
+the factory started operations at $t=0$, so that at $t=0$ the river is just
+pure goo.
+
+Consider a function of two variables $y(x,t)$.
+Let us fix $x$ and transform the $t$ variable.
+For convenience, we treat the transformed $s$
+variable as a parameter, since there are no derivatives in $s$.
+That is, we write $Y(x)$ for the transformed function,
+and treat it as a function of $x$, leaving $s$ as a parameter.
+\begin{equation*}
+Y(x)
+= {\mathcal L} \bigl\{ y(x,t) \bigr\}
+= \int_0^\infty y(x,t) e^{-st} \,ds .
+\end{equation*}
+The transform of a derivative with respect to $x$ is just differentiating 
+the transformed function:
+\begin{equation*}
+{\mathcal L} \bigl\{ y_x(x,t) \bigr\} =
+\int_0^\infty y_x(x,t) e^{-st} \,ds
+=
+\frac{d}{dx} \left[\int_0^\infty y(x,t) e^{-st} \,ds \right]
+=
+Y'(x) .
+\end{equation*}
+To transform the derivative in $t$ (the variable being transformed),
+we use the rules from \sectionref{transformsofders:section}:
+\begin{equation*}
+{\mathcal L} \bigl\{ y_t(x,t) \bigr\} 
+=
+sY(x) - y(x,0) .
+\end{equation*}
+
+In our specific case,
+$y(x,0)=0$, and so
+${\mathcal L} \bigl\{ y_t(x,t) \bigr\} = sY(x)$.  We transform the equation
+to find
+\begin{equation*}
+sY(x) = -\alpha Y'(x) .
+\end{equation*}
+This ODE needs an initial condition.  The initial condition is the
+other side condition of the PDE\@, the one that depends on $x$.  Everything
+is transformed, so we must also transform this condition
+\begin{equation*}
+Y(0) = 
+{\mathcal L} \bigl\{ y(0,t) \bigr\} 
+=
+{\mathcal L} \bigl\{ C \bigr\} 
+=
+\frac{C}{s} .
+\end{equation*}
+
+We solve the ODE problem $sY(x) = -\alpha Y'(x)$, $Y(0) = \frac{C}{s}$, to find
+\begin{equation*}
+Y(x) = \frac{C}{s} e^{-\frac{s}{\alpha} x} .
+\end{equation*}
+We are not done, we have $Y(x)$, but we really want $y(x,t)$.  We 
+transform the $s$ variable back to $t$.
+Let 
+\begin{equation*}
+u(t) = \begin{cases} 0 & \text{if $t < 0$}, \\ 1 & \text{otherwise}
+\end{cases}
+\end{equation*}
+be the Heaviside function.
+As
+\begin{equation*}
+{\mathcal L} \bigl\{ u(t-a) \bigr\} =
+\int_0^\infty u(t-a) \, e^{-st} \,dt
+=
+\int_a^\infty e^{-st} \,dt
+=
+\frac{e^{-as}}{s} ,
+\end{equation*}
+then
+\begin{equation*}
+y(x,t) = {\mathcal L}^{-1} \left\{
+\frac{C}{s} e^{-\frac{s}{\alpha} x}
+\right\}
+=
+C u\bigl(t-\nicefrac{x}{\alpha}\bigr) .
+\end{equation*}
+In other words,
+\begin{equation*}
+y(x,t) =
+\begin{cases}
+0 & \text{if $t < \nicefrac{x}{\alpha}$}, \\
+C & \text{otherwise.}
+\end{cases}
+\end{equation*}
+See \figurevref{lt:half-infinite-goo-river-wavefront} for a diagram of this
+solution.  The line of slope $\nicefrac{1}{\alpha}$ indicates
+the wavefront of the toxic substance in the picture as it is leaving the
+factory.
+What the equation does is simply move the initial condition to the right at
+speed $\alpha$.
+
+\begin{myfig}
+\capstart
+\inputpdft{half-infinite-goo-river-wavefront}
+\caption{Wavefront of toxic substance is a line of slope
+$\nicefrac{1}{\alpha}$.\label{lt:half-infinite-goo-river-wavefront}}
+\end{myfig}
+
+
+Shhh\ldots $y$ is not differentiable, it is not even continuous
+(nobody ever seems to notice).  How could we plug something that's not
+differentiable into the equation?
+Well, just think of a differentiable function very very close to $y$.
+Or, if you recognize the derivative of the Heaviside function as the delta
+function, then all is well too:
+\begin{equation*}
+y_t (x,t) = \frac{\partial}{\partial t} \left[
+C  u\bigl(t-\nicefrac{x}{\alpha}\bigr)
+\right]
+=
+C  u'\bigl(t-\nicefrac{x}{\alpha}\bigr)
+=
+C \delta\bigl(t-\nicefrac{x}{\alpha}\bigr)
+\end{equation*}
+and
+\begin{equation*}
+y_x (x,t) = \frac{\partial}{\partial x} \left[
+C  u\bigl(t-\nicefrac{x}{\alpha}\bigr)
+\right]
+=
+- \frac{C}{\alpha}  u'\bigl(t-\nicefrac{x}{\alpha}\bigr)
+=
+- \frac{C}{\alpha} \delta\bigl(t-\nicefrac{x}{\alpha}\bigr) .
+\end{equation*}
+So $y_t = - \alpha y_x$.
+\end{example}
+
+Laplace equation is very good with constant coefficient equations.  One
+advantage of Laplace is that it easily handles
+nonhomogeneous side conditions.
+Let us try a more complicated example.
+
+\begin{example}
+Use the Laplace transform to solve
+\begin{align*}
+& y_t + y_x + y = 0, \qquad \text{for } x > 0, \enspace t > 0,
+\\
+& y(0,t) = \sin(t), \qquad y(x,0) = 0 .
+\end{align*}
+\end{example}
+
+\begin{exampleSol}
+Again, we transform $t$, and we write $Y(x)$ for the
+transformed function.  As $y(x,0) = 0$, we find
+\begin{equation*}
+sY(x) + Y'(x) + Y(x) = 0, \qquad 
+Y(0) = \frac{1}{s^2+1} .
+\end{equation*}
+The solution of the transformed equation is
+\begin{equation*}
+Y(x) =
+\frac{1}{s^2+1} e^{-(s+1) x}
+=
+\frac{1}{s^2+1} e^{-xs}
+e^{-x}
+.
+\end{equation*}
+Using the second shifting property \eqref{ltd:sseq}
+and linearity of the transform,
+we obtain the solution
+\begin{equation*}
+y(x,t) 
+=
+e^{-x}
+\sin(t-x)
+u(t-x) .
+\end{equation*}
+\end{exampleSol}
+
+We can also detect when the problem is
+\emph{\myindex{ill-posed}}
+in the sense that it has no solution.
+Let us change the equation to
+\begin{align*}
+& -y_t + y_x = 0, \qquad \text{for } x > 0, \enspace t > 0,
+\\
+& y(0,t) = \sin(t), \qquad y(x,0) = 0 .
+\end{align*}
+Then the problem
+has no solution. In the language of first order PDE, which will be discussed in 
+\sectionref{fopde:section}, this can be seen as follows.
+The characteristic curves are $t=-x+C$.  If $\tau$ is the
+the characteristic coordinate, then we find the equation $y_\tau = 0$
+along the curve,
+meaning a solution is constant along characteristic curves.
+But these curves intersect both the $x$-axis and the $t$-axis.
+For example,
+the curve $t=-x+1$ intersects at $(1,0)$ and $(0,1)$.  The solution is
+constant along the curve so $y(1,0)$ should equal $y(0,1)$.  But
+$y(1,0) = 0$ and $y(0,1) = \sin(1) \not= 0$.
+See \figurevref{lt:half-infinite-ill-posed}.
+
+\begin{myfig}
+\capstart
+\inputpdft{half-infinite-ill-posed}
+\caption{Ill-posed problem.\label{lt:half-infinite-ill-posed}}
+\end{myfig}
+
+Now consider the transform.  The transformed problem is
+\begin{equation*}
+-sY(x) + Y'(x) = 0, \enspace Y(0) = \frac{1}{s^2+1} ,
+\end{equation*}
+and the solution ought to be
+\begin{equation*}
+Y(x) = \frac{1}{s^2+1} e^{sx} .
+\end{equation*}
+Importantly, this Laplace transform does not decay to zero at infinity!  That is,
+since $x > 0$ in the region of interest, then
+\begin{equation*}
+\lim_{s \to \infty}
+\frac{1}{s^2+1} e^{sx}
+= \infty \not= 0 .
+\end{equation*}
+It almost
+looks as if we could use the shifting property, but notice that the shift
+is in the wrong direction.
+
+\medskip
+
+Of course, we need not restrict ourselves to first order equations, although
+the computations become more involved for higher order equations.
+
+\begin{example}
+Let us use Laplace for the following problem:
+\begin{align*}
+& y_t = y_{xx}, \qquad 0 < x < \infty, \enspace t > 0,\\
+& y_x(0,t) = f(t), \\
+%& \text{for every $t$, $y(x,t)$ is bounded: } \lvert y(x,t) \rvert < M \\
+%FIXME: perhaps limit as $x \to \infty$?
+& y(x,0) = 0 .
+\end{align*}
+Really we also impose other conditions on the solution so that for example
+the Laplace transform exists.  For example, we might impose that $y$ is
+bounded for each fixed time $t$.
+\end{example}
+
+\begin{exampleSol}
+Transform the equation in the $t$ variable to find
+\begin{equation*}
+sY(x) = Y''(x) .
+\end{equation*}
+The general solution to this ODE is
+\begin{equation*}
+Y(x) = A e^{\sqrt{s}x} + B e^{-\sqrt{s} x} .
+\end{equation*}
+First $A=0$, since otherwise $Y$ does not decay to zero as $s \to \infty$.
+
+Now consider the boundary condition.
+Transform $Y'(0) = F(s)$ and so $-\sqrt{s}B = F(s)$.
+In other words,
+\begin{equation*}
+Y(x) = - F(s) \frac{1}{\sqrt{s}} e^{-\sqrt{s} x} .
+\end{equation*}
+
+If we look up the inverse transform in a table such as the one in
+\Appendixref{laplacelist:appendix} (or we spend the afternoon
+doing calculus), we find 
+\begin{equation*}
+{\mathcal L}^{-1}\left[e^{-\sqrt{s} x}\right] =
+\frac{x}{\sqrt{4\pi t^3}} e^{\frac{-x^2}{4t}} ,
+\end{equation*}
+or
+\begin{equation*}
+{\mathcal L}^{-1}\left[\frac{1}{\sqrt{s}} e^{-\sqrt{s} x}\right] =
+\frac{1}{\sqrt{\pi t}} e^{\frac{-x^2}{4t}} .
+\end{equation*}
+So
+\begin{equation*}
+y(x,t) =
+{\mathcal L}^{-1} \left[
+F(s) e^{-\sqrt{s} x}\right]
+=
+\int_0^t
+f(\tau) 
+\frac{1}{\sqrt{\pi {(t-\tau)}}} e^{\frac{-x^2}{4(t-\tau)}} \, d\tau .
+\end{equation*}
+\end{exampleSol}
+
+Laplace can solve problems where separation of variables fails.
+Laplace does not mind nonhomogeneity, but it is essentially only useful for
+constant coefficient equations.
+
+\subsection{Exercises}
+
+\begin{exercise}
+Solve
+\begin{align*}
+& y_t + y_x = 1, \qquad 0 < x < \infty, \enspace t > 0,
+\\
+& y(0,t) = 1, \quad y(x,0) = 0 .
+\end{align*}
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Solve
+\begin{align*}
+& y_t + y_x = 1, \qquad 0 < x < \infty, \enspace t > 0,
+\\
+& y(0,t) = 0, \quad y(x,0) = 0 .
+\end{align*}
+\end{exercise}
+\exsol{%
+$y=(x-t)u(t-x)+t$
+}
+
+\begin{exercise}
+Solve
+\begin{align*}
+& y_t + \alpha y_x = 0, \qquad 0 < x < \infty, \enspace t > 0,
+\\
+& y(0,t) = t, \quad y(x,0) = 0 .
+\end{align*}
+\end{exercise}
+
+\begin{exercise}
+Solve
+\begin{align*}
+& y_t + 2 y_x = x+t, \qquad 0 < x < \infty, \enspace t > 0,
+\\
+& y(0,t) = 0, \quad y(x,0) = 0 .
+\end{align*}
+\end{exercise}
+
+\begin{exercise}
+For an $\alpha > 0$, solve
+\begin{align*}
+& y_t + \alpha y_x + y = 0, \qquad 0 < x < \infty, \enspace t > 0,
+\\
+& y(0,t) = \sin(t), \quad y(x,0) = 0 .
+\end{align*}
+\end{exercise}
+
+\begin{exercise}\ansMark
+For a $c > 0$, solve
+\begin{align*}
+& y_t + y_x + c y = 0, \qquad 0 < x < \infty, \enspace t > 0,
+\\
+& y(0,t) = \sin(t), \quad y(x,0) = 0 .
+\end{align*}
+\end{exercise}
+\exsol{%
+$y=e^{-cx}\sin(t-x)u(t-x)$
+}
+
+\begin{exercise}
+Find the corresponding ODE problem for $Y(x)$, after transforming the $t$
+variable
+\begin{align*}
+& y_{tt} + 3y_{xx} + y_{xt} + 3 y_x + y = \sin(x) + t, \qquad 0 < x < 1, \enspace t > 0,
+\\
+& y(0,t) = 1, \quad y(1,t) =  t, \quad y(x,0) = 1-x, \quad y_t(x,0) = 1 .
+\end{align*}
+Do not solve the problem.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Find the corresponding ODE problem for $Y(x)$, after transforming the $t$
+variable
+\begin{align*}
+& y_{tt} + 3y_{xx} + y = x+t, \qquad -1 < x < 1, \enspace t > 0,
+\\
+& y(-1,t) = 0, \quad y(1,t) = 0, \quad y(x,0) = (1-x^2) , \quad y_t(x,0) = 0.
+\end{align*}
+Do not solve the problem.
+\end{exercise}
+\exsol{%
+$s^2Y(x) - s(1-x^2) + 3Y''(x) + Y(x) = \frac{x}{s} + \frac{1}{s^2}, \quad
+Y(-1) = 0, \quad Y(1)=0$.
+}
+
+\begin{exercise}
+Write down a solution to
+\begin{align*}
+& y_t = y_{xx}, \qquad 0 < x < \infty, \enspace t > 0,\\
+& y_x(0,t) = e^{-t}, \quad y(x,0) = 0 ,
+\end{align*}
+as an definite integral (convolution).
+\end{exercise}
+
+\begin{exercise}
+Use the Laplace transform in $t$ to solve
+\begin{align*}
+& y_{tt} = y_{xx}, \qquad -\infty < x < \infty, \enspace t > 0,\\
+& y_t(x,0) = \sin(x), \quad  y(x,0) = 0 .
+\end{align*}
+Hint: Note that
+$e^{sx}$ does not go to zero as $s \to \infty$ for positive
+$x$, and 
+$e^{-sx}$ does not go to zero as $s \to \infty$ for negative $x$.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Use the Laplace transform in $t$ to solve
+\begin{align*}
+& y_{tt} = y_{xx}, \qquad -\infty < x < \infty, \enspace t > 0,\\
+& y_t(x,0) = x^2, \quad  y(x,0) = 0 .
+\end{align*}
+Hint: Note that
+$e^{sx}$ does not go to zero as $s \to \infty$ for positive
+$x$, and 
+$e^{-sx}$ does not go to zero as $s \to \infty$ for negative $x$.
+\end{exercise}
+\exsol{%
+$y=tx^2+\frac{t^3}{3}$
+}
+
+\setcounter{exercise}{100}
+

@@ -1,0 +1,1423 @@
+
+\section{Linear independence, rank, and dimension}
+\label{subspaces:section}
+
+\LAtt{A.4}
+
+\LO{
+\item Determine if a set of vectors is linearly independent,
+\item Compute the rank of a matrix,
+\item Find a maximal linearly independent subset of a set of vectors, and
+\item Compute a basis of a subspace and the dimension of that subspace.
+}
+
+\subsection{Linear independence and rank}
+
+As we saw in the \sectionref{elim:section}, it is possible to have a set of equations that is redundant; that is, at least one of the equations does not give us any more information or constraints on the variables. In a lot of cases, this either led to inconsistent systems or free variables. We would like to have a better way to talk about this idea, both in terms of systems of equations and matrices in general. The concept we want is that of linear independence.
+The same concept is useful for differential equations, for
+example in \Chapterref{ho:chapter}.
+
+\begin{definition}
+Given row or column vectors $\vec{y}_1, \vec{y}_2, \ldots, \vec{y}_n$,
+a \emph{\myindex{linear combination}} is an expression of the form
+\begin{equation*}
+\alpha_1 \vec{y}_1 + 
+\alpha_2 \vec{y}_2 + 
+\cdots +
+\alpha_n \vec{y}_n ,
+\end{equation*}
+where $\alpha_1, \alpha_2, \ldots, \alpha_n$ are all scalars.
+\end{definition}%
+For example,
+$3 \vec{y}_1 + \vec{y}_2 - 5 \vec{y}_3$ is a linear combination
+of $\vec{y}_1$, $\vec{y}_2$, and $\vec{y}_3$.
+
+We have seen linear combinations before.  The expression
+\begin{equation*}
+A \vec{x}
+\end{equation*}
+is a linear combination of the columns of $A$, while
+\begin{equation*}
+\vec{x}^T A = (A^T \vec{x})^T
+\end{equation*}
+is a linear combination of the rows of $A$.
+
+The way linear combinations come up in our study of differential
+equations is similar to the following computation.  Suppose that
+$\vec{x}_1$, $\vec{x}_2$, \ldots, $\vec{x}_n$ are solutions
+to $A \vec{x}_1 = \vec{0}$, 
+$A \vec{x}_2 = \vec{0}$, \ldots,
+$A \vec{x}_n = \vec{0}$.
+Then the linear combination
+\begin{equation*}
+\vec{y} = \alpha_1 \vec{x}_1 + 
+\alpha_2 \vec{x}_2 + 
+\cdots +
+\alpha_n \vec{x}_n 
+\end{equation*}
+is a solution to $A \vec{y} = \vec{0}$:
+\begin{multline*}
+A \vec{y} =
+A (\alpha_1 \vec{x}_1 + 
+\alpha_2 \vec{x}_2 + 
+\cdots +
+\alpha_n \vec{x}_n )
+=
+\\
+=
+\alpha_1 A \vec{x}_1 + 
+\alpha_2 A \vec{x}_2 + 
+\cdots +
+\alpha_n A \vec{x}_n
+=
+\alpha_1 \vec{0} + 
+\alpha_2 \vec{0} + 
+\cdots +
+\alpha_n \vec{0} = \vec{0} .
+\end{multline*}
+
+We have seen this computation before in the sense of solutions to homogeneous second order equations. We used $L[y]$ to represent a second order linear differential equation, and showed that if we knew that functions $y_1$ and $y_2$ solved 
+\begin{equation*}
+L[y_1] = 0 \qquad L[y_2] = 0
+\end{equation*}
+then $L[c_1y_1 + c_2y_2] = 0$ for any constants $c_1$ and $c_2$. We did this by showing that
+\begin{equation*}
+L[c_1y_1 + c_2y_2] = c_1L[y_1] + C_2L[y_2]
+\end{equation*}
+which mirrors the expression computed above.
+
+Our original question was about when equations are redundant. That is answered by the following definition.
+
+\begin{definition}
+We say the vectors $\vec{y}_1$, $\vec{y}_2$, \ldots, $\vec{y}_n$ are
+\emph{\myindex{linearly independent}} if the only way to pick $\alpha_1,\ \alpha_2, ..., \alpha_n$ to satisfy
+\begin{equation*}
+\alpha_1 \vec{x}_1 + 
+\alpha_2 \vec{x}_2 + 
+\cdots +
+\alpha_n \vec{x}_n 
+=
+\vec{0}
+\end{equation*}
+is $\alpha_1 = \alpha_2 = \cdots = \alpha_n = 0$.
+Otherwise, we say the vectors are \emph{\myindex{linearly dependent}}.
+\end{definition}
+
+If the equations (or their coefficients, as we will see later) are linearly dependent, then they are redundant equations, and not all of them are necessary to define the same solution to the equation. If they are linearly independent, then they are all required. 
+
+\begin{example} The vectors
+$\left[ \begin{smallmatrix} 1 \\ 2 \end{smallmatrix} \right]$
+and
+$\left[ \begin{smallmatrix} 0 \\ 1 \end{smallmatrix} \right]$
+are linearly independent.
+\end{example}
+
+\begin{exampleSol}
+Let's try:
+\begin{equation*}
+\alpha_1
+\begin{bmatrix} 1 \\ 2 \end{bmatrix}
++
+\alpha_2
+\begin{bmatrix} 0 \\ 1 \end{bmatrix}
+=
+\begin{bmatrix} \alpha_1 \\ 2 \alpha_1 + \alpha_2 \end{bmatrix}
+=
+\vec{0} =
+\begin{bmatrix} 0 \\ 0 \end{bmatrix} .
+\end{equation*}
+So $\alpha_1 = 0$, and then it is clear that $\alpha_2 = 0$ as well.  In
+other words, the vectors are linearly independent.
+\end{exampleSol}
+
+If a set of vectors is linearly dependent, that is, we have an expression of the form
+\begin{equation*}
+\alpha_1\vec{x}_1 + \alpha_2\vec{x}_2 + \cdots + \alpha_n\vec{x}_n = 0
+\end{equation*}
+with some of the $\alpha_j$'s
+are nonzero, then we can solve for one vector in terms of the others.
+Suppose $\alpha_1 \not= 0$.  Since
+$\alpha_1 \vec{x}_1 + 
+\alpha_2 \vec{x}_2 + 
+\cdots +
+\alpha_n \vec{x}_n 
+=
+\vec{0}$, then
+\begin{equation*}
+\vec{x}_1 
+=
+\frac{-\alpha_2}{\alpha_1}
+\vec{x}_2 - 
+\frac{-\alpha_3}{\alpha_1}
+\vec{x}_3 + 
+\cdots +
+\frac{-\alpha_n}{\alpha_1}
+\vec{x}_n .
+\end{equation*}
+For example,
+\begin{equation*}
+2
+\begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix}
+-4
+\begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}
++
+2 \begin{bmatrix} 1 \\ 0 \\ -1 \end{bmatrix}
+=
+\begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix} ,
+\end{equation*}
+and so
+\begin{equation*}
+\begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix}
+=
+2
+\begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}
+-
+\begin{bmatrix} 1 \\ 0 \\ -1 \end{bmatrix} .
+\end{equation*}
+
+You may have noticed that solving for those $\alpha_j$'s is just solving
+linear equations, and so you may not be surprised that to check
+if a set of vectors is linearly independent we use row reduction.
+
+Given a set of vectors, we may not be interested in just finding if they
+are linearly independent or not, we may be interested in finding a linearly
+independent subset.  Or perhaps we may want to find some other vectors that
+give the same linear combinations and are linearly independent.
+The way to figure this out is to form a matrix out of our vectors.  If we
+have row vectors we consider them as rows of a matrix.  If we have
+column vectors we consider them columns of a matrix.
+
+
+\begin{definition}
+Given a matrix $A$, the maximal number of linearly independent rows is called
+the \emph{\myindex{rank}} of $A$, and we write
+\myquote{$\operatorname{rank} A$} for the rank.
+\end{definition}
+For example,
+\begin{equation*}
+\operatorname{rank}
+\begin{bmatrix}
+1 & 1 & 1 \\
+2 & 2 & 2 \\
+-1 & -1 & -1
+\end{bmatrix}
+=
+1 .
+\end{equation*}
+The second and third
+row are multiples of the first one.  We cannot choose more than one row and
+still have a linearly independent set.   But what is
+\begin{equation*}
+\operatorname{rank}
+\begin{bmatrix}
+1 & 2 & 3 \\
+4 & 5 & 6 \\
+7 & 8 & 9
+\end{bmatrix} \quad = \quad ?
+\end{equation*}
+That seems to be a tougher question to answer.  The
+first two rows are linearly independent, so the rank is at least
+two.  If we would set up the equations for the $\alpha_1$, $\alpha_2$, and
+$\alpha_3$, we would find a system with infinitely many solutions.  One
+solution is
+\begin{equation*}
+\begin{bmatrix}
+1 & 2 & 3
+\end{bmatrix} -2
+\begin{bmatrix}
+4 & 5 & 6 
+\end{bmatrix} +
+\begin{bmatrix}
+7 & 8 & 9
+\end{bmatrix} =
+\begin{bmatrix}
+0 & 0 & 0
+\end{bmatrix} .
+\end{equation*}
+So the set of all three rows is linearly dependent, the rank cannot be
+3.  Therefore the rank is 2.
+
+But how can we do this in a more systematic way?  We find the row echelon
+form!
+\begin{equation*}
+\text{Row echelon form of}
+\quad
+\begin{bmatrix}
+1 & 2 & 3 \\
+4 & 5 & 6  \\
+7 & 8 & 9
+\end{bmatrix}
+\quad
+\text{is}
+\quad
+\begin{bmatrix}
+1 & 2 & 3 \\
+0 & 1 & 2  \\
+0 & 0 & 0
+\end{bmatrix} .
+\end{equation*}
+The elementary row operations do not change the set of linear combinations of
+the rows (that was one of the main reasons for defining them as they were).
+In other words, the span of the rows of the $A$ is the same
+as the span of the rows of the row echelon form of $A$.
+In particular, the number of linearly independent rows is the same.
+And in the row echelon form, all nonzero rows are linearly independent.
+This is not hard to see.
+Consider the two nonzero rows in the example above.
+Suppose we 
+tried to solve for the $\alpha_1$ and $\alpha_2$
+in
+\begin{equation*}
+\alpha_1
+\begin{bmatrix}
+1 & 2 & 3
+\end{bmatrix} 
++
+\alpha_2
+\begin{bmatrix}
+0 & 1 & 2 
+\end{bmatrix} =
+\begin{bmatrix}
+0 & 0 & 0
+\end{bmatrix} .
+\end{equation*}
+Since the first column
+of the row echelon matrix has zeros except in the first row means that
+$\alpha_1 = 0$.  For the same reason, $\alpha_2$ is zero.
+We only have two nonzero rows,
+and they are linearly independent, so the rank of the matrix is 2. This also tells us that if we were trying to solve the system of equations
+\begin{equation*}
+\begin{split}
+x_1 + 2x_2 + 3x_3 &= a \\
+4x_1 + 5x_2 + 6x_3 &= b \\
+7x_1 + 8x_2 + 9x_3 &= c
+\end{split}
+\end{equation*}
+we would get that one row of the reduced augmented matrix has all zeros on the left side, and so this system either has a free variable or is inconsistent, because only two equations here are relevant. We will see more examples of the rank of a matrix once we have more terminology to talk about it.
+
+\subsection{Subspaces and span}
+
+Now, let's consider a different scenario. Assume that we find two vectors that solve $A\vec{x} = 0$. What other vectors also solve this equation? In our discussion of linear combinations, we saw that if $\vec{x}_1$ and $\vec{x}_2$ solve $A\vec{x} = 0$, then so does $A(\alpha_1\vec{x}_1 + \alpha_2\vec{x}_2)$ for any constants $\alpha_1$ and $\alpha_2$. Thus, all linear combinations will also solve the equation. This leads to the definition of the span of a set of vectors.
+
+\begin{definition}
+The set of all linear combinations of a set of vectors is called their
+\emph{\myindex{span}}.
+\begin{equation*}
+\operatorname{span} \bigl\{ \vec{x}_1, \vec{x}_2 , \ldots , \vec{x}_n \bigr\}
+=
+\bigl\{
+\text{Set of all linear combinations of
+$\vec{x}_1, \vec{x}_2 , \ldots , \vec{x}_n$}
+\bigr\} .
+\end{equation*}
+\end{definition}
+
+Thus, if two vectors solve a homogeneous equation, so does everything in the span of those two vectors. The span of a collection of vectors is an example of a subspace, which is a common object in linear algebra. We say that a set $S$ of vectors in ${\mathbb R}^n$ is a
+\emph{\myindex{subspace}} if
+whenever $\vec{x}$ and $\vec{y}$ are members of $S$ and
+$\alpha$ is a scalar, then
+\begin{equation*}
+\vec{x} + \vec{y}, \qquad \text{and} \qquad \alpha \vec{x}
+\end{equation*}
+are also members of $S$.  That is, we can add and multiply by scalars
+and we still land in $S$.  So every linear combination of vectors of
+$S$ is still in $S$.  That is really what a subspace is.  It is a subset
+where we can take linear combinations and still end up being in the subset.
+
+\begin{example} \label{example:simplesubspaces}
+If we let $S = {\mathbb R}^n$, then this $S$ is a subspace of
+${\mathbb R}^n$.  Adding any two vectors in ${\mathbb R}^n$ gets a vector in
+${\mathbb R}^n$, and so does multiplying by scalars.
+
+The set $S' = \{ \vec{0} \}$, that is,
+the set of the zero vector by itself, is 
+also a subspace of ${\mathbb R}^n$.  There is only one vector in this
+subspace, so we only need to check for that one vector, and everything checks
+out: $\vec{0}+\vec{0} = \vec{0}$ and $\alpha \vec{0} = \vec{0}$.
+
+The set $S''$ of all the vectors of the form
+$(a,a)$ for any real number $a$, such as $(1,1)$, $(3,3)$, or $(-0.5,-0.5)$
+is a subspace of ${\mathbb R}^2$.  Adding two such vectors, say
+$(1,1)+(3,3) = (4,4)$ again gets a vector of the same form, and so does
+multiplying by a scalar, say $8(1,1) = (8,8)$.
+\end{example}
+
+We can apply these ideas to the vectors that live inside a matrix. The span of the rows of a matrix $A$ is called the \emph{\myindex{row space}}.
+The row space of $A$ and the row space of the row echelon form of $A$ are the same, because reducing the matrix $A$ to its row echelon form involves taking linear combinations, which will preserve the span.
+In the example,
+\begin{equation*}
+\begin{split}
+\text{row space of }
+\begin{bmatrix}
+1 & 2 & 3 \\
+4 & 5 & 6 \\
+7 & 8 & 9
+\end{bmatrix}
+& =
+\operatorname{span}
+\left\{
+\begin{bmatrix}
+1 & 2 & 3
+\end{bmatrix}
+,
+\begin{bmatrix}
+4 & 5 & 6
+\end{bmatrix}
+,
+\begin{bmatrix}
+7 & 8 & 9
+\end{bmatrix}
+\right\}
+\\
+& =
+\operatorname{span}
+\left\{
+\begin{bmatrix}
+1 & 2 & 3
+\end{bmatrix}
+,
+\begin{bmatrix}
+0 & 1 & 2
+\end{bmatrix}
+\right\} .
+\end{split}
+\end{equation*}
+
+\medskip
+
+Similarly to row space, the span of columns is called the
+\emph{\myindex{column space}}.
+\begin{equation*}
+\text{column space of }
+\begin{bmatrix}
+1 & 2 & 3 \\
+4 & 5 & 6 \\
+7 & 8 & 9
+\end{bmatrix}
+=
+\operatorname{span}
+\left\{
+\begin{bmatrix}
+1 \\ 4 \\ 7
+\end{bmatrix}
+,
+\begin{bmatrix}
+2 \\ 5 \\ 8
+\end{bmatrix}
+,
+\begin{bmatrix}
+3 \\ 6 \\ 9
+\end{bmatrix}
+\right\} .
+\end{equation*}
+
+So it may also be good to find the number of linearly independent columns
+of $A$.  One way to do that is to find the number of linearly independent
+rows of $A^T$.  It is a tremendously useful fact that the number of
+linearly independent
+columns is always the same as the number of linearly independent rows:
+
+\begin{theorem1}{}
+$\operatorname{rank} A = \operatorname{rank} A^T$
+\end{theorem1}
+
+In particular, to find a set of linearly independent columns we need to
+look at where the pivots were.  If you recall above, when solving $A \vec{x}
+= \vec{0}$ the key was finding the pivots, any non-pivot columns corresponded to
+free variables.  That means we can solve for the non-pivot columns in terms
+of the pivot columns.  Let's see an example. 
+\begin{example}
+Find the linearly independent columns of the matrix
+\begin{equation*}
+\begin{bmatrix}
+1 & 2 & 3 & 4 \\
+2 & 4 & 5 & 6 \\
+3 & 6 & 7 & 8
+\end{bmatrix} .
+\end{equation*}
+\end{example}
+\begin{exampleSol}
+We find a pivot and reduce the rows below:
+\begin{equation*}
+\begin{bmatrix}
+\mybxsm{1} & 2 & 3 & 4 \\
+2 & 4 & 5 & 6 \\
+3 & 6 & 7 & 8
+\end{bmatrix} 
+\to
+\begin{bmatrix}
+\mybxsm{1} & 2 & 3 & 4 \\
+0 & 0 & -1 & -2 \\
+3 & 6 & 7 & 8
+\end{bmatrix} 
+\to
+\begin{bmatrix}
+\mybxsm{1} & 2 & 3 & 4 \\
+0 & 0 & -1 & -2 \\
+0 & 0 & -2 & -4
+\end{bmatrix} .
+\end{equation*}
+We find the next pivot, make it one, and rinse and repeat:
+\begin{equation*}
+\begin{bmatrix}
+\mybxsm{1} & 2 & 3 & 4 \\
+0 & 0 & \mybxsm{-1} & -2 \\
+0 & 0 & -2 & -4
+\end{bmatrix} 
+\to
+\begin{bmatrix}
+\mybxsm{1} & 2 & 3 & 4 \\
+0 & 0 & \mybxsm{1} & 2 \\
+0 & 0 & -2 & -4
+\end{bmatrix} 
+\to
+\begin{bmatrix}
+\mybxsm{1} & 2 & 3 & 4 \\
+0 & 0 & \mybxsm{1} & 2 \\
+0 & 0 & 0 & 0
+\end{bmatrix} . 
+\end{equation*}
+The final matrix is the row echelon form of the matrix.
+Consider the pivots that we marked.
+The pivot columns are the first and the third
+column.  All other columns correspond to free variables when solving
+$A \vec{x} = \vec{0}$, so all other columns can be solved in terms of the first and
+the third column.  In other words
+\begin{equation*}
+\text{column space of }
+\begin{bmatrix}
+1 & 2 & 3 & 4 \\
+2 & 4 & 5 & 6 \\
+3 & 6 & 7 & 8
+\end{bmatrix}
+=
+\operatorname{span}
+\left\{
+\begin{bmatrix}
+1 \\
+2 \\
+3 
+\end{bmatrix}
+,
+\begin{bmatrix}
+2 \\
+4 \\
+6
+\end{bmatrix}
+,
+\begin{bmatrix}
+3 \\
+5 \\
+7
+\end{bmatrix}
+,
+\begin{bmatrix}
+4 \\
+6 \\
+8
+\end{bmatrix}
+\right\}
+=
+\operatorname{span}
+\left\{
+\begin{bmatrix}
+1 \\
+2 \\
+3
+\end{bmatrix}
+,
+\begin{bmatrix}
+3 \\
+5 \\
+7
+\end{bmatrix}
+\right\} .
+\end{equation*}
+\end{exampleSol}
+We could perhaps use another pair of columns to get the same span, but the
+first and the third are guaranteed to work because they are pivot columns. The discussion above could be expanded into a proof of the theorem if
+we wanted.
+As each nonzero row
+in the row echelon form contains a pivot, then the rank is the number of
+pivots, which is the same as the maximal number of linearly independent
+columns. 
+
+In the previous example, this means that only the first and third colums are ``important'' in the sense of generating the full column space as a span. We would like to have a way to talk about what these first and third columns do.
+
+\begin{definition}[Spanning set]
+Let $S$ be a subspace of a vector space. The set $\{\vec{v}_1, \vec{v}_2, ..., \vec{v}_k\}$ is a \emph{\myindex{spanning set}} for the subspace $S$ if each of these vectors are in $S$ and the span of $\{\vec{v}_1, \vec{v}_2, ..., \vec{v}_k\}$ is equal to $S$. 
+\end{definition}
+
+In the context of the previous example, for the matrix
+\begin{equation*}
+A = \begin{bmatrix}
+1 & 2 & 3 & 4 \\
+2 & 4 & 5 & 6 \\
+3 & 6 & 7 & 8
+\end{bmatrix} 
+\end{equation*}
+we know that 
+\begin{equation*}
+\text{column space of }
+\begin{bmatrix}
+1 & 2 & 3 & 4 \\
+2 & 4 & 5 & 6 \\
+3 & 6 & 7 & 8
+\end{bmatrix}
+=
+\operatorname{span}
+\left\{
+\begin{bmatrix}
+1 \\
+2 \\
+3 
+\end{bmatrix}
+,
+\begin{bmatrix}
+2 \\
+4 \\
+6
+\end{bmatrix}
+,
+\begin{bmatrix}
+3 \\
+5 \\
+7
+\end{bmatrix}
+,
+\begin{bmatrix}
+4 \\
+6 \\
+8
+\end{bmatrix}
+\right\}
+=
+\operatorname{span}
+\left\{
+\begin{bmatrix}
+1 \\
+2 \\
+3
+\end{bmatrix}
+,
+\begin{bmatrix}
+3 \\
+5 \\
+7
+\end{bmatrix}
+\right\} .
+\end{equation*}
+This means that both 
+\begin{equation*}
+\left\{
+\begin{bmatrix}
+1 \\
+2 \\
+3 
+\end{bmatrix}
+,
+\begin{bmatrix}
+2 \\
+4 \\
+6
+\end{bmatrix}
+,
+\begin{bmatrix}
+3 \\
+5 \\
+7
+\end{bmatrix}
+,
+\begin{bmatrix}
+4 \\
+6 \\
+8
+\end{bmatrix}
+\right\}
+\quad \text{ and } \quad 
+\left\{
+\begin{bmatrix}
+1 \\
+2 \\
+3
+\end{bmatrix}
+,
+\begin{bmatrix}
+3 \\
+5 \\
+7
+\end{bmatrix}
+\right\} 
+\end{equation*} are spanning sets for this column space.
+
+\medskip
+
+The idea also works in reverse.  Suppose we have a bunch of column vectors
+and we just need to find a linearly independent set.  For example, suppose
+we started with the vectors
+\begin{equation*}
+\vec{v}_1 =
+\begin{bmatrix}
+1 \\
+2 \\
+3 
+\end{bmatrix}
+,
+\quad
+\vec{v}_2 =
+\begin{bmatrix}
+2 \\
+4 \\
+6
+\end{bmatrix}
+,
+\quad
+\vec{v}_3 =
+\begin{bmatrix}
+3 \\
+5 \\
+7
+\end{bmatrix}
+,
+\quad
+\vec{v}_4 =
+\begin{bmatrix}
+4 \\
+6 \\
+8
+\end{bmatrix} .
+\end{equation*}
+These vectors are not linearly independent as we saw above.  In particular,
+the span $\vec{v}_1$ and $\vec{v}_3$ is the same as
+the span of all four of the vectors.  So $\vec{v}_2$ and $\vec{v}_4$
+can both be written as linear combinations of $\vec{v}_1$ and $\vec{v}_3$.
+A common thing that comes up in practice is that one gets a set of vectors
+whose span is the set of solutions of some problem.  But perhaps we get way
+too many vectors, we want to simplify.  For example above, all vectors in
+the span of
+$\vec{v}_1, \vec{v}_2, \vec{v}_3, \vec{v}_4$ can be written
+$\alpha_1 \vec{v}_1 + \alpha_2 \vec{v}_2 + \alpha_3 \vec{v}_3 + \alpha_4
+\vec{v}_4$ for some numbers $\alpha_1,\alpha_2,\alpha_3,\alpha_4$.  But
+it is also true that every such vector can be written as
+$a \vec{v}_1 + b \vec{v}_3$ for two numbers $a$ and $b$.  And one has to
+admit, that looks much simpler.  Moreover, these numbers $a$ and $b$ are
+unique.  More on that later in this section.
+
+To find this linearly independent set we simply take our vectors
+and form the matrix $[ \vec{v}_1 ~ \vec{v}_2 ~ \vec{v}_3 ~ \vec{v}_4 ]$,
+that is, the matrix
+\begin{equation*}
+\begin{bmatrix}
+1 & 2 & 3 & 4 \\
+2 & 4 & 5 & 6 \\
+3 & 6 & 7 & 8
+\end{bmatrix} .
+\end{equation*}
+We crank up the row-reduction machine, feed this matrix into it, and find
+the pivot columns and pick those.  In this case, $\vec{v}_1$ and
+$\vec{v}_3$.
+
+
+\subsection{Basis and dimension}
+
+At this point, we have talked about subspaces, and two other properties of sets of vectors: linear independence and being a spanning set for a subspace. In some sense, these two properties are in opposition to each other. If I add more vectors to a set, I am more likely to become a spanning set (because I have more options for adding to get other vectors), but less likely to be independent (because there are more possibilities for a linear combination to be zero). Similarly, the reverse is true; removing vectors means the set is more likely to be linearly independent, but less likely to span a given subspace. The question then becomes if there is a sweet spot where both things are true, and that leads to the definition of a basis.
+
+\begin{definition}\label{def:basis-dim}
+If $S$ is a subspace and we can find $k$ linearly independent vectors in $S$
+\begin{equation*}
+\vec{v}_1, \vec{v}_2, \ldots, \vec{v}_k ,
+\end{equation*}
+such that every other vector in $S$ is a linear combination of $\vec{v}_1,
+\vec{v}_2,\ldots, \vec{v}_k$,
+then the set 
+$\{ \vec{v}_1, \vec{v}_2, \ldots, \vec{v}_k \}$ is called a
+\emph{\myindex{basis}} of $S$.  In other words, $S$
+is the span of 
+$\{ \vec{v}_1, \vec{v}_2, \ldots, \vec{v}_k \}$.
+We say that $S$ has \emph{\myindex{dimension}} $k$,
+and we write 
+\begin{equation*}
+\dim S = k .
+\end{equation*}
+\end{definition}
+
+The next theorem illustrates the main properties and classification of a basis of a vector space.
+
+\begin{theorem1}{}
+If $S \subset {\mathbb R}^n$ is a subspace and $S$ is not the trivial
+subspace $\{ \vec{0} \}$, then there exists a
+unique positive integer $k$ (the dimension) and a (not unique)
+basis
+$\{ \vec{v}_1, \vec{v}_2, \ldots, \vec{v}_k \}$, such that every
+$\vec{w}$ in $S$ can be uniquely represented by
+\begin{equation*}
+\vec{w} = 
+\alpha_1 \vec{v}_1 + 
+\alpha_2 \vec{v}_2 + 
+\cdots
++
+\alpha_k \vec{v}_k ,
+\end{equation*}
+for some scalars $\alpha_1$, $\alpha_2$, \ldots, $\alpha_k$.
+\end{theorem1}
+
+% Just like a vector in ${\mathbb R}^k$ is represented by a $k$-tuple of
+% numbers, so is a vector in a $k$-dimensional subspace of ${\mathbb R}^n$
+% represented by a $k$-tuple of numbers.  At least once we have fixed a basis.
+% A different basis would give a different $k$-tuple of numbers for the same
+% vector.
+
+We should reiterate that while $k$ is unique (a subspace cannot have two different
+dimensions), the set of basis vectors is not at all unique.  There are lots
+of different bases for any given subspace.  Finding just the right basis for
+a subspace is a large part of what one does in linear algebra.  In fact,
+that is what we spend a lot of time on in
+linear differential equations, although at first glance
+it may not seem like that is what we are doing.
+
+\begin{example}
+The standard basis
+\begin{equation*}
+\vec{e}_1, \vec{e}_2, \ldots, \vec{e}_n ,
+\end{equation*}
+is a basis of ${\mathbb R}^n$ (hence the name).
+So as expected
+\begin{equation*}
+\dim {\mathbb R}^n = n .
+\end{equation*}
+
+On the other hand the subspace $\{ \vec{0} \}$ is of dimension $0$.
+
+The subspace $S''$ from a previous example, that is, the set of
+vectors $(a,a)$ is of dimension~1.  One possible basis is simply
+$\{ (1,1) \}$, the single
+vector $(1,1)$: every vector in $S''$ can be represented by $a (1,1) =
+(a,a)$.  Similarly another possible basis would be $\{ (-1,-1) \}$.  Then
+the vector $(a,a)$ would be represented as $(-a) (-1,-1)$. In this case, the subspace $S''$ has many different bases, two of which are $\{(1,1)\}$ and $\{(-1,-1)\}$, and the vector $(a,a)$ has a different representation (different constant) for the different bases.
+\end{example}
+
+Row and column spaces of a matrix are also examples of
+subspaces,
+as they are given as the span of vectors.
+We can use
+what we know about rank, row spaces, and column spaces
+from the previous section to find a basis.
+
+\begin{example}
+Earlier, we considered the matrix
+\begin{equation*}
+A =
+\begin{bmatrix}
+1 & 2 & 3 & 4 \\
+2 & 4 & 5 & 6 \\
+3 & 6 & 7 & 8
+\end{bmatrix} .
+\end{equation*}
+Using row reduction to find the pivot columns, we found
+\begin{equation*}
+\text{column space of $A$} \left(
+\begin{bmatrix}
+1 & 2 & 3 & 4 \\
+2 & 4 & 5 & 6 \\
+3 & 6 & 7 & 8
+\end{bmatrix} 
+\right)
+=
+\operatorname{span}
+\left\{
+\begin{bmatrix}
+1 \\
+2 \\
+3 
+\end{bmatrix} 
+,
+\begin{bmatrix}
+3 \\
+5 \\
+7 
+\end{bmatrix} 
+\right\} .
+\end{equation*}
+What we did was we found the basis of the column space.
+The basis has two elements, and so the column space of $A$ is two dimensional.
+Notice that the rank of $A$ is two.
+\end{example}
+
+We would have followed the same procedure if we wanted to find the basis of
+the subspace $X$ spanned by
+\begin{equation*}
+\begin{bmatrix}
+1 \\
+2 \\
+3 
+\end{bmatrix} 
+,
+\begin{bmatrix}
+2 \\
+4 \\
+6 
+\end{bmatrix} 
+,
+\begin{bmatrix}
+3 \\
+5 \\
+7 
+\end{bmatrix} 
+,
+\begin{bmatrix}
+4 \\
+6 \\
+8 
+\end{bmatrix}
+.
+\end{equation*}
+We would have simply formed the matrix $A$ with these vectors as columns
+and repeated the computation above.  The subspace $X$ is then the column space of
+$A$.
+
+\begin{example}
+Consider the matrix 
+\begin{equation*}
+L =
+\begin{bmatrix}
+{1} & 2 & 0 & 0 & 3 \\
+0 & 0 & {1} & 0 & 4 \\
+0 & 0 & 0 & {1} & 5
+\end{bmatrix} 
+\end{equation*}
+Conveniently, the matrix is in reduced row echelon form.
+The matrix is of rank 3.
+The column space is the span of the pivot columns, because the pivot columns always form a basis for the column space of a matrix.
+It is the 3-dimensional space
+\begin{equation*}
+\text{column space of $L$} =
+\operatorname{span} \left\{
+\begin{bmatrix}
+1 \\
+0 \\
+0
+\end{bmatrix} 
+,
+\begin{bmatrix}
+0 \\
+1 \\
+0
+\end{bmatrix} 
+,
+\begin{bmatrix}
+0 \\
+0 \\
+1
+\end{bmatrix} 
+\right\}
+= {\mathbb{R}}^3 .
+\end{equation*}
+The row space is the 3-dimensional space
+\begin{equation*}
+\text{row space of $L$} =
+\operatorname{span} \left\{
+\begin{bmatrix}
+1 & 2 & 0 & 0 & 3
+\end{bmatrix} 
+,
+\begin{bmatrix}
+0 & 0 & 1 & 0 & 4
+\end{bmatrix} 
+,
+\begin{bmatrix}
+0 & 0 & 0 & 1 & 5
+\end{bmatrix} 
+\right\} .
+\end{equation*}
+As these vectors have 5 components, we think of the row space of $L$
+as a subspace of ${\mathbb{R}}^5$.
+\end{example}
+
+The way the dimensions worked out in the examples is not 
+an accident.  Since the number of vectors that we needed to take
+was always the same as the number of pivots, and the number of pivots
+is the rank, we get the following result.
+
+\begin{theorem1}{Rank}
+The dimension of the column space and the dimension of the row space 
+of a matrix $A$ are both equal to the rank of $A$.
+\end{theorem1}
+
+
+\subsection{Exercises}
+
+\begin{exercise} \label{exercise:rankmatrix}
+Compute the rank of the given matrices
+\begin{tasks}(3)
+\task
+$\begin{bmatrix}
+6 & 3 & 5 \\
+1 & 4 & 1 \\
+7 & 7 & 6
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+5 & -2 & -1 \\
+3 & 0 & 6 \\
+2 & 4 & 5
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+1 & 2 & 3 \\
+-1 & -2 & -3 \\
+2 & 4 & 6
+\end{bmatrix}$
+\end{tasks}
+\end{exercise}
+
+\begin{exercise} \label{exercise:rankmatrixans}\ansMark%
+Compute the rank of the given matrices
+\begin{tasks}(3)
+\task
+$\begin{bmatrix}
+7 & -1 & 6 \\
+7 & 7 & 7 \\
+7 & 6 & 2
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+1 & 1 & 1 \\
+1 & 1 & 1 \\
+2 & 2 & 2
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+0 & 3 & -1 \\
+6 & 3 & 1 \\
+4 & 7 & -1
+\end{bmatrix}$
+\end{tasks}
+\end{exercise}
+\exsol{%
+a) 3 \quad b) 1 \quad c) 2
+}
+
+
+\begin{exercise}
+For the matrices in \exerciseref{exercise:rankmatrix}, find
+a linearly independent set of row vectors that span the row space
+(they don't need to be rows of the matrix).
+\end{exercise}
+
+\begin{exercise}
+For the matrices in \exerciseref{exercise:rankmatrix}, find
+a linearly independent set of columns that span the column space.
+That is, find the pivot columns of the matrices.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+For the matrices in \exerciseref{exercise:rankmatrixans}, find
+a linearly independent set of row vectors that span the row space
+(they don't need to be rows of the matrix).
+\end{exercise}
+\exsol{%
+a)~$\begin{bmatrix} 1 & 0 & 0\end{bmatrix}$,
+$\begin{bmatrix} 0 & 1 & 0\end{bmatrix}$,
+$\begin{bmatrix} 0 & 0 & 1\end{bmatrix}$
+\quad
+b)~$\begin{bmatrix} 1 & 1 & 1\end{bmatrix}$
+\quad
+c)~$\begin{bmatrix} 1 & 0 & \nicefrac{1}{3}\end{bmatrix}$,
+$\begin{bmatrix} 0 & 1 & \nicefrac{-1}{3}\end{bmatrix}$
+}
+
+\begin{exercise}\ansMark%
+For the matrices in \exerciseref{exercise:rankmatrixans}, find
+a linearly independent set of columns that span the column space.
+That is, find the pivot columns of the matrices.
+\end{exercise}
+\exsol{%
+a)~$\begin{bmatrix} 7 \\ 7 \\ 7\end{bmatrix}$,
+$\begin{bmatrix} -1 \\ 7 \\ 6\end{bmatrix}$,
+$\begin{bmatrix} 7 \\ 6 \\ 2\end{bmatrix}$
+\quad
+b)~$\begin{bmatrix} 1 \\ 1 \\ 2\end{bmatrix}$
+\quad
+c)~$\begin{bmatrix} 0 \\ 6 \\ 4\end{bmatrix}$,
+$\begin{bmatrix} 3 \\ 3 \\ 7\end{bmatrix}$
+}
+
+\begin{exercise}
+Compute the rank of the matrix
+\begin{equation*}
+\begin{bmatrix}
+10 & -2 & 11 & -7 \\ 
+-5 & -2 & -5 & 5 \\
+1 & 0 & -4 & -4 \\
+1 & 2 & 2 & -1
+\end{bmatrix} 
+\end{equation*}
+\end{exercise}
+\exsol{%
+3
+}%
+
+\begin{exercise}
+Compute the rank of the matrix
+\begin{equation*}
+\begin{bmatrix}
+4 & -2 & 0 & -4 \\
+3 & -5 & 2 & 0 \\
+1 & -2 & 0 & 1 \\
+-1 & 1 & 3 & -3
+\end{bmatrix} 
+\end{equation*}
+\end{exercise}
+\exsol{%
+4
+}%
+
+\begin{exercise}
+Find a linearly independent subset of the following vectors that has
+the same span.
+\begin{equation*}
+\begin{bmatrix}
+-1 \\ 1 \\ 2
+\end{bmatrix}
+, \quad
+\begin{bmatrix}
+2 \\ -2 \\ -4
+\end{bmatrix}
+, \quad
+\begin{bmatrix}
+-2 \\ 4 \\ 1
+\end{bmatrix}
+, \quad
+\begin{bmatrix}
+-1 \\ 3 \\ -2
+\end{bmatrix}
+\end{equation*}
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Find a linearly independent subset of the following vectors that has
+the same span.
+\begin{equation*}
+\begin{bmatrix}
+0 \\ 0 \\ 0
+\end{bmatrix}
+, \quad
+\begin{bmatrix}
+3 \\ 1 \\ -5
+\end{bmatrix}
+, \quad
+\begin{bmatrix}
+0 \\ 3 \\ -1
+\end{bmatrix}
+, \quad
+\begin{bmatrix}
+-3 \\ 2 \\ 4
+\end{bmatrix}
+\end{equation*}
+\end{exercise}
+\exsol{%
+$\begin{bmatrix}
+3 \\ 1 \\ -5
+\end{bmatrix}
+, 
+\begin{bmatrix}
+0 \\ 3 \\ -1
+\end{bmatrix}$
+}
+
+\begin{exercise}
+For the following sets of vectors, determine if the set is linearly independent. Then find a basis for the subspace spanned by
+the vectors, and find the dimension of the subspace.
+\begin{tasks}(3)
+\task
+$
+\begin{bmatrix}
+1 \\ 1 \\ 1
+\end{bmatrix}
+, \quad
+\begin{bmatrix}
+-1 \\ -1 \\ -1
+\end{bmatrix}
+$
+\task
+$
+\begin{bmatrix}
+1 \\ 0 \\ 5
+\end{bmatrix}
+, \quad
+\begin{bmatrix}
+0 \\ 1 \\ 0
+\end{bmatrix}
+, \quad
+\begin{bmatrix}
+0 \\ -1 \\ 0
+\end{bmatrix}
+$
+\task
+$
+\begin{bmatrix}
+-4 \\ -3 \\ 5
+\end{bmatrix}
+, \quad
+\begin{bmatrix}
+2 \\ 3 \\ 3
+\end{bmatrix}
+, \quad
+\begin{bmatrix}
+2 \\ 0 \\ 2
+\end{bmatrix}
+$
+\task
+$
+\begin{bmatrix}
+1 \\ 3 \\ 0
+\end{bmatrix}
+, \quad
+\begin{bmatrix}
+0 \\ 2 \\ 2
+\end{bmatrix}
+, \quad
+\begin{bmatrix}
+-1 \\ -1 \\ 2
+\end{bmatrix}
+$
+\task
+$
+\begin{bmatrix}
+1 \\ 3
+\end{bmatrix}
+, \quad
+\begin{bmatrix}
+0 \\ 2
+\end{bmatrix}
+, \quad
+\begin{bmatrix}
+-1 \\ -1
+\end{bmatrix}
+$
+\task
+$
+\begin{bmatrix}
+3 \\ 1 \\ 3
+\end{bmatrix}
+, \quad
+\begin{bmatrix}
+2 \\ 4 \\ -4
+\end{bmatrix}
+, \quad
+\begin{bmatrix}
+-5 \\ -5 \\ -2
+\end{bmatrix}
+$
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}\ansMark%
+For the following sets of vectors, determine if the set is linearly independent. Then find a basis for the subspace spanned by
+the vectors, and find the dimension of the subspace.
+\begin{tasks}(3)
+\task
+$
+\begin{bmatrix}
+1 \\ 2
+\end{bmatrix}
+, \quad
+\begin{bmatrix}
+1 \\ 1
+\end{bmatrix}
+$
+\task
+$
+\begin{bmatrix}
+1 \\ 1 \\ 1
+\end{bmatrix}
+, \quad
+\begin{bmatrix}
+2 \\ 2 \\ 2
+\end{bmatrix}
+, \quad
+\begin{bmatrix}
+1 \\ 1 \\ 2
+\end{bmatrix}
+$
+\task
+$
+\begin{bmatrix}
+5 \\ 3 \\ 1
+\end{bmatrix}
+, \quad
+\begin{bmatrix}
+5 \\ -1 \\ 5
+\end{bmatrix}
+, \quad
+\begin{bmatrix}
+-1 \\ 3 \\ -4
+\end{bmatrix}
+$
+\task
+$
+\begin{bmatrix}
+2 \\ 2 \\ 4
+\end{bmatrix}
+, \quad
+\begin{bmatrix}
+2 \\ 2 \\ 3
+\end{bmatrix}
+, \quad
+\begin{bmatrix}
+4 \\ 4 \\ -3
+\end{bmatrix}
+$
+\task
+$
+\begin{bmatrix}
+1 \\ 0
+\end{bmatrix}
+, \quad
+\begin{bmatrix}
+2 \\ 0
+\end{bmatrix}
+, \quad
+\begin{bmatrix}
+3 \\ 0
+\end{bmatrix}
+$
+\task
+$
+\begin{bmatrix}
+1 \\ 0 \\ 0
+\end{bmatrix}
+, \quad
+\begin{bmatrix}
+2 \\ 0 \\ 0
+\end{bmatrix}
+, \quad
+\begin{bmatrix}
+0 \\ 1 \\ 2
+\end{bmatrix}
+$
+\end{tasks}
+\end{exercise}
+\exsol{%
+a)~$\begin{bmatrix}
+1 \\ 2
+\end{bmatrix}
+, 
+\begin{bmatrix}
+1 \\ 1
+\end{bmatrix}$ dimension 2,
+\quad
+b)~$
+\begin{bmatrix}
+1 \\ 1 \\ 1
+\end{bmatrix}
+,
+\begin{bmatrix}
+1 \\ 1 \\ 2
+\end{bmatrix}$ dimension 2,
+\quad
+c)~$
+\begin{bmatrix}
+5 \\ 3 \\ 1
+\end{bmatrix}
+,
+\begin{bmatrix}
+5 \\ -1 \\ 5
+\end{bmatrix}
+,
+\begin{bmatrix}
+-1 \\ 3 \\ -4
+\end{bmatrix}
+$ dimension 3,
+\quad
+d)~$
+\begin{bmatrix}
+2 \\ 2 \\ 4
+\end{bmatrix}
+,
+\begin{bmatrix}
+2 \\ 2 \\ 3
+\end{bmatrix}
+$ dimension 2,
+\quad
+e)~$\begin{bmatrix}
+1 \\ 1
+\end{bmatrix}$ dimension 1,
+\quad
+f)~$\begin{bmatrix}
+1 \\ 0 \\ 0
+\end{bmatrix}
+,
+\begin{bmatrix}
+0 \\ 1 \\ 2
+\end{bmatrix}
+$ dimension~2
+}
+
+\begin{exercise}
+Suppose that $X$ is the set of all the vectors of ${\mathbb{R}}^3$ whose
+third component is zero.  Is $X$ a subspace?  And if so, find a basis
+and the dimension.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Consider a set of 3 component vectors.
+\begin{tasks}
+\task How can it be shown if these vectors are linearly independent?
+\task Can a set of 4 of these 3 component vectors be linearly independent? Explain your answer.
+\task Can a set of 2 of these 3 component vectors be linearly independent? Explain.
+\task How would it be shown if these vectors make up a spanning set for all 3 component vectors?
+\task Can 4 vectors be a spanning set? Explain.
+\task Can 2 vectors be a spanning set? Explain.
+\end{tasks}
+\end{exercise}
+\exsol{%
+\begin{tasks}
+\task Put the vectors as the columns of a matrix and row reduce. If there are any non-pivot columns, the vectors are linearly dependent.
+\task No, there can be at most three pivot columns, so with four columns, one must be non-pivot.
+\task Yes, there is no reason you can't have all of the two columns being pivot columns.
+\task Put the vectors as the columns of a matrix, and look for solutions to $A\vec{x} = \vec{b}$. We need the rank of this matrix to be at least 3. 
+\task Yes, the matrix with four columns can have rank three.
+\task No, it is impossible for a matrix with only two columns to have rank three. 
+\end{tasks}
+}
+
+\begin{exercise}\label{ex:MatReductions}\ansMark%
+Consider the vectors
+\begin{equation*}
+\vec{v}_1 = \begin{bmatrix} 4 \\ 2 \\ -1 \end{bmatrix} \quad \vec{v}_2 = \begin{bmatrix} 3 \\ 5 \\ 1 \end{bmatrix} \qquad \begin{bmatrix} 1 \\ -1 \\ -1 \end{bmatrix}. 
+\end{equation*}
+Let $A$ be the matrix with these vectors as columns and $\vec{b}$ the vector $[1\ 0 \ 0]$. 
+\begin{tasks}
+\task Compute the rank of $A$ to determine how many of these vectors are linearly independent.
+\task Determine if $\vec{b}$ is in the span of the given vectors by using row reduction to try to solve $A\vec{x} = \vec{b}$.
+\task Look at the columns of the row-reduced form of $A$. Is $\vec{b}$ in the span of those vectors?
+\task What do these last two parts tell you about the span of the columns of a matrix, and the span of the columns of the row-reduced matrix?
+\task Now, build a matrix $D$ with these vectors as rows. Row-reduce this matrix to get a matrix $D_2$. 
+\task Is $\vec{b}$ in the span of the rows of $D_2$? You can't check this in using the matrix form; instead, just brute force it based on the form of $D_2$. What does this potentially say about the span of the rows of $D$ and the rows of $D_2$?
+\end{tasks}
+\end{exercise}
+\exsol{%
+\begin{tasks}
+\task The rank is 2.
+\task No, it is not in the span.
+\task Yes, it is in the span, because the first vector is exactly $\vec{b}$.
+\task This says that these two spans are not the same. We can not use the row-reduced matrix in order to figure out if something is in the span. We need to use the pivot columns to go back to the original vectors to simplify the span.
+\task \begin{equation*}
+D_2 = \begin{bmatrix}
+1 & -1 & -1 \\ 0 & 1 & 1/2 \\ 0 & 0 & 0
+\end{bmatrix}
+\end{equation*}
+\task No, it is not. If we add the two rows together, we get $[1\ 0 \ -1/2]$ and we have no way to cancel out that last term. This suggests that we can use either the rows of the original matrix or the rows of the row-reduced form in order to work out the span of the rows.
+\end{tasks}
+}%
+
+\begin{exercise}
+Complete \exerciseref{ex:MatReductions} with
+\begin{equation*}
+\vec{v}_1 = \begin{bmatrix} 1 \\ 0 \\ -1 \\ 0 \end{bmatrix} \quad \vec{v}_2 = \begin{bmatrix} -6 \\ 2 \\ 3 \\ -1 \end{bmatrix} \qquad \begin{bmatrix} -13 \\ 3 \\ 1 \\ 1 \end{bmatrix} \quad \vec{v}_4 \begin{bmatrix} 11 \ -1 \\ -5 \\ -1 \end{bmatrix} \quad \vec{b} = \begin{bmatrix} 1 \\ 0 \\ 0 \\ 0 \end{bmatrix}. 
+\end{equation*}
+\end{exercise}
+
+\setcounter{exercise}{100}
+

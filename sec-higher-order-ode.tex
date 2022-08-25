@@ -1,0 +1,679 @@
+\section{Higher order linear ODEs} \label{sec:hol}
+
+\LAtt{2.3}
+
+\LO{
+\item Find the general solution to a linear, constant coefficient, homogeneous differential equation of higher order and
+\item Solve non-homogeneous higher order equations using the method of undetermined coefficients.
+}
+
+% \sectionnotes{somewhat more than 1 lecture\EPref{, \S3.2 and \S3.3 in
+% \cite{EP}}\BDref{,
+% \S4.1 and \S4.2 in \cite{BD}}}
+
+%After reading this lecture, it may be good to try
+%Project III\index{IODE software!Project III} from the
+%IODE website: \url{http://www.math.uiuc.edu/iode/}.
+%
+%\medskip
+
+In this section, we will briefly study higher order equations.
+Equations appearing in applications tend to be second
+order.  Higher order equations do appear from time to time, but
+generally the world around us is \myquote{second order.}  
+
+The basic results about linear ODEs of higher order are essentially 
+the same as for second order equations, with 2 replaced by $n$.
+The important concept
+of linear independence is somewhat more complicated when more than two
+functions are involved.
+For higher order constant coefficient ODEs, the methods developed are also
+somewhat harder to apply,
+but we will not dwell on these complications.
+It is also possible to use the methods for systems
+of linear equations from \chapterref{sys:chapter} to solve higher order
+constant coefficient equations.
+
+Let us start with a general homogeneous linear equation
+\begin{equation} \label{hol:eqlinhom}
+y^{(n)} + p_{n-1}(x)y^{(n-1)} + \cdots + p_1(x) y' + p_0(x) y = 0 .
+\end{equation}
+
+\begin{theorem1}{Superposition}\index{superposition}
+Suppose $y_1$, $y_2$, \ldots, $y_n$ are solutions of the
+homogeneous equation \eqref{hol:eqlinhom}.  Then 
+\begin{equation*}
+y(x) = C_1 y_1(x) + C_2 y_2(x) + \cdots + C_n y_n(x) 
+\end{equation*}
+also solves \eqref{hol:eqlinhom}
+for arbitrary constants $C_1, C_2, \ldots, C_n$.
+\end{theorem1}
+
+In other words, a \emph{\myindex{linear combination}} of solutions
+to \eqref{hol:eqlinhom}
+is also a solution to \eqref{hol:eqlinhom}.
+We also have the existence and uniqueness theorem for nonhomogeneous linear
+equations.
+
+\begin{theorem1}{Existence and uniqueness}\index{existence and uniqueness}
+Suppose $p_0$ through $p_{n-1}$, and $f$ are continuous functions
+on some interval $I$,
+$a$ is a number in $I$,
+and $b_0, b_1, \ldots, b_{n-1}$ are constants.
+The equation
+\begin{equation*} %\label{hol:eqlin}
+y^{(n)} + p_{n-1}(x)y^{(n-1)} + \cdots + p_1(x) y' + p_0(x) y = f(x) 
+\end{equation*}
+has exactly one solution $y(x)$ defined on the same interval $I$
+satisfying the initial conditions
+\begin{equation*}
+y(a) = b_0, \quad y'(a) = b_1, \quad \ldots, \quad y^{(n-1)}(a) = b_{n-1} .
+\end{equation*}
+\end{theorem1}
+
+\subsection{Linear independence}
+
+When we had two functions $y_1$ and $y_2$ we said they were linearly
+independent if one was not the multiple of the other.  Same idea holds for
+$n$ functions.  In this case, it is easier to state as follows. The functions
+$y_1$, $y_2$, \ldots, $y_n$ are \emph{\myindex{linearly independent}} if
+the equation
+\begin{equation*}
+c_1 y_1 + c_2 y_2 + \cdots + c_n y_n = 0 
+\end{equation*}
+has only the trivial solution $c_1 = c_2 = \cdots = c_n = 0$, where the
+equation must hold for all $x$.  If we can
+solve equation with some constants where for example $c_1 \not= 0$, then we
+can solve for $y_1$ as a linear combination of the others.  If the functions
+are not
+linearly independent, they are \emph{\myindex{linearly dependent}}.
+
+\begin{example}
+Show that $e^x, e^{2x}, e^{3x}$ are linearly independent.
+\end{example}
+
+\begin{exampleSol}
+Let us give several ways to show this fact.
+Many textbooks (including \cite{EP} and
+\cite{F}) introduce Wronskians for higher order equations, but it is harder to analyze them without tools from linear algebra (see \Chapterref{linalg:appendix}). Once there are more than two functions involved, there is not a nice, simple formula for the Wronskian (like $y_1'y_2 - y_2'y_1$ for two functions) and linear algebra is required to analyze what is happening here. Instead, we will take a slightly different and more improvized approach to see why these functions are linearly independent.
+
+Let us write down
+\begin{equation*}
+c_1 e^x + c_2 e^{2x} + c_3 e^{3x} = 0.
+\end{equation*}
+We use rules of exponentials and write $z = e^x$.  Hence $z^2 = e^{2x}$
+and $z^3 = e^{3x}$.  Then we have
+\begin{equation*}
+c_1 z + c_2 z^2 + c_3 z^3 = 0.
+\end{equation*}
+The left-hand side is a third degree polynomial in $z$.
+It is either identically zero,
+or it has at most 3 zeros.  Therefore, it is identically zero,
+$c_1 = c_2 = c_3 = 0$, and the functions are linearly independent.
+
+Let us try another way.  As before we write
+\begin{equation*}
+c_1 e^x + c_2 e^{2x} + c_3 e^{3x} = 0.
+\end{equation*}
+This equation has to hold for all $x$.  We divide through
+by $e^{3x}$ to get
+\begin{equation*}
+c_1 e^{-2x} + c_2 e^{-x} + c_3 = 0.
+\end{equation*}
+As the equation is true for all $x$, let $x \to \infty$.  After taking the
+limit we see that $c_3 = 0$.  Hence our equation becomes
+\begin{equation*}
+c_1 e^x + c_2 e^{2x} = 0.
+\end{equation*}
+Rinse, repeat!
+
+How about yet another way.  We again write
+\begin{equation*}
+c_1 e^x + c_2 e^{2x} + c_3 e^{3x} = 0.
+\end{equation*}
+We can evaluate the equation and its derivatives at different
+values of $x$ to obtain equations for
+$c_1$, $c_2$, and $c_3$.
+Let us first
+divide by $e^{x}$ for simplicity.
+\begin{equation*}
+c_1 + c_2 e^{x} + c_3 e^{2x} = 0.
+\end{equation*}
+We set $x=0$ to get the equation $c_1 + c_2 + c_3 = 0$.  Now differentiate
+both sides
+\begin{equation*}
+c_2 e^{x} + 2 c_3 e^{2x} = 0 .
+\end{equation*}
+We set $x=0$ to get $c_2 + 2c_3 = 0$.  We divide by $e^x$ again and
+differentiate to get
+$2 c_3 e^{x} = 0$.  It is clear that $c_3$ is zero.  Then $c_2$ must be
+zero as $c_2 = -2c_3$, and $c_1$ must be zero because $c_1 + c_2 + c_3 = 0$.
+
+There is no one best way to do it.  All of these methods are perfectly valid.
+The important thing is to understand why the functions are linearly
+independent.
+\end{exampleSol}
+
+\begin{exercise}[not necessary on first reading]
+Here is the linear algebra method for after reading through that chapter. Let $y_1 = e^x$, $y_2 = e^{2x}$ and $y_3 = e^{3x}$. Verify that
+\begin{equation*}
+\begin{bmatrix}
+y_1(0) \\ y_1'(0) \\ y_1''(0) 
+\end{bmatrix} = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix} \quad 
+\begin{bmatrix}
+y_2(0) \\ y_2'(0) \\ y_2''(0) 
+\end{bmatrix} = \begin{bmatrix} 1 \\ 2 \\ 4 \end{bmatrix} \quad
+\begin{bmatrix}
+y_3(0) \\ y_3'(0) \\ y_3''(0) 
+\end{bmatrix} = \begin{bmatrix} 1 \\ 3 \\ 9 \end{bmatrix}
+\end{equation*}
+and use that to determine that these functions are linearly independent by showing that
+\begin{equation*}
+\det \begin{bmatrix} 1 & 1 & 1 \\ 1 & 2 & 3 \\ 1 & 4 & 9 \end{bmatrix} = 2 \neq 0
+\end{equation*}
+so that this matrix is invertible.
+\end{exercise}
+
+\begin{example}
+On the other hand, the functions $e^x$, $e^{-x}$, and $\cosh x$ are linearly
+dependent.  Simply apply definition of the hyperbolic cosine:
+\begin{equation*}
+\cosh x = \frac{e^x + e^{-x}}{2} 
+\qquad
+\text{or}
+\qquad
+2 \cosh x - e^x - e^{-x} = 0.
+\end{equation*}
+This second form here is a linear combination (coefficients $2$, $-1$, and $-1$) of the three functions that adds to zero.
+\end{example}
+
+\subsection{Constant coefficient higher order ODEs}
+
+When we have a higher order constant coefficient homogeneous linear
+equation, the song and dance is exactly the same as it was for second order.
+We just need to find more solutions.  If the equation is
+$n^{\text{th}}$ order, we need to find $n$ linearly independent solutions.
+It is best seen by example.
+
+\begin{example}
+Find the general solution to
+\begin{equation} \label{hol:cceq1}
+y''' - 3 y'' - y' + 3y = 0 .
+\end{equation}
+\end{example}
+
+\begin{exampleSol}
+Try: $y = e^{rx}$.  We plug in and get
+\begin{equation*}
+\underbrace{r^3 e^{rx}}_{y'''} - 3 \underbrace{r^2 e^{rx}}_{y''} -
+\underbrace{r e^{rx}}_{y'} + 3 \underbrace{e^{rx}}_{y} = 0 .
+\end{equation*}
+We divide through by $e^{rx}$.  Then 
+\begin{equation*}
+r^3 - 3 r^2 - r + 3 = 0 .
+\end{equation*}
+The trick now is to find the roots.  There is a formula for the roots of
+degree 3 and 4 polynomials but it is very complicated.  There is no formula
+for higher degree polynomials.  That does not mean that the roots do not
+exist.  There are always
+$n$ roots for an $n^{\text{th}}$ degree polynomial.  They may be
+repeated\index{repeated roots}
+and they may be complex.  Computers are pretty good at finding roots
+approximately for reasonable size polynomials.
+
+A good place to start is to plot the polynomial and check where it is zero.
+We can also simply try plugging in.  We
+just start plugging
+in numbers $r=-2,-1,0,1,2,\ldots$ and see if we get a hit (we can also
+try complex numbers).  Even
+if we do not get a hit, we may get an indication
+of where the root is.  For example, we plug
+$r=-2$ into our polynomial and get $-15$; we plug in $r=0$ and get 3.
+That means there is a root between $r=-2$ and $r=0$,
+because the sign changed.
+If we find one root, say $r_1$, then we know $(r-r_1)$ is a factor
+of our polynomial.  Polynomial long division can then be used. 
+
+Another technique for guessing roots of polynomials is the Rational Roots Theorem, which says that any rational root of the polynomial must be of the form $p/q$ where $p$ divides the constant term of the polynomial and $q$ divides the leading term, provided neither of them are zero. For more information on this see \sectionref{sec:polys}. In this case, we would know that $p$ must divide $3$, and $q$ must divide $1$. Therefore, the only possible options here are $\pm 1$ and $\pm 3$. These would be good places to start to look for rational roots. 
+
+A good strategy is to begin with $r=0$, $1$, or $-1$.  These are
+easy to compute.  Our polynomial has
+two such roots, $r_1 = -1$
+and $r_2 = 1$.  There should be 3 roots and the last root is reasonably
+easy to find.  The constant
+term in a monic\footnote{The word monic means that the coefficient of the
+top degree $r^d$, in our case $r^3$, is 1.}
+polynomial such as this is the multiple of the negations of all the roots
+because $r^3 - 3 r^2 - r + 3 = (r-r_1)(r-r_2)(r-r_3)$.
+So
+\begin{equation*}
+3 = (-r_1)(-r_2)(-r_3) = (1)(-1)(-r_3) = r_3 .
+\end{equation*}
+You should check that $r_3 = 3$ really
+is a root.  Hence $e^{-x}$, $e^{x}$
+and $e^{3x}$ are solutions to \eqref{hol:cceq1}.  They are linearly independent
+as can easily be checked, and there are 3 of them, which happens to be exactly
+the number we need.  So the general solution is
+\begin{equation*}
+y = C_1 e^{-x} + C_2 e^{x} + C_3 e^{3x} .
+\end{equation*}
+
+Another possible way to work out this general solution is by factoring the original polynomial.
+Since we want to solve 
+\[ r^3 - 3r^2 - r + 3 = 0,\] 
+we can rewrite the polynomial as
+\[ r^2(r-3) -1(r-3) = 0 \] which factors as
+\[ (r^2 - 1)(r-3) = 0. \] Finally, using difference of two squares on the first factor gives
+\[ (r-1)(r+1)(r-3) = 0 .\] This gives roots of $1$, $-1$, and $3$, and so the same general solution as above.
+
+Suppose we were given some initial conditions $y(0) = 1$, $y'(0) = 2$,
+and $y''(0) = 3$.  Then
+\begin{align*}
+1 = y(0) & = C_1 + C_2 + C_3 , \\
+2 = y'(0) & = -C_1 + C_2 + 3C_3 , \\
+3 = y''(0) & = C_1 + C_2 + 9C_3 .
+\end{align*}
+It is possible to find the solution by high school algebra, but it would be a
+pain.
+The sensible way to solve a system of equations such as this is to use
+matrix algebra, see
+\sectionref{sec:matrix} or \Chapterref{linalg:appendix}.
+For now we note that the solution is $C_1 =
+-\nicefrac{1}{4}$,
+$C_2 = 1$, and $C_3 = \nicefrac{1}{4}$.  The specific solution
+to the ODE is
+\begin{equation*}
+y = \frac{-1}{4}\, e^{-x} + e^x + \frac{1}{4}\, e^{3x} .
+\end{equation*}
+\end{exampleSol}
+
+% \TODO{Fix the above paragraph once lin alg is structured}
+
+Next, suppose that we have real roots, but they are repeated.  Let us say
+we have
+a root $r$ repeated $k$ times.  In the spirit of the second
+order solution, and for the same reasons, we have the solutions
+\begin{equation*}
+e^{rx}, \quad xe^{rx}, \quad x^2 e^{rx}, \quad \ldots, \quad x^{k-1} e^{rx} .
+\end{equation*}
+We take a linear combination of these solutions to find the general
+solution.
+
+\begin{example}
+Solve
+\begin{equation*}
+y^{(4)} - 3 y''' + 3 y'' - y' =  0 .
+\end{equation*}
+\end{example}
+
+\begin{exampleSol}
+We note that the characteristic equation is
+\begin{equation*}
+r^4 - 3r^3 + 3r^2 -r = 0 .
+\end{equation*}
+By inspection we note that $r^4 - 3r^3 + 3r^2 -r = r{(r-1)}^3$.  Hence
+the roots given with \myindex{multiplicity} are $r = 0, 1, 1, 1$.  Thus the general
+solution is
+\begin{equation*}
+y = \underbrace{(C_1 + C_2 x + C_3 x^2)\, e^x}_{\text{terms coming from }
+r=1} + \underbrace{C_4}_{\text{from } r=0} .
+\end{equation*}
+\end{exampleSol}
+
+\begin{example} \label{ex:factorguess}
+Find the general solution of 
+\begin{equation*}
+y''' + 2y'' - 5y' - 6y = 0
+\end{equation*}
+\end{example}
+
+\begin{exampleSol}
+The characteristic equation for this example is
+\[ r^3 + 2r^2 - 5r - 6 = 0.\]
+There is no convenient factoring by grouping or other quick formula to get to the roots here. The best hope we have is to try to guess the roots and see if we come up with anything. Once we get one root, we'll be able to factor a term out and get down to a quadratic equation, where the quadratic formula will give us the other two roots. 
+
+The properties of polynomials tell us that all rational roots of this polynomial must be factors of $\frac{-6}{1}$ or $-6$. Thus, the options are $\pm 1,\ \pm 2$, and $\pm 3$. At this point, the best bet is to start guessing and see if we can find one. Let's start with $1$. Plugging this into the polynomial gives
+\[ 1^3 + 2(1)^2 - 5(1) - 6 = -8 \neq 0. \] Trying $-1$ next, we get
+\[ (-1)^3 + 2(-1)^2 - 5(-1) - 6 = -1+2+5-6 = 0. \] Therefore, $-1$ is as root, and so $(r+1)$ is a factor of this polynomial. 
+
+We can then use synthetic (or long) division to see that
+\[ r^3 + 2r^2 - 5r - 6 = (r+1)(r^2 + r - 6).\]
+
+For the quadratic, we can either use the quadratic formula, or just recognize that this factors as $(r-2)(r+3)$ to get that the characteric equation factors as 
+\[ (r+1)(r-2)(r+3) = 0.\] Therefore, the roots are $-1$, $2$ and $-3$, so that the general solution to the differential equation is
+\[ y(x) = C_1 e^{-x} + C_2 e^{2x}+ C_3e^{-3x}. \]
+\end{exampleSol}
+
+For more information on synthetic division and finding roots of polynomials, see \Appendixref{sec:polys}. 
+
+The case of complex roots is similar
+to second order equations.
+Complex roots
+always come in pairs $r = \alpha \pm i \beta$.  Suppose we have
+two such complex roots, each repeated $k$ times.
+The corresponding solution is
+\begin{equation*}
+( C_0 + C_1 x + \cdots + C_{k-1} x^{k-1} ) \, e^{\alpha x} \cos (\beta x)
++
+( D_0 + D_1 x + \cdots + D_{k-1} x^{k-1} ) \, e^{\alpha x} \sin (\beta x) .
+\end{equation*}
+where $C_0$, \ldots, $C_{k-1}$, $D_0$, \ldots, $D_{k-1}$ are arbitrary
+constants.
+
+\begin{example}
+Solve
+\begin{equation*}
+y^{(4)} - 4 y''' + 8 y'' - 8 y' + 4y = 0 .
+\end{equation*}
+\end{example}
+
+\begin{exampleSol}
+The characteristic equation is
+\begin{align*}
+r^4 - 4 r^3 + 8 r^2 - 8 r + 4 & = 0 , \\
+{(r^2-2r+2)}^2 & = 0 , \\
+{\bigl({(r-1)}^2+1\bigr)}^2 & = 0 .
+\end{align*}
+Hence the roots are $1 \pm i$, both with multiplicity 2.  Hence the general
+solution to the ODE is
+\begin{equation*}
+y = 
+( C_1 + C_2 x ) \, e^{x} \cos x
++
+( C_3 + C_4 x ) \, e^{x} \sin x .
+\end{equation*}
+The way we solved the characteristic equation above is really by guessing or
+by inspection.  It is not so easy in general.  We could also have asked
+a computer or an advanced calculator for the roots.
+\end{exampleSol}
+
+%FIXME: the operator stuff?
+
+\subsection{Non-Homogeneous Equations}
+
+Just like for second order equation, we can solve higher order non-homogeneous equations. The theory is the same; if we can find any single solution to the non-homogeneous problem, then the general solution of the non-homogeneous problem is this single solution plus the general solution to the corresponding homogeneous problem. The trick comes down to finding this single solution, and undetermined coefficients is the main method here.
+
+In using undetermined coefficients, the guesses we want to make are the same as for second order equations. The only way it really gets more complicated is that now it is possible for any exponential or trigonometric function to be a solution to the homogeneous problem, and so more things will need to be multiplied by $x$ in order to get the appropriate guess for the non-homogeneous solution.
+
+\begin{example}
+Find the general solution to 
+\[ y''' + 2y'' - 5y' - 6y = 3e^{2x} + e^{4x}.\]
+\end{example}
+
+\begin{exampleSol}
+We found the general solution of the homogeneous problem in \exampleref{ex:factorguess}, which is 
+\[ y(x) = C_1 e^{-x} + C_2 e^{2x}+ C_3e^{-3x}. \]
+
+Now, to solve the non-homogeneous problem, we use the method of undetermined coefficients. Since the non-homogeneous part of the equation has terms of the form $e^{2x}$ and $e^{4x}$, we would want to guess 
+\[ y_p(x) = Ae^{2x} + Be^{4x}.\] However, $e^{2x}$ solves the homogeneous problem, so we need to multiply it by $x$, making our actual guess become 
+\[ y_p(x) = Axe^{2x} + Be^{4x}.\] In order to plug this in, we need to take three derivatives of this guess, which are
+\[ 
+\begin{split}
+y_p(x) &= Axe^{2x} + Be^{4x} \\
+y_p'(x) &= Ae^{2x} + 2Axe^{2x} + 4Be^{4x} \\
+y_p''(x) &= 4Ae^{2x} + 4Axe^{2x} + 16Be^{4x} \\
+y_p'''(x) &= 12Ae^{2x} + 8Axe^{2x} + 64Be^{2x}
+\end{split}.
+\]
+By putting this into the non-homogeneous equation we want to solve, we get
+\[
+\begin{split}
+(12Ae^{2x} &+ 8Axe^{2x} + 64Be^{2x}) + 2(4Ae^{2x} + 4Axe^{2x} + 16Be^{4x})\\
+ & - 5(Ae^{2x} + 2Axe^{2x} + 4Be^{4x}) - 6(Axe^{2x} + Be^{4x} ) = 3e^{2x} + e^{4x}
+\end{split}.
+\]
+
+Simplifying the left hand side of this expression gives
+\[ 15Ae^{2x} + 70Be^{4x} = 3e^{2x} + e^{4x}. \]
+
+To satisfy this equation, we want to set $A = \frac{1}{5}$ and $B = \frac{1}{70}$. Therefore, the general solution to the non-homogeneous problem is
+\[ y(x) = C_1 e^{-x} + C_2 e^{2x}+ C_3e^{-3x} + \frac{1}{5}xe^{2x} + \frac{1}{70}e^{4x}. \]
+\end{exampleSol}
+
+\begin{example}
+Determine the form of the guess using undetermined coefficients for finding a particular solution of the non-homogeneous problem
+\[ y^{(9)} + y^{(8)} - 2y^{(5)} - 2y^{(4)} + y' + y = e^{x} + 3e^{-x} + \sin(x) + 2x. \]
+\end{example}
+
+\begin{exampleSol}
+To determine the guess, we need to first find the solution to the homogeneous equations. The characteristic equation of the homogeneous equation is
+\[ r^9 + r^8 - 2r^5 - 2r^4 + r + 1 = 0. \] We could use the root guessing method for this example, and all rational roots must be $\pm 1$. However, that method is not great for polynomials that are of degree higher than around 3 or 4. So, we'll want to use some other technique to find all of the root.
+
+If we start by grouping pairs of terms, we can rewrite this polynomial as
+\[ r^8(r+1) - 2r^4(r+1) + 1 (r+1) = 0 \] so that it can be rewritten as 
+\[ (r+1)(r^8 - 2r^4 + 1) = 0.\] The second factor looks a lot like
+\[ (s-1)^2 = s^2 - 2s +1 \] if we take $s = r^4$. Since 
+\[ (r^4 - 1) = (r^2 + 1)(r^2 - 1) = (r^2 + 1)(r+1)(r-1) \] using difference of squares twice. Thus, the entire characteristic equation can be written as
+\[ (r+1)(r^4-1)^2 = (r+1)[(r^2 + 1)(r+1)(r-1)]^2 = (r+1)^3(r-1)^2(r^2 + 1)^2. \]
+Therefore, we have a triple root at $-1$, a double root at $1$, and two copies of $(r^2 + 1)$, which has a root of $i$, corresponding to solutions $\sin(x)$ and $\cos(x)$. Putting all of this together, the general solution to the homogeneous equation is
+\[ y_c(x) = (C_1 + C_2x + C_3x^2)e^{-x} + (C_4 + C_5x)e^{x} + (C_6 + C_7x)\sin(x) + (C_8 + C_9x)\cos(x) .\] This has $9$ unknown constants in it, which is expected from the ninth order equation. 
+
+Now, we need to figure out the appropriate guess for the non-homogeneous solution. Since the non-homogeneous part of the equation is $e^{x} + 3e^{-x} + \sin{x} +2x$, the base guess would be of the form
+\[ Ae^x + Be^{-x} + C\sin{x} + D\cos{x} + Ex + F \] because we always need to include both $\sin(x)$ and $\cos(x)$ whenever either of them appear. However, we need to factor in what terms show up in the homogeneous solution. For instance, the $e^x$ term has a term with $1$ and $x$ in the homogeneous solution, we need to include the next one up in our guess for the solution to the non-homogeneous problem. Taking this into account for all terms gives the desired guess as 
+\[ y_p(x) = Ax^2e^{x} + Bx^3e^{-x} + Cx^2\sin(x) + Dx^2\cos(x) + Ex + F.\]
+\end{exampleSol}
+
+There is also an extension of variation of parameters to higher order equations. However, the fact that there are more terms in the solution means that the form of the expression is much more complicated that for second order, and is not worth looking into or trying to remember. The easier way to handle these situations using variation of parameters is by converting the higher order equation into a first order system and applying the methods there, which will be covered in \sectionref{sec:introtosys} and \sectionref{nonhomogsys:section} respectively. 
+
+\subsection{Exercises}
+
+\begin{exercise}
+Find the general solution for $y''' - y'' + y' - y = 0$.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Find the general solution of $y^{(5)}-y^{(4)}=0$.
+\end{exercise}
+\exsol{%
+$y=C_1 e^x +C_2 x^3 + C_3 x^2 +C_4 x + C_5$
+}
+
+\begin{exercise}
+Find the general solution for $y^{(4)} - 5 y''' + 6 y'' = 0$.
+\end{exercise}
+
+\begin{exercise}
+Find the general solution for $y''' + 2 y'' + 2 y' = 0$.
+\end{exercise}
+
+\begin{exercise}
+Suppose the characteristic equation for an ODE is
+${(r-1)}^2{(r-2)}^2 = 0$.
+\begin{tasks}
+\task
+Find such a differential equation.
+\task
+Find its general solution.
+\end{tasks}
+\end{exercise}
+
+\begin{exercise} \label{hol:eqfromsolex}
+Suppose that a fourth order equation has a solution
+$y = 2 e^{4x} x \cos x$.  
+\begin{tasks}
+\task
+Find such an equation.
+\task
+Find the initial conditions that the given
+solution satisfies.
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}\ansMark
+\pagebreak[2]
+Suppose that the characteristic equation of a third order differential
+equation has
+roots $\pm 2i$ and 3.
+\begin{tasks}
+\task
+What is the characteristic equation?
+\task
+Find the
+corresponding differential equation.
+\task
+Find the general solution.
+\end{tasks}
+\end{exercise}
+\exsol{%
+a) $r^3-3r^2+4r-12 = 0$
+\quad
+b) $y'''-3y''+4y'-12y = 0$
+\quad
+c) $y = C_1 e^{3x} + C_2 \sin(2x) + C_3 \cos(2x)$
+}
+
+\begin{exercise}
+Find the general solution for the equation of \exerciseref{hol:eqfromsolex}.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Find the general solution of
+\begin{equation*}
+y^{(4)} - y''' - 5y'' - 23y' - 20y = 0.
+\end{equation*}
+\end{exercise}
+\exsol{%
+$y(x) = C_1e^{4x} + C_2e^{-x} + C_3e^{-x}\cos(2x) + C_4e^{-x}\sin(2x)$
+}
+
+\begin{exercise}
+Find the general solution of
+\begin{equation*}
+y''' - 6y'' + 13y' - 10y = 4e^x + 5e^{3x} - 20.
+\end{equation*}
+\end{exercise}
+% C_1 e^{2x} + C_2e^{2x}\cos(x) + C_3e^{2x}\sin(x)
+
+\begin{exercise}
+Find the general solution of
+\begin{equation*}
+y''' - 3y' + 2y = 2e^{x} - e^{3x}.
+\end{equation*}
+\end{exercise}
+% (C_1 + C_2x)e^{x} + C_3e^{-2x} 
+
+\begin{exercise}
+Find the general solution of
+\begin{equation*}
+y''' + 2y'' + y' + 2y = 3\cos(x) + x.
+\end{equation*}
+\end{exercise}
+% C_1e^{-2x} + C_2cos(x) + C_3sin(x)
+
+\begin{exercise}
+Find the general solution of 
+\begin{equation*}
+y^{(4)}  + 2y'' + y = 4x\cos(x) - e^{3x} + 1
+\end{equation*}
+Hint: Remember, the guess needs to make sure that no terms in it solve the homogeneous equation.
+\end{exercise}
+% (C_1 + C_2x)cos(x) + (C_3 + C_4x)sin(x)
+
+\begin{exercise}
+Show that $y=\cos(2t)$ is a solution to $y^{(4)}+2y'''+9y''+8y'+20y=0$. %2.7
+This tells us something about the factorization of the characteristic polynomial of this DE. Factor the characteristic polynomial completely, and solve the DE.
+\end{exercise}
+
+\begin{exercise}
+Consider 
+\begin{equation}
+y'''-y''-8y'+12y=0. \label{eq:2_7_Exercise1}
+\end{equation}
+\begin{tasks}
+\task Show that $y=e^{2t}$ is a solution of \eqref{eq:2_7_Exercise1}.
+\task Find the general solution to \eqref{eq:2_7_Exercise1}.
+\task Solve $y'''-y''-8y'+12y=e^{2t}$.
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}
+Let
+$f(x) = e^x - \cos x$, $g(x) = e^x + \cos x$, and $h(x) = \cos x$.
+Are $f(x)$, $g(x)$, and $h(x)$
+linearly independent?  If so, show
+it, if not, find a linear combination that works.
+\end{exercise}
+
+\begin{exercise}
+Let
+$f(x) = 0$, $g(x) = \cos x$, and $h(x) = \sin x$.
+Are $f(x)$, $g(x)$, and $h(x)$
+linearly independent?  If so, show
+it, if not, find a linear combination that works.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Are $e^{x}$, $e^{x+1}$, $e^{2x}$, $\sin(x)$ linearly independent?
+If so, show it, if not find a linear combination that works.
+\end{exercise}
+\exsol{%
+No.  $e^1 e^x -  e^{x+1} = 0$.
+}
+
+\begin{exercise}
+Are $x$, $x^2$, and $x^4$
+linearly independent?  If so, show
+it, if not, find a linear combination that works.
+\end{exercise}
+
+\begin{exercise}
+Are $e^x$, $xe^x$, and $x^2e^x$
+linearly independent?  If so, show
+it, if not, find a linear combination that works.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Are $\sin(x)$, $x$, $x\sin(x)$ linearly independent?
+If so, show it, if not find a linear combination that works.
+\end{exercise}
+\exsol{%
+Yes.  (Hint: First note that $\sin(x)$ is bounded.  Then note that
+$x$ and $x\sin(x)$ cannot be multiples of each other.)
+}
+
+\begin{exercise}
+Show that $\{e^t, te^t, e^{-t}, te^{-t}\}$ is a linearly independent set.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Solve $1001y'''+3.2y''+\pi y'-\sqrt{4} y = 0$, $y(0)=0$, $y'(0) = 0$,
+$y''(0) = 0$.
+\end{exercise}
+\exsol{%
+$y=0$
+}
+
+\begin{exercise}
+Could $y=t^2\cos t$ be a solution of a homogeneous DE with constant real coefficients? %2.7
+If so, give the minimum possible order of such a DE, and state which functions must also be solutions. If not, explain why this is impossible.
+\end{exercise}
+
+\begin{exercise}
+Find a linear DE with constant coefficients whose general solution is $$y=c_1e^{2t}+ c_2e^{-t}\cos(4t) + c_3e^{-t}\sin(2t),$$ %2.7
+or explain why there is no such thing.
+\end{exercise}
+
+\begin{exercise}
+Find an equation such that $y=xe^{-2x}\sin(3x)$ is a solution.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Find an equation of minimal order such that $y=\cos(x)$, $y=\sin(x)$, $y=e^x$ are solutions.
+\end{exercise}
+\exsol{%
+$y'''-y''+y'-y=0$
+}
+
+\begin{exercise}
+Find an equation of minimal order such that $y=\cos(x)$, $y=\sin(2x)$, $y=e^{3x}$ are solutions.
+\end{exercise}
+
+\begin{exercise}
+Find a homogeneous DE with general solution %2.7
+$$y=c_1e^t+ c_2e^{-t}+ c_3\cos t+ c_4\sin t + c_5te^t+ c_6te^{-t}+ c_7t\cos t+ c_8t\sin t.$$
+\end{exercise}
+
+
+
+\setcounter{exercise}{100}
+

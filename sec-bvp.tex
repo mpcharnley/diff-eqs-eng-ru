@@ -1,0 +1,684 @@
+\section{Boundary value problems} \label{bvp:section}
+
+\LAtt{4.1}
+
+\LO{
+\item Analyze two-point boundary value problems on a given interval,
+\item Find the eigenvalues and eigenfunctions for a boundary value problem, and
+\item Apply these techniques to an oscillating string problem.
+}
+
+% \sectionnotes{Verbatim from Lebl}
+
+% \sectionnotes{2 lectures\EPref{, similar to \S3.8 in \cite{EP}}\BDref{,
+% \S10.1 and \S11.1 in \cite{BD}}}
+
+\subsection{Boundary value problems}
+
+Before we tackle the Fourier series, we study
+the so-called 
+\emph{boundary value problems\index{boundary value problem}}
+(or \emph{endpoint problems\index{endpoint problem}}).  Consider
+\begin{equation*}
+x'' + \lambda x = 0, \quad x(a) = 0, \quad x(b) = 0,
+\end{equation*}
+for some constant $\lambda$, where $x(t)$ is defined for $t$ in the interval
+$[a,b]$.
+Previously we specified the value of the solution and its derivative
+at a single point.  Now we specify the value of the solution at two different
+points.  As $x=0$ is a solution, existence of
+solutions is not a problem.  Uniqueness of solutions is another issue.
+The general solution to $x'' + \lambda x = 0$ has two
+arbitrary constants\footnote{%
+See \subsectionvref{subsection:fourfundamental} or %\examplevref{example:expsecondorder} and
+\examplevref{example:sincossecondorder}.}.
+It is, therefore,
+natural (but wrong) to believe that requiring two
+conditions guarantees a unique solution.
+
+\begin{example}
+Take $\lambda = 1$,
+$a=0$, $b=\pi$.  That is,
+\begin{equation*}
+x'' + x = 0, \quad x(0) = 0, \quad x(\pi) = 0.
+\end{equation*}
+Then $x = \sin t$ is another solution (besides $x=0$) satisfying both boundary
+conditions.  There are more.  Write down the general
+solution of the differential equation, which is $x= A \cos t + B \sin t$.
+The condition $x(0) = 0$ forces $A=0$.  Letting $x(\pi) = 0$ does not
+give us any more information as $x = B \sin t$ already satisfies both
+boundary conditions.
+Hence, there are infinitely many solutions of the form $x = B \sin t$,
+where $B$ is an arbitrary constant.
+\end{example}
+
+\begin{example}
+On the other hand, consider $\lambda = 2$.  That is,
+\begin{equation*}
+x'' + 2 x = 0, \quad x(0) = 0, \quad x(\pi) = 0.
+\end{equation*}
+Then the general solution is
+$x= A \cos ( \sqrt{2}\,t) + B \sin ( \sqrt{2}\,t)$.  Letting $x(0) = 0$ still
+forces $A = 0$.  We apply the second condition to find
+$0=x(\pi) = B \sin ( \sqrt{2}\,\pi)$.
+As $\sin ( \sqrt{2}\,\pi) \not= 0$ we obtain
+$B = 0$.  Therefore $x=0$ is the unique solution to this problem.
+\end{example}
+
+What is going on?  We will be interested in finding which
+constants $\lambda$ allow a nonzero solution, and we will be interested in
+finding those solutions.  This problem is an analogue of finding
+eigenvalues and eigenvectors of matrices.  
+
+\subsection{Eigenvalue problems}
+
+For basic Fourier series theory we will need
+the following three eigenvalue problems.
+% We will consider more general equations and boundary conditions,
+% but we will postpone this until
+%\chapterref{SL:chapter}.
+\begin{equation} \label{bv:eq1}
+x'' + \lambda x = 0, \quad x(a) = 0, \quad x(b) = 0 ,
+\end{equation}
+\begin{equation} \label{bv:eq2}
+x'' + \lambda x = 0, \quad x'(a) = 0, \quad x'(b) = 0 ,
+\end{equation}
+and
+\begin{equation} \label{bv:eq3}
+x'' + \lambda x = 0, \quad x(a) = x(b), \quad x'(a) = x'(b) .
+\end{equation}
+\begin{definition} 
+A number $\lambda$ is called an
+\emph{eigenvalue\index{eigenvalue of a boundary value problem}}
+of \eqref{bv:eq1}
+(resp.\ \eqref{bv:eq2} or \eqref{bv:eq3}) if and only if
+there exists a nonzero (not identically zero) solution to \eqref{bv:eq1}
+(resp.\ \eqref{bv:eq2} or \eqref{bv:eq3})
+given that specific $\lambda$.  A
+nonzero solution is called a corresponding
+\emph{\myindex{eigenfunction}}\index{corresponding eigenfunction}.
+\end{definition}
+
+Note the similarity to eigenvalues and eigenvectors of matrices.  The
+similarity is not just coincidental.  If we think of the equations as
+differential operators, then we are doing the same exact thing.
+Think of a function $x(t)$
+as a vector with infinitely many components (one for each $t$).
+Let $L = -\frac{d^2}{{dt}^2}$ be the linear operator.
+Then the eigenvalue/eigenfunction pair should be $\lambda$ and
+nonzero $x$ such that $Lx = \lambda x$.
+In other words,
+we are looking for nonzero functions $x$
+satisfying certain endpoint conditions that solve
+$(L- \lambda)x = 0$.  A lot of the formalism from linear algebra still
+applies here, though we will not pursue this line of reasoning too far.
+
+\begin{example} \label{bvp:eig1ex}
+Let us find the eigenvalues and eigenfunctions of
+\begin{equation*}
+x'' + \lambda x = 0, \quad x(0) = 0, \quad x(\pi) = 0 .
+\end{equation*}
+\end{example}
+
+\begin{exampleSol}
+%For reasons that will be clear from the computations,
+We have to handle
+the cases $\lambda > 0$, $\lambda = 0$, $\lambda < 0$ separately.
+First suppose that $\lambda > 0$.  Then
+the general solution to $x''+\lambda x = 0$ is
+\begin{equation*}
+x = A \cos ( \sqrt{\lambda}\, t) + B \sin ( \sqrt{\lambda}\, t).
+\end{equation*}
+The condition $x(0) = 0$ implies immediately $A = 0$.
+Next
+\begin{equation*}
+0 = x(\pi) = B \sin ( \sqrt{\lambda}\, \pi ) .
+\end{equation*}
+If $B$ is zero, then $x$ is not a nonzero solution.  So to get a nonzero
+solution we must have that $\sin ( \sqrt{\lambda}\, \pi) = 0$.  Hence,
+$\sqrt{\lambda}\, \pi$ must be an integer multiple of $\pi$.  In other words,
+ $\sqrt{\lambda} = k$ for a positive integer $k$.
+Hence the positive eigenvalues are
+$k^2$ for all integers $k \geq 1$.  Corresponding eigenfunctions
+can be taken as $x=\sin (k t)$.  Just like for eigenvectors, constant
+multiples of an eigenfunction are also eigenfunctions,
+so we only need to pick one.
+
+Now suppose that $\lambda = 0$.  In this case the equation is $x'' = 0$,
+and its general solution is $x = At + B$.  The condition $x(0) = 0$ implies
+that $B=0$, and $x(\pi) = 0$ implies that $A = 0$.  This means that $\lambda
+= 0$ is \emph{not} an eigenvalue.
+
+Finally, suppose that $\lambda < 0$.  In this case we have the general
+solution\footnote{Recall that
+$\cosh s = \frac{1}{2}(e^s+e^{-s})$
+and
+$\sinh s = \frac{1}{2}(e^s-e^{-s})$.  As an exercise
+try the computation with the general solution written as
+$x = A e^{\sqrt{-\lambda}\, t} + B e^{-\sqrt{-\lambda}\, t}$ (for
+different $A$ and $B$ of course).}
+\begin{equation*}
+x = A \cosh ( \sqrt{-\lambda}\, t) + B \sinh ( \sqrt{-\lambda}\, t ) .
+\end{equation*}
+Letting $x(0) = 0$ implies that $A = 0$ (recall $\cosh 0 = 1$ and $\sinh 0 =
+0$).  So our solution must be $x = B \sinh ( \sqrt{-\lambda}\, t )$ and satisfy
+$x(\pi) = 0$.  This is only possible if $B$ is zero.  Why?  Because
+$\sinh \xi$ is only zero when $\xi=0$.  You should plot sinh to see this
+fact.
+We can also see this from the definition of sinh.
+We get $0 = \sinh \xi = \frac{e^\xi -
+e^{-\xi}}{2}$.  Hence $e^\xi = e^{-\xi}$, which implies $\xi = -\xi$ and that is only
+true if $\xi=0$.  So there are no negative eigenvalues.
+
+In summary, the eigenvalues and corresponding eigenfunctions are
+\begin{equation*}
+\lambda_k = k^2 \qquad \text{with an eigenfunction} \qquad x_k = \sin (k t)
+\qquad \text{for all integers } k \geq 1 .
+\end{equation*}
+\end{exampleSol}
+
+\begin{example}
+Let us compute the 
+ eigenvalues and eigenfunctions of
+\begin{equation*}
+x'' + \lambda x = 0, \quad x'(0) = 0, \quad x'(\pi) = 0 .
+\end{equation*}
+\end{example}
+
+\begin{exampleSol}
+Again we have to handle the cases $\lambda > 0$, $\lambda = 0$, $\lambda
+< 0$ separately.
+First suppose that $\lambda > 0$.
+The general solution to $x''+\lambda x = 0$ is
+$x = A \cos ( \sqrt{\lambda}\, t) + B \sin ( \sqrt{\lambda}\, t)$.  So
+\begin{equation*}
+x' = -A\sqrt{\lambda}\, \sin ( \sqrt{\lambda}\, t) + B\sqrt{\lambda}\,
+\cos (\sqrt{\lambda}\, t) .
+\end{equation*}
+The condition $x'(0) = 0$ implies immediately $B = 0$.
+Next
+\begin{equation*}
+0 = x'(\pi) = -A\sqrt{\lambda}\, \sin ( \sqrt{\lambda}\, \pi) .
+\end{equation*}
+Again $A$ cannot be zero if $\lambda$ is to be an eigenvalue,
+and $\sin ( \sqrt{\lambda}\, \pi)$ is only zero
+if
+$\sqrt{\lambda} = k$ for a positive integer $k$.
+Hence the positive eigenvalues are again
+$k^2$ for all integers $k \geq 1$.  And the corresponding eigenfunctions
+can be taken as $x=\cos (k t)$.
+
+Now suppose that $\lambda = 0$.  In this case the equation is $x'' = 0$
+and the general solution is $x = At + B$ so $x' = A$.  The condition
+$x'(0) = 0$ implies that
+$A=0$.  The condition $x'(\pi) = 0$ also implies $A=0$.
+Hence $B$ could be anything (let us take it to be 1).  So $\lambda = 0$
+is an eigenvalue and $x=1$ is a corresponding eigenfunction.
+
+Finally, let $\lambda < 0$.  In this case the general solution is
+$x = A \cosh ( \sqrt{-\lambda}\, t) + B \sinh ( \sqrt{-\lambda}\, t)$
+and
+\begin{equation*}
+x' = A\sqrt{-\lambda}\, \sinh ( \sqrt{-\lambda}\, t)
++ B\sqrt{-\lambda}\, \cosh ( \sqrt{-\lambda}\, t ) .
+\end{equation*}
+We have already seen (with roles of $A$ and $B$ switched) that for this
+expression to be zero at $t=0$ and $t=\pi$, we must have $A=B=0$.  Hence there are
+no negative eigenvalues.
+
+In summary, the eigenvalues and corresponding eigenfunctions are
+\begin{equation*}
+\lambda_k = k^2 \qquad \text{with an eigenfunction} \qquad x_k = \cos (k t)
+\qquad \text{for all integers } k \geq 1 ,
+\end{equation*}
+and there is another eigenvalue
+\begin{equation*}
+\lambda_0 = 0 \qquad \text{with an eigenfunction} \qquad x_0 = 1.
+\end{equation*}
+\end{exampleSol}
+
+The following problem is the one that leads to the general Fourier
+series.
+
+\begin{example} \label{bvp-periodic:example}
+Let us compute the 
+eigenvalues and eigenfunctions of
+\begin{equation*}
+x'' + \lambda x = 0, \quad x(-\pi) = x(\pi), \quad x'(-\pi) = x'(\pi) .
+\end{equation*}
+We have not specified the values or the derivatives
+at the endpoints, but rather that they are the same at the beginning and
+at the end of the interval.
+\end{example}
+
+\begin{exampleSol}
+Let us skip $\lambda < 0$.  The computations are the same as before,
+and again we find
+that there are no negative eigenvalues.
+
+For $\lambda = 0$, the general solution is $x = At + B$.  The condition
+$x(-\pi) = x(\pi)$ implies that $A=0$ ($A\pi + B = -A\pi +B$ implies $A=0$).
+The second condition $x'(-\pi) = x'(\pi)$ says nothing about $B$ and hence
+$\lambda=0$ is an eigenvalue with a corresponding eigenfunction $x=1$.
+
+For $\lambda > 0$ we get that
+$x = A \cos ( \sqrt{\lambda}\, t ) + B \sin ( \sqrt{\lambda}\, t)$.
+Now
+\begin{equation*}
+\underbrace{A \cos (-\sqrt{\lambda}\, \pi) + B \sin (-\sqrt{\lambda}\,
+\pi)}_{x(-\pi)}
+=
+\underbrace{A \cos (  \sqrt{\lambda}\, \pi ) + B \sin ( \sqrt{\lambda}\,
+\pi)}_{x(\pi)} .
+\end{equation*}
+We remember that $\cos (- \theta) = \cos (\theta)$ and
+$\sin (-\theta) = - \sin (\theta)$.  Therefore,
+\begin{equation*}
+A \cos (\sqrt{\lambda}\, \pi) - B \sin ( \sqrt{\lambda}\, \pi)
+=
+A \cos (\sqrt{\lambda}\, \pi) + B \sin ( \sqrt{\lambda}\, \pi).
+\end{equation*}
+Hence either $B=0$ or $\sin ( \sqrt{\lambda}\, \pi) = 0$.
+Similarly (exercise) if we differentiate $x$ and plug in the second
+condition we find that $A=0$ or $\sin ( \sqrt{\lambda}\, \pi) = 0$.
+Therefore, unless we want $A$ and $B$ to both be zero (which we do not)
+we must have $\sin ( \sqrt{\lambda}\, \pi ) = 0$.  Hence, $\sqrt{\lambda}$
+is an integer and the eigenvalues are yet again $\lambda = k^2$ for
+an integer $k \geq 1$.  In this case, however, 
+$x = A \cos (k t) + B \sin (k t)$ is an eigenfunction for any $A$ and any $B$.
+So we have two linearly independent eigenfunctions $\sin (kt)$ and $\cos (kt)$.
+Remember that for a matrix we can also have two eigenvectors
+corresponding to a single eigenvalue if the eigenvalue is repeated.
+
+In summary, the eigenvalues and corresponding eigenfunctions are
+\begin{align*}
+& \lambda_k = k^2 & & \text{with eigenfunctions} & &
+\cos (k t) \quad \text{and}\quad  \sin (k t)
+ & & \text{for all integers } k \geq 1 , \\
+& \lambda_0 = 0 & & \text{with an eigenfunction} & & x_0 = 1.
+\end{align*}
+\end{exampleSol}
+
+\subsection{Orthogonality of eigenfunctions}
+
+Something that will be very useful in the next section is the
+\emph{\myindex{orthogonality}} property of the eigenfunctions. This is an analogue
+of the following fact about eigenvectors of a matrix.  A matrix is
+called
+\emph{symmetric\index{symmetric matrix}}
+if $A = A^T$ (it is equal to its transpose).
+\emph{Eigenvectors for two distinct eigenvalues of a symmetric
+matrix are orthogonal,} which was shown in \sectionref{specmat:section}.
+%That symmetry is required.  
+%We will not prove this fact here.
+The
+differential operators we are dealing with act much like a symmetric matrix.
+We, therefore, get the following theorem.
+
+%\medskip
+%
+%Suppose $\lambda_1$ and $\lambda_2$ are two distinct eigenvalues of $A$
+%and $\vec{v}_1$ and $\vec{v}_2$ are the corresponding eigenvectors.  Then
+%we of course have that $A \vec{v}_1 = \lambda_1 \vec{v}_1$ and
+%$A \vec{v}_2 = \lambda_2 \vec{v}_2$.
+%\begin{equation*}
+%\langle A \vec{v}_1 , \vec{v}_2 \rangle = \lambda_1 \langle \vec{v}_1 , \vec{v}_2 \rangle
+%\qquad
+%\langle A \vec{v}_2 , \vec{v}_1 \rangle = \lambda_2 \langle \vec{v}_2 , \vec{v}_1 \rangle
+%\end{equation*}
+%
+%\begin{equation*}
+%\langle A \vec{v}_1 , \vec{v}_2 \rangle -
+%\langle A \vec{v}_2 , \vec{v}_1 \rangle 
+%=
+%(\lambda_1 - \lambda_2 ) \langle \vec{v}_1 , \vec{v}_2 \rangle
+%\end{equation*}
+%
+%\begin{equation*}
+%\langle (A-A^T) \vec{v}_1 , \vec{v}_2 \rangle
+%=
+%(\lambda_1 - \lambda_2 ) \langle \vec{v}_1 , \vec{v}_2 \rangle
+%\end{equation*}
+
+\begin{theorem1}[bvp:orthogonaleigen]{}
+Suppose that $x_1(t)$ and $x_2(t)$ are two eigenfunctions of the problem
+\eqref{bv:eq1}, \eqref{bv:eq2} or \eqref{bv:eq3}
+for two different
+eigenvalues $\lambda_1$ and $\lambda_2$.  Then they are
+\emph{orthogonal\index{orthogonal!functions}}
+in the sense that
+\begin{equation*}
+\int_a^b x_1(t) x_2(t) \,dt = 0 .
+\end{equation*}
+\end{theorem1}
+
+The terminology comes from the fact that the integral is a type of
+inner product.  We will expand on this in the next section.  The theorem
+has a very short, elegant, and illuminating proof so let us give it here.
+First, we have the following two equations.
+\begin{equation*}
+x_1'' + \lambda_1 x_1 = 0
+\qquad \text{and} \qquad
+x_2'' + \lambda_2 x_2 = 0.
+\end{equation*}
+Multiply the first by $x_2$ and the second by $x_1$ and subtract to get
+\begin{equation*}
+(\lambda_1 - \lambda_2) x_1 x_2 = x_2'' x_1 - x_2 x_1'' .
+\end{equation*}
+Now integrate both sides of the equation:
+\begin{equation*}
+\begin{split}
+(\lambda_1 - \lambda_2) \int_a^b x_1 x_2 \,dt
+& =
+\int_a^b x_2'' x_1 - x_2 x_1'' \,dt \\
+& =
+\int_a^b \frac{d}{dt} \left( x_2' x_1 - x_2 x_1' \right) \,dt \\
+& =
+\Bigl[ x_2' x_1 - x_2 x_1' \Bigr]_{t=a}^b
+= 0 .
+\end{split}
+\end{equation*}
+The last equality holds because of the boundary conditions.  For example, if
+we consider \eqref{bv:eq1} we have $x_1(a) = x_1(b) = x_2(a) = x_2(b) = 0$
+and so $x_2' x_1 - x_2 x_1'$ is zero at both $a$ and $b$.
+As $\lambda_1 \not= \lambda_2$, the theorem follows.
+
+\begin{exercise}[easy]
+Finish the proof of the theorem (check the last equality in the proof) for the cases
+\eqref{bv:eq2} and \eqref{bv:eq3}.
+\end{exercise}
+
+The function $\sin (n t)$ is an eigenfunction for the problem
+$x''+\lambda x = 0$, $x(0) = 0$, $x(\pi) = 0$. 
+Hence for positive
+integers $n$ and $m$ we have the integrals
+\begin{equation*}
+\int_{0}^\pi \sin (mt) \sin (nt) \,dt = 0 ,
+\quad
+\text{when } m \not = n.
+\end{equation*}
+Similarly,
+\begin{equation*}
+\int_{0}^\pi \cos (mt) \cos (nt) \,dt = 0 ,
+\quad
+\text{when } m \not = n,
+\qquad \text{and} \qquad
+\int_{0}^\pi  \cos (nt) \,dt = 0 .
+\end{equation*}
+And finally we also get
+\begin{equation*}
+\int_{-\pi}^\pi \sin (mt) \sin (nt) \,dt = 0 ,
+\quad
+\text{when } m \not = n, 
+\qquad \text{and} \qquad
+\int_{-\pi}^\pi  \sin (nt) \,dt = 0 ,
+\end{equation*}
+\begin{equation*}
+\int_{-\pi}^\pi \cos (mt) \cos (nt) \,dt = 0 ,
+\quad
+\text{when } m \not = n,
+\qquad \text{and} \qquad
+\int_{-\pi}^\pi  \cos (nt) \,dt = 0 ,
+\end{equation*}
+and
+\begin{equation*}
+\int_{-\pi}^\pi \cos (mt) \sin (nt) \,dt = 0 
+\qquad \text{(even if $m=n$).}
+\end{equation*}
+
+%\medskip
+%
+%The theorem is also true when different boundary conditions are applied as
+%well.  For example, if we require $x'(a) = x'(b) = 0$, or
+%$x(a) = x'(b) = 0$, or
+%$x'(a) = x(b) = 0$.  See the proof.
+
+
+%By what we have seen previously we apply the theorem to find the integrals
+%\begin{equation*}
+%\int_{-\pi}^\pi \sin (mt) \sin (nt) \,dt = 0 \qquad \text{and} \qquad
+%\int_{-\pi}^\pi \cos (mt) \cos (nt) \,dt = 0 ,
+%\end{equation*}
+%when $m \not = n$, and 
+%\begin{equation*}
+%\int_{-\pi}^\pi \sin (mt) \cos (nt) \,dt = 0 ,
+%\end{equation*}
+%for all $m$ and $n$.
+
+\subsection{Fredholm alternative}
+
+We now touch on a very useful theorem in the theory of differential
+equations.  The theorem holds in a more general setting than we are
+going to state it, but for our purposes the following statement is
+sufficient.  % We will give a slightly more general version in
+% \chapterref{SL:chapter}.
+
+\begin{theorem1}[thm:fredholmsimple]{Fredholm alternative%
+}\index{Fredholm alternative!simple case}
+Exactly one of the following statements holds.
+Either
+\begin{equation} \label{simpfredhomeq}
+x'' + \lambda x = 0, \quad x(a) = 0, \quad x(b) = 0
+\end{equation}
+has a nonzero solution, or
+\begin{equation} \label{simpfrednonhomeq}
+x'' + \lambda x = f(t), \quad x(a) = 0, \quad x(b) = 0
+\end{equation}
+has a unique solution for every function $f$ continuous on $[a,b]$.
+\end{theorem1}
+
+The theorem\footnote{Named after the Swedish mathematician
+\href{https://en.wikipedia.org/wiki/Fredholm}{Erik Ivar Fredholm}
+(1866--1927).} is also true for the other types of
+boundary conditions we considered.
+The theorem means that if $\lambda$ is not an eigenvalue, the nonhomogeneous
+equation \eqref{simpfrednonhomeq} has a unique solution for every right-hand
+side.  On the other hand if $\lambda$ is an eigenvalue, then 
+\eqref{simpfrednonhomeq} need not have a solution for every $f$,
+and furthermore,
+even if it happens to have a solution, the solution is not
+unique.
+
+We also want to reinforce the idea here that linear differential operators have
+much in common with matrices.  So it is no surprise that
+there is a finite-dimensional version of Fredholm alternative for matrices as
+well.  Let $A$ be an $n \times n$ matrix.  The Fredholm alternative then
+states that either $(A-\lambda I) \vec{x}
+= \vec{0}$ has a nontrivial solution, or $(A-\lambda I) \vec{x} = \vec{b}$
+has a unique solution for every $\vec{b}$.
+
+A lot of intuition from linear algebra can be applied to linear differential
+operators, but one must be careful of course.  For example, one 
+difference we have already seen is that in general a differential operator
+will have infinitely many eigenvalues, while a matrix has only finitely many.
+
+\subsection{Application}
+
+Let us consider a physical application of an endpoint problem.
+Suppose we have a tightly stretched quickly spinning elastic
+string or rope of uniform linear density $\rho$, for example in
+$\unitfrac{kg}{m}$.
+Let us put this problem into the $xy$-plane and both $x$ and $y$
+are in meters.  The $x$-axis represents the
+position on the string.  The string rotates at angular velocity $\omega$,
+in $\unitfrac{radians}{s}$.
+Imagine that the whole $xy$-plane rotates at angular velocity $\omega$.
+This way, the string stays in this $xy$-plane and $y$ 
+measures its deflection from the equilibrium position, $y=0$, on the $x$-axis.
+Hence the graph of $y$ gives the shape of the string.
+We consider an ideal string with
+no volume, just a mathematical curve.
+We suppose the tension on the string is a constant $T$ in Newtons.
+%If we take a small segment and we look at the tension at the endpoints, we
+%see that this force is tangential and we will assume that the magnitude is
+%the same at both end points.  Hence the magnitude
+%is constant everywhere and we will
+%call its magnitude $T$.
+Assuming that the deflection is small,
+we can use Newton's second law (let us skip the derivation) to get the equation
+\begin{equation*}
+T y'' + \rho \omega^2 y = 0 .
+\end{equation*}
+To check the units notice that the units of $y''$ are $\unitfrac{m}{m^2}$, as the derivative is
+in terms of $x$.
+
+Let $L$ be the length of the string (in meters) and the string
+is fixed at the beginning and end
+points.  Hence, $y(0) = 0$ and $y(L) = 0$.  See
+\figurevref{bvp:whirstringfig}.
+
+\begin{myfig}
+\capstart
+\inputpdft{bvp-whirstring}
+\caption{Whirling string.\label{bvp:whirstringfig}}
+\end{myfig}
+
+We rewrite the equation as
+$y'' + \frac{\rho \omega^2}{T} y = 0$.
+The setup is similar to \examplevref{bvp:eig1ex}, except for the
+interval length being $L$ instead of $\pi$.  We are looking for eigenvalues
+of $y'' + \lambda y = 0, y(0) = 0, y(L) = 0$ where
+$\lambda = \frac{\rho \omega^2}{T}$.  As before
+there are no nonpositive eigenvalues.  With $\lambda > 0$,
+the general solution to the equation is $y = A \cos (  \sqrt{\lambda} \,x ) + B
+\sin ( \sqrt{\lambda} \,x )$.  The condition $y(0) = 0$ implies that $A = 0$ as
+before.  The condition $y(L) = 0$ implies that
+$\sin ( \sqrt{\lambda} \, L) = 0$ and hence
+$\sqrt{\lambda} \, L = k \pi$  for some integer $k > 0$, so
+\begin{equation*}
+\frac{\rho \omega^2}{T} = \lambda = \frac{k^2 \pi^2}{L^2} .
+\end{equation*}
+
+What does this say about the shape of the string?  It says that for
+all parameters $\rho$, $\omega$, $T$ not satisfying the equation above, the
+string is in the equilibrium position, $y=0$.  When 
+$\frac{\rho \omega^2}{T} = \frac{k^2 \pi^2}{L^2}$, then the string will
+\myquote{pop out} some distance $B$.  We cannot compute $B$
+with the information we have.
+
+Let us assume that $\rho$ and $T$ are fixed and we are changing $\omega$.
+For most values of $\omega$ the string is in the equilibrium state.  When 
+the angular velocity $\omega$ hits a value
+$\omega = \frac{k \pi \sqrt{T}}{L\sqrt{\rho}}$, then the string 
+pops out and has the shape of a sin wave crossing the
+$x$-axis $k-1$ times between the end points.
+For example, at $k=1$, the string does not cross the $x$-axis
+and the shape looks like in \figurevref{bvp:whirstringfig}.
+On the other hand, when $k=3$ the string crosses the $x$-axis
+2 times, see \figurevref{bvp:whirstring2fig}.
+When $\omega$ changes again, the string returns to
+the equilibrium position.  The higher the angular velocity,
+the more times it crosses the $x$-axis when it is popped out.
+
+\begin{myfig}
+\capstart
+\inputpdft{bvp-whirstring2}
+\caption{Whirling string at the third eigenvalue ($k=3$).\label{bvp:whirstring2fig}}
+\end{myfig}
+
+For another example, if you have a spinning jump rope (then $k=1$ as it is
+completely \myquote{popped out}) and you
+pull on the ends to increase the tension, then the velocity also increases
+for the rope to stay \myquote{popped out}.
+
+
+\subsection{Exercises}
+
+\begin{exercise}\ansMark%
+Consider a spinning string of length 2 and linear density 0.1 and tension 3.
+Find smallest angular velocity when the string pops out.
+\end{exercise}
+\exsol{%
+$\omega = \pi \sqrt{\frac{15}{2}}$
+}
+
+
+Hint for the following exercises:  Note that
+when $\lambda > 0$, then
+$\cos \bigl( \sqrt{\lambda}\, (t - a) \bigr)$
+and $\sin  \bigl( \sqrt{\lambda}\, (t - a) \bigr)$
+are also solutions of the homogeneous
+equation.
+
+\begin{exercise}
+Compute all
+eigenvalues and eigenfunctions of
+$x'' + \lambda x = 0, ~ x(a) = 0, ~ x(b) = 0$ (assume $a < b$).
+\end{exercise}
+
+\begin{exercise}
+Compute all
+eigenvalues and eigenfunctions of
+$x'' + \lambda x = 0, ~ x'(a) = 0, ~ x'(b) = 0$ (assume $a < b$).
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Suppose $x'' + \lambda x = 0$ and $x(0)=1$, $x(1) = 1$.
+Find all $\lambda$ for which there is more
+than one solution.  Also find the corresponding solutions (only for the
+eigenvalues).
+\end{exercise}
+\exsol{%
+$\lambda_k = 4 k^2 \pi^2$ for $k = 1,2,3,\ldots$
+\quad
+$x_k =  \cos (2k\pi t) + B \sin (2k\pi t)$ \quad (for any $B$)
+}
+
+
+\begin{exercise}
+Compute all
+eigenvalues and eigenfunctions of
+$x'' + \lambda x = 0, ~ x'(a) = 0, ~ x(b) = 0$ (assume $a < b$).
+\end{exercise}
+
+\begin{exercise}
+Compute all 
+eigenvalues and eigenfunctions of
+$x'' + \lambda x = 0, ~ x(a) = x(b), ~ x'(a) = x'(b)$ (assume $a < b$).
+\end{exercise}
+
+\begin{exercise}%
+Suppose $x'' + x = 0$ and $x(0)=0$, $x'(\pi) = 1$.
+Find all the solution(s) if any exist.
+\end{exercise}
+\exsol{%
+$x(t) = - \sin(t)$
+}
+
+
+\begin{exercise}
+We skipped the case of $\lambda < 0$ for
+the boundary value problem
+$x'' + \lambda x = 0, ~ x(-\pi) = x(\pi), ~ x'(-\pi) = x'(\pi)$.
+Finish the calculation and show that there are no negative eigenvalues.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Consider
+$x' + \lambda x = 0$ and $x(0)=0$, $x(1) = 0$.  Why does it not
+have any eigenvalues?  Why does any first order equation with two endpoint
+conditions such as above have no eigenvalues?
+\end{exercise}
+\exsol{%
+General solution is $x = C e^{-\lambda t}$.  Since $x(0) = 0$ then $C=0$, and so $x(t) = 0$.
+Therefore,
+the solution is always identically zero.  One condition is always
+enough to guarantee a unique solution for a first order equation.
+}
+
+\begin{exercise}[challenging]\ansMark%
+Suppose $x''' + \lambda x = 0$ and $x(0)=0$, $x'(0) = 0$, $x(1) = 0$.
+Suppose that $\lambda > 0$.  Find an equation that all such
+eigenvalues must satisfy.
+Hint: Note that $-\sqrt[3]{\lambda}$ is a root
+of $r^3+\lambda = 0$.
+\end{exercise}
+\exsol{%
+$\frac{\sqrt{3}}{3} e^{\frac{-3}{2}\sqrt[3]{\lambda}}
+- \frac{\sqrt{3}}{3} \cos \bigl( \frac{\sqrt{3}\, \sqrt[3]{\lambda}}{2} \bigr)
++ \sin \bigl( \frac{\sqrt{3}\, \sqrt[3]{\lambda}}{2}\bigr) = 0$
+}
+
+
+\setcounter{exercise}{100}
+

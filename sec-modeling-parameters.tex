@@ -1,0 +1,260 @@
+\section{Modeling and Parameter Estimation}
+\label{modelfirstestim:section}
+
+\LO{
+\item Use parameter estimation to approximate physical parameters from data.
+}
+
+One of the most common ways that the mathematical modeling structure can be used to analyze physical problems is the idea of parameter estimation\index{parameter estimation}. The situation is that we have physical principles that give rise to a differential equation that defines how a physical system should behave, but there are one or more constants in the problem that we do not know. Two simpler examples of this are Newton's Law of Cooling 
+\begin{equation*}
+\frac{dT}{dt} = -k(T - T_s)
+\end{equation*}
+which models the temperature of an object in an environment of temperature $T_s$ over time, and velocity affected by drag
+\begin{equation*}
+\frac{dv}{dt} = 9.8 - \alpha v^2
+\end{equation*}
+modeling the velocity of a falling object where the drag force is proportional to the square of the velocity. In both of these cases, the models are well established, but for a given object, we likely do not know the $k$ or $\alpha$ values in the problem. These are these \emph{\myindex{parameters}} of the problem, and would be determined by the shape and structure of the objects, the material that it is made of, and many other factors, so it could be hard to figure out what they are in advance. How can we find these values? We can use data from the actual physical problem to try to estimate these parameters.
+
+The easier version of this is to use a single value at a later time to calculate the constant.
+
+\begin{example} 
+An object that obeys Newton's Law of Cooling is placed in an environment at a constant temperature of $20^o$ C. The object starts at $50^o$ C, and after 10 minutes, it has reached a temperature of $40^o$ C. Find a function for the temperature as a function of time.
+\end{example}
+
+\begin{exampleSol}
+Based on Newton's Law of Cooling, we know that the temperature satisfies the differential equation
+\begin{equation*}
+\frac{dT}{dt} = -k(T - T_s) = -k(T - 20)
+\end{equation*} 
+with initial condition $T(0) = 50$, but we do not know the value of $k$. In order to work this out, we should solve the differential equation with unknown constant $k$, then figure out which value of $k$ gives us the appropriate temperature after 10 minutes. This is a first order linear equation, which can be rewritten as 
+\begin{equation*}
+T' + kT = 20k.
+\end{equation*}
+
+The integrating factor we need is $e^{kt}$, which turns the equation into
+\begin{equation*}
+(e^{kt}T)' = 20ke^{kt}.
+\end{equation*}
+Integrating both sides and solving for $T$ gives
+\begin{equation*}
+T(t) = 20 + Ce^{-kt}.
+\end{equation*}
+
+To satisfy the initial condition, we need that $T(0) = 50$, or $C = 30$. Thus, our solution, still with an unknown constant $k$, is
+\begin{equation*}
+T(t) = 20 + 30e^{-kt}.
+\end{equation*}
+
+To determine the value of $k$, we need to utilize the other given piece of information: that $T(10) = 40$. Plugging this in gives that
+\begin{equation*}
+40 = 20 + 30e^{-10k}
+\end{equation*}
+which we can solve for $k$ using logarithms. This will give that
+\begin{equation*}
+\frac{2}{3} = e^{-10k} \qquad \Rightarrow \qquad k = -\frac{1}{10} \ln{ \frac{2}{3}}.
+\end{equation*}
+
+Finally, we can plug that constant into our equation to get the solution for the temperature at any time value,
+\begin{equation*}
+T(t) = 20+30e^{-\frac{t}{10}\ln{\frac{2}{3}}}. 
+\end{equation*}
+\end{exampleSol} 
+
+This method works great if we have the exact measurement from the object at one point in time. However, if the measurements at multiple points in time are known, and if the data is not likely to be exact, then a different method is more applicable. The idea is that we want to minimize the ``error'' between our predicted result and the physical data that we gather. The method used to minimize the error is the ``Least Squared Error''\index{least squared error} method.
+
+Assume that we want to do this for the drag coefficient problem, 
+\begin{equation*}
+\frac{dv}{dt} = 9.8 - \alpha v^2
+\end{equation*}
+where we do not know, and want to estimate, the value of $\alpha$. For this method, the data that we gather is a set of velocity values $v_1, v_2, ..., v_n$ that are obtained at times $t_1, t_2, ..., t_n$. For any given value of $\alpha$, we can solve, either numerically or analytically, the solution $v_\alpha$ to the given differential equation with that value of $\alpha$. From this solution, we can compute $v_\alpha(t_1), v_\alpha(t_2),..., v_\alpha(t_n)$, the value of this solution at each of the times that we gathered data originally. Now, we want to compute the error that we made in choosing this parameter $\alpha$. This is computed by 
+\begin{equation*}
+E(\alpha) = (v_1 - v_\alpha(t_1))^2 + (v_2 - v_\alpha(t_2))^2 + \cdots  + (v_n - v_\alpha(t_n))^2
+\end{equation*}
+which is the sum of the squares of the differences between the gathered data and the predicted solution. In order to find the best possible value of $\alpha$, we want to minimze this error by choosing different values of $\alpha$
+\begin{equation*}
+E_{min} = \min_\alpha E(\alpha) = \min_\alpha \sum_{i=1}^n (v_i - v_\alpha(t_i))^2
+\end{equation*}
+and whatever value of $\alpha$ gives us this minimum is the optimal choice for that parameter. 
+
+The function that we want to minimize here is usually a very complicated function, and we may not even be able to solve the differential equation analytically for any $\alpha$. Thus, computers are used most often here to solve these types of problems.
+
+\begin{example}
+An object is falling under the force of gravity, and has a drag component that is proportional to the square of the velocity. Data is gathered on the falling object, and the velocity at a variety of times are given in \tablevref{estimData:table}.
+
+\begin{table}[h!!]
+    \centering
+    \begin{tabular}{|c|c|}\hline
+         \textbf{t} (s)& \textbf{v} (m/s)  \\ \hline
+        0 & 0 \\
+        0.1 & 0.9797 \\
+        0.3 & 2.8625 \\
+        0.5 & 4.4750 \\
+        0.8 & 6.3828 \\
+        0.9 & 6.8360 \\
+        1.0 & 7.0334 \\
+        1.5 & 8.1612 \\ \hline
+    \end{tabular}
+    \caption{Data for estimating drag coefficient using least squared errors.} \label{estimData:table}
+\end{table}
+
+Use this data to estimate the coefficient of proportionality on the drag term in the equation 
+\begin{equation*}
+\frac{dv}{dt} = 9.8 - \alpha v^2.
+\end{equation*}
+\end{example}
+
+\begin{exampleSol}
+To solve this problem, we will use the least squared error method implemented in MATLAB. The code we need for this is the following, which makes use of the Optimization Toolbox.
+
+\begin{matlab}
+
+global tVals
+global vVals
+
+tVals = [0, 0.1, 0.3, 0.5, 0.8, 0.9, 1.0, 1.5];
+vVals = [0,0.9797,2.8625,4.4750,6.3828,6.8360,7.0334,8.1612];
+
+[aVal, errVal] = fminbnd(@(a) EstSqError(a), 0, 4)
+\end{matlab}
+
+This bit of code inputs the necessary values and uses the \texttt{fminbnd} function to find the minimum of the error function on a defined interval. These problems need to be done on a bounded interval, but in most physical situations there is some reasonable window for where the parameter could be. The rest of the code is the definition of the \texttt{EstSqError} function.
+
+\begin{matlab}
+function err = EstSqError(al)
+
+global tVals
+global vVals
+
+fun = @(t,v) 9.8 - al.*v.^2;
+sol = ode45(fun, [0,3], 0);
+vTest = deval(sol, tVals);
+
+err = sum((vVals - vTest).^2)
+end
+\end{matlab}
+
+The main point of this code is that it takes in a value of $\alpha$, over which we are trying to minimize, it numerically solves the differential equation with that value of $\alpha$ over a desired range of values, and then compares the inputted \texttt{vVals} with the generated \texttt{vTest} array, computing the sum of squared errors, and returning the error value. 
+
+Running this code results in an $\alpha$ value of $0.1256$, with an error of $0.0345$. That means that, based on this data, the best approximation to $\alpha$ is $0.1256$.
+
+\end{exampleSol}
+Note that in the above example, the total error was not zero, and doesn't actually match the coefficient used to generate the data, which was $0.123$. This is because noise was added to the data before trying to compute the drag coefficient. In a real world problem, noise would not be added, but a similar effect would arise from slightly inaccurate measurements or round-off errors in the data. While we may not have found the constant exactly, we got really close to it, and could use this as a starting point for further experiments and data validation. 
+
+\subsection{Exercises}
+
+\begin{exercise}
+Bob is getting coffee from a restaurant and knows that the temperature of the coffee will follow Newton's Law of Cooling, which says that
+\begin{equation*}
+\frac{dT}{dt} = k(T_0 - T)
+\end{equation*}
+where $T_0$ is the ambient temperature and $k$ is a constant depending on the object and geometry. His car is held at a constant 20$^\circ$ C, and when he receives the coffee, he measures the temperature to be 90$^\circ$ C. Two minutes later, the temperature is 81$^\circ$C.
+\begin{tasks}
+\task Use these two points of data to determine the value of $k$ for this coffee.
+\task Bob only wants to drink his coffee once it reaches 65$^\circ$ C. How long does he have to wait for this to happen? 
+\task If the coffee is too cold for Bob's taste once it reaches 35$^\circ$ C, how long is the acceptable window for Bob to drink his coffee?
+\end{tasks} 
+\end{exercise}
+
+\begin{exercise}
+Assume that a falling object has a velocity (in meters per second) that obeys the differential equation
+\begin{equation*}
+\frac{dv}{dt} = 9.8 - \alpha v
+\end{equation*}
+where $\alpha$ represents the drag coefficient of the object.
+\begin{tasks}
+\task Solve this differential equation with initial condition $v(0) = 0$ to get a solution that depends on $\alpha$. 
+\task Assume that you drop an object from a height of 10 meters and it hits the ground after $3$ seconds. What is the value of $\alpha$ here? (Note: You solved for $v(t)$ in the previous part, and now you need to get to position. What does that require?)
+\task Assume that a second object hits the ground in 6 seconds. How does this change the value of $\alpha$?
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}
+A restaurant is trying to analyze the to-go coffee cups that it uses in order to best serve their customers. They assume that the coffee follows Newton's Law of Cooling and place it in a room with ambient temperature 22$^\circ$ C. They record the following data for the temperature of the coffee as a function of time.
+\begin{table}[h!!]
+    \centering
+    \begin{tabular}{|c|c|}\hline
+         \textbf{t} (min)& \textbf{T} ($^\circ$ C)  \\ \hline
+        0 & 80 \\
+         0.5 & 77.1624 \\
+         1.1 & 73.8082 \\
+         1.7 & 70.6800 \\
+         2.3 & 67.7996 \\ \hline
+    \end{tabular}
+\end{table}
+\begin{tasks}
+\task Use code to determine the best-fit value of $k$ for this data.
+\task The restaurant determines that to avoid any potential legal issues, the coffee can be no warmer than 60 $^\circ$C when it is served. If the coffee comes out of the machine at 90 $^\circ C$, how long do they have to wait before they can serve the coffee?
+\end{tasks}
+\end{exercise}
+%\exsol{%
+% a) $k \approx .1027$.
+% b)
+% }
+
+\newpage
+
+\begin{exercise}\label{ex:ModelingParamVel}\ansMark%
+Assume that an object falling has a velocity that follows the differential equation 
+\begin{equation*}
+\frac{dv}{dt} = 9.8 - \alpha v^2
+\end{equation*}
+where the velocity is in \unitfrac{m}{s} and $\alpha$ represents the drag coefficient. During a physics experiment, a student measures data for the velocity of a falling object over time given in the table below.
+
+Use this data (and code) to estimate the value of $\alpha$ for this object. 
+\end{exercise} 
+\exsol{%
+$\alpha = .123$. The alpha value used before noise was added to the data is $0.124$, so very close, but not identically the same.%
+}
+\begin{minipage}{0.49\textwidth}
+\centering
+    \begin{tabular}{|c|c|}\hline
+         \textbf{t} (s)& \textbf{v} (m/s)  \\ \hline
+        0 & 0 \\
+	0.1 &0.9762 \\
+	0.2 &  1.9341 \\
+	0.4 & 3.6597 \\
+	0.6 & 5.1613 \\
+	0.9 & 6.7847 \\
+	1.1 & 7.4103 \\
+	1.3 & 7.9471 \\
+	1.5 & 8.2975 \\
+	1.8 & 8.5739\\
+	2.1 & 8.7769  \\ \hline
+    \end{tabular}
+    \captionof{table}{Data for \exerciseref{ex:ModelingParamVel}.}
+\end{minipage}%
+\begin{minipage}{0.49\textwidth}
+    \centering
+    \begin{tabular}{|c|c|}\hline
+         \textbf{t} (d)& \textbf{P} (thousands)  \\ \hline
+        0 & 50 \\
+       7  & 58.6556 \\
+        14 & 68.4521 \\
+        28 & 91.4883 \\
+        37 & 108.5750 \\
+         50 & 135.7148 \\
+        78 & 197.3520 \\
+        100 & 239.9479
+         \\ \hline
+    \end{tabular}
+    \captionof{table}{Data for \exerciseref{ex:ModelingParamPop}.}
+\end{minipage}
+
+\begin{exercise}\label{ex:ModelingParamPop}
+Assume that a species of fish in a lake has a population that is modeled by the differential equation
+\begin{equation*}
+\frac{dP}{dt} = \frac{1}{100}rP(K - P) - \alpha 
+\end{equation*}
+where $r$, $K$, and $\alpha$ are parameters, $r$ representing the growth rate, $K$ the carrying capacity, and $\alpha$ the harvesting rate, and the population $P$ is in thousands., with $t$ given in years. From previous studies, you know that the best value of $r$ is $3.12$. After studying the population over a period of time, you get the data given above.
+\begin{tasks}
+\task Your friend tells you that in a previous study, he found that the value of $K$ for this particular lake is $255.2$. Use code to determine the best value of $\alpha$ for this situation. Note that the equation expects $t$ in years, but the data is given in days. 
+\task That answer doesn't look great. Plot the solution with these parameters along with the data and compare them.
+\task The fit does not look great, so maybe your friend's value was not quite right. Run code to find best values for $K$ and $\alpha$ simultaneously. 
+\end{tasks}
+
+\end{exercise}
+\exsol{%
+a) $\alpha = 4.03\times 10^{-5}$, so $\alpha \approx 0$.
+c) $K = 324.07$ and $\alpha = 5.061$. 
+}%
+

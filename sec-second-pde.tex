@@ -1,0 +1,254 @@
+
+\section{Second order linear PDEs}
+\label{secondpde:section}
+
+% \LAtt{4.6}
+
+\LO{
+\item Classify second order linear partial differential equations, 
+\item Use separation of variables to attempt to find a solution to a partial differential equation 
+}
+
+\subsection{Classification}
+
+As with ordinary differential equations, second order partial differential equations have a lot of varied physical applications. The next few sections of the book will go into these applications, but we will first set up the appropriate terminology around these equations. Assume that we have a function $u$ of two variables $x$ and $y$. A PDE is said to be \emph{linear\index{linear PDE}} if the dependent
+variable and its derivatives appear at most to the first power and in no
+functions. The general second order linear PDE\index{second order linear PDE} for $u$ looks like
+\[ A(x,y)\frac{\partial^2 u}{\partial x^2} + B(x,y) \frac{\partial^2u}{\partial x \partial y} + C(x,y) \frac{\partial ^2 u}{\partial y^2} + D(x,y) \frac{\partial u}{\partial x} + E(x,y) \frac{\partial u}{\partial y} + F(x,y) u = G(x,y). \]
+
+This expression contains all possible derivatives of $u$ up to second order, multiplied by functions of the independent variables $x$ and $y$. If we had a different number of variables, then we would get a different set of terms here.
+
+\begin{exercise}
+Write out the general second order linear ODE for a function $u(x,y,z)$ of three independent variables. How many terms are there?
+\end{exercise}
+
+It is also possible to consider second order non-linear PDE, but if ODE work taught us anything, it's that non-linear equations are \emph{much} harder to solve than linear ones. As we will see going forward, we can only solve these linear ones in very specific cases, so there isn't too much worth in trying to extend to non-linear equations at this point.
+
+In addition to the equation, we need to factor in the \emph{initial conditions\index{initial conditions for a PDE}} and \emph{boundary conditions\index{boundary conditions for a PDE}} for the problem. Boundary conditions specify the value of the solution or its derivatives along the boundary of the region (in space), and initial conditions give such values at some initial time. A general way to identify these is that sometimes one of the variables is indicated as time, which is generally labeled as $t$ and the problem only gives information about what is happening at the initial time value, because we want to see how the equation develops. This gives an initial condition. In the other case, the independent variables generally indicate spatial dimensions and information is know at both ends of the desired domain, and these give rise to boundary conditions. Sometimes such conditions are mixed together and we will refer to them
+simply as 
+\emph{side conditions\index{side conditions for a PDE}}.
+
+\begin{example}
+An example of the heat equation in one dimension is
+\[ \frac{\partial u}{\partial t} = 4 \frac{\partial^2 u}{\partial x^2} \] for the unknown function $u(t,x)$, with conditions 
+\[ u(0, x) = x(1-x) \]
+\[ u(t,0) = 0 \qquad u(t, 1) = 0. \]
+
+The notation of the variables indicates that $t$ is time and $x$ is the position. The conditions given also indicate this, because we are given information about what happens at \emph{both} endpoints (0 and 1) in the x direction, so these are boundary conditions, but only information about the starting value of $t=0$ in terms of $t$, so this is an initial condition. 
+\end{example}
+
+Even these general equations are very hard to solve, so just like in \sectionref{solinear:section}, we will restrict to constant coefficient equations. Returning to our example of a function $u$ of two variables $x$ and $y$, the general constant coefficient second order linear PDE is 
+
+\begin{equation}
+A\frac{\partial^2 u}{\partial x^2} + B\frac{\partial^2u}{\partial x \partial y} + C \frac{\partial ^2 u}{\partial y^2} + D \frac{\partial u}{\partial x} + E \frac{\partial u}{\partial y} + F u = G(x,y).
+\label{eq:solinPDE}
+\end{equation}
+
+This equation is said to be \emph{homogeneous} if $G(x,y) = 0$ and \emph{non-homogeneous} otherwise. It turns out that all equations of this type can be divided into three main groups based on the coefficients.
+
+\begin{definition}
+An equation of the form \eqref{eq:solinPDE} is said to be
+\begin{enumerate}
+\item \emph{hyperbolic}\index{hyperbolic PDE} if $B^2 - 4AC > 0$
+\item \emph{parabolic}\index{parabolic PDE} if $B^2 - 4AC = 0$
+\item \emph{elliptic}\index{elliptic PDE} if $B^2 - 4AC < 0$.
+\end{enumerate}
+\end{definition}
+
+\begin{remark}
+You may recognize these terms from conic sections and this is not a coincidence. If you consider the equation
+\[ Ax^2 + Bxy + Cy^2 + Dx + Ey + F = 1, \] the graph of this is a hyperbola if $B^2 - 4AC > 0$, a parabola if $B^2 - 4AC = 0$, and an ellipse (or circle) if $B^2 - 4AC < 0$.
+\end{remark}
+
+It is well beyond the scope of this book, but PDE of the same ``type'' behave similarly. That is, there are certain characteristics  of the solutions to these PDE that are true for all equations of the same type. This means that to get a general idea of how solutions to these equations behave, we only need to look at some examples of them. The next sections will do exactly that, describing the heat equation (parabolic), wave equation (hyperbolic), and Laplace's equation (elliptic). These are very simple examples of these types of equation that we will be able to deal with, and they will show the general behavior of each of these types of equations. 
+
+\begin{exercise}
+Verify that the equations below have the type described in the text above.
+\[ \frac{\partial u}{\partial t} = 4 \frac{\partial^2 u}{\partial x^2} \qquad \text{(Heat equation)} \]
+\[ \frac{\partial^2 u}{\partial t^2} = 9 \frac{\partial^2 u}{\partial x^2} \qquad \text{(Wave equation)} \]
+\[ \frac{\partial^2 u}{\partial x} + \frac{\partial^2 u}{\partial y^2} = 0 \qquad \text{(Laplace's equation)} \]
+Note that in the first two examples, the variables are $t$ and $x$, while in the last one, the variables are $x$ and $y$. 
+\end{exercise}
+
+\subsection{Separation of variables}
+
+In general, just like for more complicated ODE, solving a generic PDE for an explicit solution is nearly impossible. However, we do have existence and uniqueness theorems for these kinds of equations. These theorems basically say that as long as the equation is ``nice'' and the boundary and initial conditions are ``nice'' enough, then the solution will exist, at least for a short time. The ``nice'' part here is important for these PDE. For ODE, all of our initial conditions or boundary conditions were single numbers, and no number (besides maybe zero) is nicer than any other. However, for PDE, our boundary and initial conditions are all functions, which can range greatly in how ``nice'' they are. For example, the function
+\[ f_1(x) = \begin{cases} 1 & -1 \leq x \leq 1 \\ 0 & |x| > 1 \end{cases} \] is not as nice as
+\[ f_2(x) = |x|, \] because the first is not continuous, and $f_3(x) = x^2$ is even nicer, because it is differentiable. 
+
+This idea of ``niceness'' is usually refered to as the \emph{\myindex{regularity}} of the solution, which refers to how many continuous derivatives a function has. Some of these differential equations (elliptic and parabolic) have ``smoothing'' properties, which means that the solution is more regular than the boundary or initial conditions. We'll get to these types of properties in their respective sections. The main fact that comes out of these theorems (that we will not discuss in detail) is that the solution is at least as regular as the boundary and initial conditions.
+
+All of this goes to say that in hunting for a solution to these PDE, we just need to find a solution that works, and then the existence and uniqueness theorems will guarantee that this is the only solution. The argument here is the same as back in \sectionref{solinear:section}; once we found a solution of a particular form, we know that this is \emph{the} solution because of the theorems. Previously, we used solutions of the form $y(x) = e^{rx}$ to find solutions to second order ODE. The technique we want to use for PDE is called \emph{separation of variables}. 
+
+Let's use the heat equation as an example here. We have a function $u(t,x)$ that we want to have solve the PDE
+\[ \frac{\partial u}{\partial t} = 4 \frac{\partial^2u}{\partial x^2}. \] Assume that we have the boundary conditions $u(t,0) = 0$, $u(t,1) = 0$ and initial condition $u(0, x) = f(x)$ on the interval $0 \leq x \leq 1$. The main trick with this technique is to separate the variables; that is, we will assume that the solution $u(t,x)$ can be written as
+\[ u(t,x) = T(t) X(x) \] where $T$ is a function only of the time variable $t$, and $X$ is a function only of the position $x$. In this way, the variables have been separated to live in different functions. Then we can plug this into the differential equation to see what $T$ and $X$ must satisfy. Since $u$ is written as a product of functions of different variables, we have that
+\[ \frac{\partial u}{\partial t} = T'(t)X(x) \] and 
+\[ \frac{\partial^2 u}{\partial x^2} = T(t)X''(x). \] Thus, the PDE gives that
+\[ T'(t)X(x) = 4T(t)X''(x). \] We can rewrite this equation as
+\[ \frac{T'(t)}{4T(t)} = \frac{X''(x)}{X(x)}.\]
+
+This expression here looks fairly complicated. However, the left hand side is only a function of $t$, and the right hand side is only a function of $x$. Furthemore, we want this to hold for \emph{all} inputs $x$ and $t$. Therefore, both sides of this expression must equal the same constant. If the left hand side changes at all with $t$, then we can just change the $t$ value to adjust it and break the equality. Therefore, they are both constant, which we will call $-\lambda$, with the minus sign for convenience. 
+
+With this, we can separate the differential equation into two separate ODE for $T$ and $X$ respectively, giving
+\[ \frac{T'(t)}{4T(t)} = -\lambda \qquad \frac{X''(x)}{X(x)} = -\lambda \] which can be rewritten as 
+\[ T'(t) + 4\lambda T(t) = 0 \qquad X''(x) + \lambda X(x) = 0. \] These are, respectively, a first and second order constant coefficient linear equation that can be solved by normal ODE methods. 
+
+The equation for $X(x)$ is very reminiscient of \sectionref{bvp:section}, which is the eigenvalue-eigenfunction boundary value problem. At this point, $\lambda$ is some constant, but we haven't specified the value yet. This value (or these possible values) will come as the eigenvalues of the problem with the appropriate boundary conditions. But what are these boundary conditions?
+
+The boundary conditions for the PDE as a whole say that $u(t,0) = 0$ and $u(t,1) = 0$. If we write these out in terms of the separated functions, we get that
+\[ T(t)X(0) = 0 \qquad T(t)X(1) = 0 \] for all values of $t$. Since we don't want $T(t) = 0$ (since that would make the entire function $u(t,x) = 0$), we must have that $X(0) = 0$ and $X(1) = 0$. This gives the eigenvalue problem
+\[ X'' + \lambda X = 0 \qquad X(0) = 0,\ X(1) = 0. \]
+
+This problem can be solved using the methods of \sectionref{bvp:section}, giving that we have eigenvalues of $\lambda_n = n^2\pi^2$ with eigenfunctions \[X_n(x) = A_n \sin(n\pi x). \] We can then carry these eigenvalues over to the $T(t)$ equation, needing to solve
+\[ T' + 4n^2\pi^2 T = 0 \] which has solution 
+\[ T_n(t) = C_n e^{-4n^2\pi^2 t}. \] Finally, we can combine these together to get
+\[ u_n(t,x) = A_n e^{-4n^2\pi^2 t}\sin(n\pi x), \] all of which solve the original PDE and boundary conditions $u_n(t, 0) = 0$ and $u_n(t,1) = 0$. 
+
+\begin{exercise}
+Check that $u_n$ meets all of these conditions for any positive integer $n$. 
+\end{exercise}
+
+So that takes care of the PDE and the boundary conditions. But now we have a \emph{bunch} of solutions, one for each $n$, and we have yet to meet the initial condition. Thankfully, the heat equation is linear as $u$ and its derivatives do not
+appear to any powers or in any functions.
+Thus the principle of \myindex{superposition} still applies for
+the heat equation
+(without side conditions):
+If $u_1$ and $u_2$ are
+solutions and $c_1$, $c_2$ are constants, then
+$u = c_1 u_1 + c_2 u_2$ is also a solution.
+
+\begin{exercise}
+Verify the principle of superposition for the heat equation.
+\end{exercise}
+
+Superposition preserves some of the side conditions.  In particular,
+if $u_1$ and $u_2$ are
+solutions that satisfy $u(0,t) = 0$ and $u(L,t) = 0$,
+and $c_1$, $c_2$ are constants, then
+$u = c_1 u_1 + c_2 u_2$ is still a solution
+that satisfies $u(0,t) = 0$ and $u(L,t) = 0$.  Similarly
+for the side conditions $u_x(0,t) = 0$ and $u_x(L,t) = 0$.  In general,
+superposition preserves all homogeneous side conditions.
+
+This means that we can add up our various $u_n$ to get additional solutions. In particular, for choices of constants $A_n$, the function
+\[ u(t,x) = \sum_{n=1}^\infty A_n u_n = \sum_{n=1}^\infty A_n e^{-4n^2\pi^2 t}\sin(n\pi x) \] will solve the PDE and meet the boundary conditions. For this function, what happens at $t=0$? If we set $t$ to be zero, all of the exponential terms go to $1$, leaving us with
+\[ u(0, x) =  \sum_{n=1}^\infty A_n \sin(n\pi x) \] which we want to match the function $f(x)$. The expression we had for $u(0,x)$ looks a lot like a Fourier series, in particular, a sine series. Thus, if we can expand the function $f$ into a sine series of the form \[ f(x) = \sum_{n=1}^\infty A_n \sin(n\pi x) \] this will give us the values of $A_n$ that we should choose to construct our function $u(t,x)$. With those decisions made, we then have a function $u(t,x)$ that solves the PDE, the boundary conditions, and the initial condition. This means we have found the solution that we want!
+
+This outlines the general process of using separation of variables to solve a PDE. The steps to this process are
+\begin{enumerate}
+\item Express the solution $u$ as a product of functions of each of the different variables.
+\item Plug this into the original differential equation and rewrite the equation so different variables are on different sides of the equation, so that each side of the equation must be a constant.
+\item Separate the equations into different ODE for each of the independent variables in the equation, connected by the eigenvalue constants.
+\item Translate the boundary conditions from the PDE into boundary conditions on the separated functions.
+\item Solve the eigenvalue problem for the spatial dimension(s) to get the appropriate values of the constant.
+\item Solve the rest of the ODE using these constants
+\item Write a series to represent the solution to the full PDE using these separated solutions.
+\item Use Fourier series to identify the constants needed and find the final solution to the PDE.
+\end{enumerate}
+
+The following example will illustrate this process.
+
+\begin{example} 
+Solve the PDE for the function $u(x,y)$ that solves
+\[
+\begin{split}
+\frac{\partial^2 u}{\partial x^2} + 9\frac{\partial^2 u}{\partial y^2} &= 0 \\
+u(0, y) &= 0 \\
+u(\pi, y) &= 0 \\
+u(x, 0) &= \sin(x) \\
+u(x, \pi) &= 0 \\
+\end{split}
+\]
+\end{example}
+
+\begin{exampleSol}
+In this case, we have an elliptic equation ($B^2 - 4AC = 0 - 8 < 0$), which is going to change what the solution looks like, but it won't substantially change the method we use to solve it. We start by looking for this building-block solutions in the form
+\[ u(x,y) = X(x)Y(y). \] If we plug this into the differential equation, we get that these functions must solve
+\[ X''(x)Y(y) + 9X(x)Y''(y) = 0 \] or that
+\[ \frac{X''(x)}{9X(x)} = - \frac{Y''(y)}{Y(y)}. \] Since these are functions of different variables, they must both equal the constant $-\lambda$. Thus, we get the two separated ODE
+\[ \frac{X''(x)}{9X(x)} = -\lambda \quad \Rightarrow \quad X''(x) + 9\lambda X(x) = 0 \] and
+\[ -\frac{Y''(y)}{Y(y)} = -\lambda \quad \Rightarrow \quad Y''(y) - \lambda Y(y) = 0. \]
+
+Next, we want to consider the boundary conditions. Since this is an elliptic PDE, everything is a boundary condition, we could use any of them. The main components here that are helpful are the zero boundary conditions. Those tell us that
+\[ \begin{split}
+u(0, y) = 0 \quad & \Rightarrow \quad X(0) = 0  \\
+u(\pi, y)  = 0 \quad & \Rightarrow \quad X(\pi) = 0 \\
+u(x, \pi)  = 0 \quad & \Rightarrow \quad Y(\pi) = 0 
+\end{split}. \]
+
+Since we have two zero boundary conditions for the $X$ equation, that boundary value problem is well-posed, and so it's something that we know how to solve. So, we start there. This boundary value problem is
+\[  X''(x) + 9\lambda X(x) = 0 \qquad X(0) = 0,\ X(\pi) = 0.\]
+
+The solution of this eigenvalue problem is that $9\lambda = n^2$ for any positive integer $n$, with eigenfunction 
+\[ X_n(x) = A_n \sin(n x). \] We can then take the eigenvalue $\lambda = \frac{n^2}{9}$ and carry this over to the $Y$ equation to get the equation
+\[ Y''(y) - \frac{n^2}{9} Y(y) = 0 \] which has general solution
+\[ Y_n(y) = C_1 e^{\frac{n}{3}y} + C_2 e^{-\frac{n}{3} y}. \]
+
+With our separate functions solved, we can now stack them up into a series solution to the entire PDE. This gives that we are looking for the solution $u(x,y)$ in the form
+\[ u(x,y) = \sum_{n=1}^\infty A_n e^{\frac{n}{3}y}\sin(nx) + B_n e^{-\frac{n}{3}y}\sin(nx). \]
+
+This function, as we have generated it, will solve the PDE, as well as the boundary conditions at $x=0$ and $x=\pi$. To finish this, we need to pick the constants $A_n$ and $B_n$ so that we satisfy
+\[ u(x, 0) = \sin(x) \qquad \text{ and } \qquad u(x,\pi) = 0. \] Plugging $y=0$ into the function, we get
+\[ u(x,0) = \sum_{n=1}^\infty A_n \sin(nx) + B_n\sin(nx) = \sum_{n=1}^\infty (A_n + B_n) \sin(nx) .\]
+
+Since we want this to match the boundary condition, we would need to use Fourier series. However, this particular series is easy, because the boundary condition is already a sine function. Therefore we know that we need
+\[ A_1 + B_1 = 1 \qquad A_n + B_n = 0 \quad \text{n $\geq$ 2} \] to give us just a $\sin(x)$ from this series. Next, we can plug $y=\pi$ into this series to get
+\[ u(x,\pi) = \sum_{n=1}^\infty A_n e^{\frac{n}{3}\pi}\sin(nx) + B_n e^{-\frac{n}{3}\pi}\sin(nx) = \sum_{n=1}^\infty \left( A_n e^{\frac{n}{3}\pi}+ B_n e^{-\frac{n}{3}\pi}\right)\sin(nx).\] We want this series to evaluate to zero, and since the functions $\sin(nx)$ are linearly independent, we need that
+\[ A_n e^{\frac{n}{3}\pi}+ B_n e^{-\frac{n}{3}\pi} = 0 \] for all $n$. Since $e^{\frac{n}{3}\pi}$ and $e^{-\frac{n}{3}\pi}$ are different for all $n$, we get that for $n \geq 2$ the pair of equations 
+\[ A_n + B_n = 0 \qquad A_n e^{\frac{n}{3}\pi}+ B_n e^{-\frac{n}{3}\pi} = 0\] only has the solution $A_n = 0$ and $B_n = 0$. Therefore, the only interesting case here is $n=1$, which gives rise to the pair of equations
+\[ A_1 + B_1 = 1 \qquad A_1 e^{\frac{\pi}{3}}+ B_1 e^{-\frac{\pi}{3}} = 0.\]
+
+From the first equation, we can write that $A_1 = 1 - B_1$ and plug this into the second equation to get that
+\[ (1 - B_1)e^{\frac{\pi}{3}} + B_1 e^{-\frac{\pi}{3}} = 0,\] which we can then solve for $B_1$ as
+\[ -B_1e^{\frac{\pi}{3}} + B_1e^{-\frac{\pi}{3}} = e^{\frac{\pi}{3}}\] or
+\[ B_1 = \frac{e^{\frac{\pi}{3}}}{e^{-\frac{\pi}{3}} - e^{\frac{\pi}{3}}} = \frac{1}{e^{-\frac{2\pi}{3}} - 1}. \]
+Then, we can solve for $A_1$ as
+\[ A_1 = 1 - B_1 = 1 - \frac{1}{e^{-\frac{2\pi}{3}} - 1}. \]
+
+Finally, we plug these values for $A_1$ and $B_1$, along with the fact that all of the other coefficients are zero, into the full solution to get
+\[
+\begin{split}
+u(x,y) &= \sum_{n=1}^\infty A_n e^{\frac{n}{3}y}\sin(nx) + B_n e^{-\frac{n}{3}y}\sin(nx) \\
+&= \left(1 - \frac{1}{e^{-\frac{2\pi}{3}} - 1} \right)e^{\frac{y}{3}}\sin(x) + \frac{1}{e^{-\frac{2\pi}{3}} - 1}e^{-\frac{y}{3}}\sin(x) \\
+&= \left[\left(1 - \frac{1}{e^{-\frac{2\pi}{3}} - 1} \right)e^{\frac{y}{3}}+ \frac{1}{e^{-\frac{2\pi}{3}} - 1}e^{-\frac{y}{3}}\right]\sin(x).
+\end{split}
+\]
+We can check that this solves the PDE by plugging the solution into the equation and boundary conditions.
+\end{exampleSol}
+
+
+\subsection{Exercises}
+
+\begin{exercise}
+Classify each of the following second order differential equations as \emph{hyperbolic}, \emph{parabolic}, or \emph{elliptic}.
+\begin{tasks}
+\task $\displaystyle 2 \frac{\partial^2 u}{\partial x^2} - \frac{\partial^2 u}{\partial x \partial y} + 4 \frac{\partial^2 u}{\partial y^2} + 3 \frac{\partial u}{\partial x} - 5u = 0$
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}
+Use separation variables to find a nontrivial
+solution to $u_{xx} + u_{yy} = 0$, where $u(x,0) = 0$ and $u(0,y) = 0$.
+Hint: Try $u(x,y) = X(x)Y(y)$.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Use separation of variables to find a nontrivial solution to
+$u_{xt} = u_{xx}$.
+\end{exercise}
+\exsol{%
+$u(x,t) = e^{\lambda t} e^{\lambda x}$ for some $\lambda$
+}
+
+\begin{exercise}\ansMark%
+Use separation of variables (Hint: try $u(x,t) = X(x)+T(t)$)
+to find a nontrivial solution to
+$u_{x} + u_{t} = u$.
+\end{exercise}
+\exsol{%
+$u(x,t) = Ae^x + Be^t$
+}
+
+\TODO{Add more exercises. Look at what people normally assign.}
+

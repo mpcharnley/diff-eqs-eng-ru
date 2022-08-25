@@ -1,0 +1,489 @@
+\section{Numerical methods: Euler's method}
+\label{numer:section}
+
+\LAtt{1.7}
+
+\LO{
+\item Use Euler's method to numerically approximate solutions to first order differential equations,
+\item Compute the error in a numerical method using the true solution, and
+\item Compare a variety of numerical methods, including built-in Matlab methods.
+}
+
+% \sectionnotes{1 lecture, can safely be skipped\EPref{, \S2.4 in \cite{EP}}\BDref{,
+% \S8.1 in \cite{BD}}}
+
+%At this point it may be good to first try the
+%Lab II\index{IODE software!Lab II} and/or Project II\index{IODE software!Project II} from the
+%IODE website: \url{http://www.math.uiuc.edu/iode/}.
+%
+%\medskip
+
+%You worked with Euler's method in the IODE lab, let us now go over this method
+%to see what we've done.
+
+Unless $f(x,y)$ is of a special form,
+it is generally very hard
+if not impossible to get a nice formula for the solution of the problem
+\begin{equation*}
+y' = f(x,y), \qquad y(x_0) = y_0 .
+\end{equation*}
+
+If the equation can be solved in closed form, we should do that.
+But what if we have an equation that cannot be solved in closed form?
+What if we want to find the value of the solution at some particular $x$?
+Or perhaps we want to produce a graph of the solution to inspect the
+behavior.  In this section we will learn about the basics of numerical
+approximation of solutions.
+
+The simplest method for approximating a solution is
+\emph{\myindex{Euler's method}%
+\footnote{Named after the Swiss mathematician
+\href{https://en.wikipedia.org/wiki/Euler}{Leonhard Paul Euler}
+(1707--1783).  The correct pronunciation of the name sounds more
+like \myquote{oiler.}}}.  It works as follows:
+Take $x_0$ and compute the slope $k = f(x_0,y_0)$.  The slope is the
+change in $y$ per unit change in $x$.  Follow the line for an interval of
+length $h$ on the $x$-axis.  Hence if $y = y_0$ at $x_0$, then we say that
+$y_1$ (the approximate value of $y$ at $x_1 = x_0 + h$) is
+$y_1 = y_0 + h k$.
+Rinse, repeat!  Let $k = f(x_1,y_1)$, and then compute
+$x_2 = x_1 + h$, and $y_2 = y_1 + h k$.
+Now compute $x_3$ and $y_3$ using $x_2$ and $y_2$, etc.
+Consider the equation $y' = \nicefrac{y^2}{3}$, $y(0)=1$, and $h=1$.
+Then $x_0=0$ and $y_0 = 1$.  We compute
+\begin{align*}
+& x_1 = x_0 + h = 0 + 1 = 1, & & y_1 = y_0 + h \, f(x_0,y_0) = 1 + 1 \cdot
+\nicefrac{1^2}{3} = \nicefrac{4}{3} \approx 1.333,\\
+& x_2 = x_1 + h = 1 + 1 = 2, & & y_2 = y_1 + h \, f(x_1,y_1) =
+\nicefrac{4}{3} + 1 \cdot \frac{{(\nicefrac{4}{3})}^2}{3} =
+\nicefrac{52}{27} \approx 1.926.
+\end{align*}
+We then draw an approximate graph of the solution by
+connecting the points
+$(x_0,y_0)$,
+$(x_1,y_1)$,
+$(x_2,y_2)$,\dots.
+For the first two steps of the method see
+\figurevref{euler-step12:fig}.
+
+\begin{myfig}
+\capstart
+%original files euler-step1 euler-step2
+\diffyincludegraphics{width=6.24in}{width=9in}{euler-steps-1-2}
+\caption{First two steps of Euler's method with $h=1$ for
+the equation $y' = \frac{y^2}{3}$ with initial conditions $y(0)=1$.%
+\label{euler-step12:fig}}
+\end{myfig}
+
+More abstractly, for any $i=0,1,2,3,\ldots$, we compute
+\begin{equation*}
+x_{i+1} = x_i + h , \qquad y_{i+1}  = y_i + h\, f(x_i,y_i) .
+\end{equation*}
+This can be worked out by hand for a few steps, but the formulas here lend themselves very well to being coded into a looping structure for more involved processes. The line segments we get are an
+approximate graph of the solution.
+Generally it is not exactly the solution.  See
+\figurevref{euler-step12-sol:fig} for the plot of the real solution
+and the approximation.
+
+\begin{myfig}
+\capstart
+\diffyincludegraphics{width=3in}{width=4.5in}{euler-step12-sol}
+\caption{Two steps of Euler's method (step size 1) and the exact solution for
+the equation $y' = \frac{y^2}{3}$ with initial conditions $y(0)=1$.
+%
+\label{euler-step12-sol:fig}}
+\end{myfig}
+
+We continue with the equation $y' = \nicefrac{y^2}{3}$, $y(0)=1$.
+Let us try
+to approximate $y(2)$ using Euler's method.  In
+Figures~\ref{euler-step12:fig}
+and~\ref{euler-step12-sol:fig} we have 
+graphically approximated $y(2)$ with step size 1.  With step
+size 1, we have $y(2) \approx 1.926$.  The real
+answer is 3.  We are approximately 1.074
+off.  Let us halve the step size.
+%\begin{align*}
+%& x_1 = x_0 + h = 0 + \nicefrac{1}{2} = \nicefrac{1}{2},
+%  & & y_1 = y_0 + h \, f(x_0,y_0)
+%          = 1 + \nicefrac{1}{2} \cdot \nicefrac{1^3}{3} = \nicefrac{7}{6} \approx 1.167,\\
+%& x_2 = x_1 + h = \nicefrac{1}{2} + \nicefrac{1}{2} = 1,
+%  & & y_2 = y_1 + h \, f(x_1,y_1) =
+%  \nicefrac{7}{6} + \nicefrac{1}{2} \cdot \frac{{(\nicefrac{7}{6})}^2}{3} =
+%  FIXME
+%\end{align*}
+Computing $y_4$ with $h=0.5$,
+we find that $y(2) \approx 2.209$, so an error of about 0.791.
+\tablevref{euler-table:table} gives the values computed
+for various parameters.
+
+\begin{exercise}
+Solve this equation exactly and show that $y(2) = 3$.
+\end{exercise}
+
+The difference between the actual solution and the approximate solution is
+called the error.  We usually talk about just the size of the error
+and we do not care much about its sign.  The point is, we usually
+do not know the real solution, so we only have a vague understanding of the
+error.  If we knew the error exactly \ldots what is the point of doing the
+approximation?
+
+\begin{table}[h!t]
+\mybeginframe
+\capstart
+\begin{center}
+\begin{tabular}{@{}rrrr@{}}
+\toprule
+$h$ & Approximate $y(2)$ & Error & $\frac{\text{Error}}{\text{Previous error}}$ \\
+\midrule
+1        & 1.92593 & 1.07407 & \\
+0.5      & 2.20861 & 0.79139 & 0.73681 \\
+0.25     & 2.47250 & 0.52751 & 0.66656 \\
+0.125    & 2.68034 & 0.31966 & 0.60599 \\
+0.0625   & 2.82040 & 0.17960 & 0.56184 \\
+0.03125  & 2.90412 & 0.09588 & 0.53385 \\
+0.015625 & 2.95035 & 0.04965 & 0.51779 \\
+0.0078125& 2.97472 & 0.02528 & 0.50913 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\caption{Euler's method approximation of $y(2)$ where
+of $y'=\nicefrac{y^2}{3}$, $y(0)=1$.\label{euler-table:table}}
+\myendframe
+\end{table}
+
+Notice that except for the first few times, every time we halved 
+the step size the error approximately halved.
+This halving of the error is a general feature of Euler's method as it is a
+\emph{\myindex{first order method}}.
+%  In the IODE Project II you are
+%asked to implement a \myindex{second order method}.
+There exists an improved Euler method, see the exercises,
+which is a \myindex{second order method}.
+A second order method
+reduces the error to approximately one
+quarter every time we halve the interval.  The meaning of
+\myquote{second} order is the squaring in $\nicefrac{1}{4} = \nicefrac{1}{2} \times
+\nicefrac{1}{2} = {(\nicefrac{1}{2})}^2$.
+
+To get the error to be within 0.1 of the answer we had to already
+do 64 steps.  To get it to within 0.01 we would have to halve another three or
+four times, meaning doing 512 to 1024 steps.  That is quite a bit to do by
+hand.  The improved Euler method from the exercises
+%IODE  Project II
+should quarter the
+error every time we halve the interval, so we would have to approximately do half as many
+\myquote{halvings} to get the same error.  This reduction can be a big deal.  With 10
+halvings (starting at $h=1$) we have 1024 steps, whereas with 5 halvings
+we only have to do 32 steps, assuming that the error was comparable to start
+with.  A computer may not care about this
+difference for a problem this simple, but suppose each step would take a
+second to compute (the function may be substantially more difficult to compute
+than $\nicefrac{y^2}{3}$).  Then the difference is 32 seconds versus about 17 minutes.
+We are not being altogether fair, a second order method would probably
+double the time to do each step.  Even so, it is 1 minute versus 17 minutes.
+Next, suppose that we have to repeat such a calculation for different
+parameters a thousand times.  You get the idea.
+
+Note that in practice we do not know how large the error is!
+How do we know what is
+the right step size?  Well, essentially we keep halving the interval, and if we
+are lucky, we can estimate the error from a few of these calculations and the
+assumption that the error goes down by a factor of one half each time (if
+we are using standard Euler).
+
+\begin{exercise}
+In the table above, suppose you do not know the error.  Take
+the approximate values of the function in the last two lines,
+assume that the error goes down by a factor of 2.  Can you estimate the
+error in the last time from this?  Does it (approximately) agree with the
+table?  Now do it for the first two rows.  Does this agree with the table?
+\end{exercise}
+
+Let us talk a little bit more about the example
+$y' = \frac{y^2}{3}$, $y(0) =
+1$.  Suppose that instead of the value $y(2)$ we wish to find $y(3)$.
+The results of this effort are listed in
+\tablevref{euler-table2:table} for successive halvings of $h$.  What is
+going on here?  Well, you should solve the equation exactly and you will
+notice that the solution does not exist at $x=3$.  In fact, the solution goes
+to infinity when you approach $x=3$.
+
+\begin{table}[h!t]
+\mybeginframe
+\capstart
+\begin{center}
+\begin{tabular}{@{}rr@{}}
+\toprule
+$h$ & Approximate $y(3)$ \\
+\midrule
+1        & 3.16232 \\
+0.5      & 4.54329 \\
+0.25     & 6.86079 \\
+0.125    & 10.80321 \\
+0.0625   & 17.59893 \\
+0.03125  & 29.46004 \\
+0.015625 & 50.40121 \\
+0.0078125& 87.75769 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\caption{Attempts to use Euler's to approximate $y(3)$ where
+of $y'=\nicefrac{y^2}{3}$, $y(0)=1$.\label{euler-table2:table}}
+\myendframe
+\end{table}
+
+Another case where things go bad is if the solution oscillates wildly
+near some point.
+%Such an example is given in IODE Project II\@.
+The solution
+may exist at all points, but even a much better numerical method than
+Euler would need an insanely small step size to approximate the solution
+with reasonable precision.
+And computers might not be able to easily handle such a small step size.
+
+\medskip
+
+In real applications we would not use a simple method such as Euler's.  The
+simplest method that would probably be used in a real application is the
+standard Runge--Kutta method (see exercises).  That is a
+\myindex{fourth order method},
+meaning that if we halve the interval, the error generally
+goes down by a factor of 16 (it is fourth order as $\nicefrac{1}{16} =
+\nicefrac{1}{2} \times \nicefrac{1}{2}
+\times \nicefrac{1}{2} \times \nicefrac{1}{2}$).
+
+Choosing the right method to use and the right step size can be very tricky.
+There are several competing factors to consider.
+\begin{itemize}
+\item Computational time:  Each step takes computer time.  Even if the
+function $f$ is simple to compute, we do it many times over.
+Large step size means faster computation, but perhaps not
+the right precision.
+\item Roundoff errors: Computers only compute with a certain number of
+significant digits.  Errors introduced by rounding numbers off during our
+computations become noticeable when the step size becomes
+too small relative to the quantities we are working with.
+So reducing
+step size may in fact make errors worse.
+There is a certain optimum step size
+such that the precision increases as we approach it, but then starts getting
+worse as we make our step size
+smaller still.  Trouble is: this optimum may be hard to find.
+\item Stability: Certain equations may be numerically unstable.  What may
+happen is that the numbers never seem to stabilize no matter how many times
+we halve the interval.  We may need a ridiculously small interval size,
+which may not be practical due to roundoff errors or computational time
+considerations.  Such problems are sometimes called
+\emph{stiff}\index{stiff problem}.
+In the worst case, the numerical computations might be
+giving us bogus numbers that look like a correct answer.  Just because the
+numbers seem to have stabilized after successive halving, does not mean that we must
+have the right answer.
+\end{itemize}
+
+We have seen just the beginnings of the challenges that appear in real
+applications.  Numerical approximation of solutions to differential
+equations is an active research area for engineers and mathematicians.  For
+example, the general purpose method used for the ODE solver in Matlab and
+Octave (as of this writing) is a method that appeared in the literature only
+in the 1980s.
+
+The method used in Matlab and Octave is a fair bit different from the methods discussed previously. We don't need to go too much in detail about it, but 
+some information will be helpful. The main difference that will be visible when running these methods is that they are \emph{adaptive} method. This means that they adjust the step-size
+based on what the differential equation looks like at a given point. Euler's method, along with the improved Euler and Runge-Kutta methods, is a fixed step-size method, where the steps are always the same no matter what. Adaptive methods are harder to write and optimize, but can solve many problems faster because the adaptive nature of the method allows them to get similar accuracy to fixed step methods, but at many fewer steps. In the example below, the initial value problem
+\begin{equation*}
+\frac{dy}{dt} = y \qquad y(0) = 1
+\end{equation*}
+is solved with an Euler's method and Matlab's built-in \texttt{ode45} method. Both of the solutions are plotted along with the actual solution $y = e^t$
+
+\begin{myfig}
+\capstart
+\myincludegraphics{width=4in}{width=5in}{EulerODE45Comp.png}
+\caption{Comparison of the solution from Euler's Method and ode45 to the actual solution of $\frac{dy}{dt} = y$.\label{numSols:fig}}
+\end{myfig}
+
+The Euler's method takes 60 steps in this computation, but is still not as accurate as the \texttt{ode45} method, which only takes 45 steps. In addition, the black diamonds, representing the different values computed by \texttt{ode45} are not evenly spaced, illustrating the adaptive nature of this solver, while the red stars are all evenly spaced in the $t$-direction, as is expected from Euler's method.
+
+\subsection{Exercises}
+
+\begin{exercise}
+Consider $\dfrac{dx}{dt} = {(2t-x)}^2$, $x(0)=2$.  Use Euler's method
+with step size $h=0.5$ to approximate $x(1)$.
+\end{exercise}
+
+\begin{exercise}
+Consider the differential equation $\frac{dy}{dt} = t^2 - 3y + 1$ with $y(1) = 4$. Approximate the solution at $t=3$ using Euler's method with a step size of $h=1$ and $h=0.5$. Compare these values with the actual solution at $t=3$. 
+\end{exercise}
+
+\begin{exercise}
+Consider the differential equation $\frac{dy}{dt} = 2ty + y^2$ with $y(0) = 1$. Approximate the solution at $t=2$ using Euler's method with a step size of $h=1$ and $h=0.5$.
+\end{exercise}
+
+\begin{samepage}
+\begin{exercise}
+Consider $\dfrac{dx}{dt} = t-x$, $x(0)=1$.
+\begin{tasks}
+\task Use Euler's method
+with step sizes $h = 1, \nicefrac{1}{2}, \nicefrac{1}{4}, \nicefrac{1}{8}$ to
+approximate
+$x(1)$. 
+\task Solve the equation exactly.
+\task Describe what happens to the
+errors for each $h$ you used.  That is, find the factor by which the error
+changed each time you halved the interval.
+\end{tasks}
+\end{exercise}
+\end{samepage}
+
+\begin{exercise}\ansMark%
+Let $x' = \sin(xt)$, and $x(0)=1$.
+Approximate $x(1)$ using Euler's method with step sizes 1, 0.5, 0.25.
+Use a calculator and compute up to 4 decimal digits.
+\end{exercise}
+\exsol{%
+Approximately: 1.0000, 1.2397, 1.3829
+}
+
+
+\begin{exercise}
+Approximate the value of $e$ by looking at the initial value problem
+$y'=y$ with $y(0)=1$ and approximating $y(1)$ using Euler's method with
+a step size of $0.2$.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Let $x' = 2t$, and $x(0)=0$.
+\begin{tasks}
+\task Approximate $x(4)$ using Euler's method with step sizes 4, 2, and 1.
+\task Solve exactly, and compute the errors.
+\task Compute the factor by which the errors changed.
+\end{tasks}
+\end{exercise}
+\exsol{%
+a) 0, 8, 12
+\quad
+b) $x(4) = 16$, so errors are: 16, 8, 4.
+\quad
+c) Factors are 0.5, 0.5, 0.5.
+}
+
+\begin{samepage}
+\begin{exercise}\ansMark%
+Let $x' = x e^{xt+1}$, and $x(0)=0$.
+\begin{tasks}
+\task Approximate $x(4)$ using Euler's method with step sizes 4, 2, and 1.
+\task Guess an exact solution based on part a) and compute the errors.
+\end{tasks}
+\end{exercise}
+\end{samepage}
+\exsol{%
+a) 0, 0, 0
+\quad
+b) $x=0$ is a solution so errors are: 0, 0, 0.
+}
+
+
+\begin{exercise}
+Example of numerical instability:
+Take $y' = -5y$, $y(0) = 1$.  We know that the
+solution should decay to zero as $x$ grows.
+Using Euler's method, start with $h=1$ and compute
+$y_1, y_2, y_3, y_4$ to try to approximate $y(4)$.  What happened?
+Now halve the interval.  Keep halving the interval and approximating $y(4)$
+until the numbers you are getting
+start to stabilize (that is, until they start going towards zero).
+Note: You might want to use a calculator.
+\end{exercise}
+
+There is a simple way to improve Euler's method to make it a
+second order method by doing just one extra step.\index{Improved Euler's method}
+Consider $\frac{dy}{dx}=f(x,y)$, $y(x_0) = y_0$,
+and a step size $h$.
+What we do is to pretend we compute the next step as in Euler,
+that is, we start with $(x_i,y_i)$, we compute a
+slope $k_1 = f(x_i,y_i)$, and then look at the point $(x_i+h,y_i + k_1h)$.
+Instead of letting our new point be $(x_i+h,y_i + k_1h)$, we compute
+the slope at that point, call it $k_2$, and then take the average
+of $k_1$ and $k_2$, hoping that the average is going to be closer to
+the actual slope on the interval from $x_i$ to $x_i+h$.  And we are correct,
+if we halve the step, the error should go down by a factor of $2^2 = 4$.
+To summarize, the setup is the
+same as for regular Euler, except
+the computation of $y_{i+1}$ and $x_{i+1}$.
+\begin{align*}
+& k_1 = f(x_i,y_i) , & & 
+x_{i+1} = x_i + h , \\
+& k_2 = f(x_i + h,y_i + k_1h) ,
+& & y_{i+1} = y_i + \frac{k_1+k_2}{2}\,h .
+\end{align*}
+
+
+\begin{exercise}\ansMark%
+Consider $\dfrac{dy}{dx} = x+y$, $y(0)=1$.
+\begin{tasks}
+\task Use the improved Euler's method (see above) with step sizes $h=\nicefrac{1}{4}$ and $h=\nicefrac{1}{8}$
+to approximate $y(1)$.
+\task Use Euler's method with
+$h=\nicefrac{1}{4}$ and $h=\nicefrac{1}{8}$.
+\task Solve exactly, find the exact value of
+$y(1)$.
+\task Compute the errors, and the factors by which the errors changed.
+\end{tasks}
+\end{exercise}
+\exsol{%
+a) Improved Euler: $y(1) \approx 3.3897$ for $h=\nicefrac{1}{4}$, 
+$y(1) \approx 3.4237$ for $h=\nicefrac{1}{8}$, 
+\quad
+b) Standard Euler: $y(1) \approx 2.8828$ for $h=\nicefrac{1}{4}$, 
+$y(1) \approx 3.1316$ for $h=\nicefrac{1}{8}$, 
+\quad
+c) $y = 2e^x-x-1$, so $y(2)$ is approximately $3.4366$.
+\quad
+d) Approximate errors for improved Euler:
+$0.046852$ for $h=\nicefrac{1}{4}$, 
+and
+$0.012881$ for $h=\nicefrac{1}{8}$. 
+\quad
+For standard Euler:
+$0.55375$ for $h=\nicefrac{1}{4}$, 
+and
+$0.30499$ for $h=\nicefrac{1}{8}$. 
+\quad
+Factor is approximately $0.27$ for improved Euler, and
+$0.55$ for standard Euler.
+}
+
+
+The simplest method used in practice is the
+\emph{\myindex{Runge--Kutta method}}.
+Consider $\frac{dy}{dx}=f(x,y)$, $y(x_0) = y_0$,
+and a step size $h$.  Everything is the same as in Euler's method, except
+the computation of $y_{i+1}$ and $x_{i+1}$.
+\begin{align*}
+& k_1 = f(x_i,y_i) , & & \\
+& k_2 = f\bigl(x_i + \nicefrac{h}{2},y_i + k_1 (\nicefrac{h}{2})\bigr) ,
+& & 
+x_{i+1} = x_i + h , \\
+& k_3 = f\bigl(x_i + \nicefrac{h}{2},y_i + k_2 (\nicefrac{h}{2})\bigr) ,
+& &
+y_{i+1} = y_i + \frac{k_1 + 2k_2 + 2k_3 + k_4}{6}\,h ,  \\
+& k_4 = f(x_i + h,y_i + k_3 h) .
+\end{align*}
+
+
+\begin{exercise}
+\pagebreak[2]
+Consider $\dfrac{dy}{dx} = yx^2$, $y(0)=1$.
+\begin{tasks}
+\task Use Runge--Kutta (see above) with step sizes $h=1$ and $h=\nicefrac{1}{2}$
+to approximate $y(1)$.
+\task Use Euler's method with $h=1$ and
+$h=\nicefrac{1}{2}$.
+\task Solve exactly, find the exact value of
+$y(1)$, and compare.
+\end{tasks}
+\end{exercise}
+
+\setcounter{exercise}{100}
+

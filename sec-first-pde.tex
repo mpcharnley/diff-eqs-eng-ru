@@ -1,0 +1,400 @@
+\section{First order linear PDE}
+\label{fopde:section}
+
+\LAtt{1.9}
+
+\LO{
+\item Identify first order linear PDE and
+\item Use the method of characteristics to solve first order PDE.
+}
+
+% \sectionnotes{Verbatim from Lebl}
+
+% \sectionnotes{1 lecture, can safely be skipped}
+
+% We only considered ODE so far, so let us solve a linear first order
+%PDE\@.
+We begin this chapter with an introduction to PDE in general, befcre moving on to techniques involving the Fourier Series discussed in \Chapterref{FS:chapter}.
+
+Consider the equation
+\begin{equation*}
+a(x,t) \, u_x + b(x,t) \, u_t + c(x,t) \, u = g(x,t), \qquad u(x,0) = f(x) , \qquad -\infty < x < \infty,
+\quad t > 0 ,
+\end{equation*}
+where $u(x,t)$ is a function of $x$ and $t$.
+The \emph{initial condition}\index{initial condition for a PDE}
+$u(x,0) = f(x)$ is now a function of $x$ rather than just a number.
+In these problems, it is useful to think of $x$ as position and $t$ as time.
+The equation describes the evolution of a function of $x$ as
+time goes on.
+Below, the coefficients $a$, $b$, $c$, and the function $g$
+are mostly going to be constant or zero.  
+The method we describe works with nonconstant coefficients,
+although the computations may get difficult quickly.
+
+This method we use is the
+\emph{\myindex{method of characteristics}}\index{characteristics}.
+The idea is that we find lines along which the equation is
+an ODE that we solve.
+We will see this technique again for second order PDE
+when we encounter the wave equation in \sectionref{dalemb:section}.
+
+\begin{example}
+Consider the equation
+\begin{equation*}
+u_t + \alpha u_x = 0, \qquad u(x,0) = f(x) .
+\end{equation*}
+This particular equation, $u_t + \alpha u_x = 0$, is
+called the \emph{\myindex{transport equation}}.
+\end{example}
+
+\begin{exampleSol}
+The data will propagate along curves called characteristics.  The
+idea is to change to the
+so-called \emph{\myindex{characteristic coordinates}}.  If we change to these
+coordinates, the equation simplifies.  The change of variables for this
+equation is
+\begin{equation*}
+\xi = x - \alpha t ,  \qquad s = t .
+\end{equation*}
+Let's see what the equation becomes. Remember the chain rule in several
+variables.
+\begin{align*}
+& u_t = u_\xi \xi_t + u_s s_t = - \alpha u_\xi + u_s , \\
+& u_x = u_\xi \xi_x + u_s s_x = u_\xi .
+\end{align*}
+The equation in the coordinates $\xi$ and $s$ becomes
+\begin{equation*}
+\underbrace{(- \alpha u_\xi + u_s)}_{u_t} + \alpha
+\underbrace{(u_\xi)}_{u_x} = 0 ,
+\end{equation*}
+or in other words
+\begin{equation*}
+u_s = 0 .
+\end{equation*}
+That is trivial to solve.  Treating $\xi$ as simply a parameter, we have
+obtained the ODE $\frac{d u}{d s} = 0$.
+
+The solution is a function that does
+not depend on $s$ (but it does depend on $\xi$).
+That is, there is some function $A$ such that
+\begin{equation*}
+u = A(\xi) = A(x - \alpha t) .
+\end{equation*}
+The initial condition says that:
+\begin{equation*}
+f(x) = u(x,0) = A(x - \alpha 0) = A(x) ,
+\end{equation*}
+so $A=f$.  In other words,
+\begin{equation*}
+u(x,t) = f(x-\alpha t) .
+\end{equation*}
+Everything is simply moving right at speed $\alpha$ as $t$ increases.
+The curve given by the equation
+\begin{equation*}
+\xi = \text{constant}
+\end{equation*}
+is called the characteristic.
+See \figurevref{fopde:charcurves}.
+In this case, the solution does not change
+along the characteristic.
+
+\begin{mywrapfig}{2.8in}
+\capstart
+\inputpdft{char-curves}
+\caption{Characteristic curves.\label{fopde:charcurves}}
+\end{mywrapfig}
+
+In the $(x,t)$ coordinates, the characteristic curves satisfy 
+$t = \frac{1}{\alpha} ( x- \xi)$, and are in fact lines.
+The slope of characteristic lines is
+$\frac{1}{\alpha}$, and for each different $\xi$ we get a different
+characteristic line.
+
+We see why $u_t + \alpha u_x = 0$ is called the
+transport equation: everything travels at some constant speed.
+Sometimes this is called \emph{\myindex{convection}}.
+An example application is material being moved by a river where the material
+does not diffuse and is simply carried along.  In this setup, $x$ is 
+the position along the river, $t$ is the time, and $u(x,t)$ the concentration the
+material at position $x$ and time $t$.  See
+\figurevref{fopde:transportfig} for an example.
+\begin{myfig}
+\capstart
+%original files fopde-transport-1 fopde-transport-2
+\diffyincludegraphics{width=6.24in}{width=9in}{fopde-transport-1-2}
+\caption{Example of \myquote{transport}
+in $u_t-u_x = 0$ (that is, $\alpha = 1$) where the
+initial condition $f(x)$ is a peak at the origin.  On the left is a graph
+of the initial condition $u(x,0)$.  On the right is a graph of
+the function $u(x,1)$, that is at time $t=1$.  Notice it is the same
+graph shifted one unit to
+the right.\label{fopde:transportfig}}
+\end{myfig}
+\end{exampleSol}
+
+We use similar idea in the more general case:
+\begin{equation*}
+a u_x + b u_t + c u = g, \qquad u(x,0) = f(x)  .
+\end{equation*}
+We change coordinates to the
+characteristic coordinates. Let us call these coordinates $(\xi,s)$.
+These are coordinates where $a u_x + b u_t$ becomes differentiation
+in the $s$ variable.
+
+Along the characteristic curves (where $\xi$ is constant), we get a
+new ODE in the $s$ variable.  In the transport
+equation, we got the simple $\frac{du}{ds} = 0$.  In general,
+we get the linear equation
+\begin{equation} \label{eq:fopde:charode}
+\frac{du}{ds} + c u = g.
+\end{equation}
+We think of everything as a function of $\xi$ and $s$,
+although
+we are thinking of $\xi$ as a parameter rather than an independent variable.
+So the equation is an ODE\@.  It is a linear
+ODE that we can solve using the integrating factor.
+
+To find the characteristics, think of a curve given parametrically
+$\bigl(x(s),t(s)\bigr)$.  We try to have the curve satisfy 
+\begin{equation*}
+\frac{dx}{ds} = a, \qquad \frac{dt}{ds} = b .
+\end{equation*}
+Why?
+Because when we think of $x$ and $t$ as functions of $s$ we find, using the
+chain rule,
+\begin{equation*}
+\frac{du}{ds} + c u = 
+\underbrace{\left( u_x \frac{dx}{ds} + u_t
+\frac{dt}{ds}\right)}_{\frac{du}{ds}} + c u =
+a u_x + b u_t + c u = g .
+\end{equation*}
+So we get the ODE \eqref{eq:fopde:charode}, which
+then describes the value of the solution $u$ of
+the PDE along
+this characteristic curve.
+It is also convenient to make sure that $s=0$
+corresponds to $t=0$, that is $t(0) = 0$.  It will be convenient also for
+$x(0) = \xi$.
+See \figurevref{fopde:charcurvecurvy}.
+
+\begin{myfig}
+\capstart
+\inputpdft{char-curve-curvy}
+\caption{General characteristic curve.\label{fopde:charcurvecurvy}}
+\end{myfig}
+
+
+\begin{example}
+Consider
+\begin{equation*}
+u_x + u_t + u = x, \qquad u(x,0) = e^{-x^2} .
+\end{equation*}
+\end{example}
+\begin{exampleSol}
+We find the characteristics, that is, the curves given by
+\begin{equation*}
+\frac{dx}{ds} = 1, \qquad \frac{dt}{ds} = 1 .
+\end{equation*}
+So
+\begin{equation*}
+x = s + c_1, \qquad t = s+ c_2 ,
+\end{equation*}
+for some $c_1$ and $c_2$.
+At $s=0$ we want $t=0$, and $x$ should be $\xi$.  So
+we let $c_1 = \xi$ and $c_2 = 0$:
+\begin{equation*}
+x = s + \xi, \qquad t = s .
+\end{equation*}
+
+The ODE is $\frac{du}{ds} + u = x$, and $x = s+\xi$. So, the ODE
+to solve along the characteristic is
+\begin{equation*}
+\frac{du}{ds} + u = s+ \xi .
+\end{equation*}
+The general solution of this equation, treating $\xi$ as a parameter, is 
+$u = C e^{-s}+s+\xi-1$, for some constant $C$.
+At $s=0$, our initial condition is that $u$ is
+$e^{-\xi^2}$, since at $s=0$ we have $x=\xi$.
+Given this initial condition, we find $C=e^{-\xi^2} - \xi +1$.  So,
+\begin{equation*}
+\begin{split}
+u & =
+\bigl(e^{-\xi^2} - \xi +1\bigr) e^{-s}+s+\xi-1
+\\
+& =
+e^{-\xi^2-s} + (1 - \xi) e^{-s} +s+\xi-1 .
+\end{split}
+\end{equation*}
+Substitute $\xi = x-t$ and $s=t$ to find $u$ in terms of $x$ and $t$:
+\begin{equation*}
+\begin{split}
+u
+& =
+e^{-\xi^2-s} + (1 - \xi) e^{-s} +s+\xi-1 
+\\
+& =
+e^{-{(x-t)}^2-t} + (1 - x + t) e^{-t} +x-1 .
+\end{split}
+\end{equation*}
+See \figurevref{fopde:surfaceplot} for a plot of $u(x,t)$ as a function of
+two variables.
+\begin{myfig}
+\capstart
+\diffyincludegraphics{width=5in}{width=7.5in}{sol-to-fo-pde}
+\caption{Plot of the solution $u(x,t)$ to
+$u_x + u_t + u = x$,  $u(x,0) = e^{-x^2}$.\label{fopde:surfaceplot}}
+\end{myfig}
+\end{exampleSol}
+
+When the coefficients are not constants, the characteristic curves
+are not going to be straight lines anymore.
+
+\begin{example}
+Consider the following variable coefficient equation:
+\begin{equation*}
+x u_x + u_t + 2 u = 0, \qquad u(x,0) = \cos(x) . % , \qquad -\infty < x < \infty,
+%\quad t > 0 .
+\end{equation*}
+\end{example}
+\begin{exampleSol}
+We find the characteristics, that is, the curves given by
+\begin{equation*}
+\frac{dx}{ds} = x, \qquad \frac{dt}{ds} = 1 .
+\end{equation*}
+So
+\begin{equation*}
+x = c_1 e^{s} , \qquad t = s+ c_2 .
+\end{equation*}
+At $s=0$, we wish to get the line $t=0$, and $x$ should be $\xi$.  So
+\begin{equation*}
+x = \xi e^s, \qquad t = s .
+\end{equation*}
+
+OK\@, the ODE we need to solve is
+\begin{equation*}
+\frac{du}{ds} + 2 u = 0 .
+\end{equation*}
+This is for a fixed $\xi$.  At $s=0$, we should get that $u$ is
+$\cos(\xi)$, so that is our initial condition.  Consequently,
+\begin{equation*}
+u = e^{-2s} \cos(\xi)= e^{-2t} \cos(xe^{-t}) .
+\end{equation*}
+\end{exampleSol}
+
+
+We make a few closing remarks.
+One thing to keep in mind is that we would get into trouble if the
+coefficient in front of $u_t$, that is the $b$, is ever zero.
+Let us consider a quick example of what can go wrong:
+\begin{equation*}
+u_x + u = 0, \qquad u(x,0) = \sin(x).
+\end{equation*}
+This problem has no solution.  If we had a solution, it
+would imply that $u_x(x,0) = \cos(x)$,
+but $u_x(x,0) + u(x,0) = \cos(x) + \sin(x) \not= 0$.
+The problem is that the characteristic curve is now the line $t=0$,
+and the solution is already provided on that line!
+
+As long as $b$ is nonzero,
+it is convenient to ensure that $b$ is positive by multiplying by $-1$
+if necessary, so that positive $s$ means positive $t$.
+
+Another remark is that if $a$ or $b$ in the equation are variable,
+the computations can
+quickly get out of hand, as the expressions for the characteristic
+coordinates become messy and then solving the ODE becomes even messier.
+In the examples above, $b$ was always $1$, meaning we got $s=t$ in the 
+characteristic coordinates.  If $b$ is not constant, your expression for $s$
+will be more complicated.
+
+Finding the characteristic coordinates is really
+a system of ODE in general if $a$ depends on $t$ or if $b$ depends on $x$.
+In that case, we would need techniques of systems of ODE
+to solve, see \chapterref{sys:chapter} or \chapterref{nlin:chapter}.  In
+general, if $a$ and $b$ are not linear functions or constants, finding closed
+form expressions for the characteristic coordinates may be impossible.
+
+Finally, the method of characteristics applies to nonlinear first order PDE
+as well.  In the nonlinear case, the characteristics depend not only
+on the differential equation, but also on the initial data.  This leads to
+not only more difficult computations, but also the formation of
+singularities where the solution breaks down at a certain point in time.
+An example application where first order nonlinear PDE come
+up is traffic flow theory, and you have probably experienced the
+formation of singularities: traffic jams.  But we digress.
+
+\subsection{Exercises}
+
+\begin{exercise}
+Solve
+\begin{tasks}(2)
+\task $u_t +9u_x = 0$, \enspace $u(x,0) = \sin(x)$,
+\task $u_t -8u_x = 0$, \enspace $u(x,0) = \sin(x)$,
+\task $u_t +\pi u_x = 0$, \enspace $u(x,0) = \sin(x)$,
+\task $u_t + \pi u_x + u = 0$, \enspace $u(x,0) = \sin(x)$.
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Solve
+\begin{tasks}(2)
+\task $u_t - 5u_x = 0$, $u(x,0) = \frac{1}{1+x^2}$,
+\task $u_t + 2u_x = 0$, $u(x,0) = \cos(x)$.
+\end{tasks}
+\end{exercise}
+\exsol{%
+a) $u = \frac{1}{1+{(x+5t)}^2}$
+\quad
+b) $u = \cos(x-2t)$
+}
+
+\begin{exercise}
+Solve $u_t +3u_x = 1$, $u(x,0) = x^2$.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Solve $u_x+u_t+tu = 0$, $u(x,0) = \cos(x)$.
+\end{exercise}
+\exsol{%
+$u = \cos(x-t)e^{-t^2/2}$
+}
+
+\begin{exercise}
+Solve $u_t +3u_x = x$, $u(x,0) = e^x$.
+\end{exercise}
+
+\begin{exercise}
+Solve $u_x+u_t+xu = 0$, $u(x,0) = \cos(x)$.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Solve $u_x+u_t = 5$, $u(x,0) = x$.
+\end{exercise}
+\exsol{%
+$u = x + 4t$
+}
+
+\begin{exercise}
+\leavevmode
+\begin{tasks}
+\task Find the characteristic coordinates for the
+following equations:
+
+1)~~$u_x+u_t + u = 1$,~~$u(x,0) = \cos(x)$,
+\qquad
+2)~~$2u_x+2u_t +2u = 2$,~~$u(x,0) = \cos(x)$.
+\task Solve the two equations using the coordinates.
+\task Explain why
+you got the same solution, although the characteristic coordinates
+you found were different.
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}
+Solve $(1+x^2) u_t + x^2 u_x + e^x u = 0$, $u(x,0) = 0$.
+Hint: Think a little out of the box.
+\end{exercise}
+
+\setcounter{exercise}{100}
+

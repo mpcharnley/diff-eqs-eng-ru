@@ -1,0 +1,629 @@
+\section{Forced oscillations and resonance} \label{forcedo:section}
+
+\LAtt{2.6}
+
+\LO{
+\item Write differential equations to model forced oscillators (like masses on springs), 
+\item Identify when beats, pure resonance, and practical resonance can occur, and
+\item Use proper terminology around transient and steady periodic solutions when discussing these problems.
+}
+
+\begin{mywrapfigsimp}{2.0in}{2.3in}
+\noindent
+\inputpdft{massfigforce}
+\end{mywrapfigsimp}
+Let us return back to the example of a mass on a spring.  We examine
+the case of forced oscillations, which we did not yet handle.  That is, we consider the equation
+\begin{equation*}
+mx'' + \gamma x' + kx = F(t) ,
+\end{equation*}
+for some nonzero $F(t)$.  The setup
+is again: $m$ is mass, $\gamma$ is friction, $k$ is the spring constant, and
+$F(t)$ is an external force acting on the mass.
+
+We are interested in periodic
+forcing, such as noncentered rotating parts, or perhaps loud sounds, or
+other sources of periodic force.  % Once we learn about Fourier series in
+% \chapterref{FS:chapter}, we
+% will see that we cover all periodic functions
+% by simply considering $F(t) = F_0 \cos (\omega t)$ (or sine instead of cosine,
+% the calculations are essentially the same).
+
+\subsection{Undamped forced motion and resonance}
+
+First let us consider undamped ($\gamma =0$) motion.
+We have the equation
+\begin{equation*}
+mx'' + kx = F_0 \cos (\omega t) .
+\end{equation*}
+This equation has the complementary solution (solution to the associated homogeneous
+equation)
+\begin{equation*}
+x_c = C_1 \cos (\omega_0 t) + C_2 \sin (\omega_0 t) ,
+\end{equation*}
+where $\omega_0 = \sqrt{\nicefrac{k}{m}}$ is the
+\emph{\myindex{natural frequency}} (angular).  It is the frequency
+at which the system \myquote{wants to oscillate} without external interference.
+
+Suppose that $\omega_0 \not= \omega$.  We try the solution
+$x_p = A \cos (\omega t)$ and solve for $A$.  We do not need a sine
+in our trial solution as after plugging in we only have cosines.
+If you include a sine, it is fine; you will find that its
+coefficient is zero (I could not find a second rhyme).
+
+We solve using the method of undetermined coefficients.  We find that
+\begin{equation*}
+x_p = \frac{F_0}{m(\omega_0^2 - \omega^2)} \cos (\omega t) .
+\end{equation*}
+We leave it as an exercise to do the algebra required.
+
+The general solution is
+\begin{equation*}
+\mybxbg{
+~~
+x = C_1 \cos (\omega_0 t) + C_2 \sin (\omega_0 t) +
+\frac{F_0}{m(\omega_0^2 - \omega^2)} \cos (\omega t) .
+~~
+}
+\end{equation*}
+Written another way
+\begin{equation*}
+x = C \cos (\omega_0 t - \gamma) +
+\frac{F_0}{m(\omega_0^2 - \omega^2)} \cos (\omega t) .
+\end{equation*}
+The solution is a superposition of two cosine waves at different frequencies.
+\pagebreak[2]
+
+\begin{example}
+Take
+\begin{equation*}
+0.5 x'' + 8 x = 10 \cos (\pi t), \qquad x(0)=0, \qquad x'(0)=0 .
+\end{equation*}
+\end{example}
+
+\begin{exampleSol}
+Let us compute.  First we read off the parameters:
+$\omega = \pi$, $\omega_0 = \sqrt{\nicefrac{8}{0.5}} = 4$, $F_0 = 10$,
+$m=0.5$.  The general solution is
+\begin{equation*}
+x = C_1 \cos (4 t) + C_2 \sin (4 t) +
+\frac{20}{16 - \pi^2} \cos (\pi t) .
+\end{equation*}
+
+%15 is the number of lines, must be adjusted
+%mbxSTARTIGNORE
+\begin{mywrapfig}[15]{3.25in}
+\capstart
+\diffyincludegraphics{width=3in}{width=4.5in}{3-6-beating}
+\caption{Graph of
+$\frac{20}{16 - \pi^2} \bigl( \cos (\pi t)- \cos (4 t) \bigr)$.\label{3.6:beatingfig}}
+\end{mywrapfig}
+%mbxENDIGNORE
+%
+% make sure the MBX below is synced!
+%
+
+
+Solve for $C_1$ and $C_2$ using the initial conditions:
+$C_1 = \frac{-20}{16 - \pi^2}$ and $C_2 = 0$.  Hence
+\begin{equation*}
+x = 
+\frac{20}{16 - \pi^2} \bigl( \cos (\pi t)- \cos (4 t) \bigr) .
+\end{equation*}
+
+%mbxlatex \begin{myfig}
+%mbxlatex \capstart
+%mbxlatex \diffyincludegraphics{width=3in}{width=4.5in}{3-6-beating}
+%mbxlatex \caption{Graph of
+%mbxlatex $\frac{20}{16 - \pi^2} \bigl( \cos (\pi t)- \cos (4 t) \bigr)$.\label{3.6:beatingfig}}
+%mbxlatex \end{myfig}
+
+Notice the \myquote{beating} behavior\index{beating}
+in \figurevref{3.6:beatingfig}.  First
+use the 
+trigonometric identity
+\begin{equation*}
+2\sin \left( \frac{A-B}{2} \right) \sin \left( \frac{A+B}{2} \right) =
+\cos B -\cos A 
+\end{equation*}
+to get 
+\begin{equation*}
+x = 
+\frac{20}{16 - \pi^2} \left( 2 \sin \left(\frac{4-\pi}{2} t \right)
+\sin \left( \frac{4+\pi}{2} t \right) \right) .
+\end{equation*}
+The function $x$ is a high frequency wave modulated by a low frequency
+wave.
+\end{exampleSol}
+
+The beating behavior can be experienced even more readily by considering a higher frequency and viewing the resulting function as a sound wave. A sound wave of frequency 440 Hz produces and A4 sound, which is the A above middle C on a piano. This means that the function
+\begin{equation*}
+x_p(t) = \sin(2\pi\cdot 440 t)
+\end{equation*} will produce a sound wave equivalent to this A4 sound. In MATLAB, this can be done with the code
+\begin{matlab}
+omega0 = 440*2*pi;
+tVals = linspace(0, 5, 5*8192);
+
+testSound = sin(omega0*tVals);
+sound(testSound);
+\end{matlab}
+\noindent which will play this pitch for 5 seconds. Now, we want to see what happens if we take a mass-on-a-spring with this natural frequency and apply a forcing function with frequency close to this value. The following code assumes a forcing function of frequency 444 Hz. The multiple of $\omega_0$ in front of the forcing function is only for scaling purposes; otherwise the resulting sound would be too quiet.
+
+\begin{matlab}
+omega = 444*2*pi;
+
+syms ys(t);
+[V] = odeToVectorField(diff(ys, 2) + omega0^2*ys == omega0*cos(omega*t));
+MS = matlabFunction(V, 'vars', {'t', 'Y'});
+soln = ode45(MS, [0,10], [0,0]);
+
+ySound = deval(soln, tVals);
+ySound = ySound(1, :);
+sound(ySound);
+\end{matlab}
+
+A graph of the solution \texttt{ySound} can be found in \figurevref{beatplot:fig}. This exhibits the beating behavior before on a large scale. The sound played during this code also shows the beating or amplitude modulation that can happen in these sorts of solutions. In terms of tuning instruments, these beats are some of the main things musicians will listen for to know if their instrument is close to the right pitch, but just slightly off. 
+
+\begin{myfig}
+\capstart
+\myincludegraphics{width=3in}{width=4.5in}{beatSolPlot.png}
+\caption{Plot of \texttt{ySound} illustrating the beating behavior of interacting sound waves. \label{beatplot:fig}}
+\end{myfig}
+
+Now suppose $\omega_0 = \omega$.  We cannot try
+the solution $A \cos (\omega t)$ and then use the method of undetermined
+coefficients, since we notice that $\cos (\omega t)$ solves the associated
+homogeneous equation.  Therefore,
+we 
+try $x_p = A t \cos (\omega t) + B t \sin (\omega t)$.  This time we need
+the sine
+term, since the second derivative of $t \cos (\omega t)$ contains sines.
+We write the equation
+\begin{equation*}
+x'' + \omega^2 x = \frac{F_0}{m} \cos ( \omega t) .
+\end{equation*}
+Plugging $x_p$ into the left-hand side we get
+\begin{equation*}
+2 B \omega \cos (\omega t) - 2 A \omega \sin (\omega t) = 
+\frac{F_0}{m} \cos (\omega t) .
+\end{equation*}
+Hence $A = 0$ and $B = \frac{F_0}{2m\omega}$.  Our particular solution is
+$\frac{F_0}{2m\omega} \, t \sin (\omega t)$ and our general solution is
+\begin{equation*}
+x = C_1 \cos (\omega t) + C_2 \sin (\omega t)
++ \frac{F_0}{2m\omega} \, t \sin (\omega t) .
+\end{equation*}
+
+The important term is the last one (the particular solution we found).  
+This term grows without bound as $t \to \infty$.  In fact it
+oscillates 
+between $\frac{F_0 t}{2m\omega}$ and
+$\frac{- F_0 t}{2m\omega}$.  The first two terms only oscillate between
+$\pm\sqrt{C_1^2 + C_2^2}$, which becomes smaller and smaller in proportion to
+the oscillations of the last term as $t$ gets larger.  In
+\figurevref{3.6:resonancefig} we see the graph with $C_1=C_2=0$, $F_0 = 2$,
+$m=1$, $\omega = \pi$.
+
+\begin{mywrapfig}{3.25in}
+\capstart
+\diffyincludegraphics{width=3in}{width=4.5in}{3-6-resonance}
+\caption{Graph of
+$\frac{1}{\pi} t \sin (\pi t)$.\label{3.6:resonancefig}}
+\end{mywrapfig}
+
+By forcing the system in just the right frequency we produce very wild
+oscillations.  This kind of behavior is called \emph{\myindex{resonance}} or
+perhaps
+\emph{\myindex{pure resonance}}.  Sometimes resonance is
+desired.  For
+example, remember when as a kid you could start swinging by just moving back
+and forth on the swing seat in the \myquote{correct frequency}?  You were trying to
+achieve resonance.  The force of each one of your moves was small, but after a
+while it produced large swings.
+
+On the other hand resonance can be destructive.
+In an earthquake some buildings collapse while
+others may be relatively undamaged.  This is due to different buildings
+having different resonance frequencies.  So figuring out the resonance
+frequency can be very important.
+
+A common (but wrong) example of destructive force of resonance is the Tacoma
+Narrows bridge failure.  It turns out there was a different
+phenomenon at play%
+\footnote{K.\ Billah and R.\ Scanlan, \emph{Resonance, Tacoma Narrows
+Bridge Failure, and Undergraduate Physics Textbooks}, American Journal of
+Physics, 59(2), 1991, 118--124,
+\url{http://www.ketchum.org/billah/Billah-Scanlan.pdf}}.
+
+\subsection{Damped forced motion and practical resonance}
+
+In real life things are not as simple as they were above.  There is,
+of course, some damping.  Our equation becomes
+\begin{equation} \label{3.6:deq}
+mx'' + \gamma x' + kx = F_0 \cos (\omega t) ,
+\end{equation}
+for some $\gamma > 0$.  We solved the homogeneous problem before.  We let
+\begin{equation*}
+p = \frac{\gamma}{2m},  \qquad \omega_0 = \sqrt{\frac{k}{m}} .
+\end{equation*}
+We replace equation \eqref{3.6:deq} with
+\begin{equation*}
+x'' + 2px' + \omega_0^2x = \frac{F_0}{m} \cos (\omega t) .
+\end{equation*}
+The roots of the characteristic equation of the associated
+homogeneous problem are $r_1,r_2 = -p \pm \sqrt{p^2 - \omega_0^2}$.  The form
+of the general solution of the associated homogeneous equation
+depends on the sign of $p^2 - \omega_0^2$, or
+equivalently on the sign of $\gamma^2 - 4km$, as before:
+\begin{equation*}
+x_c =
+\begin{cases}
+C_1 e^{r_1 t} + C_2 e^{r_2 t} & \text{if } \; \gamma^2 > 4km , \\
+C_1 e^{-p t} + C_2 t e^{-p t} & \text{if } \; \gamma^2 = 4km , \\
+e^{-p t} \bigl( C_1 \cos (\omega_1 t) + C_2 \sin (\omega_1 t) \bigr) &
+  \text{if } \; \gamma^2 < 4km ,
+\end{cases}
+\end{equation*}
+where $\omega_1 = \sqrt{\omega_0^2 - p^2}$.  In any case, we see that
+$x_c(t) \to 0$ as $t \to \infty$.
+
+\pagebreak[2]
+Let us find a particular solution.
+There can be no conflicts when trying to solve for the
+undetermined coefficients by trying $x_p = A \cos (\omega t)
++ B \sin (\omega t)$, because the solution to the homogeneous problem will always have exponential factors (since we have damping) and so there is no $\omega$ where this will exactly match the form of the homogeneous solution.
+%Hence, we will never get the kind of catastrophic scenario we have seen
+%before.
+%A slightly different notion of \myquote{resonance} will still occur.
+Let us plug
+in and solve for $A$ and $B$.
+We get (the \myindex{tedious} % a bit of fun
+details are left to reader)
+\begin{equation*}
+\bigl((\omega_0^2  - \omega^2)B - 2\omega p A\bigr) \sin (\omega t)
++
+\bigl((\omega_0^2  - \omega^2)A + 2\omega p B\bigr) \cos (\omega t)
+=
+\frac{F_0}{m} \cos (\omega t) .
+\end{equation*}
+
+We solve for $A$ and $B$:
+\begin{align*}
+& A=\frac{(\omega_0^2-\omega^2) F_0}
+{m{(2\omega p)}^2+m{(\omega_0^2-\omega^2)}^2} , \\
+& B=\frac{2 \omega p F_0}
+{m{(2\omega p)}^2+m{(\omega_0^2-\omega^2)}^2} .
+\end{align*}
+We also compute $C = \sqrt{A^2+B^2}$
+to be
+\begin{equation*}
+C = \frac{F_0}{m \sqrt{{(2\omega p)}^2+{(\omega_0^2-\omega^2)}^2}} .
+\end{equation*}
+Thus our particular solution is
+\begin{equation*}
+x_p = 
+\frac{(\omega_0^2-\omega^2) F_0}
+{m{(2\omega p)}^2+m{(\omega_0^2-\omega^2)}^2} \cos (\omega t) +
+\frac{2 \omega p F_0}
+{m{(2\omega p)}^2+m{(\omega_0^2-\omega^2)}^2} \sin (\omega t) .
+\end{equation*}
+Or in the alternative notation we have amplitude $C$ and phase shift $\delta$
+where (if $\omega \not= \omega_0$)
+\begin{equation*}
+\tan \delta = \frac{B}{A} = \frac{2\omega p}{\omega_0^2-\omega^2} .
+\end{equation*}
+Hence,
+\begin{equation*}
+\mybxbg{~~
+x_p = 
+\frac{F_0}{m \sqrt{{(2\omega p)}^2+{(\omega_0^2-\omega^2)}^2}} 
+\cos ( \omega t - \delta ) .
+~~}
+\end{equation*}
+If $\omega = \omega_0$, then $A=0$, $B = C = \frac{F_0}{2m\omega p}$,
+and $\delta = \nicefrac{\pi}{2}$.
+
+%What is important for us is how this
+%solution depends on the parameters, $F_0$, $m$, $\omega$, $\omega_0$,
+%and $p$.
+
+%The exact formula is not as important as the idea.  Do not memorize
+%the formula above, you should instead remember the ideas involved.
+%For a different forcing function $F$, you will get a different formula
+%for $x_p$.
+%So there is no point in memorizing this specific
+%formula.  You can always recompute it later or look it up if you really need
+%it.
+
+\medskip
+
+% \TODO{Maybe move this part to the front to discuss these types of solutions.}
+
+For reasons we will explain in a moment, we call $x_c$ the
+\emph{\myindex{transient solution}}
+and denote it by $x_{tr}$.  We call the
+$x_p$ from above the \emph{\myindex{steady periodic solution}} and denote it
+by $x_{sp}$.
+The general solution is
+\begin{equation*}
+x = x_c + x_p = x_{tr} + x_{sp} .
+\end{equation*}
+
+The transient solution $x_c = x_{tr}$ goes to zero as $t \to \infty$,
+as all the terms involve an exponential with a negative exponent.  So
+for large $t$, the effect of $x_{tr}$ is negligible and we see essentially
+only $x_{sp}$.
+Hence the name \emph{transient}.
+Notice that $x_{sp}$ involves no arbitrary constants, and
+the initial conditions only affect $x_{tr}$.  Thus, the effect
+of the initial conditions is negligible after some period of time.
+%Because of this behavior,
+We might as well focus on the
+steady periodic solution and ignore the transient solution.  See
+\figurevref{3.6:transbehfig} for a graph given several different initial conditions.
+
+\begin{mywrapfig}{3.25in}
+\capstart
+\diffyincludegraphics{width=3in}{width=4.5in}{3-6-transbeh}
+\caption{Solutions with different initial conditions for parameters
+$k=1$, $m=1$, $F_0 = 1$, $\gamma=0.7$, and $\omega=1.1$.\label{3.6:transbehfig}}
+\end{mywrapfig}
+
+The speed at which $x_{tr}$ goes to zero depends on $p$ (and
+hence $\gamma$).  The
+bigger $p$ is (the bigger $\gamma$ is), the \myquote{faster} $x_{tr}$ becomes negligible. 
+So the smaller the damping, the longer the \myquote{transient region.}
+This is consistent
+with the observation that when $\gamma=0$, the initial conditions affect the
+behavior for all time (i.e.\ an infinite \myquote{transient region}).
+
+\medskip
+
+Let us describe what we mean by resonance when damping is present.
+Since there were no conflicts when solving with undetermined coefficient,
+there is no term that goes to infinity.  We look instead at the
+maximum value of the amplitude of the steady periodic solution.
+Let $C$ be the amplitude of $x_{sp}$.
+If we plot $C$ as a function of $\omega$ (with all other
+parameters fixed), we can find its maximum.
+We call the $\omega$ that achieves this maximum
+the \emph{\myindex{practical resonance frequency}}.
+We call the maximal amplitude $C(\omega)$
+the \emph{\myindex{practical resonance amplitude}}.
+Thus when damping is present we talk of \emph{\myindex{practical resonance}}
+rather than pure resonance.
+A sample plot for three different
+values of $\gamma$ is given in \figurevref{3.6:pracresfig}.  As you can see the
+practical resonance amplitude grows as damping gets smaller, and 
+practical resonance can disappear altogether when damping is large.
+
+\begin{myfig}
+\capstart
+\diffyincludegraphics{width=3in}{width=4.5in}{3-6-pracres}
+\caption{Graph of $C(\omega)$ showing practical resonance with parameters
+$k=1$, $m=1$, $F_0 = 1$. The top line is with $\gamma=0.4$, the middle line with
+$\gamma=0.8$, and the bottom line with
+$\gamma=1.6$.\label{3.6:pracresfig}}
+\end{myfig}
+
+The main takeaways from \figurevref{3.6:pracresfig} is that the amplitude can be larger than 1, which is the idea of resonance in this case. Based on Hooke's law, we know that a constant force of magnitude $F_0$ will stretch (or compress) a spring with constant $k$ a length of $F_0/k$. If we take $F_0 = 1$ and $k=1$, as is done in \figurevref{3.6:pracresfig}, then the resulting magnitude should be $1$. However, if we don't use a constant force of magnitude $F_0$, but instead use an oscillatory force with frequency $\omega$ of the form $F(t) = F_0 \cos{(\omega t)}$, we get an amplitude of $C(\omega)$. This graph indicates how the forcing frequency changes the amplitude of the resulting oscillation. Since the amplitude ``should'' be $1$ based on $F_0/k$, if $C(\omega) > 1$, then the frequency chosen is causing an increase in the amplitude, which is the idea of practical resonance. 
+
+To find the maximum, or determine if there is a maximum, we need to find the derivative $C'(\omega)$.
+Computation shows
+\begin{equation*}
+C'(\omega) =
+\frac{- 2\omega( 2p^2+\omega^2-\omega_0^2)F_0}
+{m {\bigl({(2\omega p)}^2+{(\omega_0^2-\omega^2)}^2\bigr)}^{3/2}} .
+\end{equation*}
+This is zero either when $\omega = 0$ or when
+$2p^2+\omega^2-\omega_0^2 = 0$.  In other words, $C'(\omega) = 0$ when
+\begin{equation*}
+\mybxbg{
+~~
+\omega = \sqrt{\omega_0^2 - 2p^2} \quad \text{or} \quad \omega = 0 .
+~~
+}
+\end{equation*}
+If $\omega_0^2 - 2p^2$ is positive, then there is a positive value of $\omega$, namely
+$\omega = \sqrt{\omega_0^2 - 2p^2}$ where the amplitude attains a maximum value. Since we know that the amplitude is $F_0/(m\omega_0^2)$ or $F_0/k$ when $\omega = 0$, the maximum will be larger than this. As described above, this value, $F_0/k$ is the expected amplitude, that is, the amplitude you would get with no oscillation, so that if the amplitude is larger than this for some value of $\omega$, this means that the oscillation at frequency $\omega$ is resonating with the system to create a larger oscillation. This is the idea of \emph{\myindex{practical resonance}}. It is practical because there is damping, so the situation is more physically relevant (to contrast with pure resonance), and still results in larger amplitudes of oscillation. 
+
+Our previous work indicates that a system will exhibit practical resonance for some values of $\omega$ whenever $\omega_0^2 - 2p^2$ is positive, and the frequency where the amplitude hits the maximum value is at $\sqrt{\omega_0^2 - 2p^2}$. This follows by the first derivative
+test for example as then $C'(\omega) > 0$ for small $\omega$ in this case.
+If on the other hand $\omega_0^2 - 2p^2$ is not positive, then
+$C(\omega)$ achieves its maximum at
+$\omega=0$, and
+there is no practical resonance since we assume $\omega > 0$
+in our system.  In this case the amplitude gets larger as the forcing
+frequency gets smaller.
+
+If practical resonance occurs, the peak frequency is smaller than
+$\omega_0$.  As the damping $\gamma$ (and hence $p$) becomes smaller, the
+peak practical resonance frequency
+goes to $\omega_0$.  So when damping is very
+small, $\omega_0$ is a good estimate of the peak practical resonance frequency.  This
+behavior
+agrees with the observation that when $\gamma=0$, then $\omega_0$ is the resonance
+frequency.
+
+% \TODO{Add more stuff here talking about how the value of this can be bigger than 1. Also explain the graph and how it connects to everything else and why it counts as resonance.}
+
+Another interesting observation to make is that when $\omega \to \infty$,
+then $C \to 0$.  This means that if the forcing frequency gets too high it
+does not manage to get the mass moving in the mass-spring system.  This is
+quite reasonable intuitively.
+If we wiggle back and forth really fast while sitting on a swing, we will
+not get it moving at all, no matter how forceful.  Fast
+vibrations just cancel each other out before the mass has any chance of
+responding by moving one way or the other.
+
+The behavior is more complicated if the forcing function is not an
+exact cosine wave, but for example a \myindex{square wave}.
+A general periodic function will be the sum (superposition) of many
+cosine waves of different frequencies.
+The reader is encouraged to come
+back to this section once we have learned about the ideas of Fourier series.
+
+\subsection{Exercises}
+
+\begin{exercise}
+Write $\cos(3x) - \cos(2x)$ as a product of two sine functions.
+\end{exercise}
+
+\begin{exercise}
+Write $\cos(5x) - \cos(3x)$ as a product of two sine functions.
+\end{exercise}
+
+\begin{exercise}
+Write $\cos(3x) - \cos(\pi x)$ as a product of two sine functions.
+\end{exercise}
+
+\begin{exercise}
+Derive a formula for $x_{sp}$ if the equation is
+$m x'' + \gamma x' + kx = F_0 \sin (\omega t)$.  Assume $\gamma > 0$.
+\end{exercise}
+
+\begin{exercise}
+Derive a formula for $x_{sp}$ if the equation is
+$m x'' + \gamma x' + kx = F_0 \cos (\omega t) + F_1 \cos (3\omega t)$.
+Assume $\gamma > 0$.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Derive a formula for $x_{sp}$ for
+$mx''+\gamma x'+kx = F_0 \cos(\omega t) + A$,
+where $A$ is some constant.  Assume $\gamma > 0$.
+\end{exercise}
+\exsol{%
+$x_{sp} = 
+\frac{(\omega_0^2-\omega^2) F_0}
+{m{(2\omega p)}^2+m{(\omega_0^2-\omega^2)}^2} \cos (\omega t) +
+\frac{2 \omega p F_0}
+{m{(2\omega p)}^2+m{(\omega_0^2-\omega^2)}^2} \sin (\omega t)
++ \frac{A}{k}$,
+where
+$p = \frac{\gamma}{2m}$ and $\omega_0 = \sqrt{\frac{k}{m}}$.
+}
+
+\begin{exercise}
+Take $m x'' + \gamma x' + kx = F_0 \cos (\omega t)$.
+Fix $m > 0$, $k > 0$, and $F_0 > 0$.  Consider the function $C(\omega)$.
+For what values of $\gamma$ (solve in terms of $m$, $k$, and $F_0$) will there be no
+practical resonance (that is, for what values of $\gamma$ is there no maximum of
+$C(\omega)$ for $\omega > 0$)?
+\end{exercise}
+
+\begin{exercise}
+Take $m x'' + \gamma x' + kx = F_0 \cos (\omega t)$.
+Fix $\gamma > 0$, $k > 0$, and $F_0 > 0$.  Consider the function $C(\omega)$.
+For what values of $m$ (solve in terms of $\gamma$, $k$, and $F_0$) will there be no
+practical resonance (that is, for what values of $m$ is there no maximum of
+$C(\omega)$ for $\omega > 0$)?
+\end{exercise}
+
+\begin{exercise}\ansMark%
+A mass of \unit[4]{kg} on a spring with $k=\unitfrac[4]{N}{m}$ and a damping
+constant $c=\unitfrac[1]{Ns}{m}$.
+Suppose that $F_0 = \unit[2]{N}$.  Using forcing function $F_0 \cos (\omega t)$,
+find the $\omega$ that causes the maximum amount of practical resonance and find the amplitude.
+\end{exercise}
+\exsol{%
+$\omega = \frac{\sqrt{31}}{4\sqrt{2}} \approx 0.984$ \quad
+$C(\omega) = \frac{16}{3\sqrt{7}} \approx 2.016$
+}
+
+\begin{exercise}
+An infant is bouncing in a spring chair. The infant has a mass of \unit[8]{kg}, and the chair functions as a spring with spring constant \unitfrac[72]{N}{m}. The bouncing of the infant applies a force of the form $3 \cos(\omega t)$ for some frequency $\omega$. Assume that the infant starts at rest at the equilibrium position of the chair.
+\begin{tasks}
+\task If there is no dampening coefficient, what frequency would the infant need to force at in order to generate pure resonance?
+\task Assume that the chair is built with a dampener with coefficient \unitfrac[5]{Ns}{m}. Set up an initial value problem for this situation if the child behaves in the same way.
+\task Solve this initial value problem.
+\task There are several options for chairs you can buy. There is the one with dampening coefficient \unitfrac[5]{Ns}{m}, one with \unitfrac[1]{Ns}{m}, and one with \unitfrac[20]{Ns}{m}. Which of these would be most `fun' for the infant? How do you know?
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}
+\pagebreak[3]
+A water tower in an earthquake acts as a mass-spring system.
+Assume that the container on top is full and the water does not move around.
+The container then acts as the mass and the support acts as the spring, where
+the induced vibrations are horizontal.  The container with water
+has a mass of $m=\unit[10,000]{kg}$.  It takes a force of 1000 newtons
+to displace the container 1 meter.  For simplicity assume no friction.
+When the earthquake hits the water tower is at rest (it is not moving).
+%
+The earthquake induces an external force 
+$F(t) = m A \omega^2 \cos (\omega t)$.
+\begin{tasks}
+\task
+What is the natural frequency of the water tower?
+\task
+If $\omega$ is not the natural frequency, find a formula for the maximal
+amplitude of the resulting oscillations of the water container (the maximal
+deviation from the rest position).  The motion will be a high frequency wave
+modulated by a low frequency wave, so simply find the constant in front of the
+sines.
+\task
+Suppose $A = 1$ and an earthquake with frequency 0.5 cycles per second
+comes.  What is the amplitude of the oscillations?  Suppose that if the water
+tower moves more than 1.5 meter from the rest position, the tower collapses.
+Will the tower collapse?
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Suppose there is no damping in a mass and spring system with
+$m = 5$, $k= 20$, and $F_0 = 5$.  Suppose $\omega$ is chosen
+to be precisely the resonance frequency.
+\begin{tasks}
+\task
+Find $\omega$.
+\task
+Find the amplitude of the oscillations at time $t=100$, given the system is at
+rest at $t=0$.
+\end{tasks}
+\end{exercise}
+\exsol{%
+a) $\omega = 2$ \quad
+b) $25$
+}
+
+\begin{exercise}
+Assume that a 2 kg mass is attached to a spring that is acted on by a forcing function $F(t) = 5 \cos(2t)$. Assume that there is no dampening on the spring.
+\begin{tasks}
+\task What should the spring constant $k$ be in order for this system to exhibit pure resonance?
+\task If we wanted the system to exhibit practical resonance instead, what do or can we change about it to get this?
+\task Assume that we set $k$ to be the value determined in (a), and that the rest of the problem is situated so that the system exhibits practical resonance. What would we expect to see for the amplitude of the solution? This should be a generic comment, not a specific value.
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}
+Assume that we have a mass-on-a-spring system defined by the equation
+\begin{equation*}
+3y'' + 2y' + 18y = 4\cos(5t).
+\end{equation*}
+\begin{tasks}
+\task Identify the mass, dampening coefficient, and spring constant for the system.
+\task Use the entire equation to find the natural frequency, forcing frequency, and quasi-frequency of this oscillation.
+\task Two of these frequencies will show up in the general solution to this problem. Which are they, and in which part (transient, steady-periodic) do they appear?
+\task Find the general solution of this problem.
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}
+A circuit is built with an $L$ Henry inductor, and $R$ Ohm resistor, and a $C$ Farad capacitor. All of the units are correct, but you do not know any of their values. To study this circuit, you apply an external voltage source of $F(t) = 4 \cos\left(\frac{1}{2} t \right)$, and the circuit starts with no initial charge or current.
+\begin{tasks}
+\task Write an initial value problem to model this situation.
+\task Your friend (who knows more about this circuit than you do) takes a reading from this circuit after it is running and says ``The amplitude of the charge oscillation is greater than 100 coulombs, which means this circuit is exhibiting practical resonance.'' There are \textbf{three} facts that you can learn about this circuit from the statement here that will tell you about the values of $L$, $R$, and $C$. 
+\begin{enumerate}[(i)]
+\item This statement seems to imply that the expected amplitude of the oscillation is 100 coulombs. What does this mean about the value of $C$?
+\item Your friend says that this circuit is in practical resonance. What does this tell you about the value of $R$ in this case?
+\item Finally, being in practical resonance says something about how the forcing frequency compares to the natural frequency of this system. What is that, and how does it relate to the value of $L$?
+\end{enumerate}
+\vspace{-25pt}
+\task What is the frequency of the steady-periodic oscillation that your friend mentioned above? 
+\end{tasks}
+\end{exercise}
+
+
+\setcounter{exercise}{100}
+

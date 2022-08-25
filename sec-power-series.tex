@@ -1,0 +1,639 @@
+\section{Power series}
+\label{powerseries:section}
+
+\LAtt{7.1}
+
+\LO{
+\item Determine intervals of convergence for power series,
+\item Use differentiation and integration operations on power series, and
+\item Determine power series representations for rational functions.
+}
+
+% \sectionnotes{Verbatim from Lebl}
+
+% \sectionnotes{1 or 1.5 lecture\EPref{, \S8.1 in \cite{EP}}\BDref{,
+% \S5.1 in \cite{BD}}}
+
+Many functions can be written in terms of a power series
+\begin{equation*}
+\sum_{k=0}^\infty a_k {(x-x_0)}^k .
+\end{equation*}
+If we assume that a solution of a differential equation is written as a
+power series, then perhaps we can use a method reminiscent of undetermined
+coefficients.  That is, we will try to solve for the numbers $a_k$.
+Before we can carry out this process, let us review some results
+and concepts about power series.
+
+\subsection{Definition}
+
+\begin{definition} A \emph{\myindex{power series}} is an expression such as
+\begin{equation} \label{ps:sereq1}
+\sum_{k=0}^\infty a_k {(x-x_0)}^k =
+a_0 + 
+a_1 (x-x_0) +
+a_2 {(x-x_0)}^2 +
+a_3 {(x-x_0)}^3 + \cdots,
+\end{equation}
+where $a_0,a_1,a_2,\ldots,a_k,\ldots$ and $x_0$ are constants.  
+\end{definition} 
+Let
+\begin{equation*}
+S_n(x) = \sum_{k=0}^n a_k {(x-x_0)}^k =
+a_0 + a_1 (x-x_0) + a_2 {(x-x_0)}^2 + a_3 {(x-x_0)}^3 + \cdots + a_n {(x-x_0)}^n ,
+\end{equation*}
+denote the so-called \emph{\myindex{partial sum}}.  If for some $x$,
+the limit
+\begin{equation*}
+\lim_{n\to \infty} S_n(x) = \lim_{n\to\infty} \sum_{k=0}^n a_k {(x-x_0)}^k
+\end{equation*}
+exists, then we say that the series \eqref{ps:sereq1}
+\emph{converges}\index{convergence of a power series} at $x$.
+At $x=x_0$, the series always converges to $a_0$.
+When \eqref{ps:sereq1}
+converges at any other point $x \not= x_0$,
+we say that \eqref{ps:sereq1} is a
+\emph{\myindex{convergent power series}}, and we write
+\begin{equation*}
+\sum_{k=0}^\infty a_k {(x-x_0)}^k = 
+\lim_{n\to\infty} \sum_{k=0}^n a_k {(x-x_0)}^k.
+\end{equation*}
+If the series does not converge for any point $x \not= x_0$, we say that
+the series is \emph{divergent}\index{divergent power series}.
+
+\begin{example} \label{ps:expex}
+The series
+\begin{equation*}
+\sum_{k=0}^\infty \frac{1}{k!} x^k = 
+1 + x + \frac{x^2}{2} + \frac{x^3}{6} + \cdots
+\end{equation*}
+is convergent for any $x$.
+Recall that $k! = 1\cdot 2\cdot 3 \cdots k$ is the
+factorial.  By convention we define $0! = 1$.
+You may recall that this series
+converges to $e^x$.
+\end{example}
+
+We say that \eqref{ps:sereq1}
+\emph{\myindex{converges absolutely}}\index{absolute convergence}
+at $x$ whenever the limit
+\begin{equation*}
+\lim_{n\to\infty} \sum_{k=0}^n
+\lvert a_k \rvert \, {\lvert x-x_0 \rvert}^k 
+\end{equation*}
+exists.  That is, the series
+$\sum_{k=0}^\infty \lvert a_k \rvert \, {\lvert x-x_0 \rvert}^k$
+is convergent.
+If \eqref{ps:sereq1} converges absolutely at $x$, then it
+converges at $x$.  However, the opposite implication is not true.
+
+\begin{example} \label{ps:1kex}
+The series
+\begin{equation*}
+\sum_{k=1}^\infty \frac{1}{k} x^k
+\end{equation*}
+converges absolutely for all $x$ in the interval $(-1,1)$.
+It converges at $x=-1$,
+as
+$\sum_{k=1}^\infty \frac{{(-1)}^k}{k}$ converges (conditionally)
+by the alternating series
+test.
+The power series does not converge absolutely at $x=-1$, because
+$\sum_{k=1}^\infty \frac{1}{k}$ does not converge.
+The series
+diverges at $x=1$.
+\end{example}
+
+\subsection{Radius of convergence}
+
+If a power series converges absolutely
+at some $x_1$, then for all $x$ such that
+$\lvert x - x_0  \rvert \leq \lvert x_1 - x_0 \vert$ (that is, $x$ is
+closer than $x_1$ to $x_0$) we have
+$\bigl\lvert a_k {(x-x_0)}^k \bigr\rvert \leq
+\bigl\lvert a_k {(x_1-x_0)}^k \bigr\rvert$
+for all $k$.
+As the numbers $\bigl\lvert a_k {(x_1-x_0)}^k \bigr\rvert$ sum to some finite
+limit, summing smaller positive numbers
+$\bigl\lvert a_k {(x-x_0)}^k \bigr\rvert$ must also have a finite limit.
+Hence, the series must converge
+absolutely at $x$. %  We have the following result.
+
+\begin{theorem1}{}
+For a power series \eqref{ps:sereq1}, there exists a number
+$\rho$ (we allow $\rho=\infty$)
+called the \emph{\myindex{radius of convergence}} such that
+the series converges absolutely on the interval
+$(x_0-\rho,x_0+\rho)$ and diverges for $x < x_0-\rho$ and $x > x_0+\rho$.
+We write $\rho=\infty$ if
+the series converges for all $x$.
+\end{theorem1}
+
+\begin{myfig}
+\capstart
+\inputpdft{ps-conv}
+\caption{Convergence of a power series.\label{ps:convfig}}
+\end{myfig}
+
+See \figurevref{ps:convfig}.
+In \exampleref{ps:expex} the radius of convergence is $\rho = \infty$
+as the series converges everywhere.  In \exampleref{ps:1kex}
+the radius of convergence is $\rho=1$.
+We note that $\rho = 0$ is another way of saying that the series is
+divergent.
+
+A useful test for convergence of a series is the
+\emph{ratio test}\index{ratio test for series}.  Suppose that
+\begin{equation*}
+\sum_{k=0}^\infty c_k
+\end{equation*}
+is a series and the limit
+\begin{equation*}
+L = \lim_{n\to\infty} \left \lvert \frac{c_{k+1}}{c_k} \right \rvert
+\end{equation*}
+exists.  Then the series converges absolutely if $L < 1$ and diverges
+if $L > 1$.
+
+We apply this test to the series \eqref{ps:sereq1}. 
+Let $c_k = a_k {(x - x_0)}^k$ in the test.  Compute
+\begin{equation*}
+L = \lim_{n\to\infty} \left \lvert \frac{c_{k+1}}{c_k} \right \rvert
+=
+\lim_{n\to\infty} \left \lvert
+\frac{a_{k+1} {(x - x_0)}^{k+1}}{a_k {(x - x_0)}^k}
+\right \rvert
+=
+\lim_{n\to\infty} \left \lvert
+\frac{a_{k+1}}{a_k}
+\right \rvert
+\lvert  x - x_0 \rvert .
+\end{equation*}
+Define $A$ by
+\begin{equation*}
+A =
+\lim_{n\to\infty} \left \lvert
+\frac{a_{k+1}}{a_k}
+\right \rvert .
+\end{equation*}
+Then if $1 > L = A \lvert x - x_0 \rvert$ the series \eqref{ps:sereq1}
+converges absolutely.
+If $A = 0$, then the series always converges.  If $A > 0$, then
+the series converges absolutely
+if $\lvert x - x_0 \rvert < \nicefrac{1}{A}$,
+and diverges if $\lvert x - x_0 \rvert > \nicefrac{1}{A}$.  That is,
+the radius of convergence is $\nicefrac{1}{A}$.
+
+A similar test is the \emph{root test}\index{root test for series}.
+Suppose
+\begin{equation*}
+L = \lim_{k\to\infty} \sqrt[k]{\lvert c_k \rvert}
+\end{equation*}
+exists.  Then $\sum_{k=0}^\infty c_k$ converges absolutely if $L < 1$
+and diverges if $L > 1$.  We can use the same calculation as above
+to find $A$.
+Let us summarize.
+
+\begin{theorem1}{Ratio and root tests for power series}
+Consider a power series
+\begin{equation*}
+\sum_{k=0}^\infty a_k {(x-x_0)}^k
+\end{equation*}
+such that
+\begin{equation*}
+A =
+\lim_{n\to\infty}
+\left \lvert
+\frac{a_{k+1}}{a_k}
+\right \rvert
+\qquad \text{or} \qquad
+A =
+\lim_{k\to\infty} \sqrt[k]{\lvert a_k \rvert}
+\end{equation*}
+exists.  If $A = 0$, then the radius of convergence of the series
+is $\infty$.  Otherwise, the radius of convergence is $\nicefrac{1}{A}$.
+\pagebreak[3]
+\end{theorem1}
+
+\begin{example}
+Find the radius of convergence for the series
+\begin{equation*}
+\sum_{k=0}^\infty 2^{-k} {(x-1)}^k .
+\end{equation*}
+\end{example}
+
+\begin{exampleSol}
+First we compute the limit in the ratio test,
+\begin{equation*}
+A = \lim_{k\to\infty} 
+\left \lvert
+\frac{a_{k+1}}{a_k}
+\right \rvert
+=
+\lim_{k\to\infty} 
+\left \lvert
+\frac{2^{-k-1}}{2^{-k}}
+\right \rvert
+=
+\lim_{k\to\infty} 
+2^{-1} = \nicefrac{1}{2}.
+\end{equation*}
+Therefore the radius of convergence is $2$, and the series
+converges absolutely on the interval $(-1,3)$.
+And we could just as well have used the root test:
+\begin{equation*}
+A = \lim_{k\to\infty} 
+\lim_{k\to\infty} 
+\sqrt[k]{\lvert
+a_k
+\rvert}
+=
+\lim_{k\to\infty} 
+\sqrt[k]{\lvert
+2^{-k}
+\rvert}
+=
+\lim_{k\to\infty} 
+2^{-1}
+=
+\nicefrac{1}{2}.
+\end{equation*}
+\end{exampleSol}
+
+\begin{example}
+Where does the series below converge?
+\begin{equation*}
+\sum_{k=0}^\infty \frac{1}{k^k} {x}^k .
+\end{equation*}
+\end{example}
+
+\begin{exampleSol}
+Compute the limit for the root test,
+\begin{equation*}
+A =
+\lim_{k\to\infty} 
+\sqrt[k]{\lvert a_k \rvert}
+=
+\lim_{k\to\infty} 
+\sqrt[k]{
+\left\lvert\frac{1}{k^k}\right\rvert}
+=
+\lim_{k\to\infty} 
+\sqrt[k]{
+{\left\lvert\frac{1}{k}\right\rvert}^{k}}
+=
+\lim_{k\to\infty} 
+\frac{1}{k}
+=
+0 .
+\end{equation*}
+So the radius of convergence is $\infty$: the series
+converges everywhere.  The ratio test would also work here.
+\end{exampleSol}
+
+The root or the ratio test does not always apply.  That is
+the limit
+of
+$\bigl \lvert \frac{a_{k+1}}{a_k} \bigr \rvert$
+or
+$\sqrt[k]{\lvert a_k \rvert}$
+might not exist.
+There exist more sophisticated ways of finding the radius of convergence,
+but those would be beyond the scope of this chapter.  The two methods above
+cover many of the series that arise in practice.  Often if the root test
+applies, so does the ratio test, and vice versa, though the limit might
+be easier to compute in one way than the other.
+
+\subsection{Analytic functions}
+
+Functions represented by power series are called
+\emph{\myindex{analytic functions}}.  Not every function is analytic,
+although the majority of the functions you have seen in calculus are.
+
+An analytic function $f(x)$ is equal to its \emph{\myindex{Taylor series}}%
+\footnote{Named after the English mathematician
+\href{http://en.wikipedia.org/wiki/Brook_Taylor}{Sir Brook Taylor}
+(1685--1731).}
+near a point $x_0$.
+That is, for $x$ near $x_0$ we have
+\begin{equation} \label{ps:tayloreq}
+f(x) = \sum_{k=0}^\infty \frac{f^{(k)}(x_0)}{k!} {(x-x_0)}^k ,
+\end{equation}
+where $f^{(k)}(x_0)$ denotes the $k^{\text{th}}$ derivative of $f(x)$
+at the point $x_0$.
+
+For example, sine is an analytic function and its Taylor series
+around $x_0 = 0$
+is given by
+\begin{equation*}
+\sin(x) = \sum_{n=0}^\infty \frac{{(-1)}^n}{(2n+1)!}
+ x^{2n+1} .
+\end{equation*}
+In \figurevref{ps:sin} we plot $\sin(x)$ and the truncations of the
+series up to degree 5 and 9.  You can see that the approximation is very
+good for $x$ near 0, but gets worse for $x$ further away from 0.  This is 
+what happens in general.
+To get a good approximation far away from $x_0$ you
+need to take more and more terms of the Taylor series.
+
+\begin{myfig}
+\capstart
+\diffyincludegraphics{width=3in}{width=4.5in}{ps-sin}
+\caption{The sine function and its Taylor approximations
+around $x_0=0$
+of $5^{\text{th}}$ and $9^{\text{th}}$ degree.\label{ps:sin}}
+\end{myfig}
+
+\subsection{Manipulating power series}
+
+One of the main properties of power series that we will use is
+that we can differentiate them term by term.  That is,
+suppose that 
+$\sum a_k {(x-x_0)}^k$ is a convergent power series.  Then
+for $x$ in the radius of convergence we have
+\begin{equation*}
+\frac{d}{dx}
+\left[\sum_{k=0}^\infty a_k {(x-x_0)}^k\right]
+=
+\sum_{k=1}^\infty k a_k {(x-x_0)}^{k-1} .
+\end{equation*}
+Notice that the term corresponding to $k=0$ disappeared as
+it was constant.  The radius of convergence of the differentiated
+series is the same as that of the original.
+
+\begin{example}
+Show that the exponential $y=e^x$ solves $y'=y$ using power series.
+\end{example}
+
+\begin{exampleSol}
+First write
+\begin{equation*}
+y = e^x = \sum_{k=0}^\infty \frac{1}{k!} x^k .
+\end{equation*}
+Now differentiate
+\begin{equation*}
+y' = \sum_{k=1}^\infty k \frac{1}{k!} x^{k-1} =
+\sum_{k=1}^\infty \frac{1}{(k-1)!} x^{k-1} .
+\end{equation*}
+We \emph{reindex}\index{reindexing the series}
+the series by simply replacing $k$ with $k+1$.  The series
+does not change, what changes is simply how we write it.  After
+reindexing the series starts 
+at $k=0$ again.
+\begin{equation*}
+\sum_{k=1}^\infty \frac{1}{(k-1)!} x^{k-1} =
+\sum_{k+1=1}^\infty \frac{1}{\bigl((k+1)-1\bigr)!} x^{(k+1)-1} =
+\sum_{k=0}^\infty \frac{1}{k!} x^k .
+\end{equation*}
+That was precisely the power series for $e^x$ that we started with,
+so we showed that $\frac{d}{dx} [ e^x ] = e^x$.
+\end{exampleSol}
+
+Convergent power series can be added and multiplied together, and multiplied
+by constants using the following rules.  First, we can add series by
+adding term by term,
+\begin{equation*}
+\left(\sum_{k=0}^\infty a_k {(x-x_0)}^k\right)
++
+\left(\sum_{k=0}^\infty b_k {(x-x_0)}^k\right)
+=
+\sum_{k=0}^\infty (a_k+b_k) {(x-x_0)}^k .
+\end{equation*}
+We can multiply by constants,
+\begin{equation*}
+\alpha
+\left(\sum_{k=0}^\infty a_k {(x-x_0)}^k\right)
+=
+\sum_{k=0}^\infty \alpha a_k {(x-x_0)}^k .
+\end{equation*}
+We can also multiply series together,
+\begin{equation*}
+\left(\sum_{k=0}^\infty a_k {(x-x_0)}^k\right)
+\,
+\left(\sum_{k=0}^\infty b_k {(x-x_0)}^k\right)
+=
+\sum_{k=0}^\infty c_k {(x-x_0)}^k ,
+\end{equation*}
+where
+$c_k = a_0b_k + a_1 b_{k-1} + \cdots + a_k b_0$.
+The radius of convergence of the sum or the product
+is at least the minimum of the radii of convergence of
+the two series involved.
+
+\subsection{Power series for rational functions}
+
+Polynomials are simply finite power series.  That is, a polynomial
+is a power series where
+the $a_k$ are zero for all $k$ large enough.  We can always expand
+a polynomial as a power series about any point $x_0$ by writing
+the polynomial as a polynomial in $(x-x_0)$.  For example,
+let us write
+$2x^2-3x+4$ as a power series around $x_0 = 1$:
+\begin{equation*}
+2x^2-3x+4 = 3 + (x-1) + 2{(x-1)}^2 .
+\end{equation*}
+In other words $a_0 = 3$, $a_1 = 1$, $a_2 = 2$, and all other
+$a_k = 0$.  To do this, we know that $a_k = 0$ for all $k \geq 3$ as the
+polynomial is of degree 2.
+We write $a_0 + a_1(x-1) + a_2{(x-1)}^2$, we expand, and we solve
+for $a_0$, $a_1$, and $a_2$.  We could have also differentiated at $x=1$
+and used the Taylor series formula \eqref{ps:tayloreq}.
+
+Let us look at rational functions, that is, ratios of polynomials.
+An important fact is 
+that a series for a function only defines the function
+on an interval even if the function is defined elsewhere.  For example, for
+$-1 < x < 1$ we have
+\begin{equation*}
+\frac{1}{1-x} =
+\sum_{k=0}^\infty x^k =
+1 + x + x^2 + \cdots
+\end{equation*}
+This series is called the \emph{\myindex{geometric series}}.  The ratio
+test tells us that the radius of convergence is $1$.  The series
+diverges for $x \leq -1$ and $x \geq 1$, even though
+$\frac{1}{1-x}$ is defined for all $x \not= 1$.
+
+We can use the geometric series together with rules for addition and
+multiplication of power series to expand rational functions around
+a point, as long as the denominator is not zero at $x_0$.  Note that
+as for polynomials, we could
+equivalently use the Taylor series expansion \eqref{ps:tayloreq}.
+
+\begin{example}
+Expand $\frac{x}{1+2x+x^2}$ as a power series around the origin ($x_0 = 0$) and
+find the radius of convergence.
+\end{example}
+
+\begin{exampleSol}
+First, write $1+2x+x^2 = {(1+x)}^2 = {\bigl(1-(-x)\bigr)}^2$.
+Compute
+\begin{equation*}
+\begin{split}
+\frac{x}{1+2x+x^2}
+&=
+x \,
+{\left(
+\frac{1}{1-(-x)}
+\right)}^2
+\\
+&=
+x \,
+{ \left( 
+\sum_{k=0}^\infty {(-1)}^k x^k 
+\right)}^2
+\\
+&=
+x \,
+\left(
+\sum_{k=0}^\infty c_k x^k 
+\right)
+\\
+&=
+\sum_{k=0}^\infty c_k x^{k+1} ,
+\end{split}
+\end{equation*}
+where to get $c_k$, we use the formula for the product of series.  
+We obtain, $c_0 = 1$, $c_1 = -1 -1 = -2$, $c_2 = 1+1+1 = 3$, etc.
+Therefore
+\begin{equation*}
+\frac{x}{1+2x+x^2}
+=
+\sum_{k=1}^\infty {(-1)}^{k+1} k x^k
+= x-2x^2+3x^3-4x^4+\cdots
+\end{equation*}
+The radius of convergence is at least 1.  We use the ratio test
+\begin{equation*}
+\lim_{k\to\infty}
+\left\lvert \frac{a_{k+1}}{a_k} \right\rvert
+=
+\lim_{k\to\infty}
+\left\lvert \frac{{(-1)}^{k+2} (k+1)}{{(-1)}^{k+1}k} \right\rvert
+=
+\lim_{k\to\infty}
+\frac{k+1}{k}
+= 1 .
+\end{equation*}
+So the radius of convergence is actually equal to 1.
+\end{exampleSol}
+
+When the rational function is more complicated, it is also possible
+to use method of partial fractions.  For example,
+to find the Taylor series for $\frac{x^3+x}{x^2-1}$, we write
+\begin{equation*}
+\frac{x^3+x}{x^2-1}
+=
+x + \frac{1}{1+x} - \frac{1}{1-x}
+=
+x + \sum_{k=0}^\infty {(-1)}^k x^k - \sum_{k=0}^\infty x^k
+=
+- x + \sum_{\substack{k=3 \\ k \text{ odd}}}^\infty (-2) x^k .
+\end{equation*}
+
+\subsection{Exercises}
+
+\begin{exercise}
+Is the power series $\displaystyle \sum_{k=0}^\infty e^k x^k$ convergent?
+If so, what is the radius of convergence?
+\end{exercise}
+
+\begin{exercise}
+Is the power series $\displaystyle \sum_{k=0}^\infty k x^k$ convergent?
+If so, what is the radius of convergence?
+\end{exercise}
+
+\begin{exercise}\ansMark
+Is the power series
+$\displaystyle \sum_{n=1}^\infty {(0.1)}^n x^n$
+convergent? If so, what is the radius of convergence?
+\end{exercise}
+\exsol{%
+Yes.  Radius of convergence is $10$.
+}
+
+
+\begin{exercise}
+Is the power series $\displaystyle \sum_{k=0}^\infty k! x^k$ convergent?
+If so, what is the radius of convergence?
+\end{exercise}
+
+\begin{exercise}
+Is the power series $\displaystyle \sum_{k=0}^\infty \frac{1}{(2k)!} {(x-10)}^k$
+convergent?  If so, what is the radius of convergence?
+\end{exercise}
+
+\begin{exercise}[challenging]\ansMark%
+Is the power series
+$\displaystyle \sum_{n=1}^\infty \frac{n!}{n^n} x^n$
+convergent? If so, what is the radius of convergence?
+\end{exercise}
+\exsol{%
+Yes.  Radius of convergence is $e$.
+}
+
+\begin{exercise}
+Determine the Taylor series for $\sin x$ around the point $x_0 = \pi$.
+\end{exercise}
+
+\begin{exercise}
+Determine the Taylor series for $\ln x$ around the point $x_0 = 1$,
+and find the radius of convergence.
+\end{exercise}
+
+\begin{exercise}[challenging]\ansMark%
+Find the Taylor series for $x^7 e^x$ around $x_0 = 0$.
+\end{exercise}
+\exsol{%
+$\sum\limits_{n=7}^\infty
+\frac{1}{(n-7)!} x^n$
+}
+
+\begin{exercise}
+Determine the Taylor series
+and its radius of convergence of $\dfrac{1}{1+x}$
+around $x_0 = 0$.
+\end{exercise}
+
+\begin{exercise}
+Determine the Taylor series and its radius of convergence
+of
+$\dfrac{x}{4-x^2}$ around $x_0 = 0$.  Hint: You will not be able to
+use the ratio test.
+\end{exercise}
+
+\begin{exercise}
+Expand $x^5+5x+1$ as a power series around $x_0 = 5$.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Using the geometric series, expand $\frac{1}{1-x}$ around $x_0=2$.
+For what $x$ does the series converge?
+\end{exercise}
+\exsol{%
+$\frac{1}{1-x} = -\frac{1}{1-(2-x)}$ so
+$\frac{1}{1-x} =
+\sum\limits_{n=0}^\infty {(-1)}^{n+1} {(x-2)}^n$,
+which converges for $1 < x < 3$.
+}
+
+\begin{exercise}
+Suppose that the ratio test applies to a series
+$\displaystyle \sum_{k=0}^\infty a_k x^k$.  Show, using the ratio
+test, that the radius of convergence of the differentiated
+series is the same as that of the original series.
+\end{exercise}
+
+\begin{exercise}
+Suppose that $f$ is an analytic function such that
+$f^{(n)}(0) = n$.  Find $f(1)$.
+\end{exercise}
+
+\begin{exercise}[challenging]\ansMark%
+Imagine $f$ and $g$ are analytic functions such that
+$f^{(k)}(0) = g^{(k)}(0)$ for all large enough $k$.  What can you
+say about $f(x)-g(x)$?
+\end{exercise}
+\exsol{%
+$f(x)-g(x)$ is a polynomial.  Hint: Use Taylor series.
+}
+
+\setcounter{exercise}{100}
+

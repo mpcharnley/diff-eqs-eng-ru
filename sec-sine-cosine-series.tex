@@ -1,0 +1,605 @@
+
+\section{Sine and cosine series}
+\label{sec:scs}
+
+\LAtt{4.4}
+
+\LO{
+\item Use sine and cosine series to represent odd and even periodic extensions of functions and
+\item Understand the connection between Fourier series and boundary value problems.
+}
+
+% \sectionnotes{Verbatim from Lebl}
+
+% \sectionnotes{2 lectures\EPref{, \S9.3 in \cite{EP}}\BDref{,
+% \S10.4 in \cite{BD}}}
+
+\subsection{Odd and even periodic functions}
+
+You may have noticed by now that an odd function has no cosine terms in the 
+Fourier series and an even function has no sine terms in the Fourier series.
+This observation is not a coincidence.  Let us look at even and odd periodic
+function in more detail.
+
+Recall that a function $f(t)$ is \emph{odd}\index{odd function} if $f(-t) =
+-f(t)$.  A function $f(t)$ is \emph{even}\index{even function} if
+$f(-t) = f(t)$.  For example, $\cos (n t)$ is even and $\sin (n t)$ is odd.
+Similarly the function $t^k$ is even if $k$ is even and odd when $k$ is odd.
+
+\begin{exercise}
+Take two functions $f(t)$ and $g(t)$ and define their product $h(t) =
+f(t)g(t)$.
+\begin{tasks}
+\task Suppose both $f(t)$ and $g(t)$ are odd.  Is $h(t)$ odd or even?
+\task Suppose one is even and one is odd.  Is $h(t)$ odd or even?
+\task Suppose both are even.  Is $h(t)$ odd or even?
+\end{tasks}
+\end{exercise}
+
+If $f(t)$ and $g(t)$ are both odd, then $f(t)+g(t)$ is odd.  Similarly for
+even functions.  On the other hand,
+if $f(t)$ is odd and $g(t)$ even, then we cannot say anything about
+the sum
+$f(t) + g(t)$.  In fact, the Fourier series of any function is a sum of
+an odd (the sine terms) and an even (the cosine terms) function.
+
+In this section we consider odd and even periodic
+functions.  We have previously defined the $2L$-periodic extension
+of a function defined on the interval $[-L,L]$.  Sometimes we are only
+interested in the function on the range $[0,L]$ and it would be convenient
+to have an odd (resp.\ even) function.  If the function is odd (resp.\ even),
+all the cosine (resp.\ sine) terms disappear.
+What we will do is
+take the
+odd (resp.\ even) extension of the function to $[-L,L]$ and then 
+extend periodically to a $2L$-periodic function.
+
+Take a function $f(t)$ defined on $[0,L]$.  On $(-L,L]$ define the functions
+\begin{align*}
+F_{\text{odd}}(t) & \overset{\text{def}}{=}
+\begin{cases}
+f(t) & \text{if } \; \phantom{-}0 \leq t \leq L , \\
+-f(-t) & \text{if } \; {-L} < t < 0 ,
+\end{cases}
+\\
+F_{\text{even}}(t) & \overset{\text{def}}{=}
+\begin{cases}
+f(t) & \text{if } \; \phantom{-}0 \leq t \leq L , \\
+f(-t) & \text{if } \; {-L} < t < 0 .
+\end{cases}
+\end{align*}
+Extend $F_{\text{odd}}(t)$ and $F_{\text{even}}(t)$ to be $2L$-periodic.
+Then
+$F_{\text{odd}}(t)$ is called
+the \emph{\myindex{odd periodic extension}} of $f(t)$, and
+$F_{\text{even}}(t)$ is called the
+\emph{\myindex{even periodic extension}} of $f(t)$.
+For the odd extension we generally assume that $f(0) = f(L) = 0$.
+
+\begin{exercise}
+Check that $F_{\text{odd}}(t)$ is odd and $F_{\text{even}}(t)$ is even.
+For $F_{\text{odd}}$,
+assume $f(0) = f(L) = 0$.
+\end{exercise}
+
+\begin{example}
+Take the function $f(t) = t\,(1-t)$ defined on $[0,1]$. 
+\figurevref{scs:oddevenextfig}
+shows the plots of the odd and even periodic extensions of $f(t)$.
+
+\begin{myfig}
+\capstart
+%original files scs-oddext scs-evenext
+\diffyincludegraphics{width=6.24in}{width=9in}{scs-ext-odd-even}
+\caption{Odd and even 2-periodic extension of $f(t) =
+t\,(1-t)$, $0 \leq t \leq 1$.\label{scs:oddevenextfig}}
+\end{myfig}
+\end{example}
+
+\subsection{Sine and cosine series}
+
+Let $f(t)$ be an odd $2L$-periodic function.  We write 
+the Fourier series for $f(t)$.  First, we compute the coefficients $a_n$ (including
+$n=0$) and get
+\begin{equation*}
+a_n = \frac{1}{L} \int_{-L}^L f(t) \cos \left( \frac{n \pi}{L} t \right)
+\, dt = 0 .
+\end{equation*}
+That is, there are no cosine terms in the Fourier series of an odd function.
+The integral is zero
+because $f(t) \cos \left( {n \pi}{L} t \right)$
+is an odd function (product of an odd and an
+even function is odd) and the integral of an odd function over a symmetric
+interval is always zero.
+The integral of an even function over a symmetric interval
+$[-L,L]$ is twice the integral of the function over the interval $[0,L]$.
+The function $f(t) \sin \left( \frac{n \pi}{L} t \right)$ is the product of two odd
+functions and hence is even.
+\begin{equation*}
+b_n = 
+\frac{1}{L} \int_{-L}^L f(t) \sin \left( \frac{n \pi}{L} t \right) \, dt =
+\frac{2}{L} \int_{0}^L f(t) \sin \left( \frac{n \pi}{L} t \right) \, dt .
+\end{equation*}
+We now write the Fourier series of $f(t)$ as
+\begin{equation*}
+\sum_{n=1}^\infty b_n \sin \left( \frac{n \pi}{L} t \right) .
+\end{equation*}
+
+Similarly, if $f(t)$ is an even $2L$-periodic function.  For the same exact
+reasons as above, we find that $b_n = 0$ and
+\begin{equation*}
+a_n = 
+\frac{2}{L} \int_{0}^L f(t) \cos \left( \frac{n \pi}{L} t \right) \, dt .
+\end{equation*}
+The formula still works for $n=0$, in which case it becomes
+\begin{equation*}
+a_0 = 
+\frac{2}{L} \int_{0}^L f(t) \, dt .
+\end{equation*}
+The Fourier series is then
+\begin{equation*}
+\frac{a_0}{2}
++
+\sum_{n=1}^\infty a_n \cos \left( \frac{n \pi}{L} t \right) .
+\end{equation*}
+
+An interesting consequence is that the coefficients of the Fourier series of
+an odd (or even) function can be computed by just integrating over the half
+interval $[0,L]$.  Therefore, we can compute the Fourier series of
+the odd (or even) extension of a
+function by computing certain integrals over the interval
+where the original function is defined.
+
+\begin{theorem1}{}
+Let $f(t)$ be a piecewise smooth function defined on $[0,L]$.
+Then the odd periodic extension
+of $f(t)$ has the Fourier series
+\begin{equation*}
+%\mybxbg{~~
+F_{\text{odd}}(t) = \sum_{n=1}^\infty b_n \sin \left( \frac{n \pi}{L} t
+\right) ,
+%~~}
+\end{equation*}
+where
+\begin{equation*}
+%\mybxbg{~~
+b_n = 
+\frac{2}{L} \int_{0}^L f(t)\, \sin \left( \frac{n \pi}{L} t \right) \, dt .
+%~~}
+\end{equation*}
+The even periodic extension of $f(t)$ has the Fourier series
+\begin{equation*}
+%\mybxbg{~~
+F_{\text{even}}(t) = \frac{a_0}{2} + \sum_{n=1}^\infty a_n \cos \left(
+\frac{n \pi}{L} t \right) ,
+%~~}
+\end{equation*}
+where
+\begin{equation*}
+%\mybxbg{~~
+a_n = 
+\frac{2}{L} \int_{0}^L f(t)\, \cos \left( \frac{n \pi}{L} t \right) \, dt .
+%~~}
+\end{equation*}
+\end{theorem1}
+
+\begin{definition}
+We call the series $\sum_{n=1}^\infty b_n \sin \left( \frac{n \pi}{L} t\right)$ 
+the \emph{\myindex{sine series}} of $f(t)$ and we call the series
+$\frac{a_0}{2} + \sum_{n=1}^\infty a_n \cos \left( \frac{n \pi}{L} t
+\right)$
+the \emph{\myindex{cosine series}} of $f(t)$.  
+\end{definition}
+We often do not actually care what happens outside of $[0,L]$.  In this case,
+we pick whichever series fits our problem better.
+
+It is not necessary to start with the full Fourier series to obtain
+the sine and cosine series.
+The sine series is really the eigenfunction expansion of $f(t)$ using 
+eigenfunctions of the eigenvalue problem $x''+\lambda x = 0$, $x(0) = 0$,
+$x(L) = L$.  The cosine series is the eigenfunction expansion of $f(t)$
+using 
+eigenfunctions of the eigenvalue problem $x''+\lambda x = 0$, $x'(0) = 0$,
+$x'(L) = L$.  We could have, therefore, gotten the same formulas
+by defining the inner product
+\begin{equation*}
+\langle f(t), g(t) \rangle = \int_0^L f(t) g(t) \, dt ,
+\end{equation*}
+and following the procedure of \sectionref{ts:section}.  This point of view is
+useful, as we commonly use a specific series that arose because our underlying
+question 
+led to a certain eigenvalue problem.  If the eigenvalue 
+problem is not one of the three we covered so far, you can still do an
+eigenfunction expansion, generalizing the results of this chapter.  %We will
+%deal with such a generalization in \chapterref{SL:chapter}.
+
+%f(t) = \frac{a_0}{2} + \sum_{n=1}^\infty a_n \cos \left( \frac{n \pi}{L} 
+%t \right)
+%+ b_n \sin \left( \frac{n \pi}{L} t \right) ,
+
+\begin{example}
+Find the Fourier series of the even periodic extension of 
+the function $f(t) = t^2$ for $0 \leq t \leq \pi$.
+\end{example}
+
+\begin{exampleSol}
+We want to write
+\begin{equation*}
+f(t) = \frac{a_0}{2} + \sum_{n=1}^\infty a_n \cos (n t) ,
+\end{equation*}
+where
+\begin{equation*}
+a_0 = \frac{2}{\pi}
+\int_0^\pi t^2 \, dt = \frac{2 \pi^2}{3} ,
+\end{equation*}
+and
+\begin{equation*}
+\begin{split}
+a_n & = \frac{2}{\pi}
+\int_0^\pi t^2 \cos (n t) \, dt
+= \frac{2}{\pi} \left[ t^2 \frac{1}{n} \sin (nt) \right]_0^\pi -
+\frac{4}{n\pi}
+\int_0^\pi t \sin (n t) \, dt \\
+& = 
+\frac{4}{n^2\pi}
+\Bigl[ t \cos (n t) \Bigr]_0^\pi
++
+\frac{4}{n^2\pi}
+\int_0^\pi \cos (n t) \, dt
+= 
+\frac{4{(-1)}^n}{n^2} .
+\end{split}
+\end{equation*}
+Note that we have \myquote{detected} the continuity of the extension since the
+coefficients decay as $\frac{1}{n^2}$.  That is, the even periodic extension
+of $t^2$ has no jump discontinuities.  It does have corners, since
+the derivative, which is an odd function and a sine series, has jumps; it has
+a Fourier series whose coefficients decay only as $\frac{1}{n}$.
+
+Explicitly, the first few terms of the series are
+\begin{equation*}
+\frac{\pi^2}{3} - 4 \cos (t) + \cos (2t) - \frac{4}{9} \cos (3t) + \cdots
+\end{equation*}
+\end{exampleSol}
+
+\begin{exercise}
+\leavevmode
+\begin{tasks}
+\task Compute the derivative of the even periodic extension of $f(t)$ above and verify it
+has jump discontinuities.  Use the actual definition of $f(t)$, not its cosine
+series!
+\task Why is it that the derivative of the even periodic extension of $f(t)$ is the
+odd periodic extension of $f'(t)$?
+\end{tasks}
+\end{exercise}
+
+\subsection{Application}
+
+Fourier series ties in to the boundary value problems
+we studied earlier.  Let us see this connection in an application.
+
+Consider the boundary value problem for $0 < t < L$,
+\begin{equation*}
+x''(t) + \lambda\, x(t) = f(t) ,
+\end{equation*}
+for the \emph{\myindex{Dirichlet boundary conditions}}
+$x(0) = 0$, $x(L) = 0$.
+The Fredholm alternative (\thmvref{thm:fredholmsimple})
+says that
+as long as $\lambda$ is not an eigenvalue of the underlying homogeneous
+problem, there exists a unique solution.
+Eigenfunctions of this eigenvalue problem are the functions
+$\sin \left( \frac{n \pi}{L} t \right)$.
+Therefore,
+to find the solution,
+we first find the Fourier sine series for $f(t)$.
+We write $x$ also as a sine series, but with unknown coefficients.  
+We substitute the series for $x$ into the equation and solve for the unknown
+coefficients.
+If we have
+the \emph{\myindex{Neumann boundary conditions}}
+$x'(0) = 0$, $x'(L) = 0$, we do the same procedure using the cosine
+series.
+
+Let us see how this method works on examples.
+
+\begin{example}
+Take the boundary value problem for $0 < t < 1$,
+\begin{equation*}
+x''(t) + 2 x(t) = f(t) ,
+\end{equation*}
+where $f(t) = t$ on $0 < t < 1$, and 
+satisfying the Dirichlet boundary conditions
+$x(0) = 0$, $x(1)=0$.
+\end{example}
+
+\begin{exampleSol}
+We write $f(t)$ as a sine series
+\begin{equation*}
+f(t) = \sum_{n=1}^\infty c_n \sin (n \pi t) .
+\end{equation*}
+Compute
+\begin{equation*}
+c_n = 2 \int_0^1 t \sin (n \pi t) \,dt = \frac{2 \, {(-1)}^{n+1}}{n \pi} .
+\end{equation*}
+We write $x(t)$ as
+\begin{equation*}
+x(t) = \sum_{n=1}^\infty b_n \sin (n \pi t) .
+\end{equation*}
+We plug in to obtain 
+\begin{equation*}
+\begin{split}
+x''(t) + 2 x(t) & =
+\underbrace{
+\sum_{n=1}^\infty - b_n n^2 \pi^2 \sin (n \pi t)
+}_{x''}
+\,
++
+\,
+2
+\underbrace{
+\sum_{n=1}^\infty b_n \sin (n \pi t)
+}_{x}
+\\
+& =
+\sum_{n=1}^\infty b_n (2 - n^2 \pi^2 ) \sin (n \pi t)
+\\
+& = f(t)
+=
+\sum_{n=1}^\infty  \frac{2\, {(-1)}^{n+1}}{n \pi} \sin (n \pi t) .
+\end{split}
+\end{equation*}
+Therefore,
+\begin{equation*}
+b_n (2 - n^2 \pi^2)
+=
+\frac{2\,{(-1)}^{n+1}}{n \pi}
+\end{equation*}
+or
+\begin{equation*}
+b_n
+=
+\frac{2\,{(-1)}^{n+1}}{n \pi (2 - n^2 \pi^2)} .
+\end{equation*}
+That $2-n^2\pi^2$ is not zero for any $n$, and that we can
+solve for $b_n$, is precisely because
+$2$ is not an eigenvalue of the problem.
+We have thus obtained a Fourier series for the solution
+\begin{equation*}
+x(t) = 
+\sum_{n=1}^\infty
+\frac{2\,{(-1)}^{n+1}}{n \pi \,(2 - n^2 \pi^2)}
+\sin (n \pi t) .
+\end{equation*}
+See \figurevref{bnd-dirich-graph:fig} for a graph of the solution.
+Notice that because the eigenfunctions satisfy the boundary conditions, 
+and $x$ is written in terms of the boundary conditions, then $x$
+satisfies the boundary conditions.
+\begin{myfig}
+\capstart
+\diffyincludegraphics{width=3in}{width=4.5in}{bnd-dirich-graph}
+\caption{Plot of the solution of $x''+2x=t$, $x(0)=0$, $x(1)=0$.%
+\label{bnd-dirich-graph:fig}}
+\end{myfig}
+\end{exampleSol}
+
+\begin{example}
+Similarly we handle the Neumann conditions.
+Take the boundary value problem for $0 < t < 1$,
+\begin{equation*}
+x''(t) + 2 x(t) = f(t) ,
+\end{equation*}
+where again $f(t) = t$ on $0 < t < 1$, but now satisfying
+the Neumann boundary conditions
+$x'(0) = 0$, $x'(1)=0$.
+\end{example}
+
+\begin{exampleSol}
+We write $f(t)$ as a cosine series
+\begin{equation*}
+f(t) = \frac{c_0}{2} + \sum_{n=1}^\infty c_n \cos (n \pi t) ,
+\end{equation*}
+where
+\begin{equation*}
+c_0 = 2 \int_0^1 t \,dt = 1 ,
+\end{equation*}
+and
+\begin{equation*}
+c_n = 2 \int_0^1 t \cos (n \pi t) \,dt =
+\frac{2\bigl({(-1)}^n-1\bigr)}{\pi^2 n^2} = 
+\begin{cases}
+\frac{-4}{\pi^2 n^2} & \text{if } n \text{ odd} , \\
+0 & \text{if } n \text{ even}.
+\end{cases}
+\end{equation*}
+We write $x(t)$ as a cosine series
+\begin{equation*}
+x(t) = \frac{a_0}{2} + \sum_{n=1}^\infty a_n \cos (n \pi t) .
+\end{equation*}
+We plug in to obtain 
+\begin{equation*}
+\begin{split}
+x''(t) + 2 x(t) & =
+\sum_{n=1}^\infty \Bigl[ - a_n n^2 \pi^2 \cos (n \pi t) \Bigr]
++
+a_0 +
+2
+\sum_{n=1}^\infty \Bigl[ a_n \cos (n \pi t) \Bigr]
+\\
+& =
+a_0 +
+\sum_{n=1}^\infty a_n (2 - n^2 \pi^2 ) \cos (n \pi t)
+\\
+& = f(t)
+=
+\frac{1}{2} +
+\sum_{\substack{n=1\\n~\text{odd}}}^\infty
+\frac{-4}{\pi^2 n^2} \cos (n \pi t) .
+\end{split}
+\end{equation*}
+Therefore, $a_0 = \frac{1}{2}$, $a_n = 0$ for $n$ even ($n \geq 2$) and for
+$n$ odd we have
+\begin{equation*}
+a_n (2 - n^2 \pi^2)
+=
+\frac{-4}{\pi^2 n^2} ,
+\end{equation*}
+or
+\begin{equation*}
+a_n
+=
+\frac{-4}{n^2 \pi^2 (2 - n^2 \pi^2)} .
+\end{equation*}
+The Fourier series for the solution $x(t)$ is
+\begin{equation*}
+x(t) = 
+\frac{1}{4} +
+\sum_{\substack{n=1\\n~\text{odd}}}^\infty
+\frac{-4}{n^2 \pi^2 (2 - n^2 \pi^2)} 
+\cos (n \pi t) .
+\end{equation*}
+\end{exampleSol}
+
+\subsection{Exercises}
+
+\begin{exercise}
+Take $f(t) = {(t-1)}^2$ defined on $0 \leq t \leq 1$.
+\begin{tasks}
+\task Sketch the plot of the even periodic extension of $f$.
+\task Sketch the plot of the odd periodic extension of $f$.
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}
+Find the Fourier series of both the odd and even
+periodic extension of 
+the function $f(t) = {(t-1)}^2$ for $0 \leq t \leq 1$.
+Can you tell which extension is continuous from the Fourier series
+coefficients?
+\end{exercise}
+
+\begin{exercise}
+Find the Fourier series of both the odd and even periodic extension of 
+the function $f(t) = t$ for $0 \leq t \leq \pi$.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Let $f(t) = \nicefrac{t}{3}$ on $0 \leq t < 3$.
+\begin{tasks}
+\task Find the Fourier series of the even periodic extension.
+\task Find the Fourier series of the odd periodic extension.
+\end{tasks}
+\end{exercise}
+\exsol{%
+a)
+$\nicefrac{1}{2}
++
+\sum\limits_{\substack{n=1\\n\text{ odd}}}^\infty
+\frac{-4}{\pi^2 n^2}
+\cos\bigl(\frac{n\pi}{3} t \bigr)$
+\qquad
+b) 
+$\sum\limits_{n=1}^\infty
+\frac{2{(-1)}^{n+1}}{\pi n}
+\sin\bigl(\frac{n\pi}{3} t \bigr)$
+}
+
+\begin{exercise}
+Find the Fourier series of the even periodic extension of 
+the function $f(t) = \sin t$ for $0 \leq t \leq \pi$.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Let $f(t) = \cos(2t)$ on $0 \leq t < \pi$.
+\begin{tasks}
+\task Find the Fourier series of the even periodic extension.
+\task Find the Fourier series of the odd periodic extension.
+\end{tasks}
+\end{exercise}
+\exsol{%
+a)
+$\cos(2t)$
+\qquad
+b) 
+$\sum\limits_{\substack{n=1 \\n \text{ odd}}}^\infty
+\frac{-4n}{\pi n^2 - 4 \pi}
+\sin(n t)$
+}
+
+\begin{exercise}\ansMark%
+Let $f(t)$ be defined on $0 \leq t < 1$.  Now take
+the average of the two extensions
+$g(t) = \frac{F_{\text{odd}}(t)+ F_{\text{even}}(t)}{2}$.
+\begin{tasks}(2)
+\task What is $g(t)$ if $0 \leq t < 1$ (Justify!)
+\task What is $g(t)$ if $-1 < t < 0$ (Justify!)
+\end{tasks}
+\end{exercise}
+\exsol{%
+a) $f(t)$
+\qquad
+b) $0$
+}
+
+
+\begin{exercise}
+\pagebreak[2]
+Consider
+\begin{equation*}
+x''(t) + 4 x(t) = f(t) ,
+\end{equation*}
+where $f(t) = 1$ on $0 < t < 1$.
+\begin{tasks}
+\task Solve for the Dirichlet conditions $x(0)=0, x(1) = 0$.
+\task Solve for the Neumann conditions $x'(0)=0, x'(1) = 0$.
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}
+Consider
+\begin{equation*}
+x''(t) + 9 x(t) = f(t) ,
+\end{equation*}
+for $f(t) = \sin (2\pi t)$ on $0 < t < 1$.
+\begin{tasks}
+\task Solve for the Dirichlet conditions $x(0)=0, x(1) = 0$.
+\task Solve for the Neumann conditions $x'(0)=0, x'(1) = 0$.
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Let $f(t) = \sum_{n=1}^\infty \frac{1}{n^2} \sin(nt)$.  Solve
+$x''- x = f(t)$ for the Dirichlet conditions $x(0) = 0$
+and $x(\pi) = 0$.
+\end{exercise}
+\exsol{%
+$\sum\limits_{n=1}^\infty \frac{-1}{n^2(1+n^2)} \sin(nt)$
+}
+
+\begin{exercise}
+Consider
+\begin{equation*}
+x''(t) + 3 x(t) = f(t) , \quad x(0) = 0, \quad x(1) = 0,
+\end{equation*}
+where $f(t) = \sum_{n=1}^\infty b_n \sin (n \pi t)$.  Write the solution $x(t)$
+as a Fourier series, where the coefficients are given in terms of $b_n$.
+\end{exercise}
+
+\begin{exercise}
+Let $f(t) = t^2(2-t)$ for $0 \leq t \leq 2$.  Let $F(t)$ be the odd periodic
+extension.  Compute $F(1)$, $F(2)$, $F(3)$, $F(-1)$, $F(\nicefrac{9}{2})$,
+$F(101)$, $F(103)$.  Note: Do \textbf{not} compute using the sine series.
+\end{exercise}
+
+\begin{exercise}[challenging]\ansMark%
+Let $f(t) = t + \sum_{n=1}^\infty \frac{1}{2^n} \sin(nt)$.  Solve
+$x'' + \pi x = f(t)$ for the Dirichlet conditions $x(0) = 0$
+and $x(\pi) = 1$.  Hint:  Note that $\frac{t}{\pi}$ satisfies the
+given Dirichlet conditions.
+\end{exercise}
+\exsol{%
+$\frac{t}{\pi} + \sum\limits_{n=1}^\infty \frac{1}{2^n(\pi-n^2)} \sin(nt)$
+}
+
+\setcounter{exercise}{100}
+

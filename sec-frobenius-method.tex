@@ -1,0 +1,629 @@
+
+\section{Singular points and the method of Frobenius}
+\label{frobenius:section}
+
+\LAtt{7.3}
+
+\LO{
+\item Find power series solutions to an ODE at a singular point and
+\item Use the method of Frobenius to find solutions to ODE, including the Bessel equation. 
+}
+
+% \sectionnotes{Verbatim from Lebl}
+
+% \sectionnotes{1 or 1.5 lectures\EPref{, \S8.4 and \S8.5 in \cite{EP}}\BDref{,
+% \S5.4--\S5.7 in \cite{BD}}}
+
+While behavior of ODEs at singular points is more complicated,
+certain singular points are
+not especially difficult to solve.  Let us look at some examples
+before giving a general method.  We may be lucky and obtain a power series
+solution using the method of the previous section, but in general we may
+have to try other things.
+
+\subsection{Examples}
+
+\begin{example}
+Let us first look at a simple first order equation 
+\begin{equation*}
+2 x y' - y = 0 .
+\end{equation*}
+\end{example}
+
+\begin{exampleSol}
+Note that $x=0$ is a singular point.
+If we try to plug in
+\begin{equation*}
+y = \sum_{k=0}^\infty a_k x^k ,
+\end{equation*}
+we obtain
+\begin{equation*}
+\begin{split}
+0 = 2 xy'-y &= 
+2x \, \Biggl( \sum_{k=1}^\infty k a_k x^{k-1}  \Biggr)
+-
+\Biggl( \sum_{k=0}^\infty a_k x^k \Biggr)
+\\
+& =
+a_0 + 
+\sum_{k=1}^\infty (2 k a_k - a_k) \, x^{k} .
+\end{split}
+\end{equation*}
+First, $a_0 = 0$.  Next, the only way to solve
+$0 = 2 k a_k - a_k = (2k-1) \, a_k$
+for $k = 1,2,3,\dots$ is for $a_k = 0$ for all $k$.
+Therefore we only get the trivial solution $y=0$.  We need
+a nonzero solution to get the general solution.
+
+Let us try $y=x^r$
+for some real number $r$.  
+Consequently our solution---if we can
+find one---may only make sense for positive $x$.
+Then $y' = r x^{r-1}$.  So
+\begin{equation*}
+0 = 2 x y' - y = 2 x r x^{r-1} - x^r = (2r-1) x^r .
+\end{equation*}
+Therefore $r= \nicefrac{1}{2}$, or in other words $y = x^{1/2}$.
+Multiplying by a constant, the general solution for positive $x$ is
+\begin{equation*}
+y = C x^{1/2} .
+\end{equation*}
+If $C \not= 0$, then
+the derivative of the solution \myquote{blows up} at $x=0$ (the
+singular point).  There is only one solution that is differentiable
+at $x=0$ and that's the trivial solution $y=0$.
+\end{exampleSol}
+
+Not every problem with a singular point has a solution of the form $y=x^r$, of
+course.  But perhaps we can combine the methods.  What we will do is
+to try a solution of the form
+\begin{equation*}
+y = x^r f(x)
+\end{equation*}
+where $f(x)$ is an analytic function.
+
+\begin{example}
+Consider the equation
+\begin{equation*}
+4 x^2 y'' - 4 x^2 y' + (1-2x)y = 0,
+\end{equation*}
+and again note that $x=0$ is a singular point. Attempt to solve this equation using the method above.
+\end{example}
+
+\begin{exampleSol}
+Let us try
+\begin{equation*}
+y = x^r \sum_{k=0}^\infty a_k x^k
+= \sum_{k=0}^\infty a_k x^{k+r} ,
+\end{equation*}
+where $r$ is a real number, not necessarily an integer.
+Again if such a solution exists, it may only exist for positive $x$.
+First let us find the derivatives
+\begin{align*}
+y' & = \sum_{k=0}^\infty (k+r)\, a_k x^{k+r-1} , \\
+y'' & = \sum_{k=0}^\infty (k+r)\,(k+r-1)\, a_k x^{k+r-2} .
+\end{align*}
+Plugging into our equation we obtain
+\begin{equation*}
+\begin{split}
+0 & = 4x^2y''-4x^2y'+(1-2x)y
+\\
+&= 
+4x^2 \, \Biggl( \sum_{k=0}^\infty (k+r)\,(k+r-1) \, a_k x^{k+r-2}  \Biggr)
+-
+4x^2 \, \Biggl( \sum_{k=0}^\infty (k+r) \, a_k x^{k+r-1}  \Biggr)
++
+(1-2x)
+\Biggl( \sum_{k=0}^\infty a_k x^{k+r} \Biggr)
+\\
+&=
+\Biggl( \sum_{k=0}^\infty 4 (k+r)\,(k+r-1) \, a_k x^{k+r}  \Biggr)
+\\
+& \phantom{mmm}
+-
+\Biggl( \sum_{k=0}^\infty 4 (k+r) \, a_k x^{k+r+1}  \Biggr)
++
+\Biggl( \sum_{k=0}^\infty a_k x^{k+r} \Biggr)
+-
+\Biggl( \sum_{k=0}^\infty 2a_k x^{k+r+1} \Biggr)
+\\
+&=
+\Biggl( \sum_{k=0}^\infty 4 (k+r)\,(k+r-1) \, a_k x^{k+r}  \Biggr)
+\\
+& \phantom{mmm}
+-
+\Biggl( \sum_{k=1}^\infty 4 (k+r-1) \, a_{k-1} x^{k+r}  \Biggr)
++
+\Biggl( \sum_{k=0}^\infty a_k x^{k+r} \Biggr)
+-
+\Biggl( \sum_{k=1}^\infty 2a_{k-1} x^{k+r} \Biggr)
+\\
+&=
+4r(r-1) \, a_0 x^r  + a_0 x^r + 
+\sum_{k=1}^\infty
+\Bigl( 4 (k+r)\,(k+r-1) \, a_k
+-
+4 (k+r-1) \, a_{k-1}
++
+a_k
+-
+2a_{k-1} \Bigr) \, x^{k+r} 
+\\
+&=
+\bigl( 4r(r-1) + 1 \bigr) \, a_0 x^r + 
+\sum_{k=1}^\infty
+\Bigl( \bigl( 4 (k+r)\,(k+r-1) + 1 \bigr) \, a_k
+-
+\bigl( 4 (k+r-1) + 2 \bigr) \, a_{k-1} \Bigr) \, x^{k+r} .
+\end{split}
+\end{equation*}
+To have a solution we must first have
+$\bigl( 4r(r-1) + 1 \bigr) \, a_0 = 0$.  Supposing that $a_0 \not= 0$
+we obtain 
+\begin{equation*}
+4r(r-1) + 1 = 0 .
+\end{equation*}
+This equation is called the \emph{\myindex{indicial equation}}.
+This particular indicial
+equation has a double root at $r = \nicefrac{1}{2}$.
+
+OK\@, so we know what $r$ has to be.  That knowledge we obtained simply by looking
+at the coefficient of $x^r$.  All other
+coefficients of $x^{k+r}$ also have to be zero so
+\begin{equation*}
+\bigl( 4 (k+r)\,(k+r-1) + 1 \bigr) \, a_k
+-
+\bigl( 4 (k+r-1) + 2 \bigr) \, a_{k-1} = 0 .
+\end{equation*}
+If we plug in $r=\nicefrac{1}{2}$ and solve for $a_k$, we get
+\begin{equation*}
+a_k
+=
+\frac{4 (k+\nicefrac{1}{2}-1) + 2}{4 (k+\nicefrac{1}{2})\,(k+\nicefrac{1}{2}-1) + 1} \, a_{k-1}
+=
+\frac{1}{k} \, a_{k-1} .
+\end{equation*}
+Let us set $a_0 = 1$.  Then
+\begin{equation*}
+a_1 = \frac{1}{1} a_0 = 1 ,
+\qquad
+a_2 = \frac{1}{2} a_1 = \frac{1}{2} ,
+\qquad
+a_3 = \frac{1}{3} a_2 = \frac{1}{3 \cdot 2} ,
+\qquad
+a_4 = \frac{1}{4} a_3 = \frac{1}{4 \cdot 3 \cdot 2} ,
+\qquad \cdots
+\end{equation*}
+Extrapolating, we notice that
+\begin{equation*}
+a_k = \frac{1}{k(k-1)(k-2) \cdots 3 \cdot 2} = \frac{1}{k!} .
+\end{equation*}
+In other words,
+\begin{equation*}
+y = 
+\sum_{k=0}^\infty a_k x^{k+r}
+=
+\sum_{k=0}^\infty \frac{1}{k!} x^{k+1/2}
+=
+x^{1/2}
+\sum_{k=0}^\infty \frac{1}{k!} x^{k}
+=
+x^{1/2}
+e^x .
+\end{equation*}
+That was lucky!  In general, we will not be able to write the series in
+terms of elementary functions.
+
+We have one solution, let us call it $y_1 = x^{1/2} e^x$.
+But what about a second solution?  If
+we want a general solution, we need two linearly independent solutions.
+Picking $a_0$ to be a different constant only gets us a constant
+multiple of $y_1$, and we do not have any other $r$ to try; we only
+have one solution to the indicial equation.  Well, there are powers of $x$
+floating around and we are taking derivatives, perhaps the logarithm (the
+antiderivative of $x^{-1}$) is around as well.  It turns out we want to
+try for another solution of the form
+\begin{equation*}
+y_2 = \sum_{k=0}^\infty b_k x^{k+r} + (\ln x) y_1 ,
+\end{equation*}
+which in our case is
+\begin{equation*}
+y_2 = \sum_{k=0}^\infty b_k x^{k+1/2} + (\ln x) x^{1/2} e^x .
+\end{equation*}
+We now differentiate this equation, substitute into the differential
+equation and solve for $b_k$.  A long computation ensues and we
+obtain some recursion relation for $b_k$.  The reader
+can (and should) try this to obtain for example the first three terms
+\begin{equation*}
+b_1 = b_0 -1 , \qquad b_2 = \frac{2b_1-1}{4} , \qquad b_3 =
+\frac{6b_2-1}{18} , \qquad \ldots
+\end{equation*}
+We then fix $b_0$ and obtain a solution $y_2$.  Then
+we write the general solution as $y = A y_1 + B y_2$.
+\end{exampleSol}
+
+\subsection{The method of Frobenius}
+
+Before giving the general method, let us clarify when the method applies.
+Let
+\begin{equation*}
+p(x) y'' + q(x) y' + r(x) y = 0
+\end{equation*}
+be an ODE\@.  As before, if $p(x_0) = 0$, then $x_0$ is a
+singular point.  If, furthermore, the limits
+\begin{equation*}
+\lim_{x \to x_0} ~ (x-x_0) \frac{q(x)}{p(x)}
+\qquad \text{and} \qquad
+\lim_{x \to x_0} ~ (x-x_0)^2 \frac{r(x)}{p(x)}
+\end{equation*}
+both exist and are finite, then we say that $x_0$ is
+a \emph{\myindex{regular singular point}}.
+
+\begin{example}
+Often, and for the rest of this section, $x_0 = 0$.  Consider
+\begin{equation*}
+x^2y'' + x(1+x)y' + (\pi+x^2)y = 0 .
+\end{equation*}
+Write
+\begin{align*}
+& \lim_{x \to 0} ~x \frac{q(x)}{p(x)} = 
+\lim_{x \to 0} ~x \frac{x(1+x)}{x^2} = \lim_{x \to 0} ~(1+x) = 1 ,
+\\
+& \lim_{x \to 0} ~x^2 \frac{r(x)}{p(x)} = 
+\lim_{x \to 0} ~x^2 \frac{(\pi+x^2)}{x^2} = \lim_{x \to 0} ~(\pi+x^2) = \pi .
+\end{align*}
+So $x = 0$ is a regular singular point.
+
+On the other hand if we make the slight change
+\begin{equation*}
+x^2y'' + (1+x)y' + (\pi+x^2)y = 0 ,
+\end{equation*}
+then
+\begin{equation*}
+\lim_{x \to 0} ~x \frac{q(x)}{p(x)} = 
+\lim_{x \to 0} ~x \frac{(1+x)}{x^2} = \lim_{x \to 0} ~\frac{1+x}{x} =
+\text{DNE}.
+\end{equation*}
+Here DNE stands for \emph{does not exist}.
+The point $0$ is a singular point, but not a regular singular point.
+\end{example}
+
+Let us now discuss the general \emph{\myindex{Method of Frobenius}}\index{Frobenius method}%
+\footnote{Named after the German mathematician
+\href{http://en.wikipedia.org/wiki/Ferdinand_Georg_Frobenius}{Ferdinand
+Georg Frobenius} (1849--1917).}.
+We only consider the method at the point $x=0$ for simplicity.  The main
+idea is the following theorem.
+
+\begin{theorem1}{Method of Frobenius}
+Suppose that 
+\begin{equation} \label{eq:frobeniusmethod}
+p(x) y'' + q(x) y' + r(x) y = 0
+\end{equation}
+has a regular singular point at $x=0$, then there exists at least
+one solution of the form
+\begin{equation*}
+y = x^r \sum_{k=0}^\infty a_k x^k .
+\end{equation*}
+A solution of this form is called a
+\emph{\myindex{Frobenius-type solution}}.
+\end{theorem1}
+
+\pagebreak[2]
+The method usually breaks down like this:
+
+\begin{enumerate}[(i)]
+\item
+We seek a Frobenius-type solution of the form
+\begin{equation*}
+y = \sum_{k=0}^\infty a_k x^{k+r} .
+\end{equation*}
+We plug this $y$ into equation \eqref{eq:frobeniusmethod}.  We collect
+terms and write everything as a single series.
+\item
+The obtained series must be zero.  Setting the first
+coefficient (usually the coefficient of $x^r$) in the series
+to zero we obtain the
+\emph{indicial equation}, which is a quadratic polynomial in $r$.
+\item
+If the indicial equation has two real roots $r_1$ and $r_2$
+such that $r_1 - r_2$ is not an integer, then we have two linearly
+independent Frobenius-type solutions.  Using the first root, we plug in
+\begin{equation*}
+y_1 = x^{r_1} \sum_{k=0}^\infty a_k x^{k} ,
+\end{equation*}
+and we solve for all $a_k$ to obtain the first solution.  Then
+using the second root,
+we plug in
+\begin{equation*}
+y_2 = x^{r_2} \sum_{k=0}^\infty b_k x^{k} ,
+\end{equation*}
+and solve for all $b_k$ to obtain the second solution.
+\item
+If the indicial equation has a doubled root $r$, then there we find 
+one solution
+\begin{equation*}
+y_1 = x^{r} \sum_{k=0}^\infty a_k x^{k} ,
+\end{equation*}
+and then we obtain a new solution by plugging
+\begin{equation*}
+y_2 = x^{r} \sum_{k=0}^\infty b_k x^{k} + (\ln x) y_1 ,
+\end{equation*}
+into equation \eqref{eq:frobeniusmethod} and solving for the constants $b_k$.
+\item
+If the indicial equation has two real roots such that $r_1-r_2$ is
+an integer, then one solution is
+\begin{equation*}
+y_1 = x^{r_1} \sum_{k=0}^\infty a_k x^{k} ,
+\end{equation*}
+and the second linearly independent solution is of the form
+\begin{equation*}
+y_2 = x^{r_2} \sum_{k=0}^\infty b_k x^{k} + C (\ln x) y_1 ,
+\end{equation*}
+where we plug $y_2$ into \eqref{eq:frobeniusmethod} and solve for the
+constants $b_k$ and $C$.
+\item
+Finally, if the indicial equation has complex roots, then solving
+for $a_k$ in the solution
+\begin{equation*}
+y = x^{r_1} \sum_{k=0}^\infty a_k x^{k}
+\end{equation*}
+results in a complex-valued function---all the $a_k$ are complex
+numbers.  We obtain our two linearly independent
+solutions%
+\footnote{See 
+Joseph L.\ Neuringera,
+\emph{The Frobenius method for complex roots of the indicial equation},
+International Journal of Mathematical Education in Science and Technology,
+Volume 9, Issue 1, 1978, 71--77.}
+by taking the real and imaginary parts of $y$.
+\end{enumerate}
+
+The main idea is to find at least one Frobenius-type solution.  If
+we are lucky and find two, we are done.
+If we only get one, we either use the ideas above or even a different method
+such as reduction of order (see \sectionref{solinear:section}) to
+obtain a second solution.
+
+\subsection{Bessel functions} \label{bessel:subsection}
+
+An important class of functions that arises commonly in physics are the
+\emph{Bessel functions}%
+\footnote{Named after
+the German astronomer and mathematician
+\href{http://en.wikipedia.org/wiki/Friedrich_Bessel}{Friedrich Wilhelm
+Bessel} (1784--1846).}.
+For example, these functions appear when solving the
+wave equation in two and three dimensions.  First consider
+\emph{\myindex{Bessel's equation}} of order $p$:
+\begin{equation*}
+x^2 y'' + xy' + \left(x^2 - p^2\right)y = 0 .
+\end{equation*}
+We allow $p$ to be any number, not just an integer, although integers
+and multiples of $\nicefrac{1}{2}$ are most important in applications.
+
+When we plug
+\begin{equation*}
+y = \sum_{k=0}^\infty a_k x^{k+r}
+\end{equation*}
+into Bessel's equation of order $p$, we obtain the indicial equation
+\begin{equation*}
+r(r-1)+r-p^2 = (r-p)(r+p) = 0 .
+\end{equation*}
+Therefore we obtain two roots $r_1 = p$ and $r_2 = -p$.
+If $p$ is not an integer, then following the method of Frobenius and
+setting $a_0 = 1$, we obtain
+linearly independent solutions of the form
+\begin{align*}
+& y_1 = x^p \sum_{k=0}^\infty
+\frac{{(-1)}^k x^{2k}}{2^{2k} k! (k+p)(k-1+p)\cdots (2+p)(1+p)} ,
+\\
+& y_2 = x^{-p} \sum_{k=0}^\infty
+\frac{{(-1)}^k x^{2k}}{2^{2k} k! (k-p)(k-1-p)\cdots (2-p)(1-p)} .
+\end{align*}
+
+\begin{exercise}
+\leavevmode
+\begin{tasks}
+\task
+Verify that the indicial equation of Bessel's equation of order $p$ is
+$(r-p)(r+p)=0$.
+\task
+Suppose $p$ is not an integer.  Carry out the computation
+to obtain the solutions $y_1$ and $y_2$ above.
+\end{tasks}
+\end{exercise}
+
+Bessel functions are convenient constant multiples of $y_1$ and $y_2$.
+First we must define the \emph{gamma function}
+\begin{equation*}
+\Gamma(x) = \int_0^\infty t^{x-1} e^{-t} \, dt .
+\end{equation*}
+Notice that $\Gamma(1) = 1$.
+The gamma function also has a wonderful property
+\begin{equation*}
+\Gamma(x+1) = x \Gamma(x) .
+\end{equation*}
+From this property, it follows that $\Gamma(n) = (n-1)!$ when $n$ is an
+integer.  So the gamma function is a continuous version of the factorial.  We
+compute:
+\begin{align*}
+& \Gamma(k+p+1)=(k+p)(k-1+p)\cdots (2+p)(1+p) \Gamma(1+p) ,
+\\
+& \Gamma(k-p+1)=(k-p)(k-1-p)\cdots (2-p)(1-p) \Gamma(1-p) .
+\end{align*}
+
+\begin{exercise}
+Verify the identities above using 
+$\Gamma(x+1) = x \Gamma(x)$.
+\end{exercise}
+
+We define the \emph{Bessel functions of the first kind}%
+\index{Bessel function of the first kind} of
+order $p$ and $-p$ as
+\begin{align*}
+& J_p(x) = \frac{1}{2^p\Gamma(1+p)} y_1
+=
+\sum_{k=0}^\infty
+\frac{{(-1)}^k}{k! \, \Gamma(k+p+1)}
+{\left(\frac{x}{2}\right)}^{2k+p} ,
+\\
+& J_{-p}(x) = \frac{1}{2^{-p}\Gamma(1-p)} y_2
+=
+\sum_{k=0}^\infty
+\frac{{(-1)}^k}{k! \,\Gamma(k-p+1)}
+{\left(\frac{x}{2}\right)}^{2k-p} .
+\end{align*}
+As these are constant multiples of the solutions we found above, these are
+both solutions to Bessel's equation of order $p$.  The constants are picked
+for convenience.
+
+When $p$ is not an integer, $J_p$
+and $J_{-p}$ are linearly independent.  When $n$ is an integer we 
+obtain
+\begin{equation*}
+J_n(x) =
+\sum_{k=0}^\infty
+\frac{{(-1)}^k}{k! \,(k+n)!}
+{\left(\frac{x}{2}\right)}^{2k+n} .
+\end{equation*}
+In this case
+\begin{equation*}
+J_n(x) = {(-1)}^nJ_{-n}(x) ,
+\end{equation*}
+and so $J_{-n}$ is not a second linearly independent
+solution.  The other solution is the
+so-called \emph{\myindex{Bessel function of second kind}}.  These make
+sense only for integer orders $n$ and
+are defined as limits of linear combinations of $J_p(x)$ and $J_{-p}(x)$, as
+$p$ approaches $n$ in the
+following way:
+\begin{equation*}
+Y_n(x) = \lim_{p\to n} \frac{\cos(p \pi) J_p(x) - J_{-p}(x)}{\sin(p \pi)} .
+\end{equation*}
+Each linear combination of $J_p(x)$ and $J_{-p}(x)$ is a solution
+to Bessel's equation of order $p$.  Then as we take the limit as $p$
+goes to $n$, we see that $Y_n(x)$ is a solution to Bessel's equation of
+order $n$.  It also turns out that $Y_n(x)$ and $J_n(x)$ are linearly
+independent.  Therefore when $n$ is an integer, we have the
+general solution to Bessel's equation of order $n$:
+\begin{equation*}
+y = A J_n(x) + B Y_n(x) ,
+\end{equation*}
+for arbitrary constants $A$ and $B$.  Note that
+$Y_n(x)$ goes to negative infinity at $x=0$.   Many mathematical software
+packages have
+these functions $J_n(x)$ and $Y_n(x)$ defined, so they can be used
+just like say $\sin(x)$ and $\cos(x)$.  In fact, Bessel functions
+have some similar 
+properties.  For example, $-J_1(x)$ is a derivative of $J_0(x)$, and
+in general the derivative of $J_n(x)$ can be written as a linear
+combination of $J_{n-1}(x)$ and $J_{n+1}(x)$.  Furthermore, these
+functions oscillate, although they are not periodic.  See
+\figurevref{bessel:graphsfig} for graphs of Bessel functions.
+\begin{myfig}
+\capstart
+%original files bessel-first bessel-second
+\diffyincludegraphics{width=6.24in}{width=9in}{bessel-first-second}
+\caption{Plot of the $J_0(x)$ and $J_1(x)$ in the first graph
+and $Y_0(x)$ and $Y_1(x)$ in the second graph.\label{bessel:graphsfig}}
+\end{myfig}
+
+\begin{example}
+Other equations can sometimes be solved in terms of the Bessel functions.
+For example, given a positive constant $\lambda$,
+\begin{equation*}
+x y'' + y' + \lambda^2 x y = 0 ,
+\end{equation*}
+can be changed to 
+$x^2 y'' + x y' + \lambda^2 x^2 y = 0$.  Then changing variables
+$t = \lambda x$, we obtain via chain rule the equation in $y$ and $t$:
+\begin{equation*}
+t^2 y'' + t y' + t^2 y = 0 ,
+\end{equation*}
+which we recognize as Bessel's equation of order 0.  Therefore the
+general solution is $y(t) = A J_0(t) + B Y_0(t)$, or in terms of $x$:
+\begin{equation*}
+y = A J_0(\lambda x) + B Y_0(\lambda x) .
+\end{equation*}
+This equation comes up, for example, when finding the fundamental modes of
+vibration of a circular drum, but we digress.
+\end{example}
+
+\subsection{Exercises}
+
+\begin{exercise}
+Find a particular (Frobenius-type) solution of $x^2 y'' + x y' + (1+x) y = 0$.
+\end{exercise}
+
+\begin{exercise}
+Find a particular (Frobenius-type) solution of $x y'' - y = 0$.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Find a particular solution of $x^2 y'' +(x-\nicefrac{3}{4})y = 0$.
+\end{exercise}
+\exsol{%
+$y = x^{3/2}
+\sum\limits_{k=0}^\infty
+\frac{{(-1)}^{-1}}{k!\,(k+2)!} x^k$ (Note that for convenience
+we did not pick $a_0 = 1$)}
+
+\begin{exercise}
+Find a particular (Frobenius-type) solution of $y'' +\frac{1}{x}y' - xy = 0$.
+\end{exercise}
+
+\begin{exercise}
+Find the general solution of $2 x y'' + y' - x^2 y = 0$.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Find the general solution of $x^2 y'' -y = 0$.
+\end{exercise}
+\exsol{%
+$y = A x^{\frac{1+\sqrt{5}}{2}} + B x^{\frac{1-\sqrt{5}}{2}}$
+}
+
+\begin{exercise}
+Find the general solution of $x^2 y'' - x y' -y = 0$.
+\end{exercise}
+
+\begin{exercise}[tricky]\ansMark%
+Find the general solution of $x^2 y'' - x y' +y = 0$.
+\end{exercise}
+\exsol{%
+$y = Ax + B x \ln(x)$
+}
+
+\begin{exercise}
+In the following equations
+classify the point $x=0$ as \emph{ordinary}, \emph{regular singular}, or
+\emph{singular but not regular singular}.
+\begin{tasks}(2)
+\task $x^2(1+x^2)y''+xy=0$
+\task $x^2y''+y'+y=0$
+\task $xy''+x^3y'+y=0$
+\task $xy''+xy'-e^xy=0$
+\task $x^2y''+x^2y'+x^2y=0$
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}\ansMark%
+In the following equations
+classify the point $x=0$ as \emph{ordinary}, \emph{regular singular}, or
+\emph{singular but not regular singular}.
+\begin{tasks}(2)
+\task $y''+y=0$
+\task $x^3y''+(1+x)y=0$
+\task $xy''+x^5y'+y=0$
+\task $\sin(x)y''-y=0$
+\task $\cos(x)y''-\sin(x)y=0$
+\end{tasks}
+\end{exercise}
+\exsol{%
+a)~ordinary, b)~singular but not regular singular, c)~regular singular,
+d)~regular singular, e)~ordinary.
+}
+
+\setcounter{exercise}{100}
+

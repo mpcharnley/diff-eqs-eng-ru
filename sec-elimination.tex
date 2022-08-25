@@ -1,0 +1,1037 @@
+
+\section{Elimination}
+\label{elim:section}
+
+\LAtt{A.3}
+
+\LO{
+\item Write a system of linear equations in matrix form,
+\item Use row reduction to put a matrix into row echlon form or reduced row echelon form, and
+\item Determine whether a system of linear equations has no solution, one solution, or infinitely many solutions.
+}
+
+\subsection{Linear systems of equations}
+
+One application of matrices is to solve systems of
+linear equations\footnote{Although perhaps we have this backwards,
+quite often we solve a linear system of equations
+to find out something about matrices, rather than vice versa.}.
+Consider the following system of linear equations
+\begin{equation} \label{linalg:elim:eq}
+\begin{aligned}
+          2 x_1 +           2 x_2 +           2 x_3 & = 2 , \\
+\phantom{9} x_1 + \phantom{9} x_2 +           3 x_3 & = 5 , \\
+\phantom{9} x_1 +           4 x_2 + \phantom{9} x_3 & = 10 .
+\end{aligned}
+\end{equation}
+
+There is a systematic procedure
+called \emph{\myindex{elimination}} to solve such a system.
+In this procedure,
+we attempt to eliminate each variable from all but one equation.
+We want to end up with equations
+such as $x_3 = 2$, where we can just read off the answer.
+
+We write a system of linear equations as a matrix equation:
+\begin{equation*}
+A \vec{x} = \vec{b} .
+\end{equation*}
+The system \eqref{linalg:elim:eq} is written as
+\begin{equation*}
+\underbrace{
+\begin{bmatrix}
+2 & 2 & 2 \\
+1 & 1 & 3 \\
+1 & 4 & 1 
+\end{bmatrix}
+}_{A}
+\underbrace{
+\begin{bmatrix}
+x_1 \\
+x_2 \\
+x_3
+\end{bmatrix} 
+}_{\vec{x}}
+=
+\underbrace{
+\begin{bmatrix}
+2 \\
+5 \\
+10
+\end{bmatrix}
+}_{\vec{b}} .
+\end{equation*}
+If we knew the inverse of $A$, then we would be done; we would simply solve
+the equation:
+\begin{equation*}
+\vec{x} = A^{-1} A \vec{x} = A^{-1} \vec{b} .
+\end{equation*}
+Well, but that is part of the problem, we do not know how to compute the
+inverse for matrices bigger than $2 \times 2$.
+We will see later that to compute the inverse we are really solving
+$A \vec{x} = \vec{b}$ for several different $\vec{b}$.  In other words, 
+we will need to do elimination to find $A^{-1}$.
+In addition, we may wish to solve $A \vec{x} = \vec{b}$
+even if $A$ is not invertible, or perhaps not even square.
+
+\medskip
+
+Let us return to the equations themselves and see how we can manipulate
+them.
+There are a few operations we can perform on the equations that do not change
+the solution.  First, perhaps an operation that may seem stupid, we can swap 
+two equations in \eqref{linalg:elim:eq}:
+\begin{equation*}
+\begin{aligned}
+\phantom{9} x_1 + \phantom{9} x_2 +           3 x_3 & = 5 , \\
+          2 x_1 +           2 x_2 +           2 x_3 & = 2 , \\
+\phantom{9} x_1 +           4 x_2 + \phantom{9} x_3 & = 10 .
+\end{aligned}
+\end{equation*}
+Clearly these new equations have the same solutions $x_1,x_2,x_3$.
+A second operation is that we can multiply an equation by a nonzero number.  For
+example, we multiply the third equation in \eqref{linalg:elim:eq}
+by 3:
+\begin{equation*}
+\begin{aligned}
+          2 x_1 + \phantom{9}  2 x_2 + 2 x_3 & = 2 , \\
+\phantom{9} x_1 + \phantom{99}   x_2 + 3 x_3 & = 5 , \\
+          3 x_1 +             12 x_2 + 3 x_3 & = 30 .
+\end{aligned}
+\end{equation*}
+Finally we can add a multiple of one equation to another equation.
+For example, we add 3 times the third equation in \eqref{linalg:elim:eq}
+to the second equation:
+\begin{equation*}
+\begin{aligned}
+\phantom{(1+3)} 2 x_1 + \phantom{(1+12)}  2 x_2 + \phantom{(3+3)} 2 x_3 & = 2 , \\
+\phantom{2} (1+3) x_1 + \phantom{2}(1+12)   x_2 + \phantom{2} (3+3) x_3 & = 5+30 , \\
+\phantom{2 (1+3)} x_1 + \phantom{(1+12)}  4 x_2 + \phantom{(3+3) 2} x_3 & = 10 .
+\end{aligned}
+\end{equation*}
+The same $x_1,x_2,x_3$ should still be solutions
+to the new equations.
+These were just examples; we did not get any closer to the solution.
+We must to do these three operations in some more logical manner,
+but it turns out
+these three operations suffice to solve every linear equation.
+
+The first thing is to write the equations in a more compact manner.  Given
+\begin{equation*}
+A \vec{x} = \vec{b} ,
+\end{equation*}
+we write down the so-called \emph{\myindex{augmented matrix}}
+\begin{equation*}
+[ A ~|~ \vec{b} ] ,
+\end{equation*}
+where the vertical line is just a marker for us to know where the
+\myquote{right-hand side} of the equation starts.  For example,
+for the system \eqref{linalg:elim:eq} the augmented matrix is
+\begin{equation*}
+\left[
+\begin{array}{ccc|c}
+2 & 2 & 2 & 2 \\
+1 & 1 & 3 & 5 \\
+1 & 4 & 1 & 10
+\end{array}
+\right] .
+\end{equation*}
+The entire process of elimination, which we will describe,
+is often applied to any sort of matrix,
+not just an
+augmented matrix.
+Simply think of the matrix as the $3 \times 4$ matrix
+\begin{equation*}
+\begin{bmatrix}
+2 & 2 & 2 & 2 \\
+1 & 1 & 3 & 5 \\
+1 & 4 & 1 & 10
+\end{bmatrix} .
+\end{equation*}
+
+\subsection{Row echelon form and elementary operations}
+
+We apply the three operations above to the matrix. We call these
+the \emph{\myindex{elementary operations}} or
+\emph{\myindex{elementary row operations}}.
+\begin{definition}
+The elementary row operations on a matrix are:
+\begin{enumerate}[(i)]
+\item Swap two rows.
+\item Multiply a row by a nonzero number.
+\item Add a multiple of one row to another row.
+\end{enumerate}
+\pagebreak[2]
+\end{definition}
+
+Note that these are the same three operations that we could do with equations to try to solve them earliner in this section. We run these operations until we 
+get into a state where it is easy to read off the answer,
+or until we get into a contradiction indicating no solution.
+
+More specifically, we run the operations until we obtain the so-called
+\emph{\myindex{row echelon form}}\index{echelon form}.
+Let us call
+the first (from the left) nonzero entry in each row the
+\emph{\myindex{leading entry}}.  
+A matrix is in \emph{row echelon form} if
+the following conditions are satisfied:
+\begin{enumerate}[(i)]
+\item The leading entry in any row is strictly to the right of
+the leading entry of the row above.
+\item Any zero rows are below all the nonzero rows.
+\item All leading entries are 1.
+\end{enumerate}
+A matrix is in \emph{\myindex{reduced row echelon form}}
+if furthermore the following condition is satisfied.
+\begin{enumerate}[(i),resume]
+\item All the entries above a leading entry are zero.
+\end{enumerate}
+
+\begin{example}
+The following matrices are in row echelon form.  The leading
+entries are marked:
+\begin{equation*}
+\begin{bmatrix}
+\mybxsm{1} & 2 & 9 & 3 \\
+0 & 0 & \mybxsm{1} & 5 \\
+0 & 0 & 0 & \mybxsm{1}
+\end{bmatrix}
+\qquad
+\begin{bmatrix}
+\mybxsm{1} & -1 & -3  \\
+0 & \mybxsm{1} & 5  \\
+0 & 0 & \mybxsm{1}
+\end{bmatrix}
+\qquad
+\begin{bmatrix}
+\mybxsm{1} & 2 & 1 \\
+0 & \mybxsm{1} & 2 \\
+0 & 0 & 0
+\end{bmatrix}
+\qquad
+\begin{bmatrix}
+0 & \mybxsm{1} & -5 & 2 \\
+0 & 0 & 0 & \mybxsm{1} \\
+0 & 0 & 0 & 0
+\end{bmatrix}
+\end{equation*}
+Note that the definition applies to matrices of any size.
+None of the matrices above are in \emph{reduced} row echelon form.  For
+example, in the first matrix none of the entries above the second and third
+leading entries are zero; they are 9, 3, and 5.
+
+The following matrices are in reduced row echelon form.  The leading
+entries are marked:
+\begin{equation*}
+\begin{bmatrix}
+\mybxsm{1} & 3 & 0 & 8 \\
+0 & 0 & \mybxsm{1} & 6 \\
+0 & 0 & 0 & 0
+\end{bmatrix}
+\qquad
+\begin{bmatrix}
+\mybxsm{1} & 0 & 2 &  0  \\
+0 & \mybxsm{1} & 3 & 0  \\
+0 & 0 & 0 & \mybxsm{1}
+\end{bmatrix}
+\qquad
+\begin{bmatrix}
+\mybxsm{1} & 0 & 3 \\
+0 & \mybxsm{1} & -2 \\
+0 & 0 & 0
+\end{bmatrix}
+\qquad
+\begin{bmatrix}
+0 & \mybxsm{1} & 2 & 0 \\
+0 & 0 & 0 & \mybxsm{1} \\
+0 & 0 & 0 & 0
+\end{bmatrix}
+\end{equation*}
+\end{example}
+
+The procedure we will describe to find a reduced row echelon form
+of a matrix
+is called \emph{\myindex{Gauss--Jordan elimination}}.
+The first part of it, which obtains a row echelon form, is called 
+\emph{\myindex{Gaussian elimination}} or
+\emph{\myindex{row reduction}}.  For some problems, a row echelon
+form is sufficient, and it is a bit less work to only do this first part.
+
+To attain the row echelon form we work \emph{systematically}.
+We go column by column, starting at the first column.  We find topmost
+entry in the first column that is not zero, and we call it the
+\emph{\myindex{pivot}}.  If there is no nonzero entry
+we move to the next column.  We swap rows to put the row with
+the pivot as the first row.  We divide the first row
+by the pivot to make the pivot entry be a 1.  Now look at all the rows below
+and subtract the correct multiple of the pivot row so that all the entries
+below the pivot become zero.
+
+After this procedure we forget that we had a first row (it is now fixed),
+and we forget about the column with the pivot and all the preceding zero
+columns.
+Below the pivot row, all the entries in these columns are just
+zero.  Then we focus on the smaller matrix and we repeat the steps
+above.
+
+It is best shown by example, so let us go back to the 
+example from the beginning of the section.
+We keep the vertical line in the matrix,
+even though the procedure works on any matrix, not just
+an augmented matrix.
+We start with the first column and we locate the pivot, in this
+case the first entry of the first column.
+\begin{equation*}
+\left[
+\begin{array}{ccc|c}
+\mybxsm{2} & 2 & 2 & 2 \\
+1 & 1 & 3 & 5 \\
+1 & 4 & 1 & 10
+\end{array}
+\right]
+\end{equation*}
+We multiply the first row by
+$\nicefrac{1}{2}$.
+\begin{equation*}
+\left[
+\begin{array}{ccc|c}
+\mybxsm{1} & 1 & 1 & 1 \\
+1 & 1 & 3 & 5 \\
+1 & 4 & 1 & 10
+\end{array}
+\right]
+\end{equation*}
+We subtract the first row from the second and third row (two elementary
+operations).
+\begin{equation*}
+\left[
+\begin{array}{ccc|c}
+1 & 1 & 1 & 1 \\
+0 & 0 & 2 & 4 \\
+0 & 3 & 0 & 9
+\end{array}
+\right]
+\end{equation*}
+We are done with the first column and the first row for now.  We almost
+pretend the matrix doesn't have the first column and the first row.
+\begin{equation*}
+\left[
+\begin{array}{ccc|c}
+* & * & * & * \\
+* & 0 & 2 & 4 \\
+* & 3 & 0 & 9
+\end{array}
+\right]
+\end{equation*}
+
+OK\@, look at the second column, and notice that now the pivot is in the
+third row.
+\begin{equation*}
+\left[
+\begin{array}{ccc|c}
+1 & 1 & 1 & 1 \\
+0 & 0 & 2 & 4 \\
+0 & \mybxsm{3} & 0 & 9
+\end{array}
+\right]
+\end{equation*}
+We swap rows.
+\begin{equation*}
+\left[
+\begin{array}{ccc|c}
+1 & 1 & 1 & 1 \\
+0 & \mybxsm{3} & 0 & 9 \\
+0 & 0 & 2 & 4
+\end{array}
+\right]
+\end{equation*}
+And we divide the pivot row by 3.
+\begin{equation*}
+\left[
+\begin{array}{ccc|c}
+1 & 1 & 1 & 1 \\
+0 & \mybxsm{1} & 0 & 3 \\
+0 & 0 & 2 & 4
+\end{array}
+\right]
+\end{equation*}
+We do not need to subtract anything as everything below the pivot is already
+zero.  We move on, we again start ignoring the second row and second
+column and focus on 
+\begin{equation*}
+\left[
+\begin{array}{ccc|c}
+* & * & * & * \\
+* & * & * & * \\
+* & * & 2 & 4
+\end{array}
+\right] .
+\end{equation*}
+We find the pivot, then divide that row by 2:
+\begin{equation*}
+\left[
+\begin{array}{ccc|c}
+1 & 1 & 1 & 1 \\
+0 & 1 & 0 & 3 \\
+0 & 0 & \mybxsm{2} & 4
+\end{array}
+\right] 
+\qquad \to \qquad
+\left[
+\begin{array}{ccc|c}
+1 & 1 & 1 & 1 \\
+0 & 1 & 0 & 3 \\
+0 & 0 & 1 & 2
+\end{array}
+\right] .
+\end{equation*}
+The matrix is now in row echelon form.
+
+The equation corresponding to the last row is $x_3 = 2$.
+We know $x_3$ and we
+could substitute it into the first two equations to get equations for
+$x_1$ and $x_2$.  Then we could do the same thing with $x_2$, until we solve
+for all 3 variables.  This procedure is called
+\emph{\myindex{backsubstitution}} and we can achieve it via elementary
+operations.
+We start from the lowest pivot (leading entry in the row
+echelon form) and subtract the right multiple from the row above to
+make all the entries above this pivot zero.
+Then we move to the next pivot and so on.
+After we are done, we will have a matrix in reduced row echelon form.
+
+We continue our example.
+Subtract the last row from the first to get
+\begin{equation*}
+\left[
+\begin{array}{ccc|c}
+1 & 1 & 0 & -1 \\
+0 & 1 & 0 & 3 \\
+0 & 0 & 1 & 2 
+\end{array}
+\right] .
+\end{equation*}
+The entry above the pivot in the second row is already zero.
+So we move onto the next pivot, the one in the second row.  We subtract
+this row from the top row to get
+\begin{equation*}
+\left[
+\begin{array}{ccc|c}
+1 & 0 & 0 & -4 \\
+0 & 1 & 0 & 3 \\
+0 & 0 & 1 & 2 
+\end{array}
+\right] .
+\end{equation*}
+The matrix is in reduced row echelon form.
+
+If we now write down the equations for $x_1,x_2,x_3$, we find
+\begin{equation*}
+x_1 = -4, \qquad x_2 = 3, \qquad x_3 = 2 .
+\end{equation*}
+In other words, we have solved the system.
+
+\begin{example}
+Solve the following system of equations using row reduction:
+\begin{equation*}
+\begin{split}
+\phantom{9} -x_1 + x_2 + 3x_3 &= 7 \\
+-3x_1 \phantom{+x_2} + \phantom{9} x_3 &= -5 \\
+-2x_1 - x_2 &= -4
+\end{split}
+\end{equation*}
+\end{example}
+
+\begin{exampleSol}
+In order to solve this problem, we need to set up the augmented matrix for this system, which is
+\begin{equation*}
+\left[
+\begin{array}{ccc|c}
+-1 & 1 & 3 & 7 \\
+-3 & 0 & 1 & -5 \\
+-2 & -1 & 0 & -4
+\end{array}
+\right]
+\end{equation*}
+
+To carry out the process, we need to get a 1 in the top left corner, then work from there. We multiply the first row by -1 to get 
+\begin{equation*}
+\left[
+\begin{array}{ccc|c}
+1 & -1 & -3 & -7 \\
+-3 & 0 & 1 & -5 \\
+-2 & -1 & 0 & -4
+\end{array}
+\right].
+\end{equation*}
+
+Next, we want to use row 1 to cancel out the $-3$ and $-2$ in column 1. To do this, we add three copies of row 1 to row 2, and two copies of row 1 to row 3 to get the augmented matrix
+\begin{equation*}
+\left[
+\begin{array}{ccc|c}
+1 & -1 & -3 & -7 \\
+0 & -3 & -8 & -26 \\
+0 & -3 & -6 & -18
+\end{array}
+\right].
+\end{equation*}
+
+Normally, the next step would be to divide the second row by $-3$ in order to put a $1$ in that pivot spot. However, since both the second and third rows have a $-3$ in the second column, we can combine these two rows directly without dividing by $-3$ first. We subtract row 2 from row 3 to get
+\begin{equation*}
+\left[
+\begin{array}{ccc|c}
+1 & -1 & -3 & -7 \\
+0 & -3 & -8 & -26 \\
+0 & 0 & 2 & 8
+\end{array}
+\right]
+\end{equation*}
+and we can now use this to solve the system. The bottom row says that $2x_3 = 8$, so that $x_3 = 4$. The second row says that $-3x_2 - 8x_3 = -26$, since $x_3 = 4$, we have that $-3x_2 = -26 + 32 = 6$, so $x_2 = -2$. Finally, the first row of the augmented matrix says that $x_1 - x_2 - 3x_3 = -7$. Plugging in our values for $x_2$ and $x_3$ gives $x_1 = -7 - 2 + 12 = 3$. Therefore, the solution is
+\begin{equation*}
+x_1 = 3 \quad x_2 = -2 \quad x_3 = 4.
+\end{equation*}
+\end{exampleSol}
+
+\subsection{Non-unique solutions and inconsistent systems}
+
+It is
+possible that the solution of a linear system of equations
+is not unique, or that no solution exists.  Suppose for a moment
+that the row echelon form we found was
+\begin{equation*}
+\left[
+\begin{array}{ccc|c}
+1 & 2 & 3 & 4 \\
+0 & 0 & 1 & 3 \\
+0 & 0 & 0 & 1 
+\end{array}
+\right] .
+\end{equation*}
+Then the last row gives the equation $0x_1 + 0x_2 + 0x_3 = 1$, or $0=1$.  That is impossible
+and the equations are \emph{\myindex{inconsistent}}.  There is no solution
+to $A \vec{x} = \vec{b}$.
+
+
+On the other hand, if we find a row echelon form
+\begin{equation*}
+\left[
+\begin{array}{ccc|c}
+1 & 2 & 3 & 4 \\
+0 & 0 & 1 & 3 \\
+0 & 0 & 0 & 0 
+\end{array}
+\right] ,
+\end{equation*}
+then there is no issue with finding solutions.  In fact, we will find way too
+many.  Let us continue with backsubstitution (subtracting 3 times the third
+row from the first) to find the reduced row echelon form and let's mark the
+pivots.
+\begin{equation*}
+\left[
+\begin{array}{ccc|c}
+\mybxsm{1} & 2 & 0 & -5 \\
+0 & 0 & \mybxsm{1} & 3 \\
+0 & 0 & 0 & 0 
+\end{array}
+\right]
+\end{equation*}
+The last row is all zeros; it just says $0=0$ and we ignore it.
+The two remaining equations are 
+\begin{equation*}
+x_1 + 2 x_2 = -5 , \qquad
+x_3 = 3 .
+\end{equation*}
+Let us solve for the variables that corresponded to the
+pivots, that is $x_1$ and $x_3$ as there was a pivot in the first column
+and in the third column:
+\begin{align*}
+& x_1 = - 2 x_2 -5 , \\
+& x_3 = 3 .
+\end{align*}
+The variable $x_2$ can be anything you wish and we still get a solution.
+The $x_2$ is called a \emph{\myindex{free variable}}.
+There are infinitely many solutions, one for every choice of $x_2$.
+For example, if we pick $x_2=0$,
+then $x_1 = -5$, and $x_3 = 3$ give a solution.  But we also get a solution
+by picking say $x_2 = 1$, in which case $x_1 = -9$ and $x_3 = 3$,
+or by picking $x_2 = -5$ in which case $x_1 = 5$ and $x_3 = 3$.
+
+\medskip
+
+The general idea is that
+if any row has all zeros in the columns corresponding to the
+variables, but a nonzero entry in the column corresponding to the
+right-hand side $\vec{b}$, then the system is inconsistent and has no solutions.
+In other words, the system is inconsistent if you find a pivot on the right
+side of the vertical line drawn in the augmented matrix.  Otherwise, the
+system is consistent, and at least one solution exists.
+\pagebreak[2]
+
+If the system is consistent:
+\begin{enumerate}[(i)]
+\item If every column corresponding to a variable has a pivot element,
+then the solution is unique.
+\item If there are columns corresponding to variables with no pivot,
+then those are \emph{free variables} that can be chosen
+arbitrarily, and there are infinitely many solutions.
+\end{enumerate}
+
+Another way to interpret this idea of free variables is that at the beginning, before you look at the system of equations, all of the variables can be anything, and there are no constraints on them. The equations then give us constraints on these variables, because they give us rules that the variables must satisfy. When we have a row of the augmented matrix that becomes all zeros, it means that the equation that was there is redundant and doesn't add any constraints to the equations. This may result in an \emph{\myindex{underdetermined}} system, which will likely have free variables.
+
+\begin{example}
+Solve the following two systems of equations, or determine that no solution exists, using row reduction:
+
+\begin{minipage}{0.49\textwidth}
+\begin{equation*}
+\begin{split}
+x_1 - \phantom{9} x_2 - 3x_3 & = -3 \\
+-x_1 - 2x_2 + 4x_3 &= 6 \\
+x_1 + 5x_2 - 5x_3 &= -9
+\end{split}
+\end{equation*}
+\end{minipage}%
+\begin{minipage}{0.49\textwidth}
+\begin{equation*}
+\begin{split}
+x_1 - \phantom{9} x_2 - 3x_3 & = -3 \\
+-x_1 - 2x_2 + 4x_3 &= 6 \\
+x_1 + 5x_2 - 5x_3 &= 1
+\end{split}
+\end{equation*}
+\end{minipage}
+\end{example}
+
+\begin{exampleSol}
+For the first of these systems, we will set up the augmented matrix and proceed through the process like normal. The augmented matrix is
+\begin{equation*}
+\left[ 
+\begin{array}{ccc|c}
+1 & -1 & -3 & -3 \\
+-1 & -2 & 4 & 6 \\
+1 & 5 & -5 & -9
+\end{array}
+\right].
+\end{equation*}
+Since we already have a $1$ in the top-left corner of this matrix, we can use it to cancel the entries in the rest of column $1$.  We add one copy of row 1 to row 2, and subtract row 1 from row 3 to get the next augmented form matrix as
+\begin{equation*}
+\left[ 
+\begin{array}{ccc|c}
+1 & -1 & -3 & -3 \\
+0 & -3 & 1 & 3 \\
+0 & 6 & -2 & -6
+\end{array}
+\right].
+\end{equation*}
+Looking at the matrix here, we see that row 3 is $-2$ times row 2. Therefore, if we add two copies of row 2 to row 3, we get the augmented matrix
+\begin{equation*}
+\left[ 
+\begin{array}{ccc|c}
+1 & -1 & -3 & -3 \\
+0 & -3 & 1 & 3 \\
+0 & 0 & 0 & 0
+\end{array}
+\right].
+\end{equation*}
+Therefore, we have a situation where there are only two pivot columns, and the last row is all zeros. Since there are three variables and column 3 is not a pivot column, we can take $x_3$ as a free variable. If we do that, the second equation tells us that $-3x_2 + x_3 = 3$, or, since we are taking $x_3$ as a free variable, we can write $x_2 = -1 + \nicefrac{1}{3}x_3$. We can then take the first equation, which says that $x_1 - x_2 - 3x_3 = 3$ or, by rearranging
+\begin{equation*}
+x_1 = 3 + x_2 + 3x_3 = 3 + \left(-1 + \frac{1}{3}x_3\right) + 3x_3 = 2 + \frac{10}{3}x_3.
+\end{equation*}
+This means that for any value of $t$, our solution is determined by
+\begin{equation*}
+\begin{split}
+x_1 &=  2 + \frac{10}{3}t \\
+x_2 &= -1 + \frac{1}{3}t  \\
+x_3 &= t
+\end{split}.
+\end{equation*}
+The use of $t$ here is just to separate it from the variable $x_3$. For example, we could pick $t=3$, in which case we would get $x_1 = 12$, $x_2 = 0$, $x_3 = 3$. 
+
+For the second version of the problem, we again set up the augmented matrix
+\begin{equation*}
+\left[ 
+\begin{array}{ccc|c}
+1 & -1 & -3 & -3 \\
+-1 & -2 & 4 & 6 \\
+1 & 5 & -5 & 1
+\end{array}
+\right].
+\end{equation*}
+Since the left side matrix part is the same as the previous version, the process of row reducing the matrix is identical to what was done previously. When we carry out this process we get the augmented matrix
+\begin{equation*}
+\left[ 
+\begin{array}{ccc|c}
+1 & -1 & -3 & -3 \\
+0 & -3 & 1 & 3 \\
+0 & 0 & 0 & 10
+\end{array}
+\right].
+\end{equation*}
+In this case, we see that the last row corresponds to the equation $0 = 10$ so these equations are inconsistent and do not have a solution.
+\end{exampleSol}
+The point of the above example is to illustrate the fact that whether or not a system is inconsistent or has free variables in the solution depends on the right-hand side of the equation, even if the left-hand side has the same coefficients. We'll see more about why this is in \sectionref{det:section}.
+\medskip
+
+When $\vec{b} = \vec{0}$, we have a so-called
+\emph{\myindex{homogeneous matrix equation}}
+\begin{equation*}
+A \vec{x} = \vec{0} .
+\end{equation*}
+There is no need to write an augmented matrix in this
+case.  As the elementary operations do not do anything to a zero column, it
+always stays a zero column.  Moreover, $A \vec{x} = \vec{0}$ always has at
+least one solution, namely $\vec{x} = \vec{0}$.  Such a system
+is always consistent.  It may have other solutions:  If you find
+any free variables, then you get infinitely many solutions.
+
+The set of solutions of $A \vec{x} = \vec{0}$ comes up quite often
+so people give it a name.  It is called the
+\emph{\myindex{nullspace}} or the 
+\emph{\myindex{kernel}} of $A$.
+One place where the kernel comes up is invertibility of a square matrix $A$.
+If the kernel of $A$ contains a nonzero vector, then it contains
+infinitely many vectors (there was a free variable).  But then it is
+impossible to invert $\vec{0}$, since infinitely many vectors go to
+$\vec{0}$, so there is no unique vector that $A$ takes to $\vec{0}$.
+So if the kernel is nontrivial, that is, if there are any nonzero vectors,
+in other words, if there are any free variables, or in yet other words,
+if the row echelon form of $A$ has columns without pivots,
+then $A$ is not invertible.  We will return to this idea later.
+
+
+\subsection{Exercises}
+
+\begin{samepage}
+\begin{exercise}
+Compute the reduced row echelon form for the following matrices:
+\begin{tasks}(4)
+\task
+$\begin{bmatrix}
+1 & 3 & 1 \\
+0 & 1 & 1
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+3 & 3 \\
+6 & -3
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+3 & 6 \\
+-2 & -3
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+6 & 6 & 7 & 7 \\
+1 & 1 & 0 & 1
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+9 & 3 & 0 & 2 \\
+8 & 6 & 3 & 6 \\
+7 & 9 & 7 & 9
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+2 & 1 & 3 & -3 \\
+6 & 0 & 0 & -1 \\
+-2 & 4 & 4 & 3
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+6 & 6 & 5 \\
+0 & -2 & 2 \\
+6 & 5 & 6
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+0 & 2 & 0 & -1 \\
+6 & 6 & -3 & 3 \\
+6 & 2 & -3 & 5
+\end{bmatrix}$
+\end{tasks}
+\end{exercise}
+\end{samepage}
+
+\begin{exercise}\ansMark%
+Compute the reduced row echelon form for the following matrices:
+\begin{tasks}(4)
+\task
+$\begin{bmatrix}
+1 & 0 & 1 \\
+0 & 1 & 0
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+1 & 2 \\
+3 & 4
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+1 & 1 \\
+-2 & -2
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+1 & -3 & 1 \\
+4 & 6 & -2 \\
+-2 & 6 & -2
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+2 & 2 & 5 & 2 \\
+1 & -2 & 4 & -1 \\
+0 & 3 & 1 & -2
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+-2 & 6 & 4 & 3 \\
+6 & 0 & -3 & 0 \\
+4 & 2 & -1 & 1
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+1 & 2 & 3 & 3 \\
+1 & 2 & 3 & 5
+\end{bmatrix}$
+\end{tasks}
+\end{exercise}
+\exsol{%
+a)~$\begin{bmatrix}
+1 & 0 & 1 \\
+0 & 1 & 0
+\end{bmatrix}$
+\quad b)~$\begin{bmatrix}
+1 & 0 \\
+0 & 1
+\end{bmatrix}$
+\quad c)~$\begin{bmatrix}
+1 & 1 \\
+0 & 0
+\end{bmatrix}$
+\quad d)~$\begin{bmatrix}
+1 & 0 & 0 \\
+0 & 1 & -1/3 \\
+0 & 0 & 0
+\end{bmatrix}$
+\quad e)~$\begin{bmatrix}
+1 & 0 & 0 & 77/15 \\
+0 & 1 & 0 & -2/15 \\
+0 & 0 & 1 & -8/5
+\end{bmatrix}$
+\quad f)~$\begin{bmatrix}
+1 & 0 & -1/2 & 0 \\
+0 & 1 & 1/2 & 1/2 \\
+0 & 0 & 0 & 0
+\end{bmatrix}$
+\quad g)~$\begin{bmatrix}
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0
+\end{bmatrix}$
+\quad h)~$\begin{bmatrix}
+1 & 2 & 3 & 0 \\
+0 & 0 & 0 & 1
+\end{bmatrix}$
+}
+
+\begin{exercise}
+Solve (find all solutions), or show no solution exists
+\begin{tasks}(2)
+\task
+$\begin{aligned}
+ 4x_1+3x_2 & = -2 \\
+ -x_1+\phantom{3} x_2 & = 4
+\end{aligned}$
+\task
+$\begin{aligned}
+  x_1+5x_2+3x_3 & = 7 \\
+ 8x_1+7x_2+8x_3 & = 8 \\
+ 4x_1+8x_2+6x_3 & = 4
+\end{aligned}$
+\task
+$\begin{aligned}
+ 4x_1+8x_2+2x_3 & = 3 \\
+ -x_1-2x_2+3x_3 & = 1 \\
+ 4x_1+8x_2 \phantom{{}+3x_3} & = 2
+\end{aligned}$
+\task
+$\begin{aligned}
+  x+2y+3z & = 4 \\
+2  x-\phantom{2} y+3z & = 1 \\
+3  x+\phantom{2} y+6z & = 6
+\end{aligned}$
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Solve (find all solutions), or show no solution exists
+\begin{tasks}(2)
+\task
+$\begin{aligned}
+4x_1+3x_2 & = -1 \\
+5x_1+6x_2 & = 4
+\end{aligned}$
+\task
+$\begin{aligned}
+ 5x+6y+5z & = 7 \\
+ 6x+8y+6z & = -1 \\
+ 5x+2y+5z & = 2
+\end{aligned}$
+\task
+$\begin{aligned}
+a+\phantom{5}b+\phantom{6}c & = -1 \\
+a+5b+6c & = -1 \\
+-2a+5b+6c & = 8
+\end{aligned}$
+\task
+$\begin{aligned}
+-2 x_1+2x_2+8x_3 & = 6 \\
+x_2+\phantom{8}x_3 & = 2 \\
+x_1+4x_2+\phantom{8}x_3 & = 7
+\end{aligned}$
+\end{tasks}
+\end{exercise}
+\exsol{%
+a) $x_1=-2$, $x_2 = \nicefrac{7}{3}$
+\quad
+b)~no solution
+\quad
+c)~$a = -3$, $b=10$, $c=-8$
+\quad
+d)~$x_3$ is free, $x_1 = -1+3x_3$, $x_2 = 2-x_3$
+}
+
+\begin{exercise}\ansMark%
+Solve the system of equations
+\begin{equation*}
+\begin{split}
+-4x_2 + x_3 + 2x_4 &= 16 \\
+2x_1 + 2x_2 - 4x_3 - 3x_4 &= 1 \\
+x_1 + x_2 + 2x_3 + 3x_4 &= 6 \\
+2x_1 - 2x_3 + 4x_4 &= 24
+\end{split}
+\end{equation*}
+or determine that no solution exists. 
+\end{exercise}
+\exsol{%
+$x_1 = 4$, $x_2 = -3$, $x_3 = -2$, $x_4 = 3$
+}%
+
+\begin{exercise}\ansMark%
+Solve the system of equations
+\begin{equation*}
+\begin{split}
+3x_2 + 3x_3 + 2x_4 &= 4 \\
+4x_1 + 4x_2 + 2x_3 - 4x_4 &= -26 \\
+x_1 - 3x_2 -2x_3 + 2x_4 &= 1 \\
+3x_1 + 3x_2 + 3x_3  - x_4 &= -14
+\end{split}
+\end{equation*}
+or determine that no solution exists. 
+\end{exercise}
+\exsol{%
+$x_1 = -4$, $x_2 = -1$, $x_3 = 1$, $x_4 = 2$
+}%
+
+\begin{exercise}\ansMark%
+Solve the system of equations
+\begin{equation*}
+\begin{split}
+2x_1 + x_2 - x_3 + 4x_4 &= 11 \\
+x_1 + 4x_2  - 4x_3 - x_4 &= -7 \\
+-2x_1 - 3x_2 + 2x_3 + x_4 &= 11 \\
+3x_1 + x_3  + 4x_4 &= 3
+\end{split}
+\end{equation*}
+or determine that no solution exists. 
+\end{exercise}
+\exsol{%
+No solution exists.
+}%
+
+\begin{exercise}\ansMark%
+Solve the system of equations
+\begin{equation*}
+\begin{split}
+x_1 - x_3 - 4x_4 &= -3 \\
+x_1 + x_2 + x_4 &= 0\\
+x_1 + 3x_2 + 3x_3 - 4x_4 &= -28 \\
+6x_1 + 3x_2 - 4x_3 + 6x_4 &= 25
+\end{split}
+\end{equation*}
+or determine that no solution exists. 
+\end{exercise}
+\exsol{%
+Infinitely many solutions of the form $x_1 = 19t-37$, $x_2 = 37-20t$, $x_3 = 15t-37$, $x_4 = t$ for any real number $t$.
+}%
+
+\begin{exercise}\ansMark%
+Assume that you are solving a three component linear system of equations via row reduction of an augmented matrix and reach the matrix
+\begin{equation*}
+\left[ 
+\begin{array}{ccc|c}
+1 & 0 & 3 & 4 \\
+0 & 0 & 1 & 3 \\
+0 & 0 & 0 & 1
+\end{array}
+\right].
+\end{equation*}
+What does this mean about the solution to this system of equations?
+\end{exercise}
+\exsol{%
+There is no solution.
+}
+
+\begin{exercise}\ansMark%
+Assume that you are solving a three component linear system of equations via row reduction of an augmented matrix and reach the matrix
+\begin{equation*}
+\left[ 
+\begin{array}{ccc|c}
+1 & 1 & 3 & 6 \\
+0 & 1 & 2 & 4 \\
+0 & 0 & 0 & 0
+\end{array}
+\right].
+\end{equation*}
+What does this mean about the solution to this system of equations?
+\end{exercise}
+\exsol{%
+There are infinitely many solutions of the form $x_1 = 2-t$, $x_2 = 4-2t$, $x_3 = t$ for any real number $t$.
+}
+
+\begin{exercise}
+Assume that you are solving a four component linear system of equations via row reduction of an augmented matrix and reach the matrix
+\begin{equation*}
+\left[ 
+\begin{array}{cccc|c}
+1 & 2 & 3 & 5 & 1 \\
+0 & 2 & 1 & 4 & 2 \\
+0 & 1 & 0 & 3 & 0 \\
+0 & 3 & 2 & -1 & 1
+\end{array}
+\right].
+\end{equation*}
+What is the next step in reducing this matrix? Carry out the rest of this problem to solve the corresponding system of equations. 
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Assume that someone else has provided you the solution to an augmented matrix reduction for solving a system of equations given below
+\begin{equation*}
+\begin{bmatrix}
+1 & 1 & 2 & 4 \\
+0 & 1 & 3 & 5 \\
+1 & 2 & 4 & -1
+\end{bmatrix} \ \rightarrow \ \begin{bmatrix} 1 & 1 & 2 & 4 \\ 0 & 1 & 3 & 5 \\ 0 & 1 & 2 & -5 \end{bmatrix} \ \rightarrow \ \begin{bmatrix} 1 & 1 & 2 & 4 \\ 0 & 0 & 1 & 1 \\ 0 & 0 & 0 & -9 \end{bmatrix}.
+\end{equation*} 
+Is this work correct? If so, what does this say about the solution(s) to the system? If not, correct the work to solve the system.
+\end{exercise}
+\exsol{%
+The work is not correct. It looks like the author used row 1 to try to cancel the second column from rows 2 and 3, which we can not do. The correct method would be to use row 2 to cancel row 3, resulting in a solution $x_1 = 9$, $x_2 = -25$, and $x_3 = 10$.
+}
+
+\setcounter{exercise}{100}
+

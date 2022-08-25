@@ -1,0 +1,196 @@
+\section{Vector Spaces of Functions} \label{functionVS:section}
+
+\LO{
+\item Identify spaces of functions that are vector spaces,
+\item Compute inner products of functions using integrals, and
+\item Determine if functions are orthogonal with respect to this inner product.
+}
+
+The next step in our discussion of inner products and orthogonality is different places where this can apply. We have already talked about $n$ component vectors and matrices, and the next example is function spaces.
+
+\subsection{Function Spaces}
+
+First, let's review the main properties of vector spaces that we defined in \Chapterref{linalg:appendix}. A \emph{(real) vector space} is a set of objects $V$, called vectors, with two main properties
+\begin{enumerate}
+\item For any $v$ and $w$ in $V$, $v+w$ is also in $V$, and
+\item For any $v$ in $V$ and $\alpha$ in $\R$, $\alpha v$ is in V. 
+\end{enumerate}
+The basic point here is that for something to be a vector space, we need to be able to add them together as well as multiply by real numbers, and these operations need to respect each other via the distributive law. We can do both of these things with functions that are defined on the same domain. For example, if we have two functions $f$ and $g$ defined on all real numbers and a real number $\alpha$, then we can define two new functions $(f+g)$ and $(\alpha f)$ by
+\[ (f+g)(x) = f(x) + g(x) \qquad (\alpha f)(x) = \alpha f(x). \]
+These operations look a lot like the addition and scalar multiplication that we define on vectors, since those operations work component-wise and the function operations work ``point-wise'' at each value of $x$. 
+
+While this can be done for all functions, it isn't too useful unless we restrict what kinds of functions we actually care about. 
+
+\begin{definition}
+Let $a < b$ be two real numbers. The set $C([a,b])$ is the set of all real-valued functions that are continuous on the interval\index{continuous functions} $[a,b]$. The set $D([a,b])$ is the set of all real-valued functions that are differentiable on the interval $[a,b]$. 
+\end{definition}
+
+Both of these sets defined above are vector spaces! This result comes from work in Calculus 1 that shows that the sum of two continuous functions is continuous, and the same holds for differentiable functions. The proof of the fact that these are vecto spaces is identical to what was done in Calculus 1 to prove these facts. These functions spaces are very large, as seen by the following example.
+
+\begin{example}
+Consider the space $C([-1,1])$. This space contains all functions that are continuous on the interval $[-1,1]$. This space contains $f_1(x) = x$, $f_2(x) = e^x$, $f_3(x) = \sin(x)$, $f_4(x) = \tan(x)$, $f_5(x) = \frac{1}{x-2}$, and $f_6(x) = |x|$. These last two functions do have asymptotes, but they are not within the interval $[1,1]$. The function $g(x) = \frac{1}{x}$ is not in this space because it is discontinuous at $x=0$. All of the $f$ functions except for $f_6(x)$ are also in the space $D([-1, 1])$ because they are all differentiable on $[-1,1]$ except for $|x|$ which is not differentiable at $0$. 
+\end{example}
+
+A lot of the ideas of vector spaces apply to these function spaces as well. The main one that is different is the idea of basis and dimension. Recall that a basis for a vector space $V$ is a set of elements of $V$, denoted $B = \{v_1, v_2, ..., v_n\}$ so that every element of $V$ can be written as a linear combination of the elements of $B$. Furthermore, every basis of a given vector space has the same number of elements, which is the dimension of the vector space. 
+
+These functions spaces are distinctly different from the vector spaces discussed previously because these are infinite dimensional.
+
+\begin{example}
+Consider the space $C([-1,1])$. Then all of the functions $f_0(x) = 1$, $f_1(x) = x$, ..., $f_k(x) = x^k$ are all in $C([-1,1])$ and are all linearly independent. 
+\end{example}
+
+\begin{exampleSol}
+All of the functions $f_k(x)$ for every $k$ are all polynomials, so they are continuous on the whole real line, which also means they are continuous on $[-1,1]$ and so are in $C([-1,1])$. To establish linear independence, we can't use matrices, but instead need to go back to the definition of linear independence. 
+
+First, we check if $f_0(x) = 1$ and $f_1(x) = x$ are linearly independent. For this, we need to determine if it is possible to pick $c_0$ and $c_1$ so that
+\[ c_0f_0 + c_1f_1 = 0, \] or in this particular case 
+\[ c_0 + c_1 x = 0. \] Now, for this to equal zero in the sense of functions in $C([-1,1])$, we need this expression to be zero for \textbf{all} $x$ values in the interval $[-1,1]$, not just some of them. We know that the graph of $c_1 x + c_0$ is a straight line, so the only way it can be zero for all $x$ in $[-1,1]$ is if it is the line $y=0$, so both $c_1$ and $c_0$ are zero. Therefore, we know that $f_0$ and $f_1$ are linearly independent. 
+
+Now, we want to include $f_2(x) = x^2$ in this set. To determine this linear independence, we need to determine if there are coefficients $c_0$, $c_1$ and $c_2$ so that
+\[ c_0 + c_1 x + c_2x^2 = 0 \] for \textbf{all} $x$ in $[-1,1]$. Since the graph of $c_2x^2 + c_1x + c_0$ is a parabola, it can have at most two zeros. The only way this can be zero for all values of $x$ is if it is identically zero, so we need $c_0$, $c_1$, and $c_2$ equal to zero, so these three functions are linearly independent. 
+
+The same process continuous for all $k$. If we pick some upper level $k$, then we need to find constants so that 
+\[ c_0 + c_1x + c_2x^2 + \cdots + c_kx^k = 0\] for all $x$ in $[-1,1]$. However, a polynomial of degree $k$ can have at most $k$ zeros, and since there are more than $k$ points in $[-1,1]$ (there are infinitely many), for this to be zero everywhere, we need to have all of the constants zero, and so the functions are linearly independent.    
+\end{exampleSol}
+
+This tells us that the space $C([-1,1])$ has an infinite set, $\{1,\ x, x^2, ... \}$ of linearly independent functions. This means that there is no finite set of functions that span the entire space, which means that the space is infinite dimensional. This is very different from the finite dimensional vector spaces that we discussed previously. A lot of the ideas will carry through, but we will always have to keep in mind that we don't have bases or matrices to fall back on. 
+
+\subsection{Inner Products on Function Spaces}
+
+Since function spaces like $C([a,b])$ and $D([a,b])$ are vector spaces, we can look into trying to define an inner product on them. In terms of vector spaces, we formed an inner product by taking two vectors, multiplying each of their individual components together and adding them up. Components for vectors are related to function values at particular points, so we can try to do this same process on functions, and it results in an integral.
+
+\begin{definition}
+Let $f$ and $g$ be two functions in either $C([a,b])$ or $D([a,b])$. An inner product on this space can be defined by
+\[ \langle f, g \rangle = \int_a^b f(x)g(x)\ dx. \]
+\end{definition}
+
+As discussed in \sectionref{innerproduct:section}, any inner product needs to satisfy the following properties:
+\begin{enumerate}[(i)]
+\item $\langle f , f \rangle \geq 0$, and
+$\langle f , f \rangle = 0$ if and only if $f = 0$,
+\item $\langle f , g \rangle = \langle g ,f
+\rangle$,
+\item $\langle af , g\rangle =
+\langle f , ag \rangle =
+a \langle f , g \rangle$,
+\item $\langle f +  g , h \rangle =
+\langle f , h \rangle +
+\langle g, h \rangle$ and
+$\langle f, g + h \rangle =
+\langle f , g \rangle +
+\langle f , h \rangle$.
+\end{enumerate}
+
+All of these properties follow from linearity of the integral and commutativity of standard products. The trickiest one of them is the fact that $\langle f, f, \rangle \geq 0$, which comes from the fact that $f^2$ is always a positive function for every $f$, and so the integral is positive.
+
+\begin{exercise}
+Write out all of these properties in terms of integrals and verify them.
+\end{exercise}
+
+\begin{example}
+Consider the space $C([-1,1])$. Compute the inner product $\langle x, x^2 \rangle$ and $\langle x, e^x \rangle$. 
+\end{example}
+
+\begin{exampleSol}
+Since the space is defined on $[-1,1]$, the integrals that we need to compute should be done over this range. Then, we have that
+\[
+\langle x, x^2 \rangle = \int_{-1}^1 x(x^2)\ dx = \int_{-1}^1 x^3\ dx = \frac{x^4}{4}\min_{-1}^1 = 0 
+\]
+and
+\[ 
+\begin{split}
+\langle x, e^x \rangle &= \int_{-1}^1 xe^x\ dx \\
+&= xe^x - \int_{-1}^1 e^x\ dx \\
+&= xe^x - e^x \mid_{-1}^1 \\
+&= (e - e) - (-e^{-1} - e^{-1}) = 2e^{-1} .
+\end{split}
+\]
+\end{exampleSol}
+
+\begin{remark}
+The interval on which these spaces are defined is critical and can change the value of the inner product. For example, if we had defined these on the space $C([0,2])$, then the first pair of functions would have inner product equal to $4$, and the second would have inner product equal to $3e^4 - 1$.
+\end{remark}
+
+\subsubsection{Orthogonal Functions}
+
+Now that we have an inner product, we can talk about orthogonality of functions. In some sense, we can talk about angles between functions, but since there isn't a direct geometric interpretation, the only thing that really matters is functions that are perpendicular. 
+
+\begin{definition}
+Let $f$ and $g$ be two continuous functions on $[a,b]$. We say that these functions are \emph{orthogonal}\index{orthogonal ! function} if 
+\[ \langle f, g \rangle = \int_a^b f(x)g(x)\ dx = 0. \]
+\end{definition}
+
+Above we computed that, considering the space $C([-1,1])$, $\langle x, x^2 \rangle = 0$. Therefore, in this space, the functions $x$ and $x^2$ are orthogonal, but $x$ and $e^x$ are not. However, the remark shows that this is dependent on the interval where these spaces are defined, because on $[0,2]$, $x$ and $x^2$ are not orthogonal.
+
+\begin{example}
+Consider $C([0,2])$. Are the functions $f_1(x) = x^2$ and $f_2(x) = x^3$ orthogonal? Determine a value of $c$ so that $f_1$ and $g(x) = x^3 - cx^2$ are orthogonal.
+\end{example}
+
+\begin{exampleSol}
+For the first part, we compute that
+\[ \langle x^2, x^3 \rangle = \int_0^2 (x^2)(x^3)\ dx = \int_0^2 x^5\ dx = \frac{x^6}{6}\mid_0^2 = \frac{64}{6} = \frac{32}{3}. \] Therefore, these functions are not orthogonal. For the second part, we compute the inner product
+\[ \begin{split}
+\langle x^2, x^3 - cx^2 \rangle &= \int_0^2 x^2(x^3 - cx^2)\ dx \\
+&= \int_0^2 x^5 - cx^4\ dx \\
+&= \frac{x^6}{6} - c\frac{x^5}{5} \mid_0^2 \\
+&= \frac{32}{3} - c\frac{32}{5} = 32\left(\frac{1}{3} - \frac{c}{5} \right).
+\end{split} \]
+If we want these functions to be orthogonal, we want this to evaluate to $0$. Thus, we need $\frac{1}{3} = \frac{c}{5}$, so that $c = \frac{5}{3}$. 
+\end{exampleSol}
+
+A common way to discuss these orthogonal functions is by talking about classes of functions. Finding one or two orthogonal functions isn't entirely useful, but if we can find a large collection of them, that has uses in the future.
+
+\begin{example}
+Are the monomials $S = \{1, x, x^2, ...\}$ orthogonal on $[-1,1]$?
+\end{example}
+
+\begin{exampleSol}
+We can compute these inner products directly. Any function pulled from this set will be of the form $x^m$ for some positive integer $m$. Thus, the inner product will be
+\[ \begin{split}
+\langle x^m, x^n \rangle &= \int_{-1}^1 (x^m)(x^n)\ dx \\
+&= \int_{-1}^1 x^{m+n}\ dx \\
+&= \frac{x^{m+n+1}}{m+n+1}\mid_{-1}^1 = \frac{1}{m+n+1} - \frac{(-1)^{m+n+1}}{m+n+1}.
+\end{split} \]
+So, if $m+n+1$ is even, then this difference will be zero, and so the functions will be orthogonal. If $m+n+1$ is odd, then the difference will not be zero, and they will not be orthogonal. Thus, for any functions in this set, $x^m$ and $x^n$ are orthogonal if exactly one of $m$ and $n$ is even. This means that the \textbf{entire} set $S$ is not orthogonal, because there are pairs of functions in that set that are not orthogonal.
+\end{exampleSol}
+
+The most famous set of orthogonal functions is trigonometric functions, which will be walked through in some of the exercises. These functions will form the basis for Fourier Series, which will be discussed in \Chapterref{FS:chapter}. 
+
+\subsection{Exercises}
+
+\begin{exercise}
+Consider the space $C([0,1])$. Compute the following inner products. 
+\begin{tasks}
+\task $\langle x, x^3 \rangle$
+\task $\langle e^x, x+1 \rangle$
+\task $\langle e^x, \sin(\pi x)$
+\task $\langle x^2 + 1, x - 3 \rangle$. 
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}
+Are the functions $\cos(x)$ and $\sin(x)$ orthogonal in $C([-\pi, \pi])$? What about in $C([0,\pi])$?
+\end{exercise}
+
+\begin{exercise}
+Are the functions $\cos(x)$ and $\cos(2x)$ orthogonal in $C([-\pi, \pi])$? What about in $C([0,\pi])$? \textbf{Hint:} The product to sum formulas for trigonometric functions will be useful here, in particular,
+\[ \cos(A)\cos(B) = \frac{1}{2}\left(\cos(A+B) + \cos(A-B)\right). \]
+\end{exercise}
+
+\begin{exercise}
+Consider the set of functions $S = \{\sin(x),\ \sin(2x),\ \sin(3x), ... \}$ and $C = \{\cos(x),\  \cos(2x),\ \cos(3x),\ ... \}$ as functions in $C([-\pi, \pi])$. 
+\begin{tasks}
+\task Is $S$ an orthogonal set in this space? You will want to start by picking two functions in this set, which will be $\sin(nx)$ and $\sin(mx)$, and computing the inner product.
+\task Is $C$ an orthogonal set in this space?
+\task If we combine $C$ and $S$, do we still get an orthogonal set? After establishing the first two parts, we only need to look at the inner product with one function from $C$ and one function from $S$. 
+\task Are these functions in $C$ and $S$ orthogonal to the constant function $1$?
+\end{tasks}
+For this, the product-to-sum identities will be useful. 
+\[ 
+\begin{split}
+\cos(A)\cos(B) &= \frac{1}{2}\left(\cos(A+B) + \cos(A-B)\right)\\
+\sin(A)\cos(B) &= \frac{1}{2}\left(\sin(A+B) + \sin(A-B)\right) \\
+\sin(A)\sin(B) &= \frac{1}{2}\left(\cos(A-B) - \cos(A+B)\right)
+\end{split}
+ \]
+\end{exercise}

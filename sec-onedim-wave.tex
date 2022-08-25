@@ -1,0 +1,705 @@
+
+\section{One-dimensional wave equation} \label{we:section}
+
+\LAtt{4.7}
+
+\LO{
+\item Identify the one-dimensional wave equation and
+\item Use superposition and Fourier series to solve the equation using separation of variables.
+}
+
+% \sectionnotes{Verbatim from Lebl}
+
+% \sectionnotes{1 lecture\EPref{, \S9.6 in \cite{EP}}\BDref{,
+% \S10.7 in \cite{BD}}}
+
+Imagine we have a tensioned guitar string of length $L$.  Let us 
+only consider vibrations in one direction.  Let
+$x$ denote the position along the string, let $t$ denote time, and let $y$
+denote the displacement of the string from the rest position.
+See
+\figurevref{we:vibstrfig}.
+
+\begin{myfig}
+\capstart
+\inputpdft{sps-vibstr}
+\caption{Vibrating string of length $L$, $x$ is position, $y$ is displacement.\label{we:vibstrfig}}
+\end{myfig}
+
+\subsection{Derivation of the wave equation}
+
+We want to determine a partial differential equation that governs the displacement of this string over time. Similar to what we did with the heat equation, we will consider a small section of the string of length $\Delta x$, from $x$ to $x + \Delta x$.
+
+\begin{myfig}
+\capstart
+\myincludegraphics{width=5in}{width=6in}{WaveSegment.png}
+\caption{Forces acting on a small portion of the spring.\label{fig:forceWave}}
+\end{myfig}
+
+The basis for the equation that we will develop here is Newton's second law, that force equals mass times acceleration. The diagram in \figureref{fig:forceWave} shows the forces acting on this small section of string. For the mass, we will assume that $\rho$ is the mass of the string per unit length, and will multiply this by the length of the string to get mass. There are internal forces $F(t, x)$ that are applied in the transverse direction as well as tension forces $T$ on each end of the string. The tension at point $(t,x)$ has magnitude $T(t,x)$ and pulls at angle $\theta(t,x)$ from the horizontal. We can use this to build two equations involving this segment of string, one for the forces in the vertical (transverse) direction, and one in the horizontal direction (along the string). 
+
+In the horizontal direction, we will assume that the displacement is always zero; that is, the string does not move in the horizontal direction as it vibrates. Therefore, this equation, taking into account all forces in the horizontal direction, gives
+\[ 0 = T(t, x + \Delta x)  \cos(\theta(t, x + \Delta x)) - T(t, x) \cos(\theta(t, x)) \] since based on the diagram, $T\cos(\theta)$ is the horizontal component of the tension force at each endpoint. In the vertical direction, we get
+\[ \rho(x) \sqrt{(\Delta x)^2 + (\Delta y)^2} \frac{\partial^2 y}{\partial t^2} = F(t,x) (\Delta x) + T(t, x + \Delta x)  \sin(\theta(t, x + \Delta x)) - T(t, x) \sin(\theta(t, x)) .\]
+
+As with the heat equation work, we are going to divide both sides of each equation by $\Delta x$ and then take the limit as $\Delta x \rightarrow 0$. With this limit, we have that
+\[ \lim_{\Delta x \rightarrow 0} T(t, x + \Delta x)  \cos(\theta(t, x + \Delta x)) - T(t, x) \cos(\theta(t, x)) = \frac{\partial}{\partial x} \left) T(t, x)\cos(\theta(t, x))\right) \] and 
+\[ \lim_{\Delta x \rightarrow 0} T(t, x + \Delta x)  \sin(\theta(t, x + \Delta x)) - T(t, x) \sin(\theta(t, x)) = \frac{\partial}{\partial x} \left( T(t, x)\sin(\theta(t, x))\right). \] In addition, the left side of the vertical component equation, we 
+can simplify it to
+\[ 
+\begin{split}
+\lim_{\Delta x \rightarrow 0} \frac{1}{\Delta x} \sqrt{(\Delta x)^2 + (\Delta y)^2} &= \lim_{\Delta x \rightarrow 0} \sqrt{1 + \frac{(\Delta y)^2}{(\Delta x)^2}} \\
+&= \lim_{\Delta x \rightarrow 0} \sqrt{1 + \left(\frac{\Delta y}{\Delta x}\right)^2} \\
+&= \sqrt{1 + \left(\frac{\partial y}{\partial x}\right)^2}
+\end{split}
+\]
+
+Thus, the horizontal component of the force balance becomes
+\[ 0 =  \frac{\partial}{\partial x} \left(T(t, x)\cos(\theta(t, x))\right) \] and the vertical component is
+\[ \rho(x) \sqrt{1 + \left(\frac{\partial y}{\partial x} \right)^2} \frac{\partial^2 y}{\partial t^2} = F(t,x) +\frac{\partial}{\partial x} \left(T(t, x)\sin(\theta(t, x))\right). \]
+
+We want to start by simplifying the vertical equation, which we can first do by using the product rule to get
+\begin{equation} \rho(x) \sqrt{1 + \left(\frac{\partial y}{\partial x} \right)^2} \frac{\partial^2 y}{\partial t^2} = F(t,x) +\frac{\partial T}{\partial x} \sin(\theta(t, x)) + T(t, x)\cos(\theta(t,x)) \frac{\partial \theta}{\partial x}. \label{eq:simpWave}
+\end{equation}  The first thing we want to do is convert the $\theta$ variables to be written in terms of $y$. Based on the triangle in \figureref{fig:forceWave}, we can see that
+\[ \tan(\theta) = \frac{\Delta y}{\Delta x} \] so that in the limit as $\Delta x \rightarrow 0$, $\tan(\theta) = \frac{\partial y}{\partial x}$. By drawing another triangle, we can find that
+\[ \sin(\theta) = \frac{\frac{\partial y}{\partial x}}{\sqrt{1 + \left(\frac{\partial y}{\partial x}\right)^2}} \qquad \cos(\theta) = \frac{1}{\sqrt{1 + \left( \frac{\partial y}{\partial x}\right)^2}} \] as well as
+\[ \theta = \tan^{-1}\left(\frac{\partial y}{\partial x}\right) \qquad \frac{\partial \theta}{\partial x} = \frac{\frac{\partial^2 y}{\partial x^2}}{1 + \left(\frac{\partial y}{\partial x}\right)^2}. \]
+
+We could plug all of this into \eqref{eq:simpWave}, but that would be really messy. However, to get a simpler equation, we will assume that we are looking at ``small'' vibrations, which will make things easier (and linear). This means that we assume that 
+\[ \sqrt{1 + \left(\frac{\partial y}{\partial x}\right)^2} \approx 1 \] so that
+\[ \sin(\theta) \approx \frac{\partial y}{\partial x} \quad \cos(\theta) \approx 1 \quad \frac{\partial \theta}{\partial x} \approx \frac{\partial^2 y}{\partial x^2}. \] Plugging these into \eqref{eq:simpWave} gives
+\begin{equation} \rho(x) \frac{\partial^2 y}{\partial t^2} = F(t,x) +\frac{\partial T}{\partial x} \frac{\partial y}{\partial x} + T(t, x)\frac{\partial^2 y}{\partial x^2}. \label{eq:simpWaveVert}
+\end{equation} 
+
+Next, we plug these approximations into the horizontal component after applying the product rule to get
+\[ \begin{split}
+ 0 &=  \frac{\partial}{\partial x} \left(T(t, x)\cos(\theta(t, x))\right) \\
+ &= \frac{\partial T}{\partial x} \cos(\theta(t, x)) + T(t, x) \sin(\theta(t,x)) \frac{\partial \theta}{\partial x} \\
+ &= \frac{\partial T}{\partial x} + T(t,x) \frac{\partial y}{\partial x} \frac{\partial^2 y}{\partial x^2} \\
+ & \approx \frac{\partial T}{\partial x}
+ \end{split}
+ \]
+because $\frac{\partial y}{\partial x}$ and $\frac{\partial^2 y}{\partial x^2}$ are both small, so we can approximate the product by zero. Thus, we have that 
+\[ \frac{\partial T}{\partial x} = 0 \] which also makes sense from a physical point of view, because it says that the tension in the string is constant throughout, so that it uniformly distributes across the string if you only pull on the two ends.
+
+Putting this fact into \eqref{eq:simpWaveVert} gives our final equation as
+\[ 
+\rho(x) \frac{\partial^2 y}{\partial t^2} = F(t,x) + T(t, x)\frac{\partial^2 y}{\partial x^2}
+\]
+In general, we will assume that the density $\rho$ is independent of position (string is made of consistent material) and $T$ is independent of time to give the equation
+\begin{equation}
+\frac{\partial^2 y}{\partial t^2} = G(t,x) + a \frac{\partial^2 y}{\partial x^2}
+\label{eq:WaveNonHomog}
+\end{equation}
+where $a$ is the constant $\frac{T}{\rho}$ and $G$ is a scaled version of the external forces. If $G = 0$, we get the homogeneous wave equation. 
+
+This equation can also be written in multiple spacial dimensions. As you might guess, the second derivative term becomes the Laplacian when we add other spacial dimensions. Thus, if $y$ is the displacement, the homogeneous wave equation is that
+\[ \frac{\partial^2 y}{\partial t^2} = a \Delta y. \]
+
+\subsection{Boundary and initial conditions} 
+
+As derived previously, the 
+\emph{\myindex{one-dimensional wave equation}}\index{wave equation} is:
+\begin{equation*}
+\mybxbg{~~
+y_{tt} =
+a^2 y_{xx} ,
+~~}
+\end{equation*}
+for some constant $a > 0$.
+The intuition is similar to the heat equation, replacing velocity with
+acceleration: the acceleration at a specific point is proportional to the second
+derivative of the shape of the string.  In other words
+when the string is
+concave down then $u_{xx}$ is negative and the string wants to accelerate
+downwards, so $u_{tt}$ should be negative.  And vice versa.
+The wave equation is an example of a hyperbolic PDE.
+
+Assume that the ends of the string are fixed in place as on the guitar:
+\begin{equation*}
+y(0,t) = 0 \qquad \text{and} \qquad y(L,t) = 0.
+\end{equation*}
+Note that we have two conditions along the $x$-axis as there are
+two derivatives in the $x$ direction.
+
+There are also two derivatives along the $t$ direction and hence we need
+two further conditions here.  We need to know the initial position
+and the initial velocity of the string.  That is,
+for some known functions $f(x)$ and $g(x)$, we impose
+\begin{equation*}
+y(x,0) = f(x)  \qquad \text{and} \qquad y_t (x,0) =
+g(x) .
+\end{equation*}
+
+The equation is linear, so superposition works just as it did for the
+heat equation.  And again we will use separation of variables to find
+enough building-block solutions to get the overall solution.  There is
+one change however.  It will be easier to solve two separate problems
+and add their solutions.
+
+The two problems we will solve are
+\begin{equation} \label{wave:weq}
+\begin{array}{ll}
+w_{tt} = a^2 w_{xx} , &  \\
+w(0,t) = w(L,t) = 0 , &  \\
+w(x,0) = 0 & \qquad \text{for } \; 0 < x < L , \\
+w_t(x,0) = g(x) & \qquad \text{for } \; 0 < x < L ,
+\end{array}
+\end{equation}
+and
+\begin{equation} \label{wave:zeq}
+\begin{array}{ll}
+z_{tt} = a^2 z_{xx} , &  \\
+z(0,t) = z(L,t) = 0 , &  \\
+z(x,0) = f(x) & \qquad \text{for } \; 0 < x < L , \\
+z_t(x,0) = 0 & \qquad \text{for } \; 0 < x < L .
+\end{array}
+\end{equation}
+
+The principle of superposition implies that
+$y = w + z$ solves the wave equation and furthermore
+$y(x,0) = w(x,0) + z(x,0) = f(x)$ and
+$y_t(x,0) = w_t(x,0) + z_t(x,0) = g(x)$.  Hence, $y$ is
+a solution to
+\begin{equation} \label{wave:yeq}
+\begin{array}{ll}
+y_{tt} = a^2 y_{xx} , &  \\
+y(0,t) = y(L,t) = 0 , &  \\
+y(x,0) = f(x) & \qquad \text{for } \; 0 < x < L , \\
+y_t(x,0) = g(x) & \qquad \text{for } \; 0 < x < L .
+\end{array}
+\end{equation}
+
+The reason for all this complexity is that superposition only works for
+homogeneous conditions such as
+$y(0,t) = y(L,t) = 0$, $y(x,0) = 0$, or $y_t(x,0) = 0$.  Therefore,
+we can
+use separation of variables to find many building-block
+solutions solving all the homogeneous conditions.  We can then use them to
+construct a solution satisfying the remaining nonhomogeneous condition.
+
+Let us start with \eqref{wave:weq}.
+We try a solution of the form $w(x,t) = X(x) T(t)$ again.  We plug into
+the wave equation to obtain
+\begin{equation*}
+X(x)T''(t) = a^2 X''(x) T(t) .
+\end{equation*}
+Rewriting we get
+\begin{equation*}
+\frac{T''(t)}{a^2 T(t)} = \frac{X''(x)}{X(x)} .
+\end{equation*}
+Again, left-hand side depends only on $t$ and the right-hand side depends
+only on $x$.  So both sides equal a constant, which we denote by
+$-\lambda$:
+\begin{equation*}
+\frac{T''(t)}{a^2 T(t)} = -\lambda = \frac{X''(x)}{X(x)} .
+\end{equation*}
+We solve to get two ordinary differential equations
+\begin{align*}
+X''(x) + \lambda X(x) &= 0 , \\
+T''(t) + \lambda a^2 T(t) &= 0 .
+\end{align*}
+The conditions $0 = w(0,t) = X(0) T(t)$ implies $X(0) = 0$ and
+$w(L,t) = 0$ implies that $X(L) = 0$.  Therefore, the only nontrivial
+solutions for the first equation are when
+$\lambda = \lambda_n = \frac{n^2 \pi^2}{L^2}$ and they are
+\begin{equation*}
+X_n(x) = \sin \left( \frac{n \pi}{L} x \right) .
+\end{equation*}
+The general solution for $T$ for this particular $\lambda_n$ is
+\begin{equation*}
+T_n(t) = A \cos \left( \frac{n \pi a}{L} t \right)
++ B \sin \left( \frac{n \pi a}{L} t \right).
+\end{equation*}
+We also have the condition that $w(x,0) = 0$ or $X(x)T(0) = 0$.  This
+implies that $T(0) = 0$, which in turn forces $A = 0$.  It is
+convenient to pick $B=\frac{L}{n \pi a}$ (you will see why in a moment)
+and hence
+\begin{equation*}
+T_n(t) = \frac{L}{n \pi a} \sin \left( \frac{n \pi a}{L} t \right).
+\end{equation*}
+Our building-block solutions are
+\begin{equation*}
+w_n(x,t) = 
+\frac{L}{n \pi a} 
+\sin \left( \frac{n \pi}{L} x \right)
+\sin \left( \frac{n \pi a}{L} t \right) .
+\end{equation*}
+We differentiate in $t$:
+\begin{equation*}
+\frac{\partial w_n}{\partial t}(x,t) = 
+\sin \left( \frac{n \pi}{L} x \right)
+\cos \left( \frac{n \pi a}{L} t \right) .
+\end{equation*}
+Hence,
+\begin{equation*}
+\frac{\partial w_n}{\partial t}(x,0) =
+\sin \left( \frac{n \pi}{L} x \right) .
+\end{equation*}
+We expand $g(x)$ in terms of these sines as
+\begin{equation*}
+g(x) =
+\sum_{n=1}^\infty b_n \sin \left( \frac{n \pi}{L} x \right) .
+\end{equation*}
+Using superposition
+we write the solution to \eqref{wave:weq} as a series
+\begin{equation*}
+w(x,t) =
+\sum_{n=1}^\infty
+b_n
+w_n(x,t)
+=
+\sum_{n=1}^\infty
+b_n
+\frac{L}{n \pi a}
+\sin \left( \frac{n \pi}{L} x \right)
+\sin \left( \frac{n \pi a}{L} t \right) .
+\end{equation*}
+
+\begin{exercise}
+Check that $w(x,0) = 0$ and
+$w_t(x,0) = g(x)$.
+\end{exercise}
+
+We solve \eqref{wave:zeq} similarly.  We again try
+$z(x,y) = X(x)T(t)$.  The procedure works exactly the same at first.
+We obtain
+\begin{align*}
+X''(x) + \lambda X(x) &= 0 , \\
+T''(t) + \lambda a^2 T(t) &= 0 ,
+\end{align*}
+and the conditions $X(0) = 0$, $X(L) = 0$.  So again
+$\lambda = \lambda_n = \frac{n^2 \pi^2}{L^2}$ and
+\begin{equation*}
+X_n(x) = \sin \left( \frac{n \pi}{L} x \right) .
+\end{equation*}
+This time
+the condition on $T$ is $T'(0) = 0$.  Thus 
+we get that $B = 0$ and we take
+\begin{equation*}
+T_n(t) = \cos \left( \frac{n \pi a}{L} t \right).
+\end{equation*}
+Our building-block solution is
+\begin{equation*}
+z_n(x,t) = 
+\sin \left( \frac{n \pi}{L} x \right)
+\cos \left( \frac{n \pi a}{L} t \right) .
+\end{equation*}
+As $z_n(x,0) = \sin \left( \frac{n \pi}{L} x \right)$,
+we expand $f(x)$ in terms of these sines as
+\begin{equation*}
+f(x) =
+\sum_{n=1}^\infty c_n \sin \left( \frac{n \pi}{L} x \right) .
+\end{equation*}
+And we
+write down the solution to \eqref{wave:zeq} as a series
+\begin{equation*}
+z(x,t) =
+\sum_{n=1}^\infty
+c_n
+z_n(x,t)
+=
+\sum_{n=1}^\infty
+c_n
+\sin \left( \frac{n \pi}{L} x \right)
+\cos \left( \frac{n \pi a}{L} t \right) .
+\end{equation*}
+
+\begin{exercise}
+Fill in the details in the derivation of the solution of \eqref{wave:zeq}.
+Check that the solution satisfies all the side conditions.
+\end{exercise}
+
+Putting these two solutions together, let us state the result as a theorem.
+\begin{theorem1}{}
+Take the equation
+\begin{equation} \label{wave:tyeq}
+\begin{array}{ll}
+y_{tt} = a^2 y_{xx} , &  \\
+y(0,t) = y(L,t) = 0 , &  \\
+y(x,0) = f(x) & \qquad \text{for } \; 0 < x < L , \\
+y_t(x,0) = g(x) & \qquad \text{for } \; 0 < x < L ,
+\end{array}
+\end{equation}
+where
+\begin{equation*}
+f(x) =
+\sum_{n=1}^\infty c_n \sin \left( \frac{n \pi}{L} x \right)
+\qquad \text{and} \qquad
+g(x) =
+\sum_{n=1}^\infty b_n \sin \left( \frac{n \pi}{L} x \right) .
+\end{equation*}
+Then the solution $y(x,t)$ can be written as a sum of the solutions
+of \eqref{wave:weq} and \eqref{wave:zeq}:
+\begin{equation*}
+%\mybxbg{~~
+\begin{aligned}
+y(x,t)
+& =
+\sum_{n=1}^\infty
+b_n
+\frac{L}{n \pi a}
+\sin \left( \frac{n \pi}{L} x \right)
+\sin \left( \frac{n \pi a}{L} t \right) 
++
+c_n
+\sin \left( \frac{n \pi}{L} x \right)
+\cos \left( \frac{n \pi a}{L} t \right) 
+\\
+& =
+\sum_{n=1}^\infty
+\sin \left( \frac{n \pi}{L} x \right)
+\left[
+b_n
+\frac{L}{n \pi a}
+\sin \left( \frac{n \pi a}{L} t \right) 
++
+c_n
+\cos \left( \frac{n \pi a}{L} t \right) 
+\right] .
+\end{aligned}
+%~~}
+\end{equation*}
+\end{theorem1}
+
+\begin{example} \label{example:pluckedstring}
+Consider a string of length 2 plucked in the middle,
+it has an initial shape given in \figurevref{wave:pluckedstrfig}.
+That is,
+\begin{equation*}
+f(x) = \begin{cases}
+0.1\, x & \text{if } \; 0 \leq x \leq 1 , \\
+0.1\, (2-x) & \text{if } \; 1 < x \leq 2 .
+\end{cases}
+\end{equation*}
+
+\begin{myfig}
+\capstart
+\inputpdft{wave-pluckedstr}
+\caption{Initial shape of a plucked string from
+\exampleref{example:pluckedstring}.\label{wave:pluckedstrfig}}
+\end{myfig}
+
+Let the string start at rest ($g(x) =
+0$), and let $a=1$ for simplicity.  In other words, we wish to
+solve the problem:
+\begin{align*}
+& y_{tt} = y_{xx}, \\
+& y(0,t) = y(2,t)= 0 , \\
+& y(x,0) = f(x) \quad \text{and} \quad y_t(x,0)= 0 .
+\end{align*}
+
+We leave it to the reader to compute the sine series of $f(x)$.  The series
+will be
+\begin{equation*}
+f(x) = \sum_{n=1}^\infty
+\frac{0.8}{n^2 \pi^2}
+\sin \left( \frac{n \pi}{2} \right)
+\sin \left( \frac{n \pi}{2} x \right) .
+\end{equation*}
+Note that 
+$\sin \left( \frac{n \pi}{2} \right)$
+is the sequence $1, 0, -1, 0, 1, 0, -1, \ldots$
+for $n = 1,2,3,4,\ldots$.  Therefore,
+\begin{equation*}
+f(x) = 
+\frac{0.8}{\pi^2}
+\sin \left( \frac{\pi}{2} x \right)
+-
+\frac{0.8}{9 \pi^2}
+\sin \left( \frac{3 \pi}{2} x \right)
++
+\frac{0.8}{25 \pi^2}
+\sin \left( \frac{5 \pi}{2} x \right)
+- \cdots
+\end{equation*}
+The solution $y(x,t)$ is given by
+\begin{equation*}
+\begin{split}
+y(x,t) & = 
+\sum_{n=1}^\infty
+\frac{0.8}{n^2 \pi^2}
+\sin \left( \frac{n \pi}{2} \right)
+\sin \left( \frac{n \pi}{2} x \right)
+\cos \left( \frac{n \pi}{2} t \right)
+\\
+& = 
+\sum_{m=1}^\infty
+\frac{0.8 {(-1)}^{m+1}}{{(2m-1)}^2 \pi^2}
+\sin \left( \frac{(2m-1) \pi}{2} x \right)
+\cos \left( \frac{(2m-1) \pi}{2} t \right)
+\\
+& =
+\frac{0.8}{\pi^2} 
+\sin \left( \frac{\pi}{2}  x \right)
+\cos \left( \frac{\pi}{2}  t \right)
+-
+\frac{0.8}{9 \pi^2} 
+\sin \left( \frac{3 \pi}{2}  x \right)
+\cos \left( \frac{3 \pi}{2}  t \right)
+\\
+& \hspace{20em}
++
+\frac{0.8}{25 \pi^2}
+\sin \left( \frac{5 \pi}{2}  x \right)
+\cos \left( \frac{5 \pi}{2}  t \right) 
+- \cdots
+\end{split}
+\end{equation*}
+
+See 
+\figurevref{wave:pluckedexfig} for a plot
+for $0 < t < 3$.  Notice
+that unlike the heat equation, the solution does not become
+\myquote{smoother,}
+the \myquote{sharp edges} remain.  We will see the reason for this behavior in the
+next section where we derive the solution to the wave equation in a different
+way.
+
+\begin{myfig}
+\capstart
+\diffyincludegraphics{width=5in}{width=7.5in}{wave-pluckedex}
+\caption{Shape of the plucked string for $0 < t < 3$.\label{wave:pluckedexfig}}
+\end{myfig}
+
+Make sure you understand what the plot, such as the one in the figure, is
+telling you.  For each fixed $t$, you can think of the function 
+$y(x,t)$ as just a function of $x$.  This function gives you the shape of the
+string at time $t$.  See \figurevref{wave:pluckedtsfig} for plots of
+at $y$ as a function of $x$ at several different values of $t$.
+On this plot you can see the sharp edges remaining much better.
+
+\begin{myfig}
+\capstart
+%original files wave-plucked-slicet0 wave-plucked-slicet0p4 wave-plucked-slicet0p8 wave-plucked-slicet1p2
+\diffyincludegraphics{width=6.24in}{width=9in}{wave-plucked-t0-t0p4}
+\\[5pt]
+\diffyincludegraphics{width=6.24in}{width=9in}{wave-plucked-t0p8-t1p2}
+\caption{Plucked string for $t=0$, $t=0.4$, $t=0.8$, and
+$t=1.2$.%
+\label{wave:pluckedtsfig}}
+\end{myfig}
+\end{example}
+
+One thing to take away from all this is how a guitar sounds.  Notice that
+the (angular) frequencies that come up in the solution are
+$n \frac{\pi a}{L}$.  That is, there is a certain base
+\emph{\myindex{fundamental frequency}} $\frac{\pi a}{L}$, and then we also
+get all the multiples of this frequency, which in music are called
+the \emph{\myindex{overtones}}.  Which overtones appear and with what amplitude
+is what musicians call the \emph{\myindex{timbre}} of the note.
+Mathematicians usually call this the \emph{\myindex{spectrum}}.
+Because all the frequencies are multiples of one frequency (the fundamental)
+we get a nice pleasing sound.
+
+The fundamental frequency $\frac{\pi a}{L}$ increases as we decrease length $L$.  That is, if
+we place a finger on the fingerboard and then pluck a string we get a higher
+note.  The constant $a$ is given by
+\begin{equation*}
+a = \sqrt{\frac{T}{\rho}} ,
+\end{equation*}
+where $T$ is tension and $\rho$ is the linear density of the string.
+Tightening the string (turning the tuning peg on a guitar) increases $a$ and
+hence produces a higher fundamental frequency (a higher note).
+On the other hand using a heavier string 
+reduces $a$ and produces a lower fundamental frequency (a lower note).
+A bass guitar has longer thicker strings, while a ukulele has short strings
+made of lighter material.
+
+Something rather interesting is the almost symmetry between space and time.
+In its simplest form we see this symmetry in the solutions
+\begin{equation*}
+\sin \left( \frac{n \pi}{L} x \right)
+\sin \left( \frac{n \pi a}{L} t \right)  .
+\end{equation*}
+Except for the $a$, time and space are just the same.
+
+In general, the solution for a fixed $x$ is a Fourier series in $t$, for
+a fixed $t$ it is a Fourier series in $x$, and the coefficients are related.
+If the shape $f(x)$ or the initial velocity have lots of corners, then
+the sound wave will have lots of corners.  That is because the Fourier coefficients
+of the initial shape decay to zero (as $n \to \infty$) at the same rate as the Fourier coefficients
+of the wave in time (for some fixed $x$).  So if you use a sharp object to
+pick the string, you get a sharper sound with lots of high frequency
+components, while if you use your thumb, you get a softer sound without
+so many high overtones.  Similarly if you pluck close to the bridge, you are
+getting a pluck that looks more like the sawtooth, and you get an even
+sharper sound.
+
+In fact, if you look at the formula for the solution, you see that for any
+fixed $x$ we get an almost arbitrary Fourier series in $t$, everything
+except the constant term.  You can essentially obtain any sound you want
+by plucking the string in just the right way.
+Of course we are considering an ideal string of no stiffness and no air
+resistance.  Those variables clearly impact the sound as well.
+
+\subsection{Exercises}
+
+\begin{exercise}
+Solve
+\begin{equation*}
+\begin{array}{ll}
+y_{tt} = 9 y_{xx} , &  \\
+y(0,t) = y(1,t) = 0 , &  \\
+y(x,0) = \sin (3\pi x) + \frac{1}{4} \sin (6 \pi x) & \qquad \text{for } \; 0 < x < 1 , \\
+y_t(x,0) = 0 & \qquad \text{for } \; 0 < x < 1 .
+\end{array}
+\end{equation*}
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Solve
+\begin{equation*}
+\begin{array}{ll}
+y_{tt} = y_{xx} , &  \\
+y(0,t) = y(\pi,t) = 0 , &  \\
+y(x,0) = \sin(x) & \qquad \text{for } \; 0 < x < \pi , \\
+y_t(x,0) = \sin(x) & \qquad \text{for } \; 0 < x < \pi .
+\end{array}
+\end{equation*}
+\end{exercise}
+\exsol{%
+$
+y(x,t)
+=
+\sin(x)
+\bigl(\sin(t) + \cos(t)\bigr)
+$
+}
+
+\begin{exercise}
+Solve
+\begin{equation*}
+\begin{array}{ll}
+y_{tt} = 4 y_{xx} , &  \\
+y(0,t) = y(1,t) = 0 , &  \\
+y(x,0) = \sin (3\pi x) + \frac{1}{4} \sin (6 \pi x) & \qquad \text{for } \; 0 < x < 1 , \\
+y_t(x,0) = \sin (9 \pi x) & \qquad \text{for } \; 0 < x < 1 .
+\end{array}
+\end{equation*}
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Solve
+\begin{equation*}
+\begin{array}{ll}
+y_{tt} = 25 y_{xx} , &  \\
+y(0,t) = y(2,t) = 0 , &  \\
+y(x,0) = 0 & \qquad \text{for } \; 0 < x < 2 , \\
+y_t(x,0) = \sin(\pi t) + 0.1 \sin(2\pi t) & \qquad \text{for } \; 0 < x < 2 .
+\end{array}
+\end{equation*}
+\end{exercise}
+\exsol{%
+$y(x,t)
+=
+\frac{1}{5 \pi}
+\sin (\pi x)
+\sin (5 \pi t)
++
+\frac{1}{100 \pi}
+\sin(2\pi x)
+\sin(10\pi t)$
+}
+%$
+%y(x,t)
+%=
+%\sum\limits_{n=1}^\infty
+%\sin \left( \frac{n \pi}{L} x \right)
+%\left[
+%b_n
+%\frac{L}{n \pi a}
+%\sin \left( \frac{n \pi a}{L} t \right) 
+%+
+%c_n
+%\cos \left( \frac{n \pi a}{L} t \right) 
+%\right] .
+
+\begin{exercise}\ansMark%
+Solve
+\begin{equation*}
+\begin{array}{ll}
+y_{tt} = 2 y_{xx} , &  \\
+y(0,t) = y(\pi,t) = 0 , &  \\
+y(x,0) = x & \qquad \text{for } \; 0 < x < \pi , \\
+y_t(x,0) = 0 & \qquad \text{for } \; 0 < x < \pi .
+\end{array}
+\end{equation*}
+\end{exercise}
+\exsol{%
+$
+y(x,t)
+=
+\sum\limits_{n=1}^\infty
+\frac{2{(-1)}^{n+1}}{n}
+\sin(nx)
+\cos( n \sqrt{2}\,t ) 
+$
+%$
+%y(x,t)
+%=
+%\sum\limits_{n=1}^\infty
+%\sin \left( \frac{n \pi}{L} x \right)
+%\left[
+%b_n
+%\frac{L}{n \pi a}
+%\sin \left( \frac{n \pi a}{L} t \right) 
+%+
+%c_n
+%\cos \left( \frac{n \pi a}{L} t \right) 
+%$
+}
+
+\begin{exercise}
+Derive the solution for a general plucked string of length $L$ and
+any constant $a$ (in the equation $y_{tt} = a^2 y_{xx}$), where we
+raise the string some distance $b$ at the midpoint and let go.
+\end{exercise}
+
+\begin{samepage}
+\begin{exercise}
+Imagine that a stringed musical instrument falls on the floor.  Suppose that
+the length of the string is 1 and $a=1$.  When the musical instrument hits
+the ground the string was in rest position and hence $y(x,0) = 0$.  However,
+the string was moving at some velocity at impact ($t=0$),
+say $y_t(x,0) = -1$.  Find the
+solution
+$y(x,t)$ for the shape of the string at time $t$.
+\end{exercise}
+\end{samepage}
+
+\begin{exercise}\ansMark%
+Let's see what happens when $a=0$.  Find a solution to
+$y_{tt} = 0$, $y(0,t) = y(\pi,t) = 0$,
+$y(x,0) = \sin(2x)$,
+$y_t(x,0) = \sin(x)$.
+\end{exercise}
+\exsol{%
+$y(x,t) = \sin(2x)+t\sin(x)$
+}
+
+\begin{exercise}[challenging]
+Suppose that you have a vibrating string and that
+there is air resistance proportional to the velocity.  That is, you have
+\begin{equation*}
+\begin{array}{ll}
+y_{tt} = a^2 y_{xx} - k y_t , &  \\
+y(0,t) = y(1,t) = 0 , &  \\
+y(x,0) = f(x) & \qquad \text{for } \; 0 < x < 1 , \\
+y_t(x,0) = 0 & \qquad \text{for } \; 0 < x < 1 .
+\end{array}
+\end{equation*}
+Suppose that $0 < k < 2 \pi a$.
+Derive a series solution to the problem.  Any coefficients in the series
+should be expressed as integrals of $f(x)$.
+\end{exercise}
+
+\begin{exercise}
+Suppose you touch the guitar string exactly in the middle to
+ensure another condition $u(\nicefrac{L}{2},t) = 0$ for all time.
+Which multiples of the fundamental frequency $\frac{\pi a}{L}$
+show up in the solution?
+\end{exercise}
+
+\setcounter{exercise}{100}
+

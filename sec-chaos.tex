@@ -1,0 +1,378 @@
+\section{Chaos} \label{sec:chaos}
+
+\LAtt{8.5}
+
+\LO{
+\item Identify chaotic behavior and how it is distinct from other types of equations.
+}
+
+You have surely heard the idea of the ``butterfly effect,'' that the
+flap of a butterfly wing in the Amazon can cause hurricanes in the North
+Atlantic.  In a prior section, we mentioned that a small change in
+initial conditions of the planets can lead to very different configuration
+of the planets in the long term.  These are examples of
+\emph{\myindex{chaotic systems}}.
+Mathematical chaos is not really chaos, there is precise order behind the
+scenes.  Everything is still deterministic.  However a chaotic system is extremely
+sensitive to initial conditions.  This also means even small errors induced 
+via numerical approximation create large errors very quickly, so it is
+almost impossible to numerically approximate for long times.
+This is a large part of
+the trouble, as chaotic systems cannot be in general solved analytically.
+
+Take the weather, the most well-known chaotic system.
+A small change in the initial conditions
+(the temperature at every point of the atmosphere for example) produces
+drastically different predictions in relatively short time, and so we cannot
+accurately predict weather.  And we do not actually know the
+exact initial conditions.  We measure temperatures at a few points with some
+error, and then we somehow estimate what is in between.
+There is no way we
+can accurately measure the effects of every butterfly wing.
+Then
+we solve the equations numerically introducing new errors.  You
+should not trust weather prediction more than a few days out.
+
+Chaotic behavior was first noticed by Edward
+Lorenz\footnote{\href{https://en.wikipedia.org/wiki/Edward_Norton_Lorenz}{Edward Norton Lorenz} (1917--2008) was
+an American mathematician and meteorologist.}
+in the
+1960s when trying to model thermally induced air convection (movement).
+Lorentz was looking at the relatively simple system:
+\begin{equation*}
+x' = -10x +10y, \qquad y' = 28x-y-xz, \qquad z'=-\frac{8}{3}z + xy .
+\end{equation*}
+A small change in the initial conditions yields a very different solution
+after a reasonably short time.
+
+\begin{mywrapfigsimp}{0.95in}{1.25in}
+\noindent
+\inputpdft{chaos-pend}
+\end{mywrapfigsimp}
+A simple example the reader can experiment with, and which displays
+chaotic behavior, is a double pendulum.  The equations for this
+setup are somewhat complicated, and their derivation is quite
+\myindex{tedious}, so we
+will not bother to write them down.  The idea is to put a pendulum on the
+end of another pendulum.  The movement of the bottom mass
+will appear chaotic.  This type of chaotic system is a basis for a
+whole number of office novelty desk toys.  It is simple to build a
+version.  Take a piece of a string.  Tie two heavy nuts at different
+points of the string; one at the end, and one a bit above.  Now give the
+bottom nut a little push.  As long as the swings are not too big and the
+string stays tight, you have a double pendulum system.
+
+\subsection{Duffing equation and strange attractors}
+
+Let us study the so-called \emph{\myindex{Duffing equation}}:
+\begin{equation*}
+x'' + a x' + bx + cx^3 = C \cos(\omega t) .
+\end{equation*}
+Here $a$, $b$, $c$, $C$, and $\omega$ are constants.
+Except for the $c x^3$ term, this equation looks like
+a forced mass-spring system.  The $c x^3$ means the spring does
+not exactly obey Hooke's law (which no real-world spring actually does obey
+exactly).  When $c$ is not zero, the equation does not have a closed
+form solution, so we must resort to numerical solutions, as is usual for
+nonlinear systems.  Not all choices of constants and initial conditions
+exhibit chaotic behavior.  Let us study
+\begin{equation*}
+x''+0.05 x' + x^3 = 8\cos(t) .
+\end{equation*}
+
+The equation is not autonomous, so we cannot 
+draw the vector field in the phase plane.
+We can still draw the
+trajectories.   
+In \figurevref{nlin:duf-two-traj} we plot trajectories for $t$ going from 0
+to 15, for two very close initial conditions
+$(2,3)$ and $(2,2.9)$, and also the solutions in the $(x,t)$ space.  The two
+trajectories are close at first, but after a while diverge significantly.
+This sensitivity to initial conditions is precisely what
+we mean by the system behaving chaotically.
+
+\begin{myfig}
+\capstart
+%original files nlin-duf-two-traj nlin-duf-two-sols
+\diffyincludegraphics{width=6.24in}{width=9in}{nlin-duf-two-traj-sols}
+\caption{On left, two trajectories in phase space for $0 \leq t \leq 15$, for the Duffing equation
+one with initial conditions $(2,3)$ and the other with $(2,2.9)$.  On
+right the two solutions in $(x,t)$-space. \label{nlin:duf-two-traj}}
+\end{myfig}
+
+\begin{myfig}
+\capstart
+\diffyincludegraphics{width=6.24in}{width=9in}{nlin-duf-long}
+\caption{The solution to the given Duffing equation for $t$ from 0 to 100.
+\label{nlin:duf-long}}
+\end{myfig}
+
+\pagebreak[2]
+Let us see the long term behavior.
+In \figurevref{nlin:duf-long},
+we plot the behavior of the system for initial conditions $(2,3)$ for
+a longer period of time.
+It is hard to see any particular pattern
+in the shape of the solution except that it seems to oscillate, but each
+oscillation appears quite unique.  The oscillation
+is expected due to the forcing term.
+We mention that to produce the picture accurately,
+a ridiculously large number of steps\footnote{In
+fact for reference, 30,000 steps were used with the Runge--Kutta
+algorithm, see exercises in \sectionref{numer:section}.}
+had to be used in the numerical
+algorithm,
+as even small errors quickly propagate in a chaotic system.
+
+
+It is very difficult to analyze chaotic systems, or to find the
+order behind the madness, but let us try to do something that we did for
+the standard mass-spring system.  One way we analyzed
+the system is that we figured out what was the long term behavior (not
+dependent on initial conditions).  From the figure above, it is clear
+that we will not get a nice exact description of the long term behavior
+for this chaotic system, but
+perhaps we can find some order to what happens on each
+\myquote{oscillation}
+and what do these oscillations have in common.
+
+The concept we explore
+is that of a \emph{\myindex{Poincar\'e section}}%
+\footnote{Named for the French polymath
+\href{https://en.wikipedia.org/wiki/Henri_Poincar\%C3\%A9}{Jules Henri
+Poincar\'e} (1854--1912).}.  Instead of 
+looking at $t$ in a certain interval, we look at where the
+system is at a certain sequence of points in time.
+Imagine flashing a strobe at a
+fixed frequency and drawing the points where the solution is during the flashes.
+The right strobing frequency
+depends on the system in question.
+The
+correct frequency for the forced Duffing equation (and other similar
+systems) is the frequency of the forcing term.
+For the Duffing equation above, find a solution
+$\bigl(x(t),y(t)\bigr)$, and look at the points
+\begin{equation*}
+\bigl(x(0),y(0)\bigr), \quad
+\bigl(x(2\pi),y(2\pi)\bigr), \quad
+\bigl(x(4\pi),y(4\pi)\bigr), \quad
+\bigl(x(6\pi),y(6\pi)\bigr), \quad \ldots
+\end{equation*}
+As we are really not interested in the transient part of the solution, that
+is, the part of the solution that depends on the initial condition, we 
+skip some number of steps in the beginning.  For example, we might skip the first 100 such
+steps and start plotting points at $t = 100(2\pi)$, that is
+\begin{equation*}
+\bigl(x(200\pi),y(200\pi)\bigr), \quad
+\bigl(x(202\pi),y(202\pi)\bigr), \quad
+\bigl(x(204\pi),y(204\pi)\bigr), \quad \ldots
+\end{equation*}
+The plot of these points is the Poincar\'e section.
+After plotting enough points, a curious pattern emerges in
+\figurevref{nlin:strange} (the left-hand picture), a so-called
+\emph{\myindex{strange attractor}}.
+
+\begin{myfig}
+\capstart
+%original files nlin-strange nlin-strange2
+\diffyincludegraphics{width=6.24in}{width=9in}{nlin-strange-strange2}
+\caption{Strange attractor.  The left plot 
+is with no phase shift, the right plot has phase shift
+$\nicefrac{\pi}{4}$. \label{nlin:strange}}
+\end{myfig}
+
+Given a sequence of points, 
+an \emph{\myindex{attractor}} is a set towards which the points
+in the sequence
+eventually get closer and closer to, that is, they are attracted.  The
+Poincar\'e section is not really the attractor itself, but as
+the points are very close to it, we see its shape.  The strange
+attractor is a very complicated set.   It has
+fractal structure, that is, if you zoom in as far as you want, you
+keep seeing the same complicated structure.
+
+The initial condition makes no difference.  If
+we start with a different initial condition, the points eventually
+gravitate towards the attractor, and so as long as we throw away the first
+few points, we get the same picture.
+Similarly small errors in the numerical approximations do not matter here.
+
+An amazing thing is that a chaotic system such as the Duffing equation is
+not random at all.  There is a very complicated order to it, and the strange
+attractor says something about this order.  We cannot quite say what state
+the system will be in eventually, but given the fixed strobing frequency we
+narrow it down to the points on the attractor.
+
+If we use a phase shift, for example $\nicefrac{\pi}{4}$, and look at the
+times
+\begin{equation*}
+\nicefrac{\pi}{4}, \quad
+2\pi+\nicefrac{\pi}{4}, \quad
+4\pi+\nicefrac{\pi}{4}, \quad
+6\pi+\nicefrac{\pi}{4}, \quad
+\ldots
+\end{equation*}
+we obtain a slightly different attractor.
+The picture is the right-hand side of 
+\figurevref{nlin:strange}.
+It is as if we had
+rotated, moved, and slightly distorted the original.
+For each phase shift you can find the
+set of points towards which the system periodically keeps coming back to.
+
+Study the pictures and notice especially the scales---where are
+these attractors located in the phase plane.  Notice the
+regions where the strange attractor lives and compare it to the plot of the
+trajectories in \figurevref{nlin:duf-two-traj}.
+
+Let us
+compare this section to the discussion in \sectionref{forcedo:section} about forced
+oscillations.  Take the equation
+\begin{equation*}
+x''+2p x' + \omega_0^2 x = \frac{F_0}{m} \cos (\omega t) .
+\end{equation*}
+This is like the Duffing equation, but with no $x^3$ term.
+The steady periodic solution is of the form
+\begin{equation*}
+x = C \cos (\omega t + \gamma) .
+\end{equation*}
+Strobing using the frequency $\omega$, we obtain a single point in the
+phase space.  The attractor in this setting is a single point---an
+expected result as the system is not chaotic.  It was the opposite
+of chaotic:  Any difference induced by the initial conditions dies away very
+quickly, and we settle into always the same steady periodic motion.
+
+\subsection{The Lorenz system}
+
+In two dimensions to find chaotic behavior,
+we must study forced, or non-autonomous, systems such as the Duffing
+equation.
+The Poincar\'e--Bendixson Theorem says that
+a solution to an autonomous
+two-dimensional system that exists for all time in the future
+and does not go towards infinity
+is periodic or tends towards a periodic solution.  Hardly the chaotic
+behavior we are looking for.
+
+In three dimensions even autonomous systems can be chaotic.
+Let us very briefly return to the \myindex{Lorenz system}
+\begin{equation*}
+x' = -10x +10y, \qquad y' = 28x-y-xz, \qquad z'=-\frac{8}{3}z + xy .
+\end{equation*}
+The Lorenz system is an autonomous system in three dimensions
+exhibiting chaotic behavior.
+See the \figurevref{nlin:lorenz} for a sample trajectory,
+which is now a curve in three-dimensional space.
+\begin{myfig}
+\capstart
+\diffyincludegraphics{width=3in}{width=4.5in}{nlin-lorenz}
+\caption{A trajectory in the Lorenz system. \label{nlin:lorenz}}
+\end{myfig}
+
+The solutions tend to an \emph{attractor} in space,
+the so-called \emph{\myindex{Lorenz attractor}}.
+In this case no strobing is
+necessary.
+Again we cannot quite see the attractor itself, but if we try to follow a solution
+for long enough, as in the figure,
+we get a pretty good picture of what the attractor looks
+like.
+The Lorenz attractor is also a strange attractor and has a complicated
+fractal structure.  And, just as for the Duffing equation, what we want to
+draw is not the whole trajectory, but start drawing the trajectory after a
+while, once it is close to the attractor.
+
+The path of the trajectory is not simply a repeating figure-eight.
+The trajectory spins some
+seemingly random number of times on the left, then spins a number of times on
+the right, and so on.  As this system arose in weather prediction, one can
+perhaps imagine a few days of warm weather and then a few days of cold
+weather, where it is not easy to predict when the weather will change,
+just as it is not really easy to predict far in advance when the solution
+will jump onto the other side.  See \figurevref{nlin:lorenz-graphx} for a
+plot of the $x$ component of the solution drawn above.  A negative $x$
+corresponds to the left \myquote{loop} and a positive $x$
+corresponds to the right \myquote{loop}.
+
+Most of the mathematics we studied in this book is quite classical and
+well understood.
+On the other hand, chaos, including the Lorenz system, continues to be the
+subject of current research.
+Furthermore, chaos has found applications not just in the sciences, but
+also in art.
+
+\begin{myfig}
+\capstart
+\diffyincludegraphics{width=3in}{width=4.5in}{nlin-lorenz-graphx}
+\caption{Graph of the $x(t)$ component of the solution.
+\label{nlin:lorenz-graphx}}
+\end{myfig}
+
+\subsection{Exercises}
+
+\begin{exercise}[*]
+Find critical points of the Lorenz system and the associated linearizations.
+\end{exercise}
+\exsol{%
+Critical points: $(0,0,0)$, $(3\sqrt{8},3 \sqrt{8}, 27)$,
+$(-3 \sqrt{8},-3 \sqrt{8}, 27)$.
+Linearization at $(0,0,0)$ using $u=x$, $v=y$, $w=z$ is
+$u' = -10u+10v$, $v'=28u-v$, $w'=-(\nicefrac{8}{3})w$.
+Linearization at $(3 \sqrt{8},3\sqrt{8},27)$ using $u=x-3\sqrt{8}$,
+$v=y-3\sqrt{8}$, $w=z-27$ is
+$u' = -10u+10v$, $v'=u-v-3\sqrt{8}w$, $w'=3\sqrt{8}u+3\sqrt{8}v-(\nicefrac{8}{3})w$.
+Linearization at $(-3 \sqrt{8},-3\sqrt{8},27)$ using $u=x+3\sqrt{8}$,
+$v=y+3\sqrt{8}$, $w=z-27$ is
+$u' = -10u+10v$, $v'=u-v+3\sqrt{8}w$, $w'=-3\sqrt{8}u-3\sqrt{8}v-(\nicefrac{8}{3})w$.
+}
+
+\begin{exercise}
+For the non-chaotic equation
+$x''+2p x' + \omega_0^2 x = \frac{F_0}{m} \cos (\omega t)$, suppose we
+strobe with frequency $\omega$ as we mentioned above.  Use the known
+steady periodic solution to find precisely the point which is the attractor
+for the Poincar\'e section.
+\end{exercise}
+
+\begin{exercise}[project]
+Construct the double pendulum described in the text with a string and two
+nuts (or heavy beads).  Play around with the position of the middle nut, and
+perhaps use different weight nuts.  Describe what you find.
+\end{exercise}
+
+\begin{samepage}
+\begin{exercise}[project]
+A simple fractal attractor can be drawn via the following chaos game.  Draw
+the three
+vertices of a triangle and label them, say $p_1$, $p_2$
+and $p_3$.  Draw some
+random point $p$ (it does not have to be one of the three points above).
+Roll a die to pick of the $p_1$, $p_2$, or $p_3$
+randomly (for example 1 and 4 mean $p_1$, 2 and 5 mean $p_2$, and 3 and 6
+mean $p_3$).  Suppose we picked $p_2$, then let $p_{\text{new}}$ be the
+point exactly halfway between $p$ and $p_2$.  Draw this point and let $p$
+now refer to this new point $p_{\text{new}}$.  Rinse, repeat.  Try to be
+precise and draw as many iterations as possible.  Your points will be
+attracted to the so-called \emph{\myindex{Sierpinski triangle}}.  A computer
+was used to run the game for 10,000 iterations to obtain the picture in
+\figurevref{nlin:sierpinski}.
+\end{exercise}
+\end{samepage}
+
+\begin{myfig}
+\capstart
+\diffyincludegraphics{width=3in}{width=4.5in}{nlin-sierpinski}
+\caption{10,000 iterations of the chaos game producing the 
+Sierpinski triangle. \label{nlin:sierpinski}}
+\end{myfig}
+
+
+\begin{exercise}[computer project]
+Use a computer software (such as Matlab, Octave, or
+perhaps even a spreadsheet), plot the solution
+of the given forced Duffing equation with Euler's method.  Plotting the
+solution for $t$ from 0 to 100 with several different (small) step sizes.
+Discuss.
+\end{exercise}
+
+

@@ -1,0 +1,374 @@
+\section{Existence and Uniqueness of Solutions}
+\label{existunique:section}
+
+\LAtt{1.2}
+
+\LO{
+\item Understand the terms existence and uniqueness as they apply to differential equations and
+\item Find the maximum guaranteed interval of existence for the solution to an initial value problem. 
+}
+
+% \sectionnotes{0.5 lecture\BDref{,\S2.4 in \cite{BD}}}
+
+If we take the differential equation
+\[ y' = f(x,y) \qquad y(x_0) = y_0, \] there are two main questions we want to answer about this equation.
+\begin{enumerate}[(a)]
+\item Does a solution exist to the differential equation?
+\item Is there only one solution to the differential equation?
+\end{enumerate}
+
+These are more commonly referred to as (a) \myindex{existence} of the solution and (b) \myindex{uniqueness} of the solution. These are especially crucial for equations that we are using to model a physical situation. For physical situations, the solution definitely exists (because the system does something and continues to exist) and the solution is unique, because a given system will always do the same thing given the same setup. Since we know that physical systems obey these properties, the equations we use to model them should have these properties as well. These properties do not necessarily hold for all differential equations, as shown in the examples below. 
+
+\begin{example}
+Attempt to solve:
+\begin{equation*}
+y' = \frac{1}{x}, \qquad y(0) = 0 .
+\end{equation*}
+
+Integrate to find the general solution $y = \ln \, \lvert x \rvert + C$.  The
+solution does not exist at $x=0$.  See \figurevref{1.3:xinvfig}.
+The equation may have been written as the seemingly harmless $x y' = 1$.
+
+\begin{myfig}
+\parbox[t]{3in}{
+ \capstart
+ \diffyincludegraphics{width=3in}{width=4.5in}{1-3-xinv-sol}
+ \caption{Slope field of $y' = \nicefrac{1}{x}$.\label{1.3:xinvfig}}
+}
+\quad
+\parbox[t]{3in}{
+ \capstart
+ \diffyincludegraphics{width=3in}{width=4.5in}{1-3-sqrt-sol}
+ \caption{Slope field of $y' = 2 \sqrt{\lvert y \rvert}$ with two
+ solutions satisfying $y(0) = 0$.\label{1.3:sqrtfig}}
+}
+\end{myfig}
+\end{example}
+
+\begin{example}\label{ex:nonuniqueness}
+Solve:
+\begin{equation*}
+y' = 2 \sqrt{\lvert y \rvert}, \qquad y(0) = 0 .
+\end{equation*}
+
+See \figurevref{1.3:sqrtfig}.
+Note that $y=0$ is a solution.  But another solution is the function
+\begin{equation*}
+y(x) =
+\begin{cases}
+x^2 & \text{if } \; x \geq 0,\\
+-x^2 & \text{if } \; x < 0.
+\end{cases}
+\end{equation*}
+\end{example}
+
+What we see here is a significant problem for trying to represent physical situations. In the first there is no solution at $x=0$, so if our physical scenario had wanted one, that would be an issue. Similarly, for the second, we do have solutions, but we have two of them, so we can't use this to predict what is going to happen to a physical situation modeled by this equation over time. So, we need both existence and uniqueness to hold for our modeling equation in order to use differential equations to accurately model situations. Thankfully, these properties do apply to most equations, and we have fairly straight-forward criteria that can be used to determine if these properties are true for a given differential equation. For a first-order linear differential equation, the theorem is fairly straight-forward.
+
+\begin{theorem1}[exist:lin1thm]{}%
+\index{Existence and Uniqueness Theorem}
+Assume that we have the first-order linear differential equation given by
+\begin{equation*}
+y' + p(x)y = g(x).
+\end{equation*}
+If $p(x)$ and $g(x)$ are continuous functions on an interval $I$ that contains a point $x_0$, then for any $y$-value $y_0$, the initial value problem
+\begin{equation*}
+y' + p(x)y = g(x) \qquad y(x_0) = y_0
+\end{equation*}
+has a unique solution. This solution exists and is unique on the entire interval $I$.
+\end{theorem1}
+
+The idea and proof of this theorem comes from the fact that we have an explicit method for solving these equations no matter what $p$ and $g$ are. We can always find an integrating factor for the equation, convert the left-hand side into a product rule term, take a definite integral of both sides, and then solve for $y$. Since we have this explicit formula, the solution will exist and be defined on the entire interval where the functions $p$ and $g$ are continuous. This also means that we can answer questions about where and for what values of $x$ the solution to a differential equation exists.
+
+\begin{example}
+Consider the differential equation 
+\begin{equation*}
+(x-1)y' + \frac{1}{x-5} y = e^x
+\end{equation*}
+What do the existence and uniqueness theorems say about the solution to this differential equation with the initial condition $y(2) = 6$? What about the solution with initial condition $y(-3) = 1$?
+\end{example}
+
+\begin{exampleSol}
+To apply the existence and uniqueness theorem, we need to get the $y'$ term by itself. This results in the differential equation
+\begin{equation*}
+y' + \frac{1}{(x-1)(x-5)} y = \frac{e^x}{x-1}.
+\end{equation*}
+In order to figure out where this solution exists and is unique, we need to determine where the coefficient functions $p(x)$ and $g(x)$ are continuous. The only two points that we have discontinuities are at $x=1$ and $x=5$. Therefore, if we have the initial condition $y(2) = 6$, we start at the $x$ value of $2$. Because this equation is linear, it will exist everywhere that these two functions are both continuous containing the point $x=2$, and since the only discontinuities are at $1$ and $5$, we know that they are both continuous on $(1,5)$. This means that we can take $(1,5)$ as the interval $I$ in the theorem, and know that this solution will exist and be unique on the interval $(1,5)$. 
+
+For the other initial condition, $y(-3) = 1$, we now want an interval where these functions are continuous that contains $-3$. Again, we only have to avoid $x=1$ and $x=5$, so we can take the interval $(-\infty, 1)$ as the interval $I$ in the theorem, and so we know the solution with this initial condition will exist and be unique on $(-\infty, 1)$. 
+
+A convenient way to represent this situation is with a number line like that presented in \figurevref{1.5:EUNumberLine}. On this number line, we mark the places where the functions $p(x)$ or $g(x)$ are discontinuous. 
+
+\begin{myfig}
+\capstart
+% \myincludegraphics{width=4in}{width=5in}{EulerODE45Comp.png}
+\myincludegraphics{width=5in}{width=6in}{EUNumberLine.png}
+\caption{Number line representation of the existence intervals for a differential equation.\label{1.5:EUNumberLine}}
+\end{myfig}
+
+To interpret this image, we can mark the initial point on the number line, where the point that we mark is the \emph{x} coordinate of the initial condition. All of the intervals are in terms of $x$. Then, the existence and uniqueness theorem says that the solution will exist on the entire interval between any marked points on this number line. From that, we can see that the interval of existence for the initial condition $y(2) = 6$ is $(1,5)$, and the interval for $y(-3) = 1$ is $(-\infty, 1)$. 
+\end{exampleSol}
+
+For non-linear equations, we don't have an explicit method of getting a solution that works for all equations. This means that we can't fall back on this formula to guarantee existence or uniqueness of solutions. For this reason, we expect to get a result that is not as strong for non-linear equations. Thankfully, we do still get a result, which is known as Picard's theorem%
+\footnote{Named after the French mathematician
+\href{https://en.wikipedia.org/wiki/Charles_\%C3\%89mile_Picard}{Charles \'Emile Picard}
+(1856--1941)}. 
+
+\begin{theorem1}[slope:picardthm]{Picard's theorem on existence and uniqueness}%
+\index{existence and uniqueness}\index{Picard's theorem}
+If $f(x,y)$ is continuous (as a function of two
+variables) and $\frac{\partial f}{\partial y}$ exists and is
+continuous near some $(x_0,y_0)$, then a solution to
+\begin{equation*}
+y' = f(x,y), \qquad y(x_0) = y_0,
+\end{equation*}
+exists (at least for some small interval of $x$'s) and is unique.
+\end{theorem1}
+
+The main fact that is ``not as strong'' about this result is the interval that we get from the theorem. For the linear theorem, we got existence and uniqueness on the entire interval $I$ where $p$ and $g$ are continuous. For the non-linear theorem, we only get existence on \emph{some} interval around the point $x_0$. Even if $f(x,y)$ and $\frac{\partial f}{\partial y}$ are really nice functions that are continuous everywhere, we can still only guarantee existence on a small interval (that can depend on the initial condition) around the point $x_0$. 
+
+\begin{example}
+For some constant $A$, solve:
+\begin{equation*}
+y' = y^2, \qquad y(0) = A .
+\end{equation*}
+\end{example}
+
+\begin{exampleSol}
+We know how to solve this equation.  First assume that $A \not= 0$,
+so $y$ is not equal to zero at least for some $x$ near 0.  So
+$x' = \nicefrac{1}{y^2}$, so
+$x = \nicefrac{-1}{y} + C$, so $y = \frac{1}{C-x}$.  If $y(0) = A$, then
+$C = \nicefrac{1}{A}$ so
+\begin{equation*}
+y = \frac{1}{\nicefrac{1}{A} - x} .
+\end{equation*}
+If $A=0$, then $y=0$ is a solution.
+
+For example, when $A=1$
+the solution is \begin{equation*}
+y = \frac{1}{1-x}
+\end{equation*}
+which goes to infinity, and so \myquote{blows up}, at $x=1$. This solution here exists only on the interval $(-\infty, 1)$, and hence, the solution does not exist
+for all $x$ even if the equation is nice everywhere.  The equation
+$y' = y^2$ certainly
+looks nice. 
+
+However, this fact does not contradict our existence and uniqueness theorem for non-linear equations. The theorem only guarantees that the solution to \begin{equation*}
+y' = y^2
+\end{equation*}
+exists and is unique on \emph{some} interval containing 0. It does not guarantee that the solution exists everywhere that $y^2$ and its derivative are continuous, only that at each point where this happens, the solution will exist for some interval around that point. The interval $(-\infty, 1)$ is \myquote{some interval containing 0}, so the theorem still applies and holds here. See the exercises for more detail on how this process works and how we can illustrate the fact that the interval of existence ise \myquote{some interval containing 0}. 
+\end{exampleSol}
+
+The other main conclusion that we can draw from these theorems is the fact that two different solution curves to a first-order differential equation can not cross, provided the existence and uniqueness theorems hold. If $y_1$ and $y_2$ are two different solutions to $y' = f(x,y)$ and the solution curves for $y_1(x)$ and $y_2(x)$ cross, then this means that for some particular value of $x_0$ and $y_0$, we have that
+\begin{equation*}
+y_1(x_0) = y_0 \qquad y_2(x_0) = y_0.
+\end{equation*}
+If we pick $x_0$ as a starting point, then the fact that the existence and uniqueness theorems hold imply that, at least for some interval around $x_0$, there is exactly one solution to 
+\begin{equation*}
+y' = f(x,y) \qquad y(x_0) = y_0.
+\end{equation*} 
+However, both $y_1$ and $y_2$ satisfy these two properties. Therefore, $y_1$ and $y_2$ must be the same, which doesn't make sense because we assumed they were different. So it is impossible for two different solution curves to cross, provided the existence and uniqueness theorem holds. For a comparison, refer back to \exampleref{ex:nonuniqueness} earlier to see what non-uniqueness looks like, where we do have two solution curves that cross at the point $(0,0)$.
+
+This fact is useful for analyzing differential equations in general, but will be particularly useful in \sectionref{auteq:section} in dealing with autonomous equations, where we can use simple solutions to provide boundaries over which other solutions can not cross. This fact will come up again in Chapters \ref{sys:chapter} and \ref{nlin:chapter} in sketching trajectories for these solutions as well. 
+
+\begin{example}
+Consider the differential equation 
+\begin{equation*}
+\frac{dy}{dt} = (y-3)^2(y+4).
+\end{equation*}
+\begin{enumerate}
+\item Verify that $y=3$ is a solution to this differential equation.
+\item Assume that we solve this problem with initial condition $y(0) = 1$. Is it possible for this solution to ever reach $y=4$? Why or why not?
+\end{enumerate}
+\end{example}
+
+\begin{exampleSol}
+\begin{enumerate}
+\item If we take the function $y(t) = 3$, then $y' = 0$, and plugging this into the right hand side also gives $0$. Therefore, this function solves the differential equation.
+\item If the solutions starts with $y(0) = 1$, this means that it starts below the line $y=3$. In order to get up to $y=4$, the solution would need to cross over the line $y=3$, which would mean that we have solution curves that cross. However, the function $f(t,y) = (y-3)^2(y+4)$ is continuous everywhere, as is the first derivative $\frac{\partial f}{\partial y} = 2(y-3)(y+4) + (y-3)^2.$ Therefore, the existence and uniqueness theorem applies everywhere, and so solution curves can not cross. So, it is not possible for the solution to reach $y=4$, because this would force solution curves to cross, which we know can not happen. 
+\end{enumerate}
+\end{exampleSol}
+
+\subsection{Exercises}
+
+\begin{exercise}
+Is it possible to solve the equation $y' = \frac{xy}{\cos x}$ for $y(0) = 1$?
+Justify.
+\end{exercise}
+
+\begin{exercise}
+Is it possible to solve the equation $y' = y\sqrt{\lvert x\rvert}$ for
+$y(0) = 0$?  Is the solution unique?
+Justify.
+\end{exercise}
+
+\begin{exercise}
+Consider the differential equation $y' + \frac{1}{t-2}y = \frac{1}{t+3}$. 
+\begin{tasks}
+\task Is this equation linear or non-linear?
+\task What is the maximum guaranteed interval of existence for the solution to this equation with initial condition $y(0) = 3$?
+\task What if we start with the initial condition $y(4) = 0$?
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}
+Consider the differential equation $y' + \frac{1}{t+2}y = \frac{\ln(|t|)}{t-4}$. 
+\begin{tasks}
+\task Is this equation linear or non-linear?
+\task What is the maximum guaranteed interval of existence for the solution to this equation with initial condition $y(-3) = 1$?
+\task What if we start with the initial condition $y(2) = 5$?
+\task What happens if we want to start with $y(4) = 3$?
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}
+Consider the differential equation $(t+3)y' + t^2 y = \frac{1}{t-2}$. 
+\begin{tasks}
+\task Is this equation linear or non-linear?
+\task What is the maximum guaranteed interval of existence for the solution to this equation with initial condition $y(-2) = 1$?
+\task What if we start with the initial condition $y(-4) = 5$?
+\task What happens if we want to start with $y(4) = 2$?
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}
+Consider the differential equation $y' = y^2$. 
+\begin{tasks}
+\task Is this equation linear or non-linear?
+\task What is the most we can say about the interval of existence for the solution to this equation with initial condition $y(0) = 1$?
+\task Find the solution to this differential equation with $y(0) = 1$. Over what values of $x$ does this solution exist?
+\task Find the solution to this differential equation with $y(0) = 4$. Over what values of $x$ does this solution exist?
+\task Find the solution to this differential equation with $y(0) = -2$. Over what values of $x$ does this solution exist?
+\task Do any of these contradict your answer in (b)? 
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}
+Consider the differential equation $y' = y^2 + 4$. 
+\begin{tasks}
+\task Is this equation linear or non-linear?
+\task What is the most we can say about the interval of existence for the solution to this equation with initial condition $y(0) = 0$?
+\task Find the solution to this differential equation with $y(0) = 0$. Over what values of $x$ does this solution exist?
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}
+Consider the differential equation $y' = x(y+1)^2$. 
+\begin{tasks}
+\task Is this equation linear or non-linear?
+\task If we set $f(x,y) = x(y+1)^2$, for what values of $x$ and $y$ are $f$ and $\frac{\partial f}{\partial y}$ continuous?
+\task What is the most we can say about the interval of existence for the solution to this equation with initial condition $y(0) = 1$?
+\task Find the solution to this differential equation with $y(0) = 1$. Over what values of $x$ does this solution exist?
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}[challenging]
+Take $(y-x)y' = 0$, $y(0) = 0$.
+\begin{tasks}
+\task Find two distinct solutions.
+\task Explain why this does not violate Picard's theorem.  
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}
+Find a solution to $y' = \lvert y \rvert$, $y(0) = 0$.  Does Picard's theorem apply?
+\end{exercise}
+
+\begin{exercise}
+Consider the IVP $y'\cos t+y\sin t=1; \, y(\pi/6)=1$.%1.4
+\begin{tasks}
+\task The Existence and Uniqueness Theorem guarantees a unique solution to this IVP on what interval?
+\task Find this solution explicitly.
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}
+Take an equation $y' = (y-2x) g(x,y) + 2$ for some function $g(x,y)$.
+Can you solve the problem for the
+initial condition $y(0) = 0$,
+and if so what is the solution?
+\end{exercise}
+
+\begin{exercise}
+Consider the differential equation $y' = e^x(y-2)$.
+\begin{tasks}
+\task Verify that $y = 2$ is a solution to this differential equation.
+\task Assume that we look for the solution with $y(0) = 0$. Is it possible that $y(x) = 3$ for some later time $x$? Why or why not?
+\task Based on this, what do we know about the solution with $y(0) = 5$?
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}[challenging]
+\pagebreak[2]
+Suppose $y' = f(x,y)$ is such that $f(x,1) = 0$ for every $x$,
+$f$ is continuous and $\frac{\partial f}{\partial y}$ exists and
+is continuous for every $x$ and $y$.
+\begin{tasks}
+\task
+Guess a solution given the initial condition
+$y(0) = 1$.
+\task
+Can graphs of two solutions of the equation for different initial conditions
+ever intersect?
+\task
+Given $y(0) = 0$, what can you say about the solution.  In particular,
+can $y(x) > 1$ for any $x$?  Can $y(x) = 1$ for any $x$?  Why or why not?
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}
+Consider the differential equation $y' = y^2 - 4$.
+\begin{tasks}
+\task Verify that $y=2$ and $y=-2$ are both solutions to this differential equation.
+\task Verify that the hypotheses of Picard's theorem are satisfies for this equation.
+\task Assume that we solve this differential equation with $y(0) = 1$. Is it possible for the solution to reach $y=3$ at any point? Why or why not?
+\task Assume that we solve this differential equation with $y(0) = -1$. Is it possible for the solution to reach $y=-4$ at any point? Why or why not?
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Is it possible to solve $y' = xy$ for $y(0) = 0$?  Is the solution unique?
+\end{exercise}
+\exsol{%
+Yes a solution exists.  $y' = f(x,y)$ where $f(x,y) = xy$.  The function
+$f(x,y)$ is continuous and 
+$\frac{\partial f}{\partial y} = x$, which is also continuous near $(0,0)$.
+So a solution exists and is unique.  (In fact $y=0$ is the solution).
+}
+
+\begin{exercise}
+Is it possible to solve $y' = \frac{x}{x^2-1}$ for $y(1) = 0$?
+\end{exercise}
+\exsol{%
+No, the equation is not defined at $(x,y) = (1,0)$.
+}
+
+\begin{exercise}[tricky]\ansMark%
+Suppose
+\begin{equation*}
+f(y) =
+\begin{cases}
+0 & \text{ if $y > 0$}, \\
+1 & \text{ if $y \leq 0$} .
+\end{cases}
+\end{equation*}
+Does $y' = f(y)$, $y(0) = 0$ have a continuously differentiable solution?  Does Picard apply?  Why, or why not?
+\end{exercise}
+\exsol{%
+Picard does not apply as $f$ is not continuous at $y=0$.
+The equation does not have a continuously differentiable solution.
+Suppose it did. Notice that
+$y'(0) = 1$.  By the first derivative test, $y(x) > 0$ for small positive $x$.
+But then for those $x$ we would have $y'(x) = 0$, so clearly the derivative
+cannot be continuous.
+}
+
+\begin{exercise}\ansMark%
+Consider an equation of the form $y' = f(x)$ for some continuous function
+$f$, and an initial condition $y(x_0) = y_0$.  Does a
+solution exist for all $x$?  Why or why not?
+\end{exercise}
+\exsol{%
+The solution is $y(x) = \int_{x_0}^x f(s) \,ds + y_0$, and this does indeed
+exist for every $x$.
+}

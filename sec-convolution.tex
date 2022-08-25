@@ -1,0 +1,404 @@
+
+\section{Convolution}
+\label{convolution:section}
+
+\LAtt{6.3}
+
+\LO{
+\item Compute the convolution of two functions, 
+\item Relate the convolution of two functions to the Laplace transform of those functions, and 
+\item Use the Laplace transform to solve more complicated differential equations involving products.
+}
+
+% \sectionnotes{Verbatim from Lebl}
+
+% \sectionnotes{1 or 1.5 lectures\EPref{, \S7.2 in \cite{EP}}\BDref{,
+% \S6.6 in \cite{BD}}}
+
+\subsection{The convolution}
+
+The Laplace transformation of a product is not the product
+of the transforms.  All hope is not lost however.  We simply have to use
+a different type of a \myquote{product.}
+Take
+two functions $f(t)$ and $g(t)$ defined for $t \geq 0$,
+and define the \emph{\myindex{convolution}}%
+\footnote{%
+For those that have seen convolution before, you may have
+seen it defined as
+$(f * g)(t) =
+\int_{-\infty}^\infty f(\tau) g(t-\tau) ~ d\tau$.  This definition
+agrees with \eqref{ltc:convdef} if you define $f(t)$ and $g(t)$
+to be zero for $t < 0$.
+When discussing the Laplace transform the definition we gave is
+sufficient.  Convolution does occur in many other applications, however,
+where you may have to use the more general definition with infinities.
+}
+of $f(t)$ and $g(t)$ as
+\begin{equation} \label{ltc:convdef}
+\mybxbg{~~
+(f * g)(t) \overset{\text{def}}{=}
+\int_0^t f(\tau) g(t-\tau) ~ d\tau .
+~~}
+\end{equation}
+As you can see, the convolution of two functions of $t$ is another function of $t$.
+
+
+\begin{example}
+Take $f(t) = e^t$ and $g(t) = t$ for $t \geq 0$.  Then 
+\begin{equation*}
+(f*g)(t)
+=
+\int_0^t e^\tau (t-\tau) ~ d\tau
+=
+e^t - t - 1 .
+\end{equation*}
+To solve the integral we
+did one integration by parts.
+\end{example}
+
+\begin{example} \label{ltc:convsincosex}
+Take $f(t) = \sin (\omega t)$ and $g(t) = \cos (\omega t)$ for $t \geq 0$.
+Then 
+\begin{equation*}
+(f*g)(t)
+=
+\int_0^t  \sin ( \omega \tau ) \,
+\cos \bigl( \omega (t-\tau) \bigr) ~ d\tau .
+\end{equation*}
+Apply the identity
+\begin{equation*}
+\cos (\theta) \sin (\psi) =
+\frac{1}{2} \, \bigl( \sin (\theta + \psi) - \sin (\theta - \psi) \bigr) ,
+\end{equation*}
+to get
+\begin{equation*}
+\begin{split}
+(f*g)(t)
+& =
+\int_0^t
+\frac{1}{2} \, \bigl( \sin (\omega t) - \sin (\omega t - 2 \omega \tau
+) \bigr) ~ d\tau
+\\
+& =
+\left[ \frac{1}{2} \, \tau  \sin (\omega t) + \frac{1}{4\omega} \, \cos (2 \omega \tau -
+\omega t) \right]_{\tau=0}^t
+\\
+& = \frac{1}{2} \, t \sin (\omega t) .
+\end{split}
+\end{equation*}
+The formula holds only for $t \geq 0$.  The functions $f$, $g$,
+and $f*g$ are undefined for $t < 0$.
+\end{example}
+
+Convolution has many properties that make it behave like a product.
+Let $c$ be a constant and $f$, $g$, and $h$ be functions.  Then
+\begin{align*}
+& f * g = g * f , \\
+& (c f) * g = f * (c g) = c (f*g) , \\
+& ( f * g ) * h = f * ( g * h ) .
+\end{align*}
+The most interesting property for us is the following theorem.
+
+\begin{theorem1}{}
+Let $f(t)$ and $g(t)$ be of exponential order, then
+\begin{equation*}
+%\mybxbg{~~
+\mathcal{L} \bigl\{ (f*g)(t) \bigr\}
+=
+\mathcal{L} \left\{ \int_0^t f(\tau) g(t-\tau) ~ d\tau \right\}
+=
+\mathcal{L} \bigl\{ f(t) \bigr\} \mathcal{L} \bigl\{ g(t) \bigr\} .
+%~~}
+\end{equation*}
+\end{theorem1}
+
+In other words, the Laplace transform of a convolution is the product
+of the Laplace transforms.  The simplest way to use this result is in
+reverse.
+
+\begin{example}
+Suppose we have the function of $s$
+defined by
+\begin{equation*}
+\frac{1}{(s+1)s^2} = 
+\frac{1}{s+1}\,
+\frac{1}{s^2} .
+\end{equation*}
+We recognize the two entries of \tableref{ltd:table}.  That is,
+\begin{equation*}
+\mathcal{L}^{-1} 
+\left\{
+\frac{1}{s+1} \right\}
+= e^{-t}
+\qquad \text{and} \qquad
+\mathcal{L}^{-1} 
+\left\{
+\frac{1}{s^2} \right\} 
+= t.
+\end{equation*}
+Therefore,
+\begin{equation*}
+\mathcal{L}^{-1}
+\left\{
+\frac{1}{s+1}\,
+\frac{1}{s^2} \right\}
+=
+\int_0^t
+\tau e^{-(t-\tau)} ~d\tau
+=
+e^{-t}+t-1 .
+\end{equation*}
+The calculation of the integral involved an integration by parts.
+\end{example}
+
+\subsection{Solving ODEs}
+
+The next example demonstrates the full power of the convolution and
+the Laplace transform.  We can give the solution to
+the forced oscillation problem for any forcing function as a definite
+integral.
+
+\begin{example}
+Find the solution to
+\begin{equation*}
+x'' + \omega_0^2 x = f(t) , \quad x(0) = 0, \quad x'(0) = 0 ,
+\end{equation*}
+for an arbitrary function $f(t)$.
+\end{example}
+
+\begin{exampleSol}
+We first apply the Laplace transform to the equation.  Denote
+the transform of $x(t)$ by $X(s)$ and the transform of $f(t)$ by
+$F(s)$ as usual.
+\begin{equation*}
+s^2 X(s) + \omega_0^2 X(s) = F(s) ,
+\end{equation*}
+or in other words
+\begin{equation*}
+X(s) = F(s) \frac{1}{s^2+ \omega_0^2} .
+\end{equation*}
+We know
+\begin{equation*}
+{\mathcal{L}}^{-1} \left\{
+\frac{1}{s^2+ \omega_0^2}
+\right\} = 
+\frac{\sin (\omega_0 t)}{\omega_0} .
+\end{equation*}
+Therefore,
+\begin{equation*}
+x(t) = 
+\int_0^t
+f(\tau) 
+\frac{\sin \bigl( \omega_0 (t-\tau) \bigr)}{\omega_0} ~ d\tau ,
+\end{equation*}
+or if we reverse the order
+\begin{equation*}
+x(t) = 
+\int_0^t
+\frac{\sin (\omega_0 \tau)}{\omega_0}
+f(t-\tau) ~ d\tau .
+\end{equation*}
+\end{exampleSol}
+
+Notice one more feature of this example.
+We can now see how Laplace transform
+handles \myindex{resonance}.  Suppose that $f(t) =
+\cos (\omega_0 t)$.  Then
+\begin{equation*}
+x(t) = 
+\int_0^t
+\frac{\sin (\omega_0 \tau)}{\omega_0} \,
+\cos \bigl( \omega_0 (t-\tau) \bigr) ~ d\tau
+=
+\frac{1}{\omega_0}
+\int_0^t
+\sin ( \omega_0 \tau ) \,
+\cos \bigl(\omega_0 (t-\tau) \bigr) ~ d\tau .
+\end{equation*}
+We have computed the convolution of sine and cosine in
+\exampleref{ltc:convsincosex}.  Hence
+\begin{equation*}
+x(t) =
+\left(
+\frac{1}{\omega_0}
+\right) \,
+\left(
+\frac{1}{2} \,
+t \,
+\sin ( \omega_0 t )
+\right)
+=
+\frac{1}{2 \omega_0} \,
+t
+\,
+\sin ( \omega_0 t ).
+\end{equation*}
+Note the $t$ in front of the sine.  The solution, therefore, grows without
+bound as $t$ gets large, meaning we get resonance.
+
+Similarly,
+we can solve any constant coefficient equation with an arbitrary forcing
+function $f(t)$ as a definite integral using convolution.
+A definite integral, rather than a closed form solution, is usually enough
+for most practical purposes.  It is
+not hard to numerically evaluate a definite integral.
+
+\subsection{Volterra integral equation}
+
+A common integral equation\index{integral equation}
+is the \emph{\myindex{Volterra integral equation}}%
+\footnote{Named for the Italian mathematician
+\href{https://en.wikipedia.org/wiki/Vito_Volterra}{Vito Volterra}
+(1860--1940).}
+\begin{equation*}
+x(t) = f(t) + \int_0^t g(t-\tau) x(\tau) ~ d\tau ,
+\end{equation*}
+where $f(t)$ and $g(t)$ are known functions and $x(t)$ is an unknown we
+wish to solve for.
+To find $x(t)$,
+we apply the Laplace transform to the equation to obtain 
+\begin{equation*}
+X(s) = F(s) + G(s) X(s) ,
+\end{equation*}
+where $X(s)$, $F(s)$, and $G(s)$ are the Laplace transforms of $x(t)$, $f(t)$, and
+$g(t)$ respectively.  We find
+\begin{equation*}
+X(s) = \frac{F(s)}{1-G(s)} .
+\end{equation*}
+To find $x(t)$ we now need to find the 
+inverse Laplace transform of $X(s)$.
+
+\begin{example}
+Solve
+\begin{equation*}
+x(t) =  e^{-t} + \int_0^t \sinh(t-\tau) x(\tau) ~ d\tau .
+\end{equation*}
+\end{example}
+
+\begin{exampleSol}
+We apply Laplace transform to obtain
+\begin{equation*}
+X(s) = \frac{1}{s+1} + \frac{1}{s^2-1} X(s) ,
+\end{equation*}
+or
+\begin{equation*}
+X(s) = \frac{\frac{1}{s+1}}{1- \frac{1}{s^2-1}}
+=
+\frac{s-1}{s^2 - 2}
+=
+\frac{s}{s^2 - 2}
+-
+\frac{1}{s^2 - 2} .
+\end{equation*}
+It is not hard to apply \tablevref{lt:table} to find
+\begin{equation*}
+x(t) = \cosh \bigl( \sqrt{2} \, t \bigr) -
+\frac{1}{\sqrt{2}} \sinh \bigl( \sqrt{2}\, t \bigr).
+\end{equation*}
+\end{exampleSol}
+
+\subsection{Exercises}
+
+\begin{exercise}
+Let $f(t) = t^2$ for $t \geq 0$, and $g(t) = u(t-1)$.  Compute
+$f * g$.
+\end{exercise}
+
+\begin{exercise}
+Let $f(t) = t$ for $t \geq 0$, and $g(t) = \sin t $ for $t \geq 0$.  Compute
+$f * g$.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Let $f(t) = \cos t$ for $t \geq 0$, and $g(t) = e^{-t}$.  Compute
+$f * g$.
+\end{exercise}
+\exsol{%
+$\frac{1}{2}(\cos t + \sin t - e^{-t})$
+}
+
+\begin{exercise}
+Find the solution to
+\begin{equation*}
+m x'' + c x' + k x = f(t) , \quad x(0) = 0, \quad x'(0) = 0 ,
+\end{equation*}
+for an arbitrary function $f(t)$, where $m > 0$, $c > 0$, $k > 0$,
+and $c^2 - 4km > 0$ (system is overdamped).
+Write the solution as a definite integral.
+\end{exercise}
+
+\begin{exercise}
+Find the solution to
+\begin{equation*}
+m x'' + c x' + k x = f(t) , \quad x(0) = 0, \quad x'(0) = 0 ,
+\end{equation*}
+for an arbitrary function $f(t)$, where $m > 0$, $c > 0$, $k > 0$,
+and $c^2 - 4km < 0$ (system is underdamped).
+Write the solution as a definite integral.
+\end{exercise}
+
+\begin{exercise}
+Find the solution to
+\begin{equation*}
+m x'' + c x' + k x = f(t) , \quad x(0) = 0, \quad x'(0) = 0 ,
+\end{equation*}
+for an arbitrary function $f(t)$, where $m > 0$, $c > 0$, $k > 0$,
+and $c^2 = 4km$ (system is critically damped).
+Write the solution as a definite integral.
+\end{exercise}
+
+\begin{exercise}
+Solve
+\begin{equation*}
+x(t) =  e^{-t} + \int_0^t \cos(t-\tau) x(\tau) ~ d\tau .
+\end{equation*}
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Solve $x''+x = \sin t$, $x(0) = 0$, $x'(0)=0$ using convolution.
+\end{exercise}
+\exsol{%
+$\frac{1}{2}(\sin t - t \cos t)$
+}
+
+\begin{exercise}
+Solve
+\begin{equation*}
+x(t) =  \cos t + \int_0^t \cos(t-\tau) x(\tau) ~ d\tau .
+\end{equation*}
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Solve $x'''+x' = f(t)$, $x(0) = 0$, $x'(0)=0$, $x''(0)=0$ using convolution.
+Write the result as a definite integral.
+\end{exercise}
+\exsol{%
+$\int_0^t f(\tau) \bigl( 1 - \cos (t-\tau)\bigr)~ d\tau$
+}
+
+\begin{exercise}
+Compute ${\mathcal{L}}^{-1} \left\{ \frac{s}{{(s^2+4)}^2} \right\}$ using
+convolution.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Compute ${\mathcal{L}}^{-1} \left\{ \frac{5}{s^4+s^2} \right\}$ using
+convolution.
+\end{exercise}
+\exsol{%
+$5t-5\sin t$
+}
+
+\begin{exercise}
+Write down the solution to
+$x''-2x=e^{-t^2}$, $x(0)=0$, $x'(0)=0$ as a
+definite integral.  Hint: Do not try to compute the
+Laplace transform of $e^{-t^2}$.
+\end{exercise}
+
+\setcounter{exercise}{100}
+
+
+
+

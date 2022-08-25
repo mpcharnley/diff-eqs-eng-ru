@@ -1,0 +1,176 @@
+\section{Fourier Transform}
+\label{fourierTransform:section}
+
+
+\LO{
+\item TBW
+}
+
+\subsection{Integral Transform Pairs}
+
+A lot of the work that we did in the last section with Fourier integrals looks a lot like Laplace transforms from \chapterref{LT:chapter}. Using an integral, we transform a function of one variable ($x$ in this case, $t$ in Laplace transforms) to another variable ($\alpha$ here, $s$ for Laplace transforms) and can use it to represent the function. The main difference here is that all of the integrals in \sectionref{fourierInt:section} have an easy way to go back to the original function (using another integral), while to ``go back'' with Laplace transforms required writing expressions in a specific form and using a table.
+
+The Laplace transform (and the Fourier transform that will be defined shortly) is an example of a more general class of operations called \textbf{integral transforms}, and for all of these transforms, both the forward and inverse transforms can be written as an integral. However, we never used the integral inverse transform for the Laplace transform because it was not simple to compute. For the Laplace transform, we have the forward transform
+\[ \mathcal{L}\{f(t)\} = \int_0^\infty e^{-st} f(t)\ dt = F(s) \] and the inverse transform is defined by
+\[ \mathcal{L}^{-1}\{F(s)\} = \frac{1}{2\pi i} \int_{\gamma - i\infty}^{\gamma +i\infty} e^{st}F(s)\ ds = f(t). \]
+
+This last integral looks strange; this is what is called a \textbf{contour integral}. It requires complex numbers to compute, and is well beyond the scope of this book and course. For this reason, we have always used a table for computing the inverse Laplace transform of a function. 
+
+These transforms always come in \textbf{transform pairs}. If $f(x)$ is transformed into $F(\alpha)$ by an integral transform
+\[ F(\alpha) = \int_a^b f(x)K(\alpha, x)\ dx, \] then the inverse transform can also be represented by an integral transform
+\[ f(x) = \int_c^b F(\alpha)H(\alpha, x)\ d\alpha. \] The functions $K$ and $H$ are called the \textbf{kernel} of these transforms. For instance, in the case of the Laplace transform, we have
+\[ K(s, t) = e^{-st} \qquad H(s,t) = \frac{e^{st}}{2\pi i}. \]
+
+\subsection{Fourier Transform}
+
+The integrals that we worked with in the previous section give rise to three different integral transforms, all referred to as Fourier tranform pairs. 
+
+\begin{definition}[Fourier Transforms]
+The \textbf{Fourier Transform} of a function $f$ defined on $(-\infty, \infty)$ is
+\[ \mathcal{F}\{f(x)\} = \int_{-\infty}^\infty f(x)e^{i\alpha x}\ dx = F(\alpha) \] and the corresponding inverse transform is define by 
+\[ \mathcal{F}^{-1}\{F(\alpha)\} = \frac{1}{2\pi} \int_{-\infty}^\infty F(\alpha)e^{-i\alpha x}\ d\alpha = f(x). \]
+
+The \textbf{Fourier Cosine Transform} of a function $f$ defined on $(0, \infty)$ is
+\[ \mathcal{F}_c\{f(x)\} = \int_{0}^\infty f(x)\cos(\alpha x)\ dx = F(\alpha) \] and the corresponding inverse transform is define by 
+\[ \mathcal{F}_c^{-1}\{F(\alpha)\} = \frac{2}{\pi} \int_{0}^\infty F(\alpha)\cos(\alpha x)\ d\alpha = f(x). \]
+
+The \textbf{Fourier Sine Transform} of a function $f$ defined on $(0, \infty)$ is
+\[ \mathcal{F}_s\{f(x)\} = \int_{0}^\infty f(x)\sin(\alpha x)\ dx = F(\alpha) \] and the corresponding inverse transform is define by 
+\[ \mathcal{F}_s^{-1}\{F(\alpha)\} = \frac{2}{\pi} \int_{0}^\infty F(\alpha)\sin(\alpha x)\ d\alpha = f(x). \]
+\end{definition}
+
+\subsubsection{Properties of the Transform}
+
+Like we saw for Fourier integrals in the previous section, the conditions for existence of Fourier transforms is more restrictive than for Laplace transforms. For example, with the constant function $1$, $\mathcal{F}\{1\}$, $\mathcal{F}_c\{1\}$, and $\mathcal{F}_s\{1\}$ all do not exist. A condition that is sufficient for existence of these transforms is that $f$ be absolutely integrable (that is $\int_{-\infty}^\infty |f(x)| \ dx$ exists), and $f$ and $f'$ are piecewise continuous on every finite interval. 
+
+Next, we want to see how these transforms behave under a variety of situations. Firstly, these transforms, like all other integral transforms, are linear. This means that if the transforms of $f$ and $g$ exist, then for any two constants $c_1$ and $c_2$, 
+\[ \mathcal{F}\{c_1f(x) + c_2g(x)\} = c_1\mathcal{F}\{f(x)\} + c_2 \mathcal{F}\{g(x)\}. \]
+This works for any of the transforms given above.
+
+The other main consideration is how these transforms behave with respect to differentiation. The main use of the Laplace transform was that it could change differentiation into multiplication, so we could use algebraic manipulation to solve differential equations. The Fourier transform works in a very similar way. 
+
+Assume that $f$ is continuous, absolutely integrable on $(-\infty, \infty)$, and $f'$ is piecewise continuous on every finite interval. The conditions above tell us that we must have $f(x) \rightarrow 0$ as $x \rightarrow \pm \infty$. With this, integration by parts tells us that
+\[ \begin{split}
+\mathcal{F}\{f'(x)\} &= \int_{-\infty}^\infty f'(x)e^{i\alpha x}\ dx \\
+&= f(x)e^{i\alpha x} \mid_{-\infty}^\infty - i\alpha \int_{-\infty}^\infty f(x)e^{i\alpha x}\ dx \\
+&= -i\alpha \int_{-\infty}^\infty f(x)e^{i\alpha x}\ dx.
+\end{split}
+\]
+
+Therefore, we see that
+\[ \mathcal{F}\{f'(x)\} = (-i\alpha) F(\alpha) \] where $F(\alpha)$ is the Fourier transform of the function $f(x)$. 
+
+By the same process, if we also assume that $f'$ is continuous, $f''$ piecewise continuous on every finite interval, and $f'(x) \rightarrow 0$ as $x \rightarrow \pm \infty$, then we have that
+\[ \mathcal{F}\{f''(x) \} = (-i\alpha)^2 \mathcal{F}\{f(x)\} = -\alpha^2 F(\alpha). \]
+
+Repeating this under similar assumptions gives that
+\[ \mathcal{F}\{f^{(n)}(x) \} = (-i\alpha)^n \mathcal{F}\{f(x)\} = (-i\alpha)^n F(\alpha) \] for any number of derivatives $n$. 
+
+However, the sine and cosine transforms are suitable for representing the first (or any odd) derivative of a function. The main issue is that the integration by parts differentiates the other part of the expression, which swaps sine and cosine, but preserves exponential functions. If the same process is carried out (under the same assumptions) for the sine and cosine transforms, the result is that
+\[ \mathcal{F}_c\{f'(x)\} = \alpha \mathcal{F}_s\{f(x)\} - f(0) \qquad \mathcal{F}_s\{f'(x)\} = -\alpha \mathcal{F}_c\{f(x)\}.\] 
+
+Since the same transform does not appear on both sides of the expression, we are not able to use these to convert differentiation into algebra in order to solve the equation. 
+
+\subsection{Fourier Sine and Cosine Transforms}
+
+So, what can we use the sine and cosine transforms for? It turns out they are really useful for situations where we have an even number of derivatives. Suppose that both $f$ and $f'$ are continuous, absolutely integrable on the interval $[0, \infty)$, and $f \rightarrow 0$, $f' \rightarrow 0$ as $x \rightarrow \infty$. Then the Fourier cosine transform of $f''$ is, using integration by parts twice, 
+\[ 
+\begin{split}
+\mathcal{F}_c\{f''(x)\} &= \int_0^\infty f''(x) \cos(\alpha x)\ dx \\
+&= f'(x)\cos(\alpha x) \mid_0^\infty + \alpha \int_0^\infty \sin(\alpha x)\ dx \\
+&= -f'(0) + \alpha \left[ f(x) \sin(\alpha x) \mid_0^\infty - \alpha \int_0^\infty f(x) \cos(\alpha x)\ dx \right] \\
+&= -f'(0) - \alpha^2 \mathcal{F}_c\{f(x)\}.
+\end{split}
+\]
+
+Thus, we have that
+\[ \mathcal{F}_c\{f''(x)\} = -\alpha^2 F(\alpha) - f'(0) \] where $F(\alpha) = \mathcal{F}_c\{f(x)\}$. 
+
+The same process can be used for the Fourier sine transform, giving that 
+
+\[ \mathcal{F}_s\{f''(x)\} = -\alpha^2 F(\alpha) + \alpha f(0) \] where $F(\alpha) = \mathcal{F}_s\{f(x)\}$. 
+
+So, both of these work in similar ways, differing in whether the expression involves $f(0)$ or $f'(0)$.
+
+\subsection{Applications}
+
+As with Laplace transforms, we want to use Fourier transforms to solve differential equations problems, and in this case, we want to do use this for boundary value problems. How do we choose which of the three options to use? The domain of the variable that we want to transform in is the first big indicator. If the domain is $(-\infty, \infty)$, then the complex exponential Fourier transform is the way to go. If the domain is $[0, \infty)$, then either the cosine or sine transform will work better, as these are defined on these domains. In choosing between the two of them, we should think about whether having $f(0)$ or $f'(0)$ in the expression will be more convenient. The following examples will illustrate these ideas. 
+
+\begin{example}
+Solve the heat equation $ k \frac{\partial^2 u}{\partial x^2} = \frac{\partial u}{\partial t}$ on $-\infty < x < \infty$, $t >0$ with the initial condition
+\[ u(x, 0) = f(x) = \begin{cases}
+10 & |x| < r \\ 
+0 & x > r
+\end{cases} \] for some number $r$. 
+\end{example}
+
+\begin{exampleSol}
+Since the $x$ domain is $(-\infty, \infty)$, we should use the normal complex Fourier transform in the $x$ variable and see how this changes the equation. Thus, we define
+\[ U(\alpha, t) = \mathcal{F}\{u(x, t)\} = \int_{-\infty}^\infty u(x,t)e^{i \alpha x}\ dx \] and apply the Fourier transform to the differential equation and initial condition. When we do this
+\[ k \frac{\partial^2 u}{\partial x^2} = \frac{\partial u}{\partial t} \] becomes
+\[ k(-i \alpha)^2 U(\alpha, t) = \frac{\partial U}{\partial t} \] and the initial condition becomes
+\[ U(\alpha, 0) = \mathcal{F}\{u(x, 0)\} = \int_{-\infty}^\infty f(x)e^{i\alpha x}\ dx \] which we can evaluate to be
+\[ \int_{-r}^r 10e^{i\alpha x}\ dx = \frac{10}{i\alpha}e^{i\alpha x}\mid_{-r}^r = \frac{20}{\alpha} \frac{e^{i\alpha r} - e^{-i\alpha r}}{2i} = \frac{20}{\alpha}\sin(\alpha r). \]
+
+The last simplification here comes from Euler's formula, since
+\[ e^{i\alpha r} = \cos(\alpha r) + i\sin(\alpha r) \qquad e^{-i\alpha r} = \cos(\alpha r) - i\sin(\alpha r). \]
+
+This means we are trying to solve
+\[ \frac{\partial U}{\partial t} = -k\alpha^2 U(\alpha, t) \qquad U(\alpha, 0) = \frac{20}{\alpha}\sin(\alpha r). \] For each $\alpha$, this is a normal ordinary differential equation in $t$. The general solution to this differential equation is
+\[ U(\alpha, t) = C(\alpha)e^{-k\alpha^2 t} \] and based on the value at $U(\alpha, 0)$, the solution we want is
+\[U(\alpha, t) = \frac{20}{\alpha} \sin(\alpha r)e^{-k\alpha^2 t}. \]
+
+To get the solution $u$, we then want to take the inverse Fourier transform, which gives
+\[ u(x,t) = \mathcal{F}^{-1}\{U(\alpha, t)\} = \frac{1}{2\pi} \int_{-\infty}^\infty \frac{20}{\alpha} \sin(\alpha r)e^{-k\alpha^2 t} e^{-i\alpha x}\ d\alpha. \]
+
+We can simplify this a bit further, but we won't be able to evaluate the integral. Using the fact that $e^{-i\alpha x} = \cos(\alpha x) - \sin(\alpha x)$ and that
+\[ \frac{20}{\alpha} \sin(\alpha r)e^{-k\alpha^2 t} \sin(\alpha x) \] is an odd function, so the integral will be zero. Thus, we get that
+\[ u(x,t) = \frac{10}{\pi} \int_{-\infty}^\infty \frac{\sin(\alpha r)\cos(\alpha x)}{\alpha}\ d\alpha. \]
+\end{exampleSol}
+
+\begin{example}
+Solve Laplace's equation on a semi-infinite plate,
+\[
+\begin{split}
+\frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} = 0 & \qquad 0 < x < \pi,\ y > 0 \\
+u(0, y) = 0, \quad u(\pi, y) = e^{-2y}, & y > 0 \\
+u(x, 0) = 0, & 0 < x < \pi. 
+\end{split}
+\]
+\end{example}
+
+\begin{exampleSol}
+In this example, the $x$ domain is finite, $(0, \pi)$, but the $y$ domain is semi-infinite, since it is $(0, \infty)$. This means that we'll need to use either the Fourier cosine or Fourier sine transform in $y$ in order to solve this problem. Let $U(x, \alpha)$ be the transformed function, and let's see which transform is more helpful here. The important term here is the $\frac{\partial^2 u}{\partial y^2}$ term. If we use the sine transform, we get that
+\[ \mathcal{F}_s\{\frac{\partial^2 u}{\partial y^2}\} = -\alpha^2 U(x, \alpha) + \alpha u(x,0) \] and for the cosine transform, we get that
+ \[ \mathcal{F}_c\{\frac{\partial^2 u}{\partial y^2}\} = -\alpha^2 U(x, \alpha) +  \frac{\partial u}{\partial y}(x,0), \] since the $f$ and $f'$ terms in the previous definitions become values of $u$ and $\frac{\partial u}{\partial y}$ at $(x,0)$. Since the problem tells us that $u(x,0) = 0$, it is much more convenient to use the sine transform, because that term appears in the computation, and will go to zero. Therefore, using the sine transform, we get that
+\[ \frac{\partial^2 U}{\partial x^2} + -\alpha^2 U(x, \alpha) + 0 = 0 \] with boundary conditions
+\[ U(0, \alpha) = \mathcal{F}_s{0} = 0 \] and 
+\[ U(\pi, \alpha) = \mathcal{F}_s\{e^{-2y}\} = \int_0^\infty e^{-2y}\sin(\alpha x) \ dx, \]
+which, after two integrations by parts, evaluates to
+\[ U(\pi, \alpha) = \frac{\alpha}{4+\alpha^2}.\] Thus, for each $\alpha$, we have the second order differential equation
+\[  \frac{\partial^2 U}{\partial x^2}  -\alpha^2 U(x, \alpha) = 0 \qquad U(0, \alpha) = 0,\ U(\pi, \alpha) = \frac{\alpha}{4 + \alpha^2} .\]
+
+The general solution to the differential equation is
+\[ U(x, \alpha) = C_1e^{\alpha x} + C_2 e^{-\alpha x} \] or, in a more convenient form for these boundary conditions,
+\[ U(x, \alpha) = C_1 \cosh(\alpha x) + C_2 \sinh(\alpha x). \] The fact that $U(0, \alpha) = 0$ gives that $C_1 = 0$, and the second condition tells us that
+\[ C_2 = \frac{\alpha}{(4 + \alpha^2)\sinh(\alpha \pi)}. \] Thus, the particular solution that we want is 
+\[ U(x, \alpha) = \frac{\alpha \sinh(\alpha x)}{(4 + \alpha^2)\sinh(\alpha \pi)}. \] By taking the inverse Fourier sine transform, we get that
+\[ u(x,y) = \frac{2}{\pi} \int_0^\infty \frac{\alpha \sinh(\alpha x)}{(4 + \alpha^2)\sinh(\alpha \pi)} \sin(\alpha x)\ d\alpha  \]
+\end{exampleSol}
+
+\begin{exercise}
+Repeat the last example with the final boundary condition changed to $\frac{\partial u}{\partial y}(x, 0) = 0$ on $0 < x < \pi$. You will want to use the cosine transform for this problem.
+\end{exercise}
+
+
+\subsection{Exercises}
+
+
+
+
+
+
+
+
+
+

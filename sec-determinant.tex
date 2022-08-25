@@ -1,0 +1,1014 @@
+
+\section{Determinant}
+\label{det:section}
+
+\LAtt{A.6}
+
+\LO{
+\item Compute the determinant of a $2\times 2$ matrix,
+\item Use cofactor expansion to compute the determinant of larger matrices, and
+\item Use the determinant to make statements about invertibility or rank of a matrix, and linear independence of the columns of that matrix. 
+}
+
+For square matrices we define a useful quantity called the
+\emph{\myindex{determinant}}.  We define
+the determinant of a $1 \times 1$ matrix as the value of its only entry
+\begin{equation*}
+\det \left(
+\begin{bmatrix}
+a 
+\end{bmatrix}
+\right)
+\overset{\text{def}}{=}
+a .
+\end{equation*}
+For a $2 \times 2$ matrix we define
+\begin{equation*}
+\det \left(
+\begin{bmatrix}
+a & b \\
+c & d
+\end{bmatrix}
+\right)
+\overset{\text{def}}{=}
+ad-bc .
+\end{equation*}
+
+Before defining the
+determinant for larger matrices, we note
+the meaning of the determinant.
+An $n \times n$ matrix
+gives a mapping of the $n$-dimensional euclidean space ${\mathbb{R}}^n$ to 
+itself.
+In particular, a $2 \times 2$ matrix $A$ is a mapping of
+the plane to itself.  The determinant of 
+$A$ is the factor by which the area of objects changes. 
+If we take the unit square (square of side 1) in the plane, then
+$A$ takes the square to a parallelogram of area $\lvert\det(A)\rvert$.  The sign
+of $\det(A)$ denotes a change of orientation (negative if the axes get flipped).  For
+example, let
+\begin{equation*}
+A =
+\begin{bmatrix}
+1 & 1 \\
+-1 & 1
+\end{bmatrix} .
+\end{equation*}
+Then $\det(A) = 1+1 = 2$.
+Let us see where $A$ sends the unit square with vertices
+$(0,0)$, $(1,0)$, $(0,1)$, and $(1,1)$.
+The point $(0,0)$ gets sent
+to $(0,0)$.  
+\begin{equation*}
+\begin{bmatrix}
+1 & 1 \\
+-1 & 1
+\end{bmatrix}
+\begin{bmatrix}
+1 \\ 0
+\end{bmatrix} =
+\begin{bmatrix}
+1 \\
+-1 
+\end{bmatrix}
+,
+\qquad
+\begin{bmatrix}
+1 & 1 \\
+-1 & 1
+\end{bmatrix}
+\begin{bmatrix}
+0 \\ 1
+\end{bmatrix} =
+\begin{bmatrix}
+1 \\
+1 
+\end{bmatrix}
+,
+\qquad
+\begin{bmatrix}
+1 & 1 \\
+-1 & 1
+\end{bmatrix}
+\begin{bmatrix}
+1 \\ 1
+\end{bmatrix} =
+\begin{bmatrix}
+2 \\
+0 
+\end{bmatrix}
+.
+\end{equation*}
+The image of the square is another square with vertices $(0,0)$, $(1,-1)$,
+$(1,1)$, and $(2,0)$.  The
+image square has
+a side of length $\sqrt{2}$ and is therefore of area 2.  See
+\figurevref{linalg-imagesquare:fig}.
+
+\begin{myfig}
+\capstart
+\inputpdft{linalg-imagesquare}
+\caption{Image of the unit quare via the mapping
+$A$.\label{linalg-imagesquare:fig}}
+\end{myfig}
+
+In general the image of a square is going to be a \myindex{parallelogram}.
+In high school geometry, you may have seen a formula for
+computing the area of a \myindex{parallelogram}
+with vertices $(0,0)$, $(a,c)$, $(b,d)$
+and $(a+b,c+d)$.  The area is
+\begin{equation*}
+\left\lvert \, \det \left(
+\begin{bmatrix} a & b \\ c & d \end{bmatrix}
+\right) \, \right\lvert
+=
+\lvert
+a d - b c
+\rvert
+.
+\end{equation*}
+The vertical lines above mean absolute value.
+The matrix $\left[ \begin{smallmatrix} a & b \\ c & d \end{smallmatrix}
+\right]$
+carries the unit square to the given parallelogram.
+
+\medskip
+
+There are a number of ways to define the determinant for an $n \times n$
+matrix.  Let us use the so-called \emph{\myindex{cofactor expansion}}.
+We define $A_{ij}$ as
+the matrix $A$ with the $i^{\text{th}}$ row and the $j^{\text{th}}$ column
+deleted.  For example,
+\begin{equation*}
+\text{If} \qquad
+A = 
+\begin{bmatrix}
+1 & 2 & 3 \\
+4 & 5 & 6 \\
+7 & 8 & 9
+\end{bmatrix} ,
+\qquad
+\text{then}
+\qquad
+A_{12} = 
+\begin{bmatrix}
+4 & 6 \\
+7 & 9
+\end{bmatrix}
+\qquad
+\text{and}
+\qquad
+A_{23} = 
+\begin{bmatrix}
+1 & 2 \\
+7 & 8
+\end{bmatrix} .
+\end{equation*}
+We now define the determinant recursively
+\begin{equation*}
+\det (A)
+\overset{\text{def}}{=}
+\sum_{j=1}^n
+{(-1)}^{1+j}
+a_{1j} \det (A_{1j}) ,
+\end{equation*}
+or in other words
+\begin{equation*}
+\det (A) =
+a_{11} \det (A_{11}) - 
+a_{12} \det (A_{12}) + 
+a_{13} \det (A_{13}) - 
+\cdots
+\begin{cases}
++ a_{1n} \det (A_{1n}) & \text{if } n \text{ is odd,} \\
+- a_{1n} \det (A_{1n}) & \text{if } n \text{ even.}
+\end{cases}
+\end{equation*}
+For a $3 \times 3$ matrix,
+we get $\det (A) = a_{11} \det (A_{11}) -
+a_{12} \det (A_{12}) + a_{13} \det (A_{13})$.  For example,
+\begin{equation*}
+\begin{split}
+\det \left(
+\begin{bmatrix}
+1 & 2 & 3 \\
+4 & 5 & 6 \\
+7 & 8 & 9
+\end{bmatrix}
+\right)
+& =
+1 \cdot
+\det \left(
+\begin{bmatrix}
+5 & 6 \\
+8 & 9
+\end{bmatrix}
+\right)
+-
+2 \cdot
+\det \left(
+\begin{bmatrix}
+4 & 6 \\
+7 & 9
+\end{bmatrix}
+\right)
++
+3 \cdot
+\det \left(
+\begin{bmatrix}
+4 & 5 \\
+7 & 8
+\end{bmatrix}
+\right) \\
+& =
+1 (5 \cdot 9 - 6 \cdot 8)
+-
+2 (4 \cdot 9 - 6 \cdot 7)
++
+3 (4 \cdot 8 - 5 \cdot 7)
+= 0 .
+\end{split}
+\end{equation*}
+
+It turns out that we did not have to necessarily use the first row.  That is
+for any $i$,
+\begin{equation*}
+\det (A)
+=
+\sum_{j=1}^n
+{(-1)}^{i+j}
+a_{ij} \det (A_{ij}) .
+\end{equation*}
+It is sometimes useful to use a row other than the first.  In the following
+example it is more convenient to expand along the second row.  Notice that for the
+second row we are starting with a negative sign.
+\begin{equation*}
+\begin{split}
+\det \left(
+\begin{bmatrix}
+1 & 2 & 3 \\
+0 & 5 & 0 \\
+7 & 8 & 9
+\end{bmatrix}
+\right)
+& =
+- 0 \cdot
+\det \left(
+\begin{bmatrix}
+2 & 3 \\
+8 & 9
+\end{bmatrix}
+\right)
++
+5 \cdot
+\det \left(
+\begin{bmatrix}
+1 & 3 \\
+7 & 9
+\end{bmatrix}
+\right)
+-
+0 \cdot
+\det \left(
+\begin{bmatrix}
+1 & 2 \\
+7 & 8
+\end{bmatrix}
+\right) \\
+& =
+0
++
+5 (1 \cdot 9 - 3 \cdot 7)
++
+0
+= -60 .
+\end{split}
+\end{equation*}
+Let us check if it is really the same as expanding along the first row,
+\begin{equation*}
+\begin{split}
+\det \left(
+\begin{bmatrix}
+1 & 2 & 3 \\
+0 & 5 & 0 \\
+7 & 8 & 9
+\end{bmatrix}
+\right)
+& =
+1 \cdot
+\det \left(
+\begin{bmatrix}
+5 & 0 \\
+8 & 9
+\end{bmatrix}
+\right)
+-
+2 \cdot
+\det \left(
+\begin{bmatrix}
+0 & 0 \\
+7 & 9
+\end{bmatrix}
+\right)
++
+3 \cdot
+\det \left(
+\begin{bmatrix}
+0 & 5 \\
+7 & 8
+\end{bmatrix}
+\right) \\
+& =
+1 (5 \cdot 9 - 0 \cdot 8)
+-
+2 (0 \cdot 9 - 0 \cdot 7)
++
+3 (0 \cdot 8 - 5 \cdot 7)
+= -60 .
+\end{split}
+\end{equation*}
+
+
+
+In computing the determinant,
+we alternately add and subtract the determinants of the submatrices
+$A_{ij}$ multiplied by $a_{ij}$ for a fixed $i$ and all $j$.
+The numbers ${(-1)}^{i+j}\det(A_{ij})$ are called
+\emph{cofactors\index{cofactor}}
+of the matrix.  And that is why
+this method of computing the determinant is called the
+\emph{cofactor expansion}.
+
+Similarly we do not need to expand along a row, we can expand
+along a column.  For any $j$
+\begin{equation*}
+\det (A)
+=
+\sum_{i=1}^n
+{(-1)}^{i+j}
+a_{ij} \det (A_{ij}) .
+\end{equation*}
+A related fact is that
+\begin{equation*}
+\det (A) = \det (A^T) .
+\end{equation*}
+
+\medskip
+
+Recall that a matrix is \emph{\myindex{upper triangular}} if all elements below
+the main diagonal are 0.  For example,
+\begin{equation*}
+\begin{bmatrix}
+1 & 2 & 3 \\
+0 & 5 & 6 \\
+0 & 0 & 9
+\end{bmatrix}
+\end{equation*}
+is upper triangular.  Similarly a \emph{\myindex{lower triangular}}
+matrix is one where everything above the diagonal is zero.  For example,
+\begin{equation*}
+\begin{bmatrix}
+1 & 0 & 0 \\
+4 & 5 & 0 \\
+7 & 8 & 9
+\end{bmatrix} .
+\end{equation*}
+
+The determinant for triangular matrices is very simple to compute.  
+Consider the lower triangular matrix.  If we expand along the
+first row, we find that the determinant is 1 times the determinant
+of the lower triangular matrix $\left[ \begin{smallmatrix} 5 & 0 \\ 8 & 9
+\end{smallmatrix} \right]$.  So the deteriminant is just the
+product of the diagonal entries:
+\begin{equation*}
+\det \left(
+\begin{bmatrix}
+1 & 0 & 0 \\
+4 & 5 & 0 \\
+7 & 8 & 9
+\end{bmatrix} 
+\right)
+=
+1 \cdot 5 \cdot 9 = 45 .
+\end{equation*}
+Similarly for upper triangular matrices
+\begin{equation*}
+\det \left(
+\begin{bmatrix}
+1 & 2 & 3 \\
+0 & 5 & 6 \\
+0 & 0 & 9
+\end{bmatrix}
+\right)
+=
+1 \cdot 5 \cdot 9 = 45 .
+\end{equation*}
+In general, if $A$ is triangular, then
+\begin{equation*}
+\det (A) = a_{11} a_{22} \cdots a_{nn} .
+\end{equation*}
+
+If $A$ is diagonal, then it is also triangular (upper and lower), so
+same formula applies.  For example,
+\begin{equation*}
+\det \left(
+\begin{bmatrix}
+2 & 0 & 0 \\
+0 & 3 & 0 \\
+0 & 0 & 5
+\end{bmatrix}
+\right)
+=
+2 \cdot 3 \cdot 5 = 30 .
+\end{equation*}
+
+In particular, the identity matrix $I$ is diagonal, and the diagonal entries
+are all 1.  Thus,
+\begin{equation*}
+\det(I) = 1 .
+\end{equation*}
+
+Another way that we can compute determinants is by using row reduction. Since the row echelon form is a diagonal matrix, this will make it easy to compute the determinant using the product of the diagonal entries. However, we need to know how the determinant is affected by elementary row operations.
+
+\begin{theorem1}[detElem]{Properties of the Determinant}
+Let $A$ be a square $n\times n$ matrix. 
+\begin{enumerate}
+\item If $B$ obtained from $A$ by interchanging two rows (or two columns) of $A$, then $\det(B) = -\det(A)$.
+\item If $B$ is obtained from $A$ by multiplying a row of column by the number $r$, then $\det(B) = r\det(A)$.
+\item If $B$ is obtained from $A$ by multiplying a row (or column) by a non-zero number $r$ and adding the result to another row, then $\det(B) = \det(A)$.
+\end{enumerate}
+\end{theorem1} 
+
+\begin{proof}
+The proof of each of these facts comes from the cofactor expansion of the determinant.
+\begin{enumerate}
+\item Assume that $B$ is obtained by interchanging the first and second row of $A$. We will use cofactor expansion along the first row to find the determinant of $A$, and the second row for the determinant of $B$. We get that
+\[ \det(A) = \sum_{j=1}^n (-1)^{1+j}a_{1j} \det(A_{1j}) \] and 
+\[ \det(B) = \sum_{j=1}^n (-1)^{2+j}b_{2j} \det(B_{2j}). \] However, since the second row of $B$ is the first row of $A$, we know that $b_{2j} = a_{1j}$ for all $j$. In addition, this swap means that we also have that $B_{2j} = A_{1j}$ for each of the cofactors in this expansion. All of these cofactor matrices are made up of the second through last rows of $A$, with the appropriate columns removed at each step. 
+
+Therefore, the only difference between these two formulas is that the $A$ formula starts with $(-1)^{1+j}$ and the $B$ formula starts with $(-1)^{2+j}$. Thus, $\det(B)$ will have an additional factor of $-1$ in it, giving the desired result.
+
+The exact same process works for swapping any two adjacent rows of the matrix, giving that this also provides a $-1$ in the computation of the determinant. For non-adjacent rows, we use the fact that to any swap of non-adjacent rows of a matrix requires an \emph{odd} number of adjacent row swaps. For example, if we want to swap rows $1$ and $3$, we can swap row 1 with row 2, then row 2 with row 3, and finally swap row 1 with row 2 again. This will put the first row in the third spot and the third row up in the first slot. Since each of these adjacent switches adds a minus sign, doing an odd number of switches still results in adding a single minus sign to the computation of the determinant.
+\item Assume that we want to multiply the $k$th row of $A$ by the number $r$ to get $B$. We use cofactor expansion along this same $k$th row to find the determinant of each matrix. We get that
+\[ \det(A) = \sum_{j=1}^n (-1)^{k+j}a_{kj}\det(A_{kj}) \] and
+\[ \det(B) = \sum_{j=1}^n (-1)^{k+j}b_{kj}\det(B_{kj}) = \sum_{j=1}^n (-1)^{k+j}ra_{kj} \det(B_{kj}). \] However, the minor $B_{kj}$ ignores the $k$th row of the matrix $B$, so the minors are identical to those of $A$. Thus, we have that
+\[ \det(B) = \sum_{j=1}^n (-1)^{k+j}ra_{kj} \det(B_{kj}) = r\sum_{j=1}^n (-1)^{k+j}a_{kj} \det(A_{kj}) = r\det(A) .\]
+\item Assume that $B$ is formed by adding $r$ copies of the $k$th row of $A$ to the $i$th row. Since the $i$th row is the one being changed, we will use cofactor expansion there to compute each determinant. We get that
+\[ \det(A) = \sum_{j=1}^n (-1)^{i+j}a_{ij}\det(A_{ij} \] and 
+\[ \det(B) = \sum_{j=1}^n (-1)^{i+j} b_{ij}\det(B_{ij}) = \sum (-1)^{i+j} (a_{ij} + ra_{kj})\det(A_{ij}) \] where we have replaced the minors of $B$ by the minors of $A$ because they ignore the $i$th row, which is the only thing that has changed. We can now split the determinant of $B$ into two parts
+\[ \sum (-1)^{i+j} (a_{ij} + ra_{kj})\det(A_{ij}) = \sum (-1)^{i+j} a_{ij}\det(A_{ij}) + \sum (-1)^{i+j} ra_{kj}\det(A_{ij}). \] The first of these is the determinant of the matrix $A$. The second is the determinant of a new matrix that we will call $C$. $C$ is the same as the matrix $A$, except that we have replaced the $i$th row of $A$ by $r$ times the $k$th row of $A$. Thus, the $i$th row of this matrix $C$ is a multiple of the $k$th row. This means that the rows of $C$ are not linearly independent. By \thmref{thm:bigLinAlg} coming up later (don't worry, it does not depend on this result), this tells us that the determinant of $C$ is zero. Therefore
+\[ \det(B) = \det(A) + \det(C) = \det(A) \] so this operation does not change the determinant of the matrix.
+\end{enumerate}
+\end{proof}
+
+These correspond to the three elementary row operations that we use to row reduce matrices. In order to use this to compute determinants, we need to keep track of each of these operations and how the determinant changes at each step. 
+
+\begin{example}
+Compute the determinant of the matrix
+\[ \begin{bmatrix}  -4  & -2 & 4\\
+ -3 & -3  & 2\\
+ -2 &-3 & 1\end{bmatrix} \]
+using row reduction. 
+\end{example}
+
+\begin{exampleSol}
+We will go through the process of row reduction to find the determinant. We need to keep track of each time that we swap rows (to add a minus sign) and that we multiply a row by a constant (to factor in that constant). Throughout this process, we will use $A$ to refer to the initial matrix
+\[ A = \begin{bmatrix}  -4  & -2 & 4\\
+ -3 & -3  & 2\\
+ -2 &-3 & 1\end{bmatrix} \] and $M$ will refer to wherever we are in the process. So we will start by dividing the first row of the matrix by $-4$
+ \[ \begin{bmatrix}  -4  & -2 & 4\\
+ -3 & -3  & 2\\
+ -2 &-3 & 1\end{bmatrix}  \rightarrow \begin{bmatrix}  1  & 1/2 & -1\\
+ -3 & -3  & 2\\
+ -2 &-3 & 1\end{bmatrix}. \] Since we divided by $-4$, \thmref{detElem} tells us that
+ \[ \det(M) = -\frac{1}{4} \det(A). \]
+The next step of row reduction will be to use the 1 in the top left to cancel out the $-3$ and $-2$ below it. Part (c) in \thmref{detElem} says that this doesn't change the determinant. Therefore, the row reduction gives
+\[ \begin{bmatrix}  1  & 1/2 & -1\\
+ -3 & -3  & 2\\
+ -2 &-3 & 1\end{bmatrix} \rightarrow \begin{bmatrix}  1  & 1/2 & -1\\
+ 0 & -3/2  & -1\\
+ 0 & -2 & -1\end{bmatrix} \] and we still have that
+ \[ \det(M) = -\frac{1}{4}\det(A). \] Next, we will multiply row $2$ by $-\frac{2}{3}$, which gives
+ \[  \begin{bmatrix}  1  & 1/2 & -1\\
+ 0 & -3/2  & -1\\
+ 0 & -2 & -1\end{bmatrix} \rightarrow \begin{bmatrix}  1  & 1/2 & -1\\
+ 0 & 1  & 2/3\\
+ 0 & -2 & -1\end{bmatrix}. \] Adding this in to our previous steps using \thmref{detElem}, we get that 
+ \[ \det(M) = \left(-\frac{2}{3} \right) \left( -\frac{1}{4} \right) \det(A). \] Finally, we add two copies of row 2 to row 3, which does not change the determinant and gives the matrix
+ \[ \begin{bmatrix}  1  & 1/2 & -1\\
+ 0 & 1  & 2/3\\
+ 0 & -2 & -1\end{bmatrix} \rightarrow
+ \begin{bmatrix}  1  & 1/2 & -1\\
+ 0 & 1  & 2/3\\
+ 0 & 0 & 1/3\end{bmatrix} \] with \[ \det(M) = \left(-\frac{2}{3} \right) \left( -\frac{1}{4} \right) \det(A) . \]
+ We can rearrange this expression to say that
+ \[ \det(A) = 6\det(M) \] and we can easily compute that $\det(M) = \frac{1}{3}$ by multiplying the diagonal entries. Thus, we have that $\det(A) = 2$.
+\end{exampleSol}
+
+\begin{exercise}
+Compute $\det(A)$ using cofactor expansion and show that you get the same answer. 
+\end{exercise}
+
+The determinant is telling you how geometric objects scale.
+If $B$ doubles the sizes of geometric objects and $A$ triples them,
+then $AB$ (which applies $B$ to an object and then it applies $A$) should make size
+go up by a factor of $6$.  This is true in general:
+
+\begin{theorem1}{}
+\begin{equation*}
+\det(AB) = \det(A)\det(B) .
+\end{equation*}
+\end{theorem1}
+
+This property is one of the most useful, and it is employed often to 
+actually compute determinants.  A particularly interesting consequence is to
+note what it means for existence of inverses.
+Take $A$ and $B$ to be inverses, that is $AB=I$.  Then
+\begin{equation*}
+\det(A)\det(B) = \det(AB) = \det(I) = 1 .
+\end{equation*}
+Neither $\det(A)$ nor $\det(B)$ can be zero.
+This fact is an extremely useful property of the determinant, and one
+which is used often in this book:
+
+\begin{theorem1}[thm:detInv]{}
+An $n \times n$ matrix $A$ is invertible if and only if $\det (A) \not= 0$.
+\end{theorem1}
+
+In fact, $\det(A^{-1}) \det(A) = 1$ says that
+\begin{equation*}
+\det(A^{-1}) =
+\frac{1}{\det(A)}.
+\end{equation*}
+So we know what the determinant of $A^{-1}$ is
+without computing $A^{-1}$.
+
+Let us return to the formula for the inverse of a $2 \times 2$ matrix:
+\begin{equation*}
+\begin{bmatrix}
+a & b \\
+c & d
+\end{bmatrix}^{-1}
+=
+\frac{1}{ad-bc}
+\begin{bmatrix}
+d & -b \\
+-c & a
+\end{bmatrix} .
+\end{equation*}
+Notice the determinant of the matrix
+$[\begin{smallmatrix}a&b\\c&d\end{smallmatrix}]$
+in the denominator of the fraction.
+The formula only works if the determinant is nonzero, otherwise we are
+dividing by zero.
+
+%\medskip
+%
+%FIXME: perhaps computing using elimination
+
+\medskip
+
+
+A common notation for the determinant is a pair of vertical
+lines:
+\begin{equation*}
+\begin{vmatrix}
+a & b \\
+c & d
+\end{vmatrix}
+=
+\det \left(
+\begin{bmatrix}
+a & b \\
+c & d
+\end{bmatrix}
+\right) .
+\end{equation*}
+Personally, I find this notation confusing as vertical lines usually
+mean a positive quantity, while determinants can be negative.  Also
+think about how to write the absolute value of a determinant.
+This notation is not used in this book.
+
+With this discussion of determinants complete, we can now state a major theorem from linear algebra
+that will help us here and when we get back to solving differential equations using this linear algebra. In a full course
+on linear algebra, this theorem would be covered in full detail, including all of the proofs. For this introduction, we give some idea as to why everything is true here, but not all of the details.
+
+\emph{Note:} This is an example of an \emph{equivalence} theorem, which is fairly common in mathematics. It means that if any one of the statements are true, then we know that all of the others are true as well. It means it's harder to prove, but once we have such a theorem, it is very powerful in how we can use it going forward.
+
+\begin{theorem1}[thm:bigLinAlg]{}
+Let $A$ be an $n \times n$ matrix. The following are equivalent:
+\begin{enumerate}
+\item[(a)] $A$ is invertible.
+\item[(b)] $\det(A) \neq 0$.
+\item[(c)] There is a unique solution to $A\vec{x} = \vec{b}$ for every vector $\vec{b}$.
+\item[(d)] The only solution to $A\vec{x} = \vec{0}$ is $\vec{x} = \vec{0}$.
+\item[(e)] The reduced row echelon form of $A$ is $I_n$, the identity matrix.
+\item[(f)] The rank of $A$ is $n$.
+\item[(g)] The rows of $A$ are linearly independent.
+\item[(h)] The columns of $A$ are linearly independent.
+\end{enumerate}
+\end{theorem1}
+
+\begin{proof}
+Why is all of this true? For (a) and (b), we have Theorem \ref{thm:detInv} to say that they are equivalent. For (c), if $A$ is invertible, then the unique solution to $A\vec{x} = \vec{b}$ is $\vec{x} = A^{-1}\vec{b}$. If we take $\vec{b} = \vec{0}$ here, we get (d), that the solution is $\vec{x} = A^{-1}\vec{0} = \vec{0}$. This means that reducing the system of equations $A\vec{x} = 0$ gives $x_1 = 0$, $x_2 = 0$, ..., $x_n = 0$, which means the reduced row echelon form of $A$ is just the identity matrix, which is (e). This has $n$ pivot rows, so that the rank of $A$ is $n$. Finally, this means that the dimension of the column space and row space is both $n$, and since there are $n$ of these vectors, it means they are all linearly independent.
+\end{proof}
+
+This is a massive theorem that forms most of the backbone of linear algebra. We will only be using a few parts of it later, but since we have seen all of the components, it is nice to see them all put together into one complete statement.
+
+\subsection{Exercises}
+
+\begin{exercise}
+Compute the determinant of the following matrices:
+\begin{tasks}(4)
+\task
+$\begin{bmatrix}
+3
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+1 & 3 \\
+2 & 1
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+2 & 1 \\
+4 & 2
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+1 & 2 & 3 \\
+0 & 4 & 5 \\
+0 & 0 & 6
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+2 & 1 & 0 \\
+-2 & 7 & -3 \\
+0 & 2 & 0
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+2 & 1 & 3 \\
+8 & 6 & 3 \\
+7 & 9 & 7
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+0 & 2 & 5 & 7 \\
+0 & 0 & 2 & -3 \\
+3 & 4 & 5 & 7 \\
+0 & 0 & 2 & 4
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+0 &  1 &  2 &  0 \\
+1 &  1 & -1 & 2 \\
+1 &  1 &  2 & 1 \\
+2 & -1 & -2 & 3
+\end{bmatrix}$
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}\ansMark%
+\pagebreak[2]
+Compute the determinant of the following matrices:
+\begin{tasks}(4)
+\task
+$\begin{bmatrix}
+-2
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+2 & -2 \\
+1 & 3
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+2 & 2 \\
+2 & 2
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+2 & 9 & -11 \\
+0 & -1 & 5 \\
+0 & 0 & 3
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+2 & 1 & 0 \\
+-2 & 7 & 3 \\
+1 & 1 & 0
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+5 & 1 & 3 \\
+4 & 1 & 1 \\
+4 & 5 & 1
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+3 & 2 & 5 & 7 \\
+0 & 0 & 2 & 0 \\
+0 & 4 & 5 & 0 \\
+2 & 1 & 2 & 4
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+ 0 &  2 &  1 &  0 \\
+ 1 &  2 & -3 &  4 \\
+ 5 &  6 & -7 &  8 \\
+ 1 &  2 &  3 & -2
+\end{bmatrix}$
+\end{tasks}
+\end{exercise}
+\exsol{%
+a)~$-2$
+\quad b)~$8$
+\quad c)~$0$
+\quad d)~$-6$
+\quad e)~$-3$
+\quad f)~$28$
+\quad g)~$16$
+\quad h)~$-24$
+}
+
+\begin{exercise}
+For which $x$ are the following matrices singular (not invertible).
+\begin{tasks}(4)
+\task
+$\begin{bmatrix}
+2 & 3 \\
+2 & x
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+2 & x \\
+1 & 2
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+x & 1 \\
+4 & x
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+x & 0 & 1 \\
+1 & 4 & 2 \\
+1 & 6 & 2
+\end{bmatrix}$
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}\ansMark%
+For which $x$ are the following matrices singular (not invertible).
+\begin{tasks}(4)
+\task
+$\begin{bmatrix}
+1 & 3 \\
+1 & x
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+3 & x \\
+1 & 3
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+x & 3 \\
+3 & x
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+x & 1 & 0 \\
+1 & 4 & 0 \\
+1 & 6 & 2
+\end{bmatrix}$
+\end{tasks}
+\end{exercise}
+\exsol{%
+a)~$3$
+\quad b)~$9$
+\quad c)~$3$
+\quad d)~$\nicefrac{1}{4}$
+}
+
+\begin{exercise}\ansMark%
+Consider the matrix
+\begin{equation*}
+A = \begin{bmatrix}
+0 & -1 & 0 \\ -5 & -4 & -5 \\ 2 & 3 & 4
+\end{bmatrix}.
+\end{equation*}
+\begin{tasks}
+\task Compute the determinant of $A$ using cofactor expansion along row 1.
+\task Compute the determinant of $A$ using cofactor expansion along column 2.
+\task Compute the determinant using row reduction.
+\end{tasks}
+\end{exercise}
+\exsol{%
+-10
+}%
+
+\begin{exercise}\ansMark%
+Consider the matrix
+\begin{equation*}
+A = \begin{bmatrix}
+-1 & 0 & -3 \\ 1 & 2 & 1 \\ 3 & 3 & 3
+\end{bmatrix}.
+\end{equation*}
+\begin{tasks}
+\task Compute the determinant of $A$ using cofactor expansion along row 1.
+\task Compute the determinant of $A$ using cofactor expansion along column 3.
+\task Compute the determinant using row reduction.
+\end{tasks}
+\end{exercise}
+\exsol{%
+6
+}%
+
+
+\begin{exercise}\ansMark%
+Consider the matrix
+\begin{equation*}
+A = \begin{bmatrix}
+-2 & 0 & 1 & 0 \\ 0 & -1 & 1 & -2 \\ -5 &3 & 1 & 3 \\ -3 & 4 & 1 & 3
+\end{bmatrix}.
+\end{equation*}
+\begin{tasks}
+\task Compute the determinant of $A$ using cofactor expansion along row 1.
+\task Compute the determinant of $A$ using cofactor expansion along column 4.
+\task Compute the determinant using row reduction.
+\end{tasks}
+\end{exercise}
+\exsol{%
+6
+}%
+
+
+
+\begin{exercise}
+Is the matrix $A$ below invertible? How do you know?
+\[ A = \begin{bmatrix}4&0&3&1 \\ 2 &1&-2&0 \\ 0&0&1&-3 \\3 & 2 & 1 & -5 \end{bmatrix} \]
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Compute the rank of the matrix $A$ below.
+\[ A =  \begin{bmatrix} 0 & -3 & 2 & 4 \\ -5 & -4 &-5 & -1 \\ 1&4&-3 & -5\\ -2 & -3 &-2&1\end{bmatrix} \]
+What does this tell you about the invertibility of $A$? How about the solutions to $A\vec{x} = \vec{0}$? 
+\end{exercise}
+\exsol{%
+Rank is 3. Therefore $A$ is not invertible (since the rank is not $4$), and there are non-zero solutions to $A \vec{x} = \vec{0}$. 
+}
+
+\begin{exercise}\ansMark%
+Compute the rank of the matrix $A$ below.
+\[ A =  \begin{bmatrix} 3 & -5 & 5 \\ 2 &-3 & 3\\ 4 & 0 & -1 \end{bmatrix} \]
+What does this tell you about the invertibility of $A$? How about the solutions to $A\vec{x} = \begin{bmatrix} 1\\1\\1 \end{bmatrix}$? 
+\end{exercise}
+\exsol{%
+Rank is 3. Therefore $A$ is invertible, and there is exactly one solution to $A \vec{x} = \begin{bmatrix} 1 \\ 1 \\ 1\end{bmatrix}$, namely $A^{-1}\begin{bmatrix}1 \\ 1 \\ 1 \end{bmatrix}$.
+}
+
+
+\begin{exercise}\ansMark%
+Compute the determinant of the matrix
+\[ A = \begin{bmatrix}
+5 & 4  & 3\\
+-4 &-3 &-4\\
+-5 &-5 & 4
+\end{bmatrix}
+\]
+using row reduction. What does this say about the solutions to $A\vec{x} = 0$?
+\end{exercise}
+\exsol{%
+-1. The only solution is $\vec{x} = 0$. 
+}
+
+\begin{exercise}\ansMark%
+Compute the determinant of the matrix
+\[ A = \begin{bmatrix}
+-5 & -3 & -5 & -1\\
+4 & 0 &-5 &  4\\
+0&-2 &-1 &-2\\
+-1& -5 &-4 &-4
+\end{bmatrix}
+\]
+using row reduction. What does this say about the columns of $A$?
+\end{exercise}
+\exsol{%
+2. The colums are linearly independent.
+}
+
+\begin{exercise}\ansMark%
+Compute the determinant of the matrix
+\[ A = \begin{bmatrix}
+4  & 1 & -3 &  0\\
+-1 &  4 &  2 & -2\\
+-1 & -3 & 3 & 2\\
+-5 & -4 & 1 & 1
+\end{bmatrix}
+\]
+using row reduction. What does this say about the solutions to $A\vec{x} = \left[ \begin{smallmatrix} 1 \\ 0 \\ -1 \\ 1 \end{smallmatrix} \right]$.
+\end{exercise}
+\exsol{%
+8. There is exactly one solution, found by row reduction or multiplying by $A^{-1}$. 
+}
+
+\begin{exercise}
+Compute
+\begin{equation*}
+\det \left( \begin{bmatrix}
+2 & 1 & 2 & 3 \\
+0 & 8 & 6 & 5 \\
+0 & 0 & 3 & 9 \\
+0 & 0 & 0 & 1
+\end{bmatrix}^{-1}
+\right)
+\end{equation*}
+without computing the inverse.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Compute
+\begin{equation*}
+\det \left( \begin{bmatrix}
+3 & 4 & 7 & 12 \\
+0 & -1 & 9 & -8 \\
+0 & 0 & -2 & 4 \\
+0 & 0 & 0 & 2
+\end{bmatrix}^{-1}
+\right)
+\end{equation*}
+without computing the inverse.
+\end{exercise}
+\exsol{%
+$1/12$
+}
+
+\begin{exercise}
+Suppose
+\begin{equation*}
+L = \begin{bmatrix}
+1 & 0 & 0 & 0 \\
+2 & 1 & 0 & 0 \\
+7 & \pi & 1 & 0 \\
+2^8 & 5 & -99 & 1
+\end{bmatrix}
+\qquad \text{and} \qquad
+U = \begin{bmatrix}
+5 & 9 & 1 & -\sin(1) \\
+0 & 1 & 88 & -1 \\
+0 & 0 & 1 & 3 \\
+0 & 0 & 0 & 1
+\end{bmatrix} .
+\end{equation*}
+Let $A = LU$.  Compute $\det(A)$ in a simple way, without computing what is $A$.
+Hint: First read off $\det(L)$ and $\det(U)$.
+\end{exercise}
+
+\begin{exercise}
+Consider the linear mapping from ${\mathbb R}^2$ to ${\mathbb R}^2$
+given by the  matrix
+$A = \left[ \begin{smallmatrix}
+1 & x \\
+2 & 1
+\end{smallmatrix} \right]$
+for some number $x$.  You wish to make $A$ such that it doubles the area of
+every geometric figure.  What are the possibilities for $x$ (there are two
+answers).
+\end{exercise}
+
+\begin{exercise}[challenging]\ansMark%
+Find all the $x$ that make the matrix inverse
+\begin{equation*}
+\begin{bmatrix}
+1 & 2 \\ 1 & x
+\end{bmatrix}^{-1}
+\end{equation*}
+have only integer entries (no fractions).
+Note that there are two answers.
+\end{exercise}
+\exsol{%
+$1$ and $3$
+}
+
+\begin{exercise}
+Suppose $A$ and $S$ are $n \times n$ matrices, and $S$ is invertible.
+Suppose that $\det(A) = 3$.  Compute $\det(S^{-1}AS)$ and 
+$\det(SAS^{-1})$.  Justify your answer using the theorems in this section.
+\end{exercise}
+
+\begin{exercise}
+Let $A$ be an $n \times n$ matrix such that $\det(A)=1$.
+Compute $\det(x A)$ given a number $x$.\linebreak[2]
+Hint: First try computing
+$\det(xI)$, then note that $xA = (xI)A$.
+\end{exercise}
+
+\setcounter{exercise}{100}
+
+
+
+
+
+

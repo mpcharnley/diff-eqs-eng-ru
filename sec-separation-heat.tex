@@ -1,0 +1,721 @@
+
+\section{The heat equation}
+\label{heateq:section}
+
+\LAtt{4.6}
+
+\LO{
+\item Use the heat equation to model the temperature in an object over time and
+\item Use separation of variables and Fourier series to solve the heat equation in specific domains.
+}
+
+% \sectionnotes{Verbatim from Lebl}
+
+% \sectionnotes{2 lectures\EPref{, \S9.5 in \cite{EP}}\BDref{,
+% \S10.5 in \cite{BD}}}
+
+%Let us recall that a \emph{\myindex{partial differential equation}} or
+%\emph{\myindex{PDE}} is an equation containing the partial derivatives
+%with respect to \emph{several} independent variables.  Solving PDEs
+%will be our main application of Fourier series.
+%
+%A PDE is said to be \emph{linear\index{linear PDE}} if the dependent
+%variable and its derivatives appear at most to the first power and in no
+%functions.  We will only talk about linear PDEs.  Together with a PDE\@,
+%we usually specify some
+%\emph{boundary conditions\index{boundary conditions for a PDE}},
+%where the value of the solution or its derivatives is given along
+%the boundary of a region, and/or
+%some 
+%\emph{initial conditions\index{initial conditions for a PDE}} where the value
+%of the solution or its derivatives is given for some initial time.
+%Sometimes such conditions are mixed together and we will refer to them
+%simply as 
+%\emph{side conditions\index{side conditions for a PDE}}.
+%
+%We will study three specific
+%partial differential equations, each one representing a
+%general class of equations.  First, we will study the
+%\emph{\myindex{heat equation}}, which is an example of
+%a \emph{\myindex{parabolic PDE}}.  Next, we will study the
+%\emph{\myindex{wave equation}}, which is an example of
+%a \emph{\myindex{hyperbolic PDE}}.  Finally, we will study the
+%\emph{\myindex{Laplace equation}}, which is an example of
+%an \emph{\myindex{elliptic PDE}}.  Each of our examples will illustrate
+%behavior that is typical for the whole class.
+
+\subsection{Derivation of the heat equation}
+
+The first type of physical situation we want to consider is how the temperature of an object changes over time. We have dealt with this idea previously for a well-mixed fluid at a single temperature with Newton's Law of cooling. However, we will consider a physical object here, so the temperature will depend on position as well, giving rise to a PDE instead of the ODE we got with Newton's Law.
+
+Let's start by considering an insulated wire of length $L$. With this, we mean that no heat can escape through the lateral sides of the wire, and the only way that heat can enter the system is through the two ends. We will let $u(t,x)$ be the temperature in the wire after $t$ seconds, and at the position $x$ meters from the left end of the wire (the units here are not important, they just need to be consistent). See \figurevref{heat:wirefig}.
+
+\begin{myfig}
+\capstart
+\inputpdft{heat-wire}
+\caption{Insulated wire.\label{heat:wirefig}}
+\end{myfig}
+
+We want to come up with a way to find a differential equation that models how this temperature will change with time and location. The easiest way to do this is with the accumulation equation from \sectionref{modelfirst:section} with thermal energy, since that is something that can be accumulated, while temperature really can't. How does temperature relate to thermal energy? Physical properties tell us that 
+\[ \Delta E = c \rho V \delta T \] where $\Delta E$ is the change (or input) of energy, $c$ is the \emph{specific heat} of the material, $\rho$ is the mass density of the material, $V$ is the volume, and $\delta T$ is the change in temperature. This expression mainly comes from the fact that the specific heat is the energy required to raise one kilogram of the material by one degree Celsius.
+
+Now, we need to build up the accumulation equation for energy. To do this, we will look at a small interior segment of this wire of length $\Delta x$ that stretches from a position $x$ to $x + \Delta x$. The accumulation equation tells us that
+\[ \text{rate of change of energy} = \text{rate in from left} + \text{rate in from right} + \text{interior sources} \] 
+
+For interior sources, we will assume that there is some function $Q(t,x)$ that describes all of the sources of thermal energy per unit volume at time $t$ and position $x$, and our discussion of the relationship between temperature and thermal energy says that the rate of change of energy is
+\[ \frac{\partial E}{\partial t} = c\rho (A\Delta x)\frac{\partial u}{\partial t} \] since $u$ represents our temperature and $A\Delta x$ is the volume of this small piece of wire. Since the piece is ``small'', we will assume that things like the energy change are constant along this piece, which works out using linearization since we are eventually going to limit $\Delta x$ to zero. 
+
+At this point, we have the equation
+\[  c(x)\rho(x) (A\Delta x)\frac{\partial u}{\partial t}  = \text{rate in from left} + \text{rate in from right} + Q(t,x)(A \Delta x) \] where we have also added in the fact that $c$ and $\rho$, these material properties, could depend on $x$ if the wire is not uniform and made of the same material throughout. The last things we have to deal with are these rate terms. The normal terminology used for the rate of energy entering or exiting a region is \emph{\myindex{flux}} of energy. Fourier's law (same Fourier) says that if $\phi$ is the flux of energy, then \[ \phi = -k \nabla u \] where $u$ represents temperature and $k$ is the \emph{\myindex{thermal conductivity}} of the material. The point of this expression for now is the fact that the thermal flux is proportional to the derivative of teperature. This means that in this particular case
+\[ \text{flux in from left} = -k(x) A\frac{\partial u}{\partial x}(t, x) \] and 
+\[ \text{flux in from right} = k(x+\Delta x) A \frac{\partial u}{\partial x}(t, x+\Delta x). \] The minus sign is missing from the second term because the flux coming in from the right is moving in the negative direction, so it needs to pick up an additional minus sign. The $A$ here represents the cross-sectional area of the wire. Thus, we have the full equation
+
+\[  c(x)\rho(x) (A\Delta x)\frac{\partial u}{\partial t}  = -k(x) A\frac{\partial u}{\partial x}(t, x) + k(x+\Delta x) A \frac{\partial u}{\partial x}(t, x+\Delta x) + Q(t,x)(A \Delta x). \]
+
+Dividing both sides by $A \Delta x$ gives
+\[ c(x)\rho(x) \frac{\partial u}{\partial t} = \frac{1}{\Delta x}\left( k(x+\Delta x) \frac{\partial u}{\partial x}(t, x+\Delta x) - k(x) \frac{\partial u}{\partial x}(t, x) \right) + Q(t,x). \]
+
+Now, we want to take the limit as $\Delta x \rightarrow 0$. The one term that still involves $\Delta x$ looks like
+\[ \frac{ k(x+\Delta x) \frac{\partial u}{\partial x}(t, x+\Delta x) - k(x) \frac{\partial u}{\partial x}(t, x) }{\Delta x} \] which, as $\Delta x \rightarrow 0$ is a partial derivative. Taking this limit, we get the equation
+\[ c(x)\rho(x) \frac{\partial u}{\partial t} = \frac{\partial}{\partial x}\left(k(x) \frac{\partial u}{\partial x}\right) + Q(t,x). \]
+
+In most cases, we will assume that the material we use is uniform. That means that $c$, $\rho$ and $k$ are all independent of $x$. We can move the $k$ outside the derivative, then divide both sides by $c\rho$ to get the equation
+\[ \frac{\partial u}{\partial t} = \alpha \frac{\partial^2 u}{\partial x^2} + F(t,x) \] where 
+\[ \alpha = \frac{k}{c\rho} \] is the \emph{\myindex{thermal diffusivity}} of the material and 
+\[ F(t,x) = \frac{Q(t,x)}{c\rho} \] represents the thermal sources in the system. This is the \emph{\myindex{heat equation}}, in particular, this is a non-homogeneous heat equation. The homogeneous version is
+\[ \frac{\partial u}{\partial t} = \alpha \frac{\partial^2 u}{\partial x^2}. \]
+
+For an interpretation, this tells us that the change in heat at a specific point is proportional to the second
+derivative of the heat along the wire.  This makes sense;
+if at a fixed $t$
+the graph of the heat distribution has a maximum (the graph is concave down),
+then heat flows away from the maximum.  And vice versa.
+
+\subsubsection{Boundary conditions for the heat equation}
+
+There are several main types of boundary conditions that can be used with the heat equation. In general, we will assume that either the ends of the wire are exposed and fixed at a constant temperature, or they are insulated. In the first case, the endpoint being fixed at a constant temperature means that
+\[ u(t,0) = T_0 \] at the left endpoint and
+\[ u(t,L) = T_L \] at the right endpoint. For insulated ends, this means that thermal energy can not escape from the endpoint. Since the flux is proportional to the derivative of temperature, this means that
+\[ \frac{\partial u}{\partial x}(t, 0) = 0 \] at the left endpoint and
+\[ \frac{\partial u}{\partial x}(t, L) = 0 \] at the right endpoint. When trying to solve these problems, we want to have conditions where something is set to zero at the end point; that will make our lives much easier once we separate variables. These side conditions are said to be
+\emph{homogeneous\index{homogeneous side conditions}}
+(i.e., $u$ or a derivative of $u$ is set to zero).
+
+It is possible to have more involved boundary conditions that involve both $u$ and the derivative. These are sometimes more physically natural, since they are similar to Newton's law of cooling, but are much harder to solve. These may look something like
+\[ \frac{\partial u}{\partial x}(t,0) - 4 u(t,0) = 0, \] but we will generally avoid these types of conditions here. 
+
+We also need an initial condition---the temperature distribution
+at time $t=0$.  That is,
+\begin{equation*}
+u(x,0) = f(x) ,
+\end{equation*}
+for some known function $f(x)$.
+This initial condition is not a homogeneous side condition. 
+
+\subsubsection{Multidimensional heat equation}
+
+The same ideas can be used to derive the heat equation in plates (two dimensions) or regions (three dimensions) as opposed to just one dimensional wires. The process is the same: take a small region and relate the change of energy to the flux through each side. In the two dimensional case, there are four sides to consider, two where the flux is related to $\frac{\partial u}{\partial x}$ and two where it is related to $\frac{\partial u}{\partial y}$. The differences end up working out the same way and with the same assumptions as before, this results in the heat equation in two dimensions looking like
+\[ \frac{\partial u}{\partial t} = \alpha \left( \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2}\right) + F(t,x, y). \] With three spatial dimensions, there are six different flux terms, and the equation simplifies to 
+\[ \frac{\partial u}{\partial t} = \alpha \left( \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} + \frac{\partial^2 u}{\partial z^2} \right) + F(t,x, y, z). \]
+
+In each case, we end up with a term that is the sum of all of the different second partial derivatives in the spatial directions. This type of a term shows up very frequently, so we give it a name. 
+\begin{definition}
+Let $u$ be a multivariable function. The \emph{\myindex{Laplacian}} of $u$, denoted $\Delta u$ is the sum of all second partial derivatives of $u$ in the spatial directions. It does not take the time dependence of $u$ into account, if $u$ depends on time.  Examples:
+\begin{itemize}
+\item One space dimension - $u(x)$ or $u(t,x)$: $\Delta u = \frac{\partial^2 u}{\partial x^2}$
+\item Two space dimensions - $u(x,y)$ or $u(t,x,y)$: $\Delta u = \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2}$
+\item Three space dimensions - $u(x,y,z)$ or $u(t,x,y,z)$: $\Delta u = \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} + \frac{\partial^2 u}{\partial z^2}$.
+\end{itemize}
+\end{definition}
+
+With all of these definitions, the homogeneous heat equation, in any number of dimensions, can be written as
+\[ \frac{\partial u}{\partial t} = \alpha \Delta u. \]
+
+Boundary conditions in the multidimensional case work similarly to the one-dimensional case. The temperature can either be fixed at the boundary, giving a value for the function $u$, or insulated, giving that the flux must be zero, or that 
+\[ \nabla u \cdot \vec{n} = 0 \] along the boundary of the domain. For a rectangular domain, this will look like
+\[ \frac{\partial u}{\partial x} = 0 \quad \text{ or } \quad \frac{\partial u}{\partial y} = 0. \]
+
+
+\subsection{Solution by separation of variables}
+
+Now, we want to employ techniques from \sectionref{secondpde:section} to try to solve the heat equation for a variety of initial and boundary conditions. 
+
+\begin{example} 
+Let us try to solve the heat equation with fixed temperature endpoints:
+\begin{equation*}
+u_t = k u_{xx}
+\qquad \text{with} \quad
+u(0,t) = 0 ,\quad \quad u(L,t) = 0,
+\quad \text{and} \quad u(x,0) = f(x) .
+\end{equation*}
+\end{example}
+
+\begin{exampleSol}
+We use the method of separation of variables and guess $u(x,t) = X(x)T(t)$. 
+We will try to make this guess satisfy the
+differential equation, $u_t = k u_{xx}$, and the homogeneous side conditions,
+$u(0,t) = 0$ and $u(L,t) = 0$.  Then, as superposition preserves the
+differential equation and the homogeneous side conditions, we will try to
+build up a solution from these building blocks to solve the
+nonhomogeneous initial condition $u(x,0) = f(x)$.
+
+First we plug $u(x,t) = X(x)T(t)$ into the heat equation to
+obtain
+\begin{equation*}
+X(x)T'(t) = k X''(x)T(t) .
+\end{equation*}
+We rewrite as
+\begin{equation*}
+\frac{T'(t)}{k T(t)} =
+\frac{X''(x)}{X(x)},
+\end{equation*}
+which means that both sides of this equation must equal a constant value $-\lambda$. 
+
+We obtain the two equations
+\begin{equation*}
+\frac{T'(t)}{k T(t)} = -\lambda =
+\frac{X''(x)}{X(x)} .
+\end{equation*}
+In other words,
+\begin{align*}
+X''(x) + \lambda X(x) &= 0 , \\
+T'(t) + \lambda k T(t) &= 0 .
+\end{align*}
+The boundary condition $u(0,t) = 0$ implies $X(0)T(t) = 0$.  We are looking
+for a nontrivial solution and so we can assume that $T(t)$ is not identically
+zero.  Hence $X(0) = 0$.  Similarly, $u(L,t) = 0$ implies $X(L) = 0$.  We
+are looking for nontrivial solutions $X$ of the eigenvalue problem
+$X'' + \lambda X = 0$, $X(0) = 0$, $X(L) = 0$.  We have previously found that
+the only eigenvalues are $\lambda_n = \frac{n^2 \pi^2}{L^2}$, for integers
+$n \geq 1$,
+where eigenfunctions are $\sin \left(\frac{n \pi}{L} x\right)$.  Hence, let us pick
+the solutions
+\begin{equation*}
+X_n (x) = \sin \left(\frac{n \pi}{L} x \right) .
+\end{equation*}
+The corresponding $T_n$ must satisfy the equation
+\begin{equation*}
+T_n'(t) + \frac{n^2 \pi^2}{L^2} k T_n(t) = 0 .
+\end{equation*}
+This is one of our
+\hyperref[subsection:fourfundamental]{fundamental equations},
+and the solution is just
+an exponential:
+\begin{equation*}
+T_n(t) = e^{\frac{-n^2 \pi^2}{L^2} k t} .
+\end{equation*}
+It will be useful to note that $T_n(0) = 1$.
+Our building-block solutions are
+\begin{equation*}
+u_n(x,t) = X_n(x)T_n(t) =
+\sin \left( \frac{n \pi}{L} x \right)
+e^{\frac{-n^2 \pi^2}{L^2} k t} .
+\end{equation*}
+
+We note that $u_n(x,0) = \sin \left( \frac{n \pi}{L} x \right)$.  Let us
+write $f(x)$ as the sine series
+\begin{equation*}
+f(x) = \sum_{n=1}^\infty b_n \sin \left(\frac{n \pi}{L}  x \right) .
+\end{equation*}
+That is, we find the Fourier series of the odd periodic extension of $f(x)$.
+We used the sine series as it corresponds to the eigenvalue problem for
+$X(x)$ above.
+Finally, we use superposition to write the solution as
+\begin{equation*}
+\mybxbg{~~
+u(x,t) = 
+\sum_{n=1}^\infty
+b_n
+u_n(x,t)
+=
+\sum_{n=1}^\infty
+b_n
+\sin \left( \frac{n \pi}{L}  x \right)
+e^{\frac{-n^2 \pi^2}{L^2} k t} .
+~~}
+\end{equation*}
+\end{exampleSol}
+
+Why does this solution work?  First note that it is a solution to
+the heat equation by superposition.  It satisfies $u(0,t) = 0$
+and $u(L,t) = 0$, because $x=0$ or $x=L$ makes all the sines vanish.
+Finally, plugging in $t=0$, we notice that $T_n(0) = 1$ and so
+\begin{equation*}
+u(x,0) = 
+\sum_{n=1}^\infty
+b_n
+u_n(x,0)
+=
+\sum_{n=1}^\infty
+b_n
+\sin \left( \frac{n \pi}{L} x \right)
+=
+f(x) .
+\end{equation*}
+
+\begin{example}
+Consider
+an insulated wire of length 1 whose
+ends are embedded in ice (temperature 0).
+Let $k=0.003$ and let the initial heat distribution
+be $u(x,0) = 50\,x\,(1-x)$.
+See \figurevref{heat:wireexinitfig}.
+Suppose we want to find the temperature function $u(x,t)$.  Let us also suppose we
+want to find when (at what $t$) does the maximum temperature in the wire 
+drop to one half of the initial maximum of 12.5.
+
+\begin{myfig}
+\capstart
+\diffyincludegraphics{width=3in}{width=4.5in}{heat-wireex-init}
+\caption{Initial distribution of temperature in the
+wire.\label{heat:wireexinitfig}}
+\end{myfig}
+\end{example}
+
+\begin{exampleSol}
+We are solving the following PDE problem:
+\begin{align*}
+& u_t = 0.003 \, u_{xx} , \\
+& u(0,t) = u(1,t) = 0 , \\
+& u(x,0) = 50\,x\,(1-x) \qquad \text{for } \; 0 < x < 1 .
+\end{align*}
+We write $f(x) = 50\,x\,(1-x)$ for $0 < x < 1$ as a sine series.  That is,
+$
+f(x) = \sum_{n=1}^\infty b_n \sin (n \pi x) ,
+$
+where
+\begin{equation*}
+b_n = 2 \int_0^1 50\,x\,(1-x) \sin (n \pi x) \,dx
+= 
+\frac{200}{{\pi }^{3}{n}^{3}}-\frac{200\,{\left( -1\right) }^{n}}{{\pi }^{3}{n}^{3}}
+=
+\begin{cases}
+0 & \text{if } n \text{ even} , \\
+\frac{400}{\pi^3 n^3} & \text{if } n \text{ odd} .
+\end{cases}
+\end{equation*}
+
+The solution $u(x,t)$, plotted in
+\figurevref{heat:wireexfig} for $0 \leq t \leq 100$,
+is given by the series:
+\begin{equation*}
+u(x,t) = 
+\sum_{\substack{n=1 \\ n \text{ odd}}}^\infty
+\frac{400}{\pi^3 n^3}
+\sin (n \pi x )
+\, e^{-n^2 \pi^2 \, 0.003 \, t} .
+\end{equation*}
+
+\begin{myfig}
+\capstart
+\diffyincludegraphics{width=5in}{width=7.5in}{heat-wireex}
+\caption{Plot of the temperature of the wire at position $x$
+at time $t$.\label{heat:wireexfig}}
+\end{myfig}
+
+Finally, let us answer the question about the maximum temperature.  It is
+relatively easy to see
+that the maximum temperature at any fixed time is always at $x=0.5$, in
+the middle of the wire.  The plot of $u(x,t)$ confirms this intuition.
+If we plug in $x=0.5$, we get
+\begin{equation*}
+u(0.5,t) = 
+\sum_{\substack{n=1 \\ n \text{ odd}}}^\infty
+\frac{400}{\pi^3 n^3}
+\sin (n \pi\, 0.5 )
+\, e^{-n^2 \pi^2 \, 0.003 \, t} .
+\end{equation*}
+For $n=3$ and higher (remember $n$ is only odd), the terms
+of the series
+are insignificant compared to the first term.
+The first term in the series is already a very good approximation
+of the function.  
+Hence 
+\begin{equation*}
+u(0.5,t) \approx
+\frac{400}{\pi^3}
+\, e^{-\pi^2 \, 0.003 \, t} .
+\end{equation*}
+The approximation gets better and better as $t$ gets larger as the other
+terms decay much faster.
+Let us plot the function $u(0.5,t)$, the temperature at the midpoint of the wire
+at time $t$, in \figurevref{heat:wireexmaxfig}.  The figure also
+plots the approximation by the first term.
+
+\begin{myfig}
+\capstart
+\diffyincludegraphics{width=3in}{width=4.5in}{heat-wireex-max}
+\caption{Temperature at the midpoint of the wire (the bottom curve),
+and the approximation of this temperature by using only the first term in
+the series (top curve).\label{heat:wireexmaxfig}}
+\end{myfig}
+
+After $t=5$ or so
+it would be hard to tell the difference
+between the first term of the series for $u(x,t)$ and 
+the real solution $u(x,t)$.  This behavior
+is a general feature of solving the heat equation.
+If you are interested in behavior for large enough $t$, only the
+first one or two terms may be necessary.
+
+Let us
+get back to the question of when is the maximum temperature one half of the
+initial maximum temperature.  That is, when is the temperature
+at the midpoint $\nicefrac{12.5}{2} = 6.25$.  We notice on the graph that if we use
+the approximation by the first term we will be close enough.  We
+solve
+\begin{equation*}
+6.25 =
+\frac{400}{\pi^3}
+\, e^{-\pi^2 \, 0.003 \, t} .
+\end{equation*}
+That is,
+\begin{equation*}
+t =
+\frac{\ln \frac{6.25\,\pi^3}{400}}{-\pi^2 0.003}
+\approx 24.5 .
+\end{equation*}
+So the maximum temperature drops to half at about $t=24.5$.
+\end{exampleSol}
+
+We mention an interesting behavior of the solution to the heat equation.
+The heat equation
+\myquote{smoothes} out the function $f(x)$ as $t$ grows.  For a fixed $t$,
+the solution is a Fourier series with coefficients
+$b_n e^{\frac{-n^2 \pi^2}{L^2} k t}$.  If $t > 0$, then these coefficients
+go to zero faster than any $\frac{1}{n^p}$ for any power $p$.  In other
+words, the Fourier series has infinitely many derivatives everywhere.
+Thus even if the function $f(x)$ has jumps and corners, then for
+a fixed $t > 0$, the solution
+$u(x,t)$ as a function of $x$ is as smooth as we want it
+to be.
+
+\begin{example}
+When the initial condition is already a sine series, then there is no need
+to compute anything, you just need to plug in.  Consider
+\begin{equation*}
+u_t = 0.3 \, u_{xx}, \qquad u(0,t)=u(1,t)=0, \qquad u(x,0) = 0.1 \sin(\pi t) +
+\sin(2\pi t) .
+\end{equation*}
+The solution is then
+\begin{equation*}
+u(x,t) =
+0.1 \sin(\pi t) e^{- 0.3 \pi^2 t}
++ 
+\sin(2 \pi t) e^{- 1.2 \pi^2 t} .
+\end{equation*}
+\end{example}
+
+\subsection{Insulated ends}
+
+Now suppose the ends of the wire are insulated.  In this case, we are solving
+the equation
+\begin{equation*}
+u_t = k u_{xx}
+\qquad \text{with} \quad
+u_x(0,t) = 0, \quad u_x(L,t) = 0,
+\quad \text{and} \quad u(x,0) = f(x) .
+\end{equation*}
+Yet again we try a solution of the form $u(x,t) = X(x)T(t)$.  By the same
+procedure as before we plug into the heat equation and arrive at the
+following
+two equations
+\begin{align*}
+X''(x) + \lambda X(x) &= 0 , \\
+T'(t) + \lambda k T(t) &= 0 .
+\end{align*}
+At this point the story changes slightly.
+The boundary condition $u_x(0,t) = 0$ implies $X'(0)T(t) = 0$.
+Hence $X'(0) = 0$.  Similarly, $u_x(L,t) = 0$ implies $X'(L) = 0$.  We
+are looking for nontrivial solutions $X$ of the eigenvalue problem
+$X'' + \lambda X = 0$, $X'(0) = 0$, $X'(L) = 0$.  We have previously found that
+the only eigenvalues are $\lambda_n = \frac{n^2 \pi^2}{L^2}$, for integers
+$n \geq 0$,
+where eigenfunctions are $\cos \left( \frac{n \pi}{L} x\right)$
+(we include the constant
+eigenfunction).  Hence, let us pick
+solutions
+\begin{equation*}
+X_n (x) = \cos \left( \frac{n \pi}{L} x \right)
+\qquad \text{and} \qquad
+X_0 (x) = 1.
+\end{equation*}
+The corresponding $T_n$ must satisfy the equation
+\begin{equation*}
+T_n'(t) + \frac{n^2 \pi^2}{L^2} k T_n(t) = 0 .
+\end{equation*}
+For $n \geq 1$, as before,
+\begin{equation*}
+T_n(t) = e^{\frac{-n^2 \pi^2}{L^2} k t} .
+\end{equation*}
+For $n = 0$, we have $T_0'(t) = 0$ and hence $T_0(t) = 1$.
+Our building-block solutions are
+\begin{equation*}
+u_n(x,t) = X_n(x)T_n(t) =
+\cos \left( \frac{n \pi}{L} x \right)
+e^{\frac{-n^2 \pi^2}{L^2} k t} ,
+\end{equation*}
+and
+\begin{equation*}
+u_0(x,t) = 1 .
+\end{equation*}
+
+We note that $u_n(x,0) = \cos \left( \frac{n \pi}{L} x \right)$.  Let us
+write $f$ using the cosine series
+\begin{equation*}
+f(x) = \frac{a_0}{2} + \sum_{n=1}^\infty a_n \cos \left( \frac{n \pi}{L} x
+\right) .
+\end{equation*}
+That is, we find the Fourier series of the even periodic extension of $f(x)$.
+
+We use superposition to write the solution as
+\begin{equation*}
+\mybxbg{~~
+u(x,t) = 
+\frac{a_0}{2} + 
+\sum_{n=1}^\infty
+a_n
+u_n(x,t)
+=
+\frac{a_0}{2} + 
+\sum_{n=1}^\infty
+a_n
+\cos \left( \frac{n \pi}{L} x \right)
+e^{\frac{-n^2 \pi^2}{L^2} k t} .
+~~}
+\end{equation*}
+
+\begin{example}
+Let us try the same equation as before, but for insulated ends.
+We are solving the following PDE problem
+\begin{align*}
+& u_t = 0.003 \, u_{xx} , \\
+& u_x(0,t) = u_x(1,t) = 0 , \\
+& u(x,0) = 50\,x\,(1-x) \qquad \text{for } \; 0 < x < 1 .
+\end{align*}
+\end{example}
+
+\begin{exampleSol}
+For this problem, we must find the cosine series of $u(x,0)$.
+For $0 < x < 1$ we have
+\begin{equation*}
+50\, x\,(1-x)
+=
+\frac{25}{3} +
+\sum_{\substack{n=2 \\ n \text{ even}}}^\infty
+\left( \frac{-200}{\pi^2 n^2} \right)
+\cos (n \pi x) .
+\end{equation*}
+The calculation is left to the reader.
+Hence, the solution to the PDE problem, plotted in
+\figurevref{heat:wireisolexfig}, is given by the series
+\begin{equation*}
+u(x,t)
+=
+\frac{25}{3} +
+\sum_{\substack{n=2 \\ n \text{ even}}}^\infty
+\left( \frac{-200}{\pi^2 n^2} \right)
+\cos ( n \pi x)
+\, e^{-n^2 \pi^2 \, 0.003 \, t} .
+\end{equation*}
+
+\begin{myfig}
+\capstart
+\diffyincludegraphics{width=5in}{width=7.5in}{heat-wireisolex}
+\caption{Plot of the temperature of the insulated wire at position $x$
+at time $t$.\label{heat:wireisolexfig}}
+\end{myfig}
+
+Note in the graph
+that as time goes on, the temperature evens out across the wire.  Eventually, all the
+terms except the constant
+die out, and you will be left with a uniform temperature
+of $\frac{25}{3} \approx 8.33$ along the entire length of the wire.
+\end{exampleSol}
+
+Let us expand on the last point.  The constant term in the series is
+\begin{equation*}
+\frac{a_0}{2} = \frac{1}{L} \int_0^L f(x) \, dx .
+\end{equation*}
+In other words, $\frac{a_0}{2}$ is the average value of $f(x)$, that is,
+the average of the initial temperature.  As the wire is insulated
+everywhere, no heat can get out, no heat can get in.  So the temperature
+tries to distribute evenly over time, and the average temperature must always be the
+same, in particular it is always $\frac{a_0}{2}$.  As time goes to
+infinity, the temperature goes to the constant $\frac{a_0}{2}$ everywhere.
+
+\subsection{Exercises}
+
+\begin{exercise}
+Consider a wire of length 2, with $k=0.001$ and an initial
+temperature distribution $u(x,0) = 50 x$.  Both ends
+are embedded in ice (temperature 0).  Find the solution as a series.
+\end{exercise}
+
+\begin{exercise}
+Find a series solution of
+\begin{align*}
+& u_t =  u_{xx} , \\
+& u(0,t) = u(1,t) = 0 , \\
+& u(x,0) = 100 \qquad \text{for } \; 0 < x < 1 .
+\end{align*}
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Find a series solution of
+\begin{align*}
+& u_t =  3 u_{xx} , \\
+& u(0,t) = u(\pi,t) = 0 , \\
+& u(x,0) = 5\sin (x) + 2\sin (5x) \qquad \text{for } \; 0 < x < \pi .
+\end{align*}
+\end{exercise}
+\exsol{%
+$u(x,t) = 
+5
+\sin (x)
+\, e^{- 3 t}
++
+2
+\sin (5x)
+\, e^{-75 t}$
+}
+
+\begin{exercise}
+Find a series solution of
+\begin{align*}
+& u_t =  u_{xx} , \\
+& u_x(0,t) = u_x(\pi,t) = 0 , \\
+& u(x,0) = 3\cos (x) + \cos (3x) \qquad \text{for } \; 0 < x < \pi .
+\end{align*}
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Find a series solution of
+\begin{align*}
+& u_t =  0.1 u_{xx} , \\
+& u_x(0,t) = u_x(\pi,t) = 0 , \\
+& u(x,0) = 1 + 2\cos (x) \qquad \text{for } \; 0 < x < \pi .
+\end{align*}
+\end{exercise}
+\exsol{%
+$u(x,t) = 
+1 + 
+2
+\cos (x)
+\, e^{-0.1 t}$
+}
+
+\begin{exercise} \label{heat:cosexr}
+Find a series solution of
+\begin{align*}
+& u_t = \frac{1}{3} u_{xx} , \\
+& u_x(0,t) = u_x(\pi,t) = 0 , \\
+& u(x,0) = \frac{10x}{\pi} \qquad \text{for } \; 0 < x < \pi .
+\end{align*}
+\end{exercise}
+
+\begin{exercise} \label{heat:oneto100exr}
+Find a series solution of
+\begin{align*}
+& u_t =  u_{xx} , \\
+& u(0,t) = 0 , \quad u(1,t) = 100 , \\
+& u(x,0) = \sin (\pi x) \qquad \text{for } \; 0 < x < 1 .
+\end{align*}
+Hint: Use the fact that $u(x,t) = 100 x$ is a solution satisfying
+$u_t = u_{xx}$, $u(0,t) = 0$, $u(1,t) = 100$.  Then use superposition.
+\end{exercise}
+
+\begin{exercise}
+Find the \emph{\myindex{steady state temperature}} solution as a function
+of $x$ alone,
+by letting $t \to
+\infty$ in the solution from
+exercises \ref{heat:cosexr} and \ref{heat:oneto100exr}.
+Verify that it satisfies the equation $u_{xx} = 0$.
+\end{exercise}
+
+\begin{exercise}[challenging]
+Suppose that one end of the wire is insulated (say at $x=0$) and
+the other end is kept at zero temperature.  That is,
+find a series solution of
+\begin{align*}
+& u_t = k u_{xx} , \\
+& u_x(0,t) = u(L,t) = 0 , \\
+& u(x,0) = f(x) \qquad \text{for } \; 0 < x < L .
+\end{align*}
+Express any coefficients in the series by integrals of $f(x)$.
+\end{exercise}
+
+\begin{exercise}[challenging]
+Suppose that the wire is circular and insulated, so there are no ends. 
+You can think of this as simply connecting the two ends and 
+making sure the solution matches up at the ends.
+That is, find a series solution of
+\begin{align*}
+& u_t = k u_{xx} , \\
+& u(0,t) = u(L,t) , \qquad
+u_x(0,t) = u_x(L,t) , \\
+& u(x,0) = f(x) \qquad \text{for } \; 0 < x < L .
+\end{align*}
+Express any coefficients in the series by integrals of $f(x)$.
+\end{exercise}
+
+\begin{exercise}
+Consider a wire insulated on both ends, $L=1$, $k=1$,
+and $u(x,0) = \cos^2(\pi x)$.
+\begin{tasks}
+\task
+Find the solution $u(x,t)$.  Hint: a trig identity.
+\task
+Find the average temperature.
+\task
+Initially the temperature variation is 1 (maximum minus the minimum).
+Find the time when the variation is $\nicefrac{1}{2}$.
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Suppose that the temperature on the wire is fixed at $0$
+at the ends, $L=1$, $k=1$, and $u(x,0) = 100\sin(2 \pi x)$.
+\begin{tasks}
+\task
+What is the temperature at $x = \nicefrac{1}{2}$ at any time.
+\task
+What is the maximum and the minimum temperature on the wire
+at $t=0$.
+\task
+At what time is the maximum temperature on the wire exactly
+one half of the initial maximum at $t=0$.
+\end{tasks}
+\end{exercise}
+\exsol{%
+a) $0$,
+\quad b) minimum $-100$, maximum $100$,
+\quad c) $t = \frac{\ln 2}{4 \pi^2}$.
+}
+
+\setcounter{exercise}{100}
+
+%u(x,t) = 
+%\sum_{n=1}^\infty
+%b_n
+%u_n(x,t)
+%=
+%\sum_{n=1}^\infty
+%b_n
+%\sin \left( \frac{n \pi}{L} x \right)
+%e^{\frac{-n^2 \pi^2}{L^2} k t} .
+
+
+%u(x,t) = 
+%\frac{a_0}{2} + 
+%\sum_{n=1}^\infty
+%a_n
+%u_n(x,t)
+%=
+%\frac{a_0}{2} + 
+%\sum_{n=1}^\infty
+%a_n
+%\cos \left( \frac{n \pi}{L} x \right)
+%\, e^{\frac{-n^2 \pi^2}{L^2} k t} .
+

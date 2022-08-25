@@ -1,0 +1,811 @@
+\section{Applications of nonlinear systems}
+\label{nlinapps:section}
+
+\LAtt{8.3}
+
+\LO{
+\item Use non-linear systems to model the motion of a pendulum, and
+\item Use non-linear systems to model population dynamics like predator-prey and competing species models.
+}
+
+In this section we study two very standard examples of nonlinear
+systems.  First, we look at the nonlinear pendulum equation.  We saw
+the pendulum equation's linearization before, but we noted it
+was only valid for small angles and short times.  Now we find out what
+happens for large angles.  Next, we look at the predator-prey equation,
+which finds various applications in modeling problems in biology, chemistry,
+economics, and elsewhere.
+
+\subsection{Pendulum}
+
+The first example we study is the pendulum equation
+$\theta''+\frac{g}{L} \sin \theta = 0$.  Here, $\theta$ is the angular
+displacement, $g$ is the gravitational acceleration, and $L$ is the length of
+the pendulum.  In this equation we disregard friction, so we are talking
+about an idealized pendulum.
+
+\begin{mywrapfigsimp}{1.45in}{1.75in}
+\noindent
+\inputpdft{mv-pend}
+\end{mywrapfigsimp}
+This equation is a conservative
+equation, so we can use our analysis of conservative equations
+from the previous section.
+Let us change the equation to a two-dimensional
+system in variables $(\theta,\omega)$ by introducing the new
+variable $\omega$:
+\begin{equation*}
+\begin{bmatrix}
+\theta \\ \omega
+\end{bmatrix} '
+=
+\begin{bmatrix}
+\omega \\
+- \frac{g}{L} \sin \theta
+\end{bmatrix} .
+\end{equation*}
+The critical points of this system are when $\omega = 0$ and $-\frac{g}{L}
+\sin \theta = 0$, or in other words if $\sin \theta = 0$.  So the critical
+points are when $\omega = 0$ and $\theta$ is a multiple of $\pi$.  That is,
+the points are $\ldots (-2\pi,0), (-\pi,0), (0,0), (\pi,0), (2\pi,0)
+\ldots$.  While there are infinitely many critical points, they are all isolated.
+Let us compute the Jacobian matrix:
+\begin{equation*}
+\begin{bmatrix}
+\frac{\partial}{\partial \theta} \Bigl( \omega \Bigr) & 
+\frac{\partial}{\partial \omega} \Bigl( \omega \Bigr) \\
+\frac{\partial}{\partial \theta} \Bigl( - \frac{g}{L} \sin \theta \Bigr) & 
+\frac{\partial}{\partial \omega} \Bigl( - \frac{g}{L} \sin \theta \Bigr)
+\end{bmatrix}
+=
+\begin{bmatrix}
+0 & 1 \\
+- \frac{g}{L} \cos \theta & 0
+\end{bmatrix} .
+\end{equation*}
+
+For conservative equations, there are two types of
+critical points.  Either stable centers, or saddle points.  The eigenvalues
+of the Jacobian matrix are $\lambda = \pm \sqrt{-\frac{g}{L}\cos \theta}$.
+
+The
+eigenvalues are going to be real when $\cos \theta < 0$.  This happens at the odd multiples of $\pi$.
+The
+eigenvalues are going to be purely imaginary 
+when $\cos \theta > 0$.  This happens at the even
+multiples of $\pi$.  Therefore the system has a stable center at
+the points $\ldots (-2\pi,0), (0,0), (2\pi,0) \ldots$, and it has an
+unstable saddle at
+the points $\ldots (-3\pi,0), (-\pi,0), (\pi,0), (3\pi,0) \ldots$.  Look at the
+phase diagram in \figurevref{fig:nlin-pend-phasediag},
+where for simplicity we let $\frac{g}{L} = 1$.
+
+\begin{myfig}
+\capstart
+\diffyincludegraphics{width=3in}{width=4.5in}{nlin-pend-phasediag}
+\caption{Phase plane diagram and some trajectories of
+the nonlinear pendulum equation. \label{fig:nlin-pend-phasediag}}
+\end{myfig}
+
+Since this is a pendulum without friction, we can characterize the two differnet types of trajectories here. There are the curves running along the top and bottom of the phase portrait that look somewhat like sine waves. These graphs never cross the $x$-axis, which is the line $\omega = 0$. Therefore, these are trajectories where the pendulum never stops moving; it just keeps spinning around in full circles forever, crossing through all possible values of $\theta$. The other type of trajectory are the ellipses around each of the stable equilibrium solutions. In these cases, the graph only spans a specific range of $\theta$ values, represented by the reduced $x$ range of the ellipse, and cycles there forever. This represents a pendulum that does not have enough energy to make a full circle, and just oscillates back-and-forth to a fixed height forever.
+
+In the linearized equation we have only a single critical point, the center
+at $(0,0)$.  Now we see more clearly what we meant when we said the
+linearization is good for small angles.  The horizontal axis is the
+deflection angle.  The vertical axis is the angular velocity of the
+pendulum.  Suppose we start at $\theta = 0$ (no deflection), and
+we start with a small angular velocity $\omega$.  Then the trajectory keeps going
+around the critical point $(0,0)$ in an approximate circle.  This
+corresponds to short swings of the pendulum back and forth.  When $\theta$
+stays small, the trajectories really look like circles and hence are very
+close to our linearization.
+
+When we give the pendulum a big enough push, it
+goes across the top and keeps spinning about its axis.  This behavior
+corresponds to the
+wavy curves that do not cross the horizontal axis in the phase diagram.
+Let us suppose we look at the top curves, when the angular velocity $\omega$
+is large and positive.  Then the pendulum is going
+around and around its axis.  The velocity is going to
+be large when the pendulum is near the bottom, and the velocity is the
+smallest when the pendulum
+is close to the top of its loop.
+
+At each critical point, there is an equilibrium solution.  Consider
+the solution
+$\theta = 0$;  the pendulum is not moving
+and is hanging straight down.  This is a stable place for the
+pendulum to be, hence this is a \emph{stable} equilibrium.
+
+The other type of equilibrium solution is at the unstable point, for example
+$\theta = \pi$.  Here the pendulum is upside down.  Sure you can balance the
+pendulum this way and it will stay, but this is an \emph{unstable} equilibrium.
+Even the tiniest push will make the pendulum start swinging wildly.
+
+See \figurevref{fig:nlin-pend} for a diagram.  The first picture is the
+stable equilibrium $\theta = 0$.  The second picture corresponds to those
+\myquote{almost circles} in the phase diagram around $\theta =0$ when the angular
+velocity is small.  The next picture is the unstable equilibrium $\theta =
+\pi$.  The last picture corresponds to the wavy lines for large angular
+velocities.
+
+\begin{myfig}
+\capstart
+\inputpdft{nlin-pend}
+\caption{Various possibilities for the motion of the pendulum. \label{fig:nlin-pend}}
+\end{myfig}
+
+The quantity 
+\begin{equation*}
+\frac{1}{2} \omega^2  - \frac{g}{L} \cos \theta 
+\end{equation*}
+is conserved by any solution.  This is the energy or the Hamiltonian of
+the system.
+
+We have a conservative equation and so (exercise) the
+trajectories are given by
+\begin{equation*}
+\omega = \pm \sqrt{ \frac{2g}{L} \cos \theta + C} ,
+\end{equation*}
+for various values of $C$.  
+Let us look at the initial condition of $(\theta_0,0)$,
+that is, we take the pendulum to
+angle $\theta_0$, and just let it go (initial angular velocity 0).
+We plug the initial conditions into the above and solve for $C$ to obtain
+\begin{equation*}
+C = - \frac{2g}{L} \cos \theta_0 .
+\end{equation*}
+Thus the expression for the trajectory is
+\begin{equation*}
+\omega = \pm \sqrt{ \frac{2g}{L}} \sqrt{ \cos \theta - \cos \theta_0 } .
+\end{equation*}
+
+Let us figure out the period.  That is, the time it takes for the pendulum
+to swing back and forth.
+We notice that the trajectory about the
+origin in the phase plane is symmetric about both the $\theta$ and the
+$\omega$-axis.  That is, in terms of $\theta$,
+the time it takes from $\theta_0$ to $-\theta_0$
+is the same as it takes from $-\theta_0$ back to $\theta_0$.  Furthermore,
+the time it takes from $-\theta_0$ to $0$ is the same as to go from $0$ to
+$\theta_0$.  Therefore, let us find how long it takes for
+the pendulum to go from angle 0 to angle $\theta_0$, which is a quarter of
+the full oscillation and then multiply by 4.
+
+We figure out this time by finding
+$\frac{dt}{d\theta}$ and integrating from $0$ to $\theta_0$.
+The period is four times
+this integral.  Let us stay in the region where $\omega$ is positive.
+Since $\omega = \frac{d\theta}{dt}$, inverting we get
+\begin{equation*}
+\frac{dt}{d\theta} = \sqrt{\frac{L}{2g}} \frac{1}{\sqrt{\cos \theta - \cos \theta_0 }} .
+\end{equation*}
+Therefore the period $T$ is given by
+\begin{equation*}
+T = 4 \sqrt{\frac{L}{2g}} \int_0^{\theta_0} \frac{1}{\sqrt{\cos \theta -
+\cos \theta_0 }}\, d\theta .
+\end{equation*}
+The integral is an improper integral, and we cannot in
+general evaluate it symbolically.  We must resort to numerical
+approximation if we want to compute a particular $T$.
+
+Recall from \sectionref{sec:mv}, the linearized equation $\theta''+\frac{g}{L}\theta
+= 0$ has period
+\begin{equation*}
+T_{\text{linear}} = 2\pi \sqrt{\frac{L}{g}} .
+\end{equation*}
+We plot $T$, $T_{\text{linear}}$, and the relative error
+$\frac{T-T_{\text{linear}}}{T}$ in \figurevref{fig:TvsT0}.  The relative error
+says how far is our approximation from the real period percentage-wise.
+Note that $T_{\text{linear}}$ is simply a constant, it does not change with
+the initial angle $\theta_0$.  The actual period $T$ gets larger and larger as
+$\theta_0$ gets larger.
+Notice how the relative error is small when $\theta_0$ is small.  It is
+still only $15\%$ when $\theta_0 = \frac{\pi}{2}$, that is, a 90 degree
+angle.  The error is $3.8\%$ when starting at $\frac{\pi}{4}$, 
+a 45 degree angle.  At a 5 degree initial angle, the error is only $0.048 \%$.
+
+\begin{myfig}
+\capstart
+%original files nlin-T-vs-T0-abs nlin-T-vs-T0-relerr
+\diffyincludegraphics{width=6.24in}{width=9in}{nlin-T-vs-T0-abs-relerr}
+\caption{The plot of $T$ and $T_{\text{linear}}$ with $\frac{g}{L} =
+1$ (left), and the plot of the relative
+error $\frac{T-T_{\text{linear}}}{T}$ (right), for $\theta_0$ between 0 and $\pi/2$. \label{fig:TvsT0}}
+\end{myfig}
+
+While it is not immediately obvious from the formula, it is true that
+\begin{equation*}
+\lim_{\theta_0 \uparrow \pi} T = \infty .
+\end{equation*}
+That is, the period goes to infinity as the initial angle approaches the
+unstable equilibrium point.  So if we put the pendulum almost upside down it
+may take a very long time before it gets down.  This is consistent with the
+limiting behavior, where the exactly upside down pendulum never makes an
+oscillation, so we could think of that as infinite period.
+
+\subsection{Predator-prey or Lotka--Volterra systems}
+
+One of the most common simple applications of nonlinear systems are the
+so-called \emph{\myindex{predator-prey}} or
+\emph{\myindex{Lotka--Volterra}}%
+\footnote{Named for the American mathematician, chemist, and statistician
+\href{https://en.wikipedia.org/wiki/Alfred_J._Lotka}{Alfred James Lotka}
+(1880--1949) and the Italian mathematician and physicist
+\href{https://en.wikipedia.org/wiki/Vito_Volterra}{Vito Volterra}
+(1860--1940).}
+systems.  For example, these systems arise 
+when two species interact, one as the prey and one as the predator.  It is
+then no surprise that the equations also see applications in economics.
+The system also arises in chemical reactions.
+In biology, this system of equations explains the natural periodic variations of populations of
+different species in nature.  Before the application of differential
+equations, these periodic variations in the population baffled biologists.
+
+We keep
+with the classical example of hares and foxes in a forest, it is the
+easiest to understand.
+\begin{equation*}
+\begin{aligned}
+& x = \# \text{ of hares (the prey),} \\
+& y = \# \text{ of foxes (the predator).}
+\end{aligned}
+\end{equation*}
+When there are a lot of hares, there is plenty of food for the foxes, so
+the fox population grows.  However, when the fox population grows, the foxes
+eat more hares, so when there are lots of foxes, the hare population
+should go down, and vice versa.
+The Lotka--Volterra model proposes that this 
+behavior is described by the system of equations
+\begin{equation*}
+\begin{aligned}
+& x' = (a-by)x, \\
+& y' = (cx-d)y,
+\end{aligned}
+\end{equation*}
+where $a,b,c,d$ are some parameters that describe the interaction of the
+foxes and hares\footnote{This interaction does not end well for the
+hare.}.  In this model, these are all positive numbers.
+
+Let us analyze the idea behind this model.  The model is a slightly more
+complicated idea based on the exponential population model.
+First expand,
+\begin{equation*}
+x' = (a-by)x = ax - byx .
+\end{equation*}
+The hares are expected to simply grow exponentially in the absence of foxes,
+that is where the $ax$ term comes in, the growth in population is
+proportional to the population itself.  We are assuming the hares
+always find enough food and have enough space to reproduce.  However,
+there is another component $-byx$, that is, the population also is
+decreasing proportionally to the number of foxes.  Together we can write the
+equation as $(a-by)x$, so it is like exponential growth or decay but the
+constant depends on the number of foxes.
+
+The equation for foxes is very similar, expand again
+\begin{equation*}
+y' = (cx-d)y = cxy-dy .
+\end{equation*}
+The foxes need food (hares) to reproduce: the more food, the bigger the
+rate of growth, hence the $cxy$ term.  On the other hand, there are 
+natural deaths in the fox population, and hence the $-dy$ term.
+
+Without further delay, let us start with an explicit example.  Suppose the
+equations are 
+\begin{equation*}
+x' = (0.4-0.01y)x, \qquad y' = (0.003x-0.3)y .
+\end{equation*}
+See \figurevref{fig:nlin-pred-prey} for the phase portrait.  In this example
+it makes sense to also plot $x$ and $y$ as graphs with respect to time.
+Therefore the second graph in 
+\figureref{fig:nlin-pred-prey} is the graph of $x$ and $y$ on the vertical
+axis (the prey $x$ is the thinner blue line with taller peaks), against time
+on the horizontal axis.  The particular solution graphed was with initial
+conditions of 20 foxes and 50 hares.
+\begin{myfig}
+\capstart
+%original files nlin-pred-prey-phase nlin-pred-prey-graphs
+\diffyincludegraphics{width=6.24in}{width=9in}{nlin-pred-prey-phase-graphs}
+\caption{The phase portrait (left) and graphs of $x$ and $y$ for
+a sample solution (right). \label{fig:nlin-pred-prey}}
+\end{myfig}
+
+Let us analyze what we see on the graphs.  We work in the general
+setting rather than putting in specific numbers.  We start with finding
+the critical points.  Set $(a-by)x = 0$, and $(cx-d)y = 0$.
+The first equation is satisfied if either $x=0$ or $y=\nicefrac{a}{b}$.  If $x=0$, the
+second equation implies $y=0$.  If $y= \nicefrac{a}{b}$, the second equation implies
+$x=\nicefrac{d}{c}$.
+There are two equilibria: at $(0,0)$ when there are no animals at all, and at
+$(\nicefrac{d}{c},\nicefrac{a}{b})$.  
+In our specific example $x = \nicefrac{d}{c} = 100$, and $y = \nicefrac{a}{b} = 40$.
+This is the point where there are 100 hares and 40 foxes.
+
+We compute the Jacobian matrix:
+\begin{equation*}
+\begin{bmatrix}
+a-by & -bx \\
+cy & cx-d
+\end{bmatrix} .
+\end{equation*}
+At the origin $(0,0)$ we get the matrix
+$\left[ \begin{smallmatrix}
+a & 0 \\
+0 & -d
+\end{smallmatrix} \right]$, so the eigenvalues are $a$ and $-d$, hence real
+and of opposite signs.  So the critical point at the origin is a saddle.
+This makes sense.  If you started with some foxes but no hares, then the
+foxes would go extinct, that is, you would approach the origin.  If you
+started with no foxes and a few hares, then the hares would keep multiplying
+without check, and so you would go away from the origin.
+
+OK\@, how about the other critical point at $(\nicefrac{d}{c},\nicefrac{a}{b})$.  Here
+the Jacobian matrix becomes
+\begin{equation*}
+\begin{bmatrix}
+0 & -\frac{bd}{c} \\
+\frac{ac}{b} & 0
+\end{bmatrix} .
+\end{equation*}
+The eigenvalues satisfy $\lambda^2 + ad = 0$.  In
+other words, $\lambda = \pm i \sqrt{ad}$.  The eigenvalues being
+purely imaginary, we are in the case where we cannot quite decide using only
+linearization.  We could
+have a stable center, spiral sink, or a spiral source.  That is, the
+equilibrium could be asymptotically stable, stable, or unstable.  Of
+course I gave you a picture above that seems to imply it is a stable
+center.  But never trust a picture only.  Perhaps the oscillations
+are getting larger and larger, but only \emph{very} slowly.  Of course this would be
+bad as it would imply something will go wrong with our population
+sooner or later.  And I only graphed a very specific example with very
+specific trajectories.
+
+How can we be sure we are in the stable situation? 
+As we said before, in the case of purely imaginary eigenvalues, we have to
+do a bit more work. The main approach that can be used here is to directly solve for the trajectories. We can determine a differential equation that relates $x$ to $y$ by writing
+\begin{equation*}
+\frac{dy}{dx} = \frac{dy/dt}{dx/dt} = \frac{(cx-d)y}{(a-by)x}.
+\end{equation*}
+This is a separable first order equation, which we can rewrite as
+\begin{equation*}
+\frac{a-by}{y} dy = \frac{cx-d}{x} dx.
+\end{equation*}
+After simplifying the fractions, we can integrate this to obtain the implicit solution
+\begin{equation*}
+a\ln(y) - by = cx - d\ln(x) + C
+\end{equation*}
+or
+\begin{equation} \label{eq:predPreyTraj} 
+C = a\ln(y) + d\ln(x) - cx - by.
+\end{equation}
+Since we ended up finding a trajectory here that sketches out a closed curve, and we know that our solutions must lie on these trajectories, that tells us that, for a fact, we do have closed loops here, and the critical point is stable. 
+
+However, we can go a bit farther than this with our discussion here. If we let $D = e^C$ in \eqref{eq:predPreyTraj}, we can rearrange the expression to get that 
+\begin{equation*}
+D = \frac{y^a x^d}{e^{cx+by}} = y^a x^d e^{-cx-by},
+\end{equation*}
+and based on how our trajectory setup works, we know that this $D$ will be conserved along the flow of the solution. That is, if the initial condition has a specific value of $D$, the solution will continue to have that same value for all $t$. This idea came up before in the idea of conservative or Hamiltonian systems in \sectionref{nlinHamiltonian:section}. Such a quantity is called the \emph{\myindex{constant of
+motion}}, and this forces the trajectory to go in closed loops.  Let us check $D$ really is a constant of motion.  How do we check, you say?  Well, a constant is
+something that does not change with time, so let us compute the derivative
+with respect to time:
+\begin{equation*}
+D' = 
+a y^{a-1}y' x^d e^{-cx-by}
++
+y^a d x^{d-1} x' e^{-cx-by}
++
+y^a x^d e^{-cx-by} (-cx'-by') .
+\end{equation*}
+Our equations give us what $x'$ and $y'$ are so let us plug those in:
+\begin{equation*}
+\begin{split}
+D' & = 
+a y^{a-1} (cx-d)y x^d e^{-cx-by}
++
+y^a d x^{d-1} (a-by)x e^{-cx-by}
+\\
+& \phantom{mm} +
+y^a x^d e^{-cx-by} \bigl(-c(a-by)x-b(cx-d)y\bigr)
+\\
+& =
+y^a x^d e^{-cx-by}
+\Bigl(
+a (cx-d)
++
+d (a-by)
++
+\bigl(-c(a-by)x-b(cx-d)y\bigr) \Bigr)
+\\
+& = 
+0 .
+\end{split}
+\end{equation*}
+So along the trajectories $D$ is constant.  In fact, the expression $D =
+\frac{y^a x^d}{e^{cx+by}}$ gives us an implicit equation for the
+trajectories.  In any case, once we have found this constant of motion,
+it must be true that the
+trajectories are simple curves, that is, the level curves of
+$\frac{y^a x^d}{e^{cx+by}}$.  It turns out, the critical point at
+$(\nicefrac{d}{c},\nicefrac{a}{b})$ is a maximum for $D$ (left as an exercise).
+So $(\nicefrac{d}{c},\nicefrac{a}{b})$ is a stable equilibrium point, and 
+we do not have to worry about the foxes and hares going extinct or their
+populations exploding.
+
+One blemish on this wonderful model is that the number of foxes and hares
+are discrete quantities and we are modeling with continuous variables.  Our
+model has no problem with there being 0.1 fox in the forest for example,
+while in reality that makes no sense.  The approximation is a reasonable one
+as long as the number of foxes and hares are large, but it does not make
+much sense for small numbers.  One must be careful in interpreting any
+results from such a model.
+
+An interesting consequence (perhaps counterintuitive) of this model is that adding animals to
+the forest might lead to extinction, because the variations will get too
+big, and one of the populations will get close to zero.  For example, suppose there are 20 foxes and 50 hares as
+before, but now we bring in more foxes, bringing their number to 200.  If we
+run the computation, we find the number of hares will plummet to just
+slightly more than 1 hare in the whole forest.  In reality that most
+likely means the hares die out, and then the foxes will die out as well
+as they will have nothing to eat.
+
+\begin{example} \label{example:PredPreyNC}
+Consider the system
+\begin{equation*}
+x' = (2y - 6)x \qquad y' = (2 - x)y.
+\end{equation*}
+This fits the description of a predator-prey model. Which species is the predator? Find and analyze the critical points of this system, and draw a sketch of the phase portrait, with arrows to indicate the direction of flow around this portrait.
+\end{example}
+
+\begin{exampleSol}
+If we expand out the equations in the model, we get
+\begin{equation*}
+x' = 2xy - 6x \qquad y' = 2y - xy.
+\end{equation*}
+These equations show that, if $y=0$, $x$ would decay away in time, and if $x=0$, $y$ would grow indefinitely. This means that $x$ is the predator and $y$ is the prey in this relationship. For critical points, we can look back at the factored version of the equations to see that we get one critical point at $(0,0)$ and one critical point at $(2, 3)$. Since this is a predator-prey model, we know that we will have cycles around the critical point at $(2,3)$. 
+
+The direction of these cycles is determined by the predator-prey relationship. If we start with $x$ large (greater than 2) and $y$ small (less than 3), then there are a lot of predators and few prey. This implies that the next thing to happen is that the predator population will decrease because there is not enough prey. We can also see this from the equations; if $x \geq 2$ and $y \leq 3$, then both $\frac{dx}{dt}$ and $\frac{dy}{dt}$ will be negative. Similarly, if $y$ is large and $x$ is small, there are a lot of prey and few predators, so the prey population will continue to grow, while the predators also grow because of the excess of food. This means that the populations will follow these trajectories in a clockwise direction. 
+
+For the actual trajectories, we can solve for them in the same way as the calculations before this example. We can rewrite this system to give a differential equation for the trajectories as 
+\begin{equation*}
+\frac{dy}{dx} = \frac{(2-x)y}{(2y-6)x}
+\end{equation*}
+which can be rearranged as a separable equation to
+\begin{equation*}
+\left(2 - \frac{6}{y}\right) dy = \left(\frac{2}{x} - 1\right) dx.
+\end{equation*}
+Solving this gives
+\begin{equation*}
+2y - 6\ln(y) + C = 2\ln(x) - x
+\end{equation*}
+or
+\begin{equation*}
+C = 2\ln(x) + 6\ln(y) - x - 2y.
+\end{equation*}
+This will be used to draw the trajectories in \figureref{fig:nlin-pred-prey-nc}.
+
+This can also be seen using a nullcline analysis. The nullclines we need to draw are $x=0$, $y=0$, $x=2$ and $y=3$. Our discussion previously shows that the arrow in the bottom-right quadrant should point to the lower left, and the arrow in the top left should point up and right. We can fill in the other two quadrants to see that the solution should move around the circle in a clockwise direction. \figureref{fig:nlin-pred-prey-nc} shows the nullcline image and trajectory curves for this example.
+\end{exampleSol}
+
+\begin{myfig}
+\capstart
+%original files nlin-pred-prey-phase nlin-pred-prey-graphs
+\myincludegraphics{width=6.24in}{width=9in}{PPNullclineTraj}
+\caption{The nullcline analysis image (left) and graphs of several sample trajectories with arrows (right) for \exampleref{example:PredPreyNC} \label{fig:nlin-pred-prey-nc}}
+\end{myfig}
+
+\subsection{Competing Species systems}
+
+Another application of non-linear systems that also works with population models is a competing species interaction. The setup is that there are two species that live in the same environment, and need to compete over resources. This means that both species will grow on their own, but when the two species interact, it is negative for both species. This gives rise to a system of differential equations of the form
+\[
+\begin{split}
+\frac{dx}{dt}&= ax - bxy \\
+\frac{dy}{dt}&= cy - dxy  
+\end{split}
+\]
+if both populations grow exponentially, or
+\[
+\begin{split}
+\frac{dx}{dt}&= ax(K-x) - bxy \\
+\frac{dy}{dt}&= cy(M-y) - dxy  
+\end{split}
+\]
+if both species grow logistically. The numbers here are all positive constants that explain how the different populations affect growth rates.  For the logistic model, let's look at the equilibrium solutions. For this, we need
+\[ x(aK - ax - by) = 0 \qquad y(cM - cy - dx) = 0 \] which gives equilibrium solutions at $(0,0)$, $(0, M)$, and $(K, 0)$, all of which result in one (or both) of the species being extinct. The other equilibrium solution is more interesting, because it involves both species coexisting. This happens when 
+\[ by = aK - ax \qquad cy = cM - dx. \] Solving this gives a critical point with $x > 0$ and $y>0$. 
+
+The Jacobian matrix for this system is
+\[ J(x,y) = \begin{bmatrix} aK - 2ax - by & -bx \\ -dy & cM - 2cy - dx \end{bmatrix} .\]
+
+Unlike the predator-prey system that always had the same type of equilibriums solution every time, there are multiple options for how this system can behave based on the values of $a,\ b,\ c,\ d,\ K$, and $M$. It is possible that the coexistence equilibrium solution will be a nodal sink, so that all nearby solutions will converge to it over time, and the species will continue to exist in harmony. However, it is also possible that the coexistence solution is a saddle and the solutions at $(K,0)$ and $(0,M)$ are sinks. This means that coexistence is unstable, and that over time, the populations will converge to one of the other two equilibrium solutions, meaning that one of the species will die out as time goes on. Determining which will survive will require a numerical model since these equations can not be solved analytically. 
+
+\begin{example}
+Analyze the competing species model given by the system of differential equations
+\[ x' = x(4-x-2y) \qquad y' = y(7 - y - 3x). \] Is the coexistence solution stable or unstable? What will happen to the populations over time?
+\end{example}
+
+\begin{exampleSol}
+Solving for the equilibrium solutions gives $(0,0)$, $(4, 0)$, $(0, 7)$, and the coexistence solution where
+\[ 4 - x = 2y \qquad y = 7-3x. \] Simplifying this gives
+\[ 4 - x = 14 - 6x \] or $x=2$. The second equation then implies that $y=1$. 
+
+The Jacobian for this system is 
+\[ J(x,y) = \begin{bmatrix} 4 - 2x - 2y & -2x \\ -3y & 7 - 2y - 3x \end{bmatrix}. \]
+
+Evaluating this matrix at the point $(2,1)$ gives
+\[ \begin{bmatrix} -2 & -4 \\ -3 & -1 \end{bmatrix}, \] which we need to find the eigenvalues to classify what type of linearized solution we have here. These are determined by
+\[ (-2-\lambda)(-1-\lambda) - 12 = \lambda^2 + 3\lambda - 9 = 0.\] Thus, the eigenvalues are given by
+\[ \lambda = \frac{-3 \pm \sqrt{9 + 36}}{2} \] which will be real with opposite signs. Therefore, this equilibrium solution is a saddle, and unstable. To confirm this, we can also check the equilibrium solutions at $(4,0)$ and $(0,7)$. For $(4,0)$, we get the matrix
+\[ \begin{bmatrix} -8 & -8 \\ 0 & -1 \end{bmatrix} \] which is a nodal sink. For $(0,7)$, we get
+\[ \begin{bmatrix} -10 & 0 \\ -21 & -7 \end{bmatrix} \] which is also a nodal sink. Thus, we see that the coexistence equilibrium solution is unstable, and both of the equilibrium solutions with one species extinct are stable. Therefore, over time, one of the two species will die off depending on the initial population.
+\end{exampleSol} 
+
+
+Showing that a system of equations has a stable solution can be a very
+difficult problem.  When Isaac Newton put forth his laws of
+planetary motions, he proved that a single planet orbiting a single sun is a
+stable system.  But any solar system with more than 1 planet proved very
+difficult indeed.  In fact, such a system behaves chaotically (see 
+\sectionref{sec:chaos}), meaning small changes in initial conditions lead to very
+different long-term outcomes.  From numerical experimentation and
+measurements, we know the earth will not fly out into the empty space
+or crash into the sun, for at least some millions of years or so.
+But we do not know what happens beyond that.
+
+\subsection{Exercises}
+
+\begin{exercise}
+Take the \emph{\myindex{damped nonlinear pendulum equation}} $\theta '' + \mu \theta' +
+(\nicefrac{g}{L})
+\sin \theta = 0$ for some $\mu > 0$ (that is, there is some friction).
+\begin{tasks}
+\task
+Suppose $\mu = 1$ and $\nicefrac{g}{L} = 1$ for simplicity, find and
+classify the critical points.
+\task
+Do the same for any $\mu > 0$ and any $g$
+and $L$, but such that the damping is small, in particular, $\mu^2 <
+4(\nicefrac{g}{L})$.
+\task
+Explain what your findings mean, and if it agrees with what you
+expect in reality.
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Take the damped nonlinear pendulum equation $\theta '' + \mu \theta' +
+(\nicefrac{g}{L})
+\sin \theta = 0$ for some $\mu > 0$ (that is, there is friction).
+Suppose the friction is large, in particular $\mu^2 > 4 (\nicefrac{g}{L})$.
+\begin{tasks}
+\task
+Find and classify the critical points.
+\task
+Explain what your findings mean, and if it agrees with what you
+expect in reality.
+\end{tasks}
+\end{exercise}
+\exsol{%
+a) Critical points are $\omega=0$, $\theta=k\pi$ for any integer $k$.  When
+$k$ is odd, we have a saddle point.  When $k$ is even we get a sink.  \quad
+b)~The findings mean the pendulum will simply go to one of the sinks, for
+example $(0,0)$ and it will not swing back and forth.  The friction is too high for it to
+oscillate, just like an overdamped mass-spring system.
+}
+
+\begin{exercise}
+Suppose the hares do not grow exponentially, but logistically.  In
+particular consider
+\begin{equation*}
+x' = (0.4-0.01y)x - \gamma x^2, \qquad y' = (0.003x-0.3)y .
+\end{equation*}
+For the following two values of $\gamma$,
+find and classify all the critical points in the positive quadrant, that is, for
+$x \geq 0$ and $y \geq 0$.  Then sketch the phase diagram.  Discuss the
+implication for the long term behavior of the population.
+\begin{tasks}(2)
+\task
+$\gamma=0.001$, 
+\task
+$\gamma=0.01$.
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Suppose we have the system predator-prey system where the foxes are also
+killed at a constant rate $h$ ($h$ foxes killed per unit time):
+$x' = (a-by)x,$  $y' = (cx-d)y - h$.
+\begin{tasks}
+\task Find the critical points and the
+Jacobian matrices of the system.
+\task Put in the constants $a=0.4$, $b=0.01$, $c=0.003$, $d=0.3$, $h=10$.
+Analyze the critical points.  What do you think it says about the forest?
+\end{tasks}
+\end{exercise}
+\exsol{%
+a) Solving for the critical points we get
+$(0,-\nicefrac{h}{d})$ and $(\frac{bh+ad}{ac},\frac{a}{b})$.
+The Jacobian matrix at
+$(0,-\nicefrac{h}{d})$ is
+$\left[
+\begin{smallmatrix}
+a+bh/d & 0 \\
+-ch/d & -d
+\end{smallmatrix}
+\right]$
+whose eigenvalues are $a+bh/d$ and $-d$.  So the eigenvalues are always real of
+opposite signs and we get a saddle (In the application however we are only looking at the
+positive quadrant so this critical point is not relevant).
+At $(\frac{bh+ad}{ac},\frac{a}{b})$ we get Jacobian matrix
+$\left[
+\begin{smallmatrix}
+0 & -\frac{b \left( b h+a d\right) }{a c}\\
+\frac{a c}{b} & \frac{b h+a d}{a}-d
+\end{smallmatrix}
+\right]$.
+b)~For the specific numbers given, the second critical point is
+$(\frac{550}{3},40)$
+the matrix is
+$\left[
+\begin{smallmatrix}
+0 & -11/6 \\
+3/25 & 1/4
+\end{smallmatrix}
+\right]$, which has eigenvalues $\frac{5\pm i \sqrt{327}}{40}$.  Therefore
+there is a spiral source.  This means the solution spirals
+outwards.  The solution will eventually hit one of the axes, $x=0$ or $y=0$,
+so something will die out in the forest.
+}
+
+\begin{exercise}[challenging]\ansMark%
+Suppose the foxes never die.  That is, we have the system $x' = (a-by)x,$ $y' = cxy$.
+Find the critical points and notice they are not isolated.  
+What will happen to the population in the forest if it starts at some
+positive numbers.  Hint: Think of the constant of motion.
+\end{exercise}
+\exsol{%
+The critical points are on the line $x=0$.  In the positive
+quadrant the $y'$ is always positive and so the fox population always grows.
+The constant of motion is $C = y^ae^{-cx-by}$, for any $C$ this curve must
+hit the $y$-axis (why?), so the trajectory will simply approach a point on the $y$
+axis somewhere and the number of hares will go to zero.
+}
+
+\begin{exercise}
+The following system of differential equations models a pair of populations interacting. 
+\[ \frac{dx}{dt} = 4x - 2xy \qquad \frac{dy}{dt} = 3xy - y \]
+\begin{tasks}
+\task Does this system of differential equations better fit with a competing species model or a predator-prey model? If it is predator-prey, which species is the predator?
+\task Find and classify the critical point (if it exists) with both $x>0$ and $y>0$.
+\task Describe what is going to happen to the population of these species over time. It this depends on the initial condition, say so.
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}
+The following system of differential equations models a pair of populations interacting. 
+\[ \frac{dx}{dt} = x(6 - 3y - 2x)  \qquad \frac{dy}{dt} = y(4 - y - 3x) \]
+\begin{tasks}
+\task Does this system of differential equations better fit with a competing species model or a predator-prey model? If it is predator-prey, which species is the predator?
+\task Find and classify the critical point (if it exists) with both $x>0$ and $y>0$.
+\task Describe what is going to happen to the population of these species over time. It this depends on the initial condition, say so.
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}
+The following system of differential equations models a pair of populations interacting. 
+\[ \frac{dx}{dt} = x(5 - x - 2y)\qquad \frac{dy}{dt} = y(7 - x - 3y) \]
+\begin{tasks}
+\task Does this system of differential equations better fit with a competing species model or a predator-prey model? If it is predator-prey, which species is the predator?
+\task Find and classify the critical point (if it exists) with both $x>0$ and $y>0$.
+\task Describe what is going to happen to the population of these species over time. It this depends on the initial condition, say so.
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}
+\leavevmode
+\begin{tasks}
+\task Suppose $x$ and $y$ are
+positive variables.  Show $\frac{y x}{e^{x+y}}$
+attains a maximum at $(1,1)$.
+\task Suppose $a,b,c,d$ are positive constants, and also suppose $x$ and $y$ are
+positive variables.  Show $\frac{y^a x^d}{e^{cx+by}}$
+attains a maximum at $(\nicefrac{d}{c},\nicefrac{a}{b})$.
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}
+Suppose that for the pendulum equation we take a trajectory giving the
+spinning-around motion, for example $\omega = \sqrt{\frac{2g}{L} \cos \theta
++ \frac{2g}{L} + \omega_0^2}$.  This is the trajectory where the lowest
+angular velocity is $\omega_0^2$.  Find an integral expression for how long it takes
+the pendulum to go all the way around.
+\end{exercise}
+
+%Suppose we have the system predator-prey system where the foxes are also
+%hunted at a constant rate $hy$ proportional to the population.  That is,
+%$x' = (a-by)x,$  $y' = (cx-d)y - hy$.  Find and analyze the critical points.
+
+\begin{exercise}
+Consider a predator-prey interaction where humans have gotten involved. The idea is that at least one of the species is valuable for food or another resource, and the two species still intact in their normal predator-prey manner. The first version of this will deal with ``constant effort harvesting,'' which means that humans will remove animals from the populations are a rate proportional to the population. This results in equations of the form
+\[ \frac{dx}{dt} = x(a - by - E_1) \qquad \frac{dy}{dt} = y(-d + cx - E_2) \] where $E_1$ and $E_2$ denote the amount of harvesting done.
+\begin{tasks}
+\task There is a single equilibrium solution with $x > 0$ and $y>0$ in the case of no harvesting, that is, $E_1 = E_2 = 0$. Find this equilibrium solution.
+\task Without doing any mathematical work, what do you think will happen to the equilibrium solution if just the prey is harvested? What if just the predator is harvested? What if both are harvested?
+\task Find the location of the equilibrium system in each of the three cases in the previous part. Do this in terms of the constants $E_1$ and $E_2$ for all three cases. 
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}
+The second version of this will deal with ``constant yield harvesting,'' which means that humans will remove animals from the populations at a fixed rate, no matter their population. This results in equations of the form
+\[ \frac{dx}{dt} = x(a - by) - H_1 \qquad \frac{dy}{dt} = y(-d + cx) - H_2 \] where $H_1$ and $H_2$ denote the amount of harvesting done.
+\begin{tasks}
+\task There is a single equilibrium solution with $x > 0$ and $y>0$ in the case of no harvesting, that is, $H_1 = H_2 = 0$. Find this equilibrium solution.
+\task Without doing any mathematical work, what do you think will happen to the equilibrium solution if just the prey is harvested? What if just the predator is harvested? What if both are harvested?
+\task Find the location of the equilibrium system in each of the three cases in the previous part. Do this in terms of the constants $H_1$ and $H_2$ for all three cases. 
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}
+The general competing species model has the form
+\[ \frac{dx}{dt} = x(\rho_1 - \gamma_1 y - M_1 x) \qquad \frac{dy}{dt} = y(\rho_2 - \gamma_2 x - M_2 y) \] where $\rho$ indicates the growth rate, $M$ is related to the carrying capacity, and $\gamma$ is connected to the interaction term. Assume that this model is being used to represent species A and B of fish living in a pond at time $t$, which is initially stocked with both species of fish. We want to analyze the behavior of this equation under different sets of coefficients.
+\begin{tasks}
+\task If $\rho_2/\gamma_2 > \rho_1/M_1$ and $\rho_2/M_2 > \rho_1/\gamma_1$, show that the only equilibrium populations in the pond are no fish, no fish of species A, or no fish of species B. What happens for large values of $t$?
+\task If $ \rho_1/M_1 > \rho_2/\gamma_2 $ and $\rho_1/\gamma_1 > \rho_2/M_2$, show that the only equilibrium populations in the pond are no fish, no fish of species A, or no fish of species B. What happens for large values of $t$?
+\task Suppose that $\rho_2/\gamma_2 > \rho_1/M_1$ and $\rho_1/\gamma_1 > \rho_2/M_2$. Show that there is a stable equilibrium where both species coexist. 
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}[challenging]
+Take the pendulum, suppose the initial position is $\theta = 0$.
+\begin{tasks}
+\task
+Find the expression for $\omega$ giving the trajectory
+with initial condition $(0,\omega_0)$.  Hint: Figure out what $C$
+should be in terms of $\omega_0$.
+\task
+Find the crucial angular velocity $\omega_1$, such that
+for any higher initial angular velocity,
+the pendulum will keep going around its
+axis, and for any lower initial angular velocity, the pendulum will simply
+swing back and forth.
+Hint: When the pendulum doesn't go over the top the expression for $\omega$
+will be undefined for some $\theta$s.
+\task
+What do you think happens if the initial condition is $(0,\omega_1)$,
+that is, the initial angle is 0, and the initial angular velocity is exactly
+$\omega_1$.
+\end{tasks}
+\end{exercise}
+
+\setcounter{exercise}{100}
+
+
+%We have a conservative equation and so (exercise) the
+%trajectories are given by
+%\begin{equation*}
+%\omega = \pm \sqrt{ \frac{2g}{L} \cos \theta + C} ,
+%\end{equation*}
+%for various values of $C$.  Let us figure out what $C$ corresponds to an
+%initial condition $(0,\omega_0)$.  A little bit of thought tells us that
+%such a $C = \omega_0^2 - \frac{2g}{L}$.  Taking just the top part of the
+%trajectory we get
+%\begin{equation*}
+%\omega = \sqrt{ \frac{2g}{L} \cos \theta - \frac{2g}{L} + \omega_0^2} .
+%\end{equation*}
+%What we are trying to do is figure out when this will have no
+%\myquote{gaps,} that
+%is when what is under the square root is always positive.  The minimum is
+%clearly taken when $\theta$ is an odd multiple of $\pi$, in this case we
+%will get precisely zero when
+%\begin{equation*}
+%0 = \frac{2g}{L} \cos \pi - \frac{2g}{L} + \omega_0^2 ,
+%\end{equation*}
+%or in other words, solving for $\omega_0$ (and assuming it is positive) we
+%have
+%\begin{equation*}
+%\omega_0 = 2 \sqrt{\frac{g}{L}} .
+%\end{equation*}
+%In the case we graphed, that is when $\frac{g}{L} = 1$, then this magic
+%$\omega_0 = 2$.  Notice that the trajectory that seems to go through the 
+%saddle points goes through the point $(0,2)$.
+
+

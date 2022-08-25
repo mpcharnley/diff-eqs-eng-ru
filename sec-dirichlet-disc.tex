@@ -1,0 +1,774 @@
+
+\section{Dirichlet problem in the circle and the Poisson kernel}
+\label{dirichdisc:section}
+
+\LAtt{4.10}
+
+\LO{
+\item Solve the Laplace equation in a circle,
+\item Use series solutions in polar coordinates to solve the Laplace equation, and
+\item Use the Poisson kernel to solve boundary value problems for the Laplacian in a circle.
+}
+
+% \sectionnotes{Verbatim from Lebl}
+
+% \sectionnotes{2 lectures\EPref{, \S9.7 in \cite{EP}}\BDref{,
+% \S10.8 in \cite{BD}}}
+
+\subsection{Laplace in polar coordinates}
+
+A more natural setting for the Laplace equation $\Delta u = 0$
+is a circle rather than a rectangle.  On the other hand, what makes the
+problem somewhat more difficult is that we need polar coordinates.
+
+\begin{mywrapfigsimp}{1.3in}{1.5in}
+\diffypdfversion{\vspace*{5pt}}
+\noindent
+\inputpdft{polarcoords}
+\diffypdfversion{\vspace*{5pt}}
+\end{mywrapfigsimp}
+Recall that the polar coordinates for the $(x,y)$-plane are $(r,\theta)$: 
+\begin{equation*}
+x = r \cos \theta , \quad y = r \sin \theta ,
+\end{equation*}
+where $r \geq 0$ and $-\pi < \theta \leq \pi$.  So the point $(x,y)$ is
+distance $r$ from the origin at an angle $\theta$ from the positive
+$x$-axis.
+
+Now that we know our coordinates, let us give the problem we wish
+to solve.  We have a circular region of radius 1, and we are interested
+in the Dirichlet problem for the Laplace equation for this region.  Let
+$u(r,\theta)$ denote the temperature at the point $(r,\theta)$ in polar
+coordinates.
+
+\begin{mywrapfigsimp}{2.4in}{2.7in}
+\noindent
+\inputpdft{dirichdiscsetup}
+\end{mywrapfigsimp}
+We have the problem:
+\begin{equation} \label{dirichdisc:theprobeq}
+\begin{aligned}
+& \Delta u = 0 , & & \text{for } \; r < 1, \\
+& u(1,\theta) = g(\theta), & & \text{for } \; {-\pi} < \theta \leq \pi.
+\end{aligned}
+\end{equation}
+
+The first issue we face is that we do not know the Laplacian
+in polar coordinates.
+Normally we would find $u_{xx}$ and $u_{yy}$ in terms of
+the derivatives in $r$ and $\theta$.  We would need to solve
+for $r$ and $\theta$ in terms of $x$ and $y$.  In this case
+it is more convenient to work in
+reverse.  We compute derivatives in $r$ and $\theta$ in terms
+of derivatives in $x$ and $y$ and then we solve.  The
+computations are easier this way.  First
+\begin{equation*}
+\begin{aligned}
+& x_r = \cos \theta, & &
+x_\theta = - r \sin \theta, \\
+& y_r = \sin \theta, & &
+y_\theta = r \cos \theta.
+\end{aligned}
+\end{equation*}
+Next by chain rule we obtain
+\begin{align*}
+u_r & = u_x x_r + u_y y_r = \cos(\theta) u_x + \sin(\theta) u_y ,
+\\
+u_{rr} & =
+\cos(\theta) ( u_{xx} x_r +u_{xy} y_r )
++ \sin(\theta) ( u_{yx} x_r +u_{yy} y_r )
+\\
+&
+=
+\cos^2(\theta) u_{xx} +
+2 \cos(\theta)\sin(\theta) u_{xy} +
+\sin^2(\theta) u_{yy} .
+\end{align*}
+Similarly for the $\theta$ derivative.  Note that we have to use
+the product rule for the second derivative.
+\begin{align*}
+u_\theta & = u_x x_\theta + u_y y_\theta =
+-r\sin(\theta) u_x + r\cos(\theta) u_y ,
+\\
+u_{\theta\theta} & =
+-r\cos(\theta) u_x
+-r\sin(\theta) (u_{xx} x_\theta + u_{xy} y_\theta)
+-r\sin(\theta) u_y
++
+r\cos(\theta) (u_{yx} x_\theta + u_{yy} y_\theta)
+%\\
+%& = 
+%-r\cos(\theta) u_x
+%-r\sin(\theta) (u_{xx} (-r\sin(\theta)) + u_{xy} (r \cos(\theta)))
+%-r\sin(\theta) u_y
+%+
+%r\cos(\theta) (u_{yx} (-r\sin(\theta)) + u_{yy} (r \cos (\theta)))
+\\
+& = 
+-r\cos(\theta) u_x
+-r\sin(\theta) u_y
++r^2 \sin^2(\theta) u_{xx}
+-r^2 2\sin(\theta)\cos(\theta) u_{xy}
++r^2 \cos^2(\theta) u_{yy} .
+\end{align*}
+Let us now try to solve for $u_{xx} + u_{yy}$.  We start with
+$\frac{1}{r^2} u_{\theta\theta}$ to get rid of those pesky $r^2$.
+If we add $u_{rr}$
+and use the fact that $\cos^2(\theta) +\sin^2(\theta) = 1$, we get
+\begin{equation*}
+\frac{1}{r^2} u_{\theta\theta}
++
+u_{rr}
+=
+u_{xx} + u_{yy} - \frac{1}{r} \cos(\theta) u_x - \frac{1}{r} \sin(\theta)
+u_y .
+\end{equation*}
+We're not quite there yet, but all we are lacking is 
+$\frac{1}{r} u_r$.  Adding it we obtain the
+\emph{\myindex{Laplacian in polar coordinates}}:
+\begin{equation*}
+\mybxbg{~~
+\Delta u 
+=
+u_{xx} + u_{yy} =
+\frac{1}{r^2} u_{\theta\theta}
++
+\frac{1}{r} u_{r}
++
+u_{rr} .
+~~}
+\end{equation*}
+
+Notice that the Laplacian in polar coordinates no longer has constant
+coefficients.
+%It looks more complicated than the original, but in fact
+%the computations get easier from now on.
+
+\subsection{Series solution}
+
+Let us separate variables as usual.  That is let us try
+$u(r,\theta) = R(r)\Theta(\theta)$.  Then
+\begin{equation*}
+0 = \Delta u = 
+\frac{1}{r^2} R \Theta''
++
+\frac{1}{r} R' \Theta
++
+R'' \Theta .
+\end{equation*}
+Let us put $R$ on one side and $\Theta$ on the other and conclude
+that both sides must be constant.
+\begin{align*}
+\frac{1}{r^2} R \Theta''
+& =
+-
+\left(\frac{1}{r} R' + R''\right) \Theta 
+\\
+\frac{\Theta''}{\Theta}
+& =
+-
+\frac{r R' + r^2 R''}{R} = -\lambda
+\end{align*}
+We get two equations:
+\begin{align*}
+& \Theta'' + \lambda \Theta = 0 ,
+\\
+& r^2 R'' + r R' -\lambda R = 0.
+\end{align*}
+Let us first focus on $\Theta$.  We know that $u(r,\theta)$ ought to be
+$2\pi$-periodic in $\theta$, that is,
+$u(r,\theta) = u(r,\theta+2\pi)$.  Therefore, the solution to
+$\Theta'' + \lambda \Theta = 0$ must be $2\pi$-periodic.
+We have seen such a problem in \exampleref{bvp-periodic:example}.
+We conclude
+that
+%$\lambda = 0,1,4,9,\ldots$.  That is,
+$\lambda = n^2$ for a
+nonnegative integer $n=0,1,2,3,\ldots$.  The equation becomes
+$\Theta'' + n^2 \Theta = 0$.  When $n=0$ the equation is just
+$\Theta'' = 0$, so we have the general solution $A \theta + B$.  As
+$\Theta$ is periodic,
+$A=0$.
+For convenience we write this solution as
+\begin{equation*}
+\Theta_0 = \frac{a_0}{2}
+\end{equation*}
+for some constant $a_0$.  For positive $n$,
+the 
+solution to
+$\Theta'' + n^2 \Theta = 0$ is
+\begin{equation*}
+\Theta_n = a_n \cos(n\theta) + b_n \sin(n\theta) ,
+\end{equation*}
+for some constants $a_n$ and $b_n$.
+
+Next, we consider the equation for $R$,
+\begin{equation*}
+r^2 R'' + r R' - n^2 R = 0.
+\end{equation*}
+This equation appeared in exercises before---we
+solved it in \exerciseref{sol:eulerex}
+and \exercisevref{sol:eulerexln}.  The idea is to try a solution
+$r^s$ and if that does not give us two solutions, also try a solution of the form
+$r^s \ln r$.  Let us name the solution for $R_n$.  When $n=0$ we obtain
+\begin{equation*}
+R_0 = A r^0 + B r^0 \ln r = A + B \ln r ,
+\end{equation*}
+and if $n > 0$, we get
+\begin{equation*}
+R_n = A r^n + B r^{-n} .
+\end{equation*}
+The function $u(r,\theta)$ must be finite at the origin, that is, when $r=0$.
+So $B=0$ in both
+cases.  Set $A=1$ in both cases as well; the constants in $\Theta_n$
+will pick up the slack so nothing is lost.  Let
+\begin{equation*}
+R_0 = 1 , \qquad \text{and} \qquad
+R_n = r^n .
+\end{equation*}
+Hence our building block solutions are
+\begin{align*}
+& u_0(r,\theta) = \frac{a_0}{2} ,
+& u_n(r,\theta) = a_n r^n \cos(n \theta) + b_n r^n \sin(n \theta) .
+\end{align*}
+Putting everything together our solution is:
+\begin{equation*}
+\mybxbg{~~
+u(r,\theta)
+=
+\frac{a_0}{2} +
+\sum_{n=1}^\infty
+a_n r^n \cos(n \theta) + b_n r^n \sin(n \theta) .
+~~}
+\end{equation*}
+
+We look at the boundary condition in \eqref{dirichdisc:theprobeq},
+\begin{equation*}
+g(\theta) = u(1,\theta)
+=
+\frac{a_0}{2} +
+\sum_{n=1}^\infty
+a_n \cos(n \theta) + b_n \sin(n \theta) .
+\end{equation*}
+Therefore, to solve \eqref{dirichdisc:theprobeq}
+we expand $g(\theta)$, which is 
+a $2\pi$-periodic function, as a Fourier series, and then 
+multiply the $n^{\text{th}}$ term by $r^n$.  To
+find the $a_n$ and the $b_n$ we compute
+\begin{equation*}
+a_n =
+\frac{1}{\pi} \int_{-\pi}^\pi g(\theta) \cos (n\theta) ~ d\theta , \qquad
+\text{and} \qquad
+b_n =
+\frac{1}{\pi} \int_{-\pi}^\pi g(\theta) \sin (n\theta) ~ d\theta.
+\end{equation*}
+
+\begin{example}
+Suppose we wish to solve
+\begin{align*}
+& \Delta u = 0 , \qquad 0 \leq r < 1, \quad -\pi < \theta \leq \pi,\\
+& u(1,\theta) = \cos(10\,\theta), \qquad -\pi < \theta \leq \pi.
+\end{align*}
+
+The solution is
+\begin{equation*}
+u(r,\theta) = r^{10} \cos(10\,\theta) .
+\end{equation*}
+
+See the plot in \figurevref{dirichdisc:tenspeedfig}.
+The thing to notice in this example is that the effect of a high frequency
+is mostly felt at the boundary.  In the middle of the disc, the solution
+is very close to zero.  That is because $r^{10}$ is rather small when $r$
+is close to 0.
+\begin{myfig}
+\capstart
+\diffyincludegraphics{width=5in}{width=7.5in}{dirichdisc-tenspeed}
+\caption{The solution of the Dirichlet problem in the disc with
+$\cos(10\,\theta)$ as boundary data.\label{dirichdisc:tenspeedfig}}
+\end{myfig}
+\end{example}
+
+\begin{example}
+Let us solve a more difficult problem.  Consider a long
+rod with circular cross section of radius 1.  Suppose we wish to solve the
+steady state heat problem in the rod.
+If the rod is long enough, we simply need to solve
+the Laplace equation in two dimensions.  Let us put the center of the rod at
+the origin and we have exactly the region we are currently
+studying---a circle of radius 1.  For the boundary conditions, suppose in
+Cartesian coordinates $x$ and
+$y$, the temperature on the boundary is 0 when $y < 0$, and it is $2y$ when $y > 0$.
+
+Let us set the problem up.
+As $y = r\sin(\theta)$, then on the
+circle of radius 1, that is, where $r=1$, we have $2y = 2\sin(\theta)$.  So
+%The problem becomes
+\begin{align*}
+& \Delta u = 0 , \qquad 0 \leq r < 1, \quad -\pi < \theta \leq \pi,\\
+& u(1,\theta) = 
+\begin{cases}
+2\sin(\theta) & \text{if } \; \phantom{-}0 \leq \theta \leq \pi, \\
+0 & \text{if } \; {-\pi} < \theta < 0.
+\end{cases}
+\end{align*}
+
+We must now compute the Fourier series for the boundary
+condition.  By now the reader has plentiful experience in computing
+Fourier series and so we simply state that 
+\begin{equation*}
+u(1,\theta) = 
+\frac{2}{\pi}
++
+\sin(\theta)
++
+\sum_{n=1}^\infty \frac{-4}{\pi(4n^2-1)} \cos(2n\theta) .
+\end{equation*}
+
+\begin{exercise}
+Compute the series for $u(1,\theta)$ and verify that it really is what
+we have just claimed.  Hint: Be careful, make sure not to divide by zero.
+\end{exercise}
+
+We now simply write the solution (see \figurevref{dirichdisc:zero2yfig}) by multiplying by $r^n$ in the right places.
+\begin{equation*}
+u(r,\theta) = 
+\frac{2}{\pi}
++
+r\sin(\theta)
++
+\sum_{n=1}^\infty \frac{-4r^{2n}}{\pi(4n^2-1)} \cos(2n\theta) .
+\end{equation*}
+\begin{myfig}
+\capstart
+\diffyincludegraphics{width=5in}{width=7.5in}{dirichdisc-zero2y}
+\caption{The solution of the Dirichlet problem with
+boundary data 0 for $y < 0$ and $2y$ for $y > 0$.\label{dirichdisc:zero2yfig}}
+\end{myfig}
+%The plot of the solution is given in \figurevref{dirichdisc:zero2yfig}.
+\end{example}
+
+%Note that the formulas are not difficult to generalize
+%for a circle of
+%any radius and this generalization is left to the reader in the exercises.
+
+\subsection{Poisson kernel}
+
+There is another way to solve the Dirichlet problem with the help of an
+integral kernel.  That is, we will find a function $P(r,\theta,\alpha)$
+called the \emph{\myindex{Poisson kernel}}\footnote{%
+Named for the French mathematician
+\href{https://en.wikipedia.org/wiki/Sim\%C3\%A9on_Denis_Poisson}{Sim\'eon
+Denis Poisson}
+(1781--1840).} such that
+\begin{equation*}
+u(r,\theta) = 
+\frac{1}{2\pi}
+\int_{-\pi}^{\pi}
+P(r,\theta,\alpha) \, g(\alpha) ~d\alpha .
+\end{equation*}
+While the integral will generally not be solvable analytically, it can
+be evaluated numerically.   In fact, unless the boundary data is given
+as a Fourier series already, it may be much easier to numerically
+evaluate this formula as there is only one integral to evaluate.
+
+The formula also has theoretical applications.
+For instance, as $P(r,\theta,\alpha)$ 
+will have infinitely many derivatives, then
+via differentiating under the integral we find
+that the solution $u(r,\theta)$ has infinitely many derivatives, at least
+when inside the circle, $r < 1$.  By \myquote{having infinitely many
+derivatives,} what you
+should think of is that $u(r,\theta)$ has \myquote{no corners} and all of its
+partial derivatives of all orders exist and also have \myquote{no corners.}
+
+%A similar integral formula and an integral kernel
+%always exists no matter what the shape of the region is,
+%however it is much more difficult to compute when the region is
+%very irregular.  For a circle, the formula we will obtain in the
+%end is quite simple and has a nice geometric interpretation.
+
+We will compute
+the formula for $P(r,\theta,\alpha)$ from the series
+solution, and this idea can be applied anytime you have a convenient
+series solution where the coefficients are obtained via integration.
+Hence you can apply this reasoning to obtain such integral kernels
+for other equations, such as the heat equation.
+The computation is long and \myindex{tedious}, but not overly difficult.
+Since the ideas are often applied in similar contexts, it is good to
+understand how this computation works.
+
+What we do is start with the series solution and replace the coefficients
+with the integrals that compute them.  Then we try to write everything as
+a single integral.  We must use a different dummy variable for the
+integration and hence we use $\alpha$ instead of $\theta$.
+\begin{equation*}
+\begin{split}
+u(r,\theta)
+& =
+\frac{a_0}{2} +
+\sum_{n=1}^\infty
+a_n r^n \cos(n \theta) + b_n r^n \sin(n \theta)
+\\
+& =
+\underbrace{
+ \left(
+  \frac{1}{2\pi} \int_{-\pi}^\pi g(\alpha) ~ d\alpha
+ \right)
+}_{\frac{a_0}{2}}
++
+%\\
+%& ~~~~~~~~ +
+\sum_{n=1}^\infty
+\underbrace{
+ \left(
+  \frac{1}{\pi} \int_{-\pi}^\pi g(\alpha) \cos (n\alpha) ~ d\alpha
+ \right)
+}_{a_n}
+r^n \cos(n \theta) +
+\\
+& ~~~~~~~~ +
+\underbrace{
+ \left(
+  \frac{1}{\pi} \int_{-\pi}^\pi g(\alpha) \sin (n\alpha) ~ d\alpha
+ \right)
+}_{b_n}
+r^n \sin(n \theta)
+\\
+& =
+\frac{1}{2\pi}
+\int_{-\pi}^\pi
+\left(  g(\alpha)
++
+2
+\sum_{n=1}^\infty
+g(\alpha) \cos (n\alpha) 
+\, r^n \cos(n \theta) +
+g(\alpha) \sin (n\alpha)
+\, r^n \sin(n \theta)
+\right) ~d\alpha
+\\
+& =
+\frac{1}{2\pi}
+\int_{-\pi}^\pi
+\underbrace{
+ \left( 1
+ +
+ 2
+ \sum_{n=1}^\infty
+ r^n 
+ \bigl(
+ \cos (n\alpha) 
+ \cos(n \theta) +
+ \sin (n\alpha)
+ \sin(n \theta) \bigr)
+ \right)
+}_{P(r,\theta,\alpha)}
+g(\alpha) ~d\alpha
+%\\
+%& =
+%\frac{1}{2\pi}
+%\int_{-\pi}^\pi
+%\left( 1
+%+
+%2
+%\sum_{n=1}^\infty
+%r^n 
+%\cos \bigl(n(\theta-\alpha)\bigr)
+%\right) g(\alpha) ~d\alpha .
+\end{split}
+\end{equation*}
+OK\@, so we have what we wanted, the expression in the parentheses is the
+Poisson kernel, $P(r,\theta,\alpha)$.  However, we can do a lot better.  It is still given as a
+series, and we would really like to have a nice simple expression for it. 
+We must work a little harder.  The trick is to rewrite everything in terms of
+complex exponentials.  Let us work
+just on the kernel.
+\begin{equation*}
+\begin{split}
+P(r,\theta,\alpha)
+& =
+1
++
+2
+\sum_{n=1}^\infty
+r^n 
+\bigl(
+\cos (n\alpha) 
+\cos(n \theta) +
+\sin (n\alpha)
+\sin(n \theta) \bigr)
+\\
+& =
+1
++
+2
+\sum_{n=1}^\infty
+r^n 
+\cos \bigl(n(\theta-\alpha)\bigr)
+\\
+& =
+1
++
+\sum_{n=1}^\infty
+r^n 
+\bigl(
+e^{in(\theta-\alpha)} +
+e^{-in(\theta-\alpha)} \bigr)
+\\
+& =
+1
++
+\sum_{n=1}^\infty
+{\bigl(
+re^{i(\theta-\alpha)}\bigr)}^{n}
++
+\sum_{n=1}^\infty
+{\bigl(
+re^{-i(\theta-\alpha)}\bigr)}^{n} .
+\end{split}
+\end{equation*}
+In the expression above, we recognize the
+\emph{\myindex{geometric series}}.
+Recall from calculus that if $z$ is a complex number where $\lvert z \rvert < 1$, then
+\begin{equation*}
+\sum_{n=1}^\infty z^n = \frac{z}{1-z} .
+\end{equation*}
+Note that $n$ starts at $1$ and that is why we have the $z$ in the numerator.
+It is the standard geometric series multiplied by $z$.
+We can use $z = re^{i(\theta-\alpha)}$, as
+lo and behold $\lvert re^{i(\theta-\alpha)} \rvert = r < 1$.
+Let us
+continue with the computation.
+\begin{equation*}
+\begin{split}
+P(r,\theta,\alpha)
+& =
+1
++
+\sum_{n=1}^\infty
+{\bigl(
+re^{i(\theta-\alpha)}\bigr)}^{n}
++
+\sum_{n=1}^\infty
+{\bigl(
+re^{-i(\theta-\alpha)}\bigr)}^{n}
+\\
+& =
+1
++
+\frac{re^{i(\theta-\alpha)}}{1-re^{i(\theta-\alpha)}}
++
+\frac{re^{-i(\theta-\alpha)}}{1-re^{-i(\theta-\alpha)}}
+\\
+& = 
+\frac{
+\bigl(1-re^{i(\theta-\alpha)}\bigr)\bigl(1-re^{-i(\theta-\alpha)}\bigr)
++
+\bigl(1-re^{-i(\theta-\alpha)}\bigr)re^{i(\theta-\alpha)} +
+\bigl(1-re^{i(\theta-\alpha)}\bigr)re^{-i(\theta-\alpha)}}
+{\bigl(1-re^{i(\theta-\alpha)}\bigr)\bigl(1-re^{-i(\theta-\alpha)}\bigr)}
+\\
+& = 
+\frac{1 -r^2}{1 - re^{i(\theta-\alpha)} - re^{-i(\theta-\alpha)} +r^2}
+\\
+& = 
+\frac{1 -r^2}{1 - 2r\cos(\theta-\alpha) +r^2} .
+\end{split}
+\end{equation*}
+That's a formula we can live with.  The
+solution to the Dirichlet problem using the Poisson kernel is
+\begin{equation*}
+\mybxbg{~~
+u(r,\theta) = 
+\frac{1}{2\pi} \int_{-\pi}^{\pi}
+\frac{1 -r^2}{1 - 2r\cos(\theta-\alpha) +r^2} g(\alpha) ~ d\alpha .
+~~}
+\end{equation*}
+Sometimes the formula for the Poisson kernel is
+given together with the constant $\frac{1}{2\pi}$, in which case we should
+of course not leave it in front of the integral.
+Also, often the limits
+of the integral are given as 0 to $2\pi$; everything inside is
+$2\pi$-periodic in $\alpha$, so this does not change the integral.
+
+%12 is the number of lines, must be adjusted
+\begin{mywrapfigsimp}[12]{2.1in}{2.4in}
+\diffypdfversion{\vspace*{5pt}}
+\noindent
+\inputpdft{poisson}
+\end{mywrapfigsimp}
+Let us not leave the Poisson kernel without explaining its geometric
+meaning.  Let $s$ be the distance from $(r,\theta)$ to
+$(1,\alpha)$.
+You may recall from calculus that
+this distance $s$ in polar coordinates is given precisely by the square root
+of $1 - 2r\cos(\theta-\alpha) +r^2$.  That is, the Poisson kernel is really
+the formula
+\begin{equation*}
+\frac{1-r^2}{s^2} .
+\end{equation*}
+%See the figure on the right.
+
+One final note we make about the formula is that it is really
+a weighted average of the boundary values.
+First let us look
+at what happens at the origin,
+that is when $r=0$. %(and then $\theta$ can be anything at all)
+\begin{equation*}
+\begin{split}
+u(0,0) &= 
+\frac{1}{2\pi} \int_{-\pi}^{\pi}
+\frac{1 -0^2}{1 - 2(0)\cos(\theta-\alpha) +0^2} g(\alpha) ~ d\alpha
+\\
+& =
+\frac{1}{2\pi} \int_{-\pi}^{\pi}
+g(\alpha) ~ d\alpha .
+\end{split}
+\end{equation*}
+So $u(0,0)$ is precisely the average value of $g(\theta)$ and
+therefore the average value of $u$ on the boundary.  This is
+a general feature of harmonic functions, the value at some point $p$
+is equal to the average of the values on a circle centered at $p$.
+
+What the formula says is that the value of the solution at any point in the
+circle is a weighted average of the boundary data $g(\theta)$.  The kernel
+is bigger when $(1,\alpha)$ is closer to $(r,\theta)$.  Therefore when
+computing $u(r,\theta)$ we
+give more weight to the values $g(\alpha)$ when $(1,\alpha)$ is closer to $(r,\theta)$ and less
+weight to the values $g(\alpha)$ when $(1,\alpha)$ far from $(r,\theta)$.
+
+\subsection{Exercises}
+
+\begin{exercise}
+Using series solve
+$\Delta u = 0$, $u(1,\theta) = \lvert \theta \rvert$, for $-\pi < \theta
+\leq \pi$.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Using series solve
+$\Delta u = 0$, $u(1,\theta) = 1+ \sum\limits_{n=1}^\infty \frac{1}{n^2}\sin(n\theta)$.
+\end{exercise}
+\exsol{%
+$u = 1+ \sum\limits_{n=1}^\infty \frac{1}{n^2}r^n\sin(n\theta)$
+}
+
+\begin{exercise}\ansMark%
+Using the series solution find the solution to
+$\Delta u = 0$, $u(1,\theta) = 1- \cos(\theta)$.  Express the solution
+in Cartesian coordinates (that is, using $x$ and $y$).
+\end{exercise}
+\exsol{%
+$u = 1-x$
+}
+
+\begin{exercise}
+Using series solve $\Delta u = 0$, $u(1,\theta) = g(\theta)$ for the
+following data.  Hint: trig identities.
+\begin{tasks}(2)
+\task
+$g(\theta) = 
+\nicefrac{1}{2} + 3\sin(\theta) + \cos(3\theta)$
+\task
+$g(\theta) = 
+3\cos(3\theta) + 3\sin(3\theta) + \sin(9\theta)$
+\task
+$g(\theta) = 2 \cos(\theta+1)$
+\task
+$g(\theta) = \sin^2(\theta)$
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}
+Using the Poisson kernel, give the solution to
+$\Delta u = 0$, where $u(1,\theta)$ is zero for $\theta$ outside
+the interval $[-\nicefrac{\pi}{4},\nicefrac{\pi}{4}]$ and 
+$u(1,\theta)$ is 1 for $\theta$ on the interval
+$[-\nicefrac{\pi}{4},\nicefrac{\pi}{4}]$.
+\end{exercise}
+
+\begin{exercise}
+\pagebreak[2]
+\leavevmode
+\begin{tasks}
+\task Draw a graph for the Poisson kernel as a function of $\alpha$
+when $r=\nicefrac{1}{2}$ and $\theta = 0$.
+\task Describe what happens to the graph when you make $r$ bigger (as it
+approaches 1).
+\task Knowing that the solution $u(r,\theta)$ is the weighted average
+of $g(\theta)$ with Poisson kernel as the weight, explain what your answer
+to part b) means.
+\end{tasks}
+\end{exercise}
+
+\begin{exercise} \label{exercise:dirichproblemxy}
+Let $g(\theta)$ be the function $xy = \cos \theta \sin
+\theta$ on the boundary.  Use the series solution to find a solution
+to the Dirichlet problem $\Delta u = 0$, $u(1,\theta) = g(\theta)$.  Now
+convert the solution to Cartesian coordinates $x$ and $y$.  Is this
+solution surprising?  Hint: use your trig identities.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+\leavevmode
+\begin{tasks}
+\task
+Try and guess a solution to $\Delta u = -1$, $u(1,\theta) = 0$.
+Hint: try a solution that only depends on $r$.  Also first, don't worry
+about the boundary condition.
+\task
+Now solve $\Delta u = -1$, $u(1,\theta) = \sin(2\theta)$ using
+superposition.
+\end{tasks}
+\end{exercise}
+\exsol{%
+a) $u = \frac{-1}{4} r^2 + \frac{1}{4}$
+b) $u = \frac{-1}{4} r^2 + \frac{1}{4} + r^2 \sin(2\theta)$
+}
+
+\begin{exercise}
+Carry out the computation we needed in the separation of variables and solve
+$r^2 R'' + r R' - n^2 R = 0$, for $n=0,1,2,3,\ldots$.
+\end{exercise}
+
+\begin{exercise}[challenging]
+Derive the series solution to the Dirichlet problem if the region is a
+circle of radius $\rho$ rather
+than 1.
+That is, solve $\Delta u = 0$, $u(\rho,\theta) = g(\theta)$.
+\end{exercise}
+
+\begin{exercise}[challenging]
+\leavevmode
+\begin{tasks}
+\task
+Find the solution for
+$\Delta u = 0$, $u(1,\theta) = x^2y^3 + 5 x^2$.  Write the answer in Cartesian coordinates.
+\task
+Now solve
+$\Delta u = 0$, $u(1,\theta) = x^k y^\ell$.
+Write the solution in Cartesian coordinates.
+\task
+Suppose you have a polynomial $P(x,y) = \sum_{j=0}^m \sum_{k=0}^n c_{j,k}
+x^j y^k$, solve $\Delta u = 0$, $u(1,\theta) = P(x,y)$ (that is, write down
+the formula for the answer).  Write the answer
+in Cartesian coordinates.
+\end{tasks}
+Notice the answer is again a polynomial in $x$ and $y$.
+See also \exerciseref{exercise:dirichproblemxy}.
+\end{exercise}
+
+\begin{exercise}[challenging]\ansMark%
+Derive the Poisson kernel solution
+if the region is a circle of radius $\rho$ rather
+than 1.  That is, solve $\Delta u = 0$, $u(\rho,\theta) = g(\theta)$.
+\end{exercise}
+\exsol{%
+$\displaystyle
+u(r,\theta) = 
+\frac{1}{2\pi} \int_{-\pi}^{\pi}
+\frac{\rho^2 -r^2}{\rho - 2r\rho\cos(\theta-\alpha) +r^2} g(\alpha) ~ d\alpha$
+}
+
+\setcounter{exercise}{100}
+

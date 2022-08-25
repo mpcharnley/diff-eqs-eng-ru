@@ -1,0 +1,361 @@
+\section{Substitution}
+\label{substitution:section}
+
+\LAtt{1.5}
+
+\LO{
+\item Use substitution to solve more complicated first order equations,
+\item Use a Bernoulli substitution to solve appropriate first order equations, and
+\item Use a homogeneity transformation to solve appropriate first order equations.
+}
+
+% \sectionnotes{1 lecture, can safely be skipped\EPref{, \S1.6 in \cite{EP}}\BDref{, not in
+% \cite{BD}}}
+
+The equation
+\begin{equation*}
+y' = {(x-y+1)}^2 
+\end{equation*}
+is neither separable nor linear.  What can we do? One technique that worked for helping us in evaluating integrals was substitution, or change of variables. For example, in order to evaluate the integral
+\begin{equation*}
+\int 2x(x^2 + 4)^5 \ dx
+\end{equation*} we can do so by defining $u = x^2 + 4$ so that $du = 2x\ dx$, and then evaluate the integral as 
+\begin{equation*}
+\int u^5\ du = \frac{u^6}{6} + C = \frac{(x^2 + 4)^6}{6} + C
+\end{equation*} after we have plugged our original function back in.
+
+We can try to do the same thing here, and be careful with how we set things up. Our general strategy will be to pick a new dependent variable, find a differential equation that this new variable solves (which will come from the old equation), solve that equation, then convert back to the original variable. We will take $v$ as our new dependent variable here, which is as function $v(x)$. Let us try
+\begin{equation*}
+v = x-y+1,
+\end{equation*}
+which is the ``inside'' function (it's inside the square) of our example. In order to get to a differential equation that $v$ satisfies, we need to figure out
+$y'$ in terms of $v'$, $v$ and $x$.  We differentiate (in $x$) to
+obtain $v' = 1 - y'$.  So $y' = 1-v'$.  We plug this into the equation to get
+\begin{equation*}
+1-v' = v^2 .
+\end{equation*}
+In other words, $v' = 1-v^2$.  Such an equation we know how to solve by
+separating variables:
+\begin{equation*}
+\frac{1}{1-v^2} \,dv = dx .
+\end{equation*}
+So
+\begin{equation*}
+\frac{1}{2} \ln \left\lvert  \frac{v+1}{v-1} \right\rvert = x + C ,
+\qquad \text{or} \qquad
+\left\lvert \frac{v+1}{v-1} \right\rvert = e^{2x + 2C} ,
+\qquad \text{or} \qquad
+\frac{v+1}{v-1} = D e^{2x} ,
+\end{equation*}
+for some constant $D$.
+Note that $v=1$ and $v=-1$ are also solutions; they are the \emph{\myindex{singular solutions}} in this problem. (This solution method requires partial fractions; for a review of that topic, see \sectionref{sec:derivInt}.)
+
+Now we need to \myquote{unsubstitute} to obtain
+\begin{equation*}
+\frac{x-y+2}{x-y} = D e^{2x} ,
+\end{equation*}
+and also the two solutions $x-y+1=1$ or $y=x$, and $x-y+1=-1$ or $y=x+2$.
+We solve the first equation for $y$.
+\begin{align*}
+x-y+2 &= (x-y)D e^{2x} , \\
+x-y+2 &= Dx e^{2x}-yD e^{2x} , \\
+-y + yD e^{2x} &= Dx e^{2x} - x - 2 , \displaybreak[0]\\
+y\,(-1+ D e^{2x}) &= Dx e^{2x} - x - 2 , \displaybreak[0]\\
+y  &= \frac{Dx e^{2x} - x - 2}{D e^{2x}-1} .
+\end{align*}
+Note that $D=0$ gives $y=x+2$, but no value of $D$ gives the solution $y=x$.
+
+\medskip
+
+Substitution in differential equations is applied in much the same way that
+it is applied in calculus.  You guess.  Several different substitutions might
+work.  There are some general patterns to look for.  We summarize a few
+of these in a table.
+
+\begin{center}
+\begin{tabular}{@{}ll@{}}
+\toprule
+When you see & Try substituting \\
+\midrule
+$yy'$ & $v=y^2$ \\
+$y^2y'$ & $v=y^3$ \\
+$(\cos y)y'$ & $v=\sin y$ \\
+$(\sin y)y'$ & $v=\cos y$ \\
+$y'e^y$ & $v=e^y$ \\ \bottomrule
+\end{tabular}
+\end{center}
+
+Usually you try to substitute in the \myquote{most complicated} part of the
+equation with the hopes of simplifying it.  The table above is just a rule
+of thumb.  You might have to modify your guesses.  If a substitution
+does not work (it does not make the equation any simpler), try a different one.
+
+\subsection{Bernoulli equations}
+
+There are some forms of equations where there is a
+general rule for substitution that always works.
+One such example is the so-called
+\emph{\myindex{Bernoulli equation}}%
+\footnote{There are several things called Bernoulli equations, this is just one
+of them.  The Bernoullis were a prominent Swiss family of mathematicians.  These
+particular equations are named for
+\href{https://en.wikipedia.org/wiki/Jacob_Bernoulli}{Jacob Bernoulli} (1654--1705).}:
+\begin{equation*}
+y' + p(x)y = q(x)y^n .
+\end{equation*}
+This equation
+looks a lot like a linear equation except for the $y^n$.  If $n=0$ or
+$n=1$, then the equation is linear and we can solve it.  Otherwise,
+the substitution $v=y^{1-n}$ transforms the 
+Bernoulli equation into a linear equation.  Note that $n$
+need not be an integer.
+
+\begin{example}
+Find the general solution of
+\begin{equation*}
+y' - \frac{4}{3x}y = -\frac{2}{3}y^4 
+\end{equation*}
+\end{example}
+
+\begin{exampleSol}
+This equation fits the Bernoulli equation structure with $p(x) = -\frac{4}{3x}$ and $q(x) = -\frac{2}{3}$. Since there is a $y^4$ on the right-hand side, we take $n=4$ and make the substitution $v = y^{1-4} = y^{-3}$. With this, we see that
+\begin{equation*}
+v' = -3 y^{-4} y'
+\end{equation*}
+or $y' = -\nicefrac{1}{3}y^4 v'$. Plugging this into the equation gives
+\begin{equation*}
+\begin{split}
+-\frac{1}{3} y^4 v' - \frac{4}{3x}y &= -\frac{2}{3}y^4 \\
+-\frac{1}{3} v' - \frac{4}{3x} y^{-3} &= -\frac{2}{3} \\
+v' + \frac{4}{x} v &= 2
+\end{split}
+\end{equation*}
+This last equation is now a first order linear equation, so we can solve it. The integrating factor we are looking for is 
+\begin{equation*}
+ \mu(x) = e^{\int p(x)\ dx} = e^{\int \frac{4}{x}\ dx} = e^{4\ln{x}} = x^4, 
+\end{equation*}
+which results in the euation
+\begin{equation*}
+x^4 v' + 4x^3 v = 2x^4.
+\end{equation*}
+The left-hand side is $(x^4v)'$, so we can integrate both sides to get
+\begin{equation*}
+x^4 v = \frac{2}{5}x^5 + C,
+\end{equation*}
+or, solving for $v$, 
+\begin{equation*}
+v(x) = \frac{2}{5} x + \frac{C}{x^4}.
+\end{equation*}
+However, our original equation was for $y$, not $v$. Using the fact that $v = y^{-3}$, we can solve for $y$ as $y = v^{-1/3}$, giving
+\begin{equation*}
+y(x) = \left(\frac{2}{5}x + \frac{C}{x^4}\right)^{-1/3} = \frac{1}{\sqrt[3]{\frac{2}{5}x + \frac{C}{x^4}}}
+\end{equation*}
+as the general solution to this equation. 
+\end{exampleSol}
+
+Even if we need to use integrals to write out the solution to these Bernoulli equations, we can still use the substitution method and solve back out for the desired solution at the end.
+
+\begin{example}
+Solve
+\begin{equation*}
+xy'+ y(x+1)+xy^5 = 0, \qquad y(1)=1 .
+\end{equation*}
+\end{example}
+
+\begin{exampleSol}
+First, the equation is Bernoulli ($p(x) = (x+1)/x$ and $q(x) = -1$).
+We substitute
+\begin{equation*}
+v=y^{1-5} = y^{-4}, \qquad
+v' = -4 y^{-5} y' .
+\end{equation*}
+In other words, $\left( \nicefrac{-1}{4} \right) y^5 v' = y'$.  So
+\begin{align*}
+xy'+ y(x+1)+xy^5 & = 0 , \\
+\frac{-xy^5}{4} v'+ y(x+1)+xy^5 & = 0 , \displaybreak[0]\\
+\frac{-x}{4} v'+ y^{-4}(x+1)+x & = 0 , \displaybreak[0]\\
+\frac{-x}{4} v'+ v(x+1)+x & = 0 ,
+\end{align*}
+and finally
+\begin{equation*}
+v'- \frac{4(x+1)}{x} v  = 4 .
+\end{equation*}
+The equation is now linear.
+We can use the integrating factor method.  In particular, we
+use formula \eqref{lei:defsol}.  Let us assume that $x > 0$
+so $\lvert x \rvert = x$.  This assumption is OK\@, as our initial condition is
+$x=1$.  Let us compute the integrating factor.  Here $p(s)$ from formula
+\eqref{lei:defsol} is $\frac{-4(s+1)}{s}$.
+\begin{align*}
+e^{\int_1^x p(s)\,ds} & = \exp \left( \int_1^x \frac{-4(s+1)}{s} \,ds \right) =
+e^{-4x-4\ln(x)+4} = 
+e^{-4x+4} x^{-4}
+=
+\frac{e^{-4x+4}}{x^4} , \\
+e^{-\int_1^x p(s)\,ds} & =
+e^{4x+4\ln(x)-4} = 
+e^{4x-4} x^4 .
+\end{align*}
+We now plug in to \eqref{lei:defsol}
+\begin{equation*}
+\begin{split}
+v(x) & =
+e^{-\int_{1}^x p(s)\, ds} \left( \int_{1}^x e^{\int_{1}^t p(s)\, ds} 4 \,dt
++ 1 \right) \\
+& =
+e^{4x-4} x^4
+\left( \int_{1}^x 4 \frac{e^{-4t+4}}{t^4} \,dt
++ 1 \right) .
+\end{split}
+\end{equation*}
+The integral in this expression is not possible to find in closed
+form.  As we said before, it is perfectly fine to have a
+definite integral in our solution.  Now \myquote{unsubstitute}
+\begin{align*}
+ y^{-4} &= e^{4x-4}x^4 \left( 4 \int_1^x \frac{e^{-4t+4}}{t^4} \,dt + 1\right) , \\
+ y &= \frac{e^{-x+1}}{x {\left( 4 \int_1^x \frac{e^{-4t+4}}{t^4} \,dt +
+1\right)}^{1/4}} .
+\end{align*}
+\end{exampleSol}
+
+\subsection{Homogeneous equations}
+
+Another type of equations we can solve by substitution are the 
+so-called \emph{homogeneous equations\index{homogeneous equation}}. Note that this is \emph{not} the same 
+as a homogeneous linear equation. These equations do not have to be linear, and are solved in a very different way.
+Suppose that we can write the differential equation as
+\begin{equation*}
+y' = F\left(\frac{y}{x}\right) .
+\end{equation*}
+Here we try the substitutions
+\begin{equation*}
+v = \frac{y}{x} \qquad \text{and therefore} \qquad y' = v + x v' .
+\end{equation*}
+We note that the equation is transformed into
+\begin{equation*}
+v+ xv' = F(v) \qquad \text{or} \qquad xv' = F(v)-v 
+\qquad \text{or} \qquad \frac{v'}{F(v)-v} = \frac{1}{x} .
+\end{equation*}
+Hence an implicit solution is
+\begin{equation*}
+\int \frac{1}{F(v)-v} \,dv = \ln \, \lvert x \rvert + C .
+\end{equation*}
+
+\begin{example}
+Solve 
+\begin{equation*}
+x^2y' = y^2+xy, \qquad y(1)=1.
+\end{equation*}
+\end{example}
+
+\begin{exampleSol}
+We put the equation into
+the form $y'= {\left(\nicefrac{y}{x}\right)}^2+\nicefrac{y}{x}$.  We 
+substitute $v=\nicefrac{y}{x}$ to get
+the separable equation
+\begin{equation*}
+xv' = v^2+v-v = v^2 ,
+\end{equation*}
+which has a solution
+\begin{align*}
+\int \frac{1}{v^2} \,dv &= \ln \, \lvert x \rvert + C , \\
+\frac{-1}{v} &= \ln \, \lvert x \rvert + C , \\
+v &= \frac{-1}{\ln \, \lvert x \rvert + C} .
+\end{align*}
+We unsubstitute
+\begin{align*}
+\frac{y}{x} &= \frac{-1}{\ln \, \lvert x \rvert + C} , \\
+y &= \frac{-x}{\ln \, \lvert x \rvert + C} .
+\end{align*}
+We want $y(1)=1$, so 
+\begin{equation*}
+1 = y(1) = \frac{-1}{\ln \, \lvert 1 \rvert + C} = \frac{-1}{C} .
+\end{equation*}
+Thus $C = -1$ and
+the solution we are looking for is
+\begin{equation*}
+y = \frac{-x}{\ln \, \lvert x \rvert -1} .
+\end{equation*}
+\end{exampleSol}
+
+\subsection{Exercises}
+
+Hint: Answers need not always be in closed form.
+
+\begin{exercise}
+Solve
+$y'+ y(x^2-1)+xy^6 = 0$, with $y(1)=1$.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Solve $xy'+y+y^2 = 0$, $y(1)=2$.
+\end{exercise}
+\exsol{%
+$y = \frac{2}{3x-2}$
+}
+
+\begin{exercise}
+Solve $2yy' + 1 = y^2 + x$, with $y(0)=1$.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Solve $xy'+y +x = 0$, $y(1)=1$.
+\end{exercise}
+\exsol{%
+$y = \frac{3-x^2}{2 x}$
+}
+
+\begin{exercise}
+Solve $y' + xy = y^4$, with $y(0)=1$.
+\end{exercise}
+
+\begin{exercise}
+Solve $y' + 3y = 2xy^4$.
+\end{exercise}
+
+\begin{exercise}
+Solve $xy' - 2y = (3x^2 - x^{-3})y^5$ with $y(1) = 2$. 
+\end{exercise}
+
+\begin{exercise}
+Solve $y' + 5y = \frac{e^{2x}}{y^2}$.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Solve $y^2y' = y^3-3x$, $y(0)=2$.
+\end{exercise}
+\exsol{%
+$y = {\bigl(7 e^{3x} + 3x + 1 \bigr)}^{1/3}$
+}
+
+\begin{exercise}
+Solve $yy' + x = \sqrt{x^2 + y^2}$.
+\end{exercise}
+
+\begin{exercise}
+Solve $y' = {(x+y-1)}^2$.
+\end{exercise}
+
+\begin{exercise}
+Solve $y' = \frac{x^2-y^2}{x y}$, with $y(1) = 2$.
+\end{exercise}
+
+\begin{exercise}\ansMark
+Solve $2yy' = e^{y^2-x^2} + 2x$.
+\end{exercise}
+\exsol{%
+$y = \sqrt{x^2-\ln(C-x)}$
+}
+
+\begin{exercise}
+Consider the  DE 
+\begin{equation}
+\frac{dy}{dt}=\left( y -\frac{1}{t} \right)^2 - \frac{1}{t^2}. \label{eq:subsEx1}
+\end{equation} %1.12
+\begin{tasks}
+\task Explain why \eqref{eq:subsEx1} is not a linear equation.
+\task Use a Bernoulli substitution to solve \eqref{eq:subsEx1}.
+\end{tasks}
+\end{exercise}
+
+\setcounter{exercise}{100}

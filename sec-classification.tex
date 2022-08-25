@@ -1,0 +1,349 @@
+\section{Classification of differential equations}
+\label{classification:section}
+
+%Perhaps no [EP] ref?
+\LAtt{0.3}
+
+\LO{
+\item Classify equation as ordinary or partial differential equations,
+\item Identify whether an equation is linear or non-linear, and 
+\item Classify linear equations as homogenoeus, non-homogenoeus, or constant coefficient, as appropriate.
+}
+
+% \sectionnotes{less than 1 lecture or left as reading\BDref{, \S1.3 in \cite{BD}}}
+
+There are many types of differential equations, and we classify them into
+different categories based on their properties.  Let us quickly go over
+the most basic classification.  We already saw the distinction
+between ordinary and partial differential equations:
+
+\begin{definition}
+\begin{itemize}
+\item
+\emph{Ordinary differential equations}
+\index{Ordinary differential equations}\index{ODE} or (ODE) are
+equations where the derivatives are taken with respect to only one variable.
+That is, there is only one independent variable.
+\item
+\emph{Partial differential equations}
+\index{Partial differential equations}\index{PDE} or (PDE) are
+equations that depend on partial derivatives of several variables.
+That is, there are several independent variables.
+\end{itemize}
+\end{definition}
+
+Let us see some examples of ordinary differential equations:
+\begin{align*}
+& \frac{d y}{dt} = ky , & & \text{(Exponential growth\index{exponential growth})} \\
+& \frac{d y}{dt} = k(A-y) , & & \text{(\myindex{Newton's law of cooling})} \\
+& m \frac{d^2 x}{dt^2} + c \frac{dx}{dt} + kx = f(t) . & &
+\text{(Mechanical vibrations\index{mechanical vibrations})}
+\end{align*}
+And of partial differential equations:
+\begin{align*}
+& \frac{\partial y}{\partial t} + c \frac{\partial y}{\partial x} = 0 , & & 
+\text{(Transport equation\index{transport equation})} \\
+& \frac{\partial u}{\partial t} = \frac{\partial^2 u}{\partial x^2} , & & 
+\text{(Heat equation\index{heat equation})} \\
+& \frac{\partial^2 u}{\partial t^2} = \frac{\partial^2 u}{\partial x^2} +
+\frac{\partial^2 u}{\partial y^2} . & & 
+\text{(Wave equation in 2 dimensions\index{wave equation in 2 dimensions})}
+\end{align*}
+
+If there are several equations working together, we have a so-called
+\emph{\myindex{system of differential equations}}.  For example,
+\begin{equation*}
+y' = x , \qquad x' = y
+\end{equation*}
+is a simple system of ordinary differential equations.
+\myindex{Maxwell's equations} for electromagnetics,
+\begin{align*}
+& \nabla \cdot \vec{D} = \rho, & & \nabla \cdot \vec{B} = 0 , \\
+& \nabla \times \vec{E} = - \frac{\partial \vec{B}}{\partial t}, &
+& \nabla \times \vec{H} = \vec{J} + \frac{\partial \vec{D}}{\partial t} ,
+\end{align*}
+are a system of partial differential equations. 
+The divergence operator $\nabla \cdot$ and the
+curl operator $\nabla \times$ can be written out in partial derivatives of
+the functions involved in the $x$, $y$, and $z$ variables.
+
+\medskip
+
+%The next bit of information is the \emph{\myindex{order}} of the
+%equation (or system).  The order is simply the order of the largest
+%derivative that appears.  If the highest derivative that appears is
+%the first derivative, the equation is of first order.  If the highest
+%derivative that appears is the second derivative, then the equation is of second
+%order.  For example, Newton's law of cooling above is a first order
+%equation, while the mechanical vibrations equation is a second order equation.
+%The equation governing transversal vibrations in a beam,
+%\begin{equation*}
+%a^4 \frac{\partial^4 y}{\partial x^4} + \frac{\partial^2 y}{\partial t^2} = 0,
+%\end{equation*}
+%is a fourth order partial differential equation.  It is
+%fourth order as at least one derivative is the fourth derivative.  It
+%does not matter that the derivative in $t$ is only of second order.
+
+In the first chapter, we will start attacking first order ordinary
+differential equations, that is, equations of the form $\frac{dy}{dx} = f(x,y)$.
+In general, lower order equations are easier to work with and have simpler
+behavior, which is why we start with them.
+
+\medskip
+
+We also distinguish how the dependent variables appear in the equation (or
+system).  
+\begin{definition}
+We say an equation is
+\emph{linear}\index{linear equation} if the
+dependent variable (or variables) and their derivatives appear linearly,
+that is only as first powers, they are not multiplied together, and no other functions of the dependent
+variables appear.  
+Otherwise, the equation is called
+\emph{nonlinear}\index{nonlinear equation}.
+\end{definition}
+
+Another way to determine if a differential equation is linear is if the equation is a sum of terms,
+where each term is
+some function of the independent variables
+or 
+some function of the independent variables
+multiplied by a dependent variable
+or its derivative. That is,
+an ordinary differential equation is linear if it can be
+put into the form
+\begin{equation} \label{classification:eqlingen}
+a_n(x) \frac{d^n y}{dx^n} + 
+a_{n-1}(x) \frac{d^{n-1} y}{dx^{n-1}} + 
+\cdots
++
+a_{1}(x) \frac{dy}{dx}
++
+a_{0}(x) y = b(x) .
+\end{equation}
+The functions $a_0$, $a_1$, \ldots, $a_n$ are called the
+\emph{\myindex{coefficients}}.
+The equation is allowed to depend arbitrarily on the independent variable.
+So 
+\begin{equation} \label{classification:eqlinex}
+e^x \frac{d^2 y}{dx^2} + 
+\sin(x) \frac{d y}{dx} + 
+x^2 y
+=
+\frac{1}{x}
+\end{equation}
+is still a linear equation as $y$ and its derivatives only appear linearly. The equation
+\[ \cos(x) \frac{d^2y}{dx^2} - xy + \frac{e^x}{x} = 0 \] is also linear, even though it
+is not initially in the correct form. From this equation, we can move the last term over to the right-hand
+side as a $-\frac{e^x}{x}$, and then it is in the correct form, with the $\frac{dy}{dx}$ term missing (or has coefficient zero).
+
+All the equations and systems above as examples are linear.  
+It may not be immediately obvious for Maxwell's equations unless you write out
+the divergence and curl in terms of partial derivatives.  Let us see some
+nonlinear equations.  For example \myindex{Burger's equation},
+\begin{equation*}
+\frac{\partial y}{\partial t} + 
+y \frac{\partial y}{\partial x} =
+\nu \frac{\partial^2 y}{\partial x^2} ,
+\end{equation*}
+is a nonlinear second order partial differential equation.  It is nonlinear
+because $y$ and $\frac{\partial y}{\partial x}$ are multiplied together.
+The equation
+\begin{equation} \label{classification:eqnonlinode}
+\frac{dx}{dt} = x^2
+\end{equation}
+is a nonlinear first order differential equation as there is a second power of
+the dependent variable $x$.
+
+\medskip
+
+\begin{definition}
+A linear equation may further be called \emph{\myindex{homogeneous}} if
+all terms depend on the dependent variable.  That is, if no
+term is a function of the independent variables alone.  Otherwise, the
+equation is called \emph{\myindex{nonhomogeneous}} or
+\emph{\myindex{inhomogeneous}}.
+\end{definition}
+
+For example,
+the exponential growth equation, the wave equation, or the transport equation above
+are homogeneous. The mechanical vibrations equation above is nonhomogeneous
+as long as $f(t)$ is not the zero function.  Similarly, if the ambient temperature $A$ is nonzero,
+Newton's law of cooling is nonhomogeneous.
+A homogeneous linear ODE can be put into the form
+\begin{equation*}
+a_n(x) \frac{d^n y}{dx^n} + 
+a_{n-1}(x) \frac{d^{n-1} y}{dx^{n-1}} + 
+\cdots
++
+a_{1}(x) \frac{dy}{dx}
++
+a_{0}(x) y = 0 .
+\end{equation*}
+Compare to \eqref{classification:eqlingen} and notice there is no
+function $b(x)$.
+
+\medskip
+
+If the coefficients of a linear equation are actually constant functions,
+then the equation is said to have
+\emph{constant coefficients}\index{constant coefficient}.
+The coefficients are the functions multiplying the dependent
+variable(s) or one of its derivatives, not the function $b(x)$ standing alone.
+A constant coefficient nonhomogeneous ODE is an equation of the form
+\begin{equation*}
+a_n \frac{d^n y}{dx^n} + 
+a_{n-1} \frac{d^{n-1} y}{dx^{n-1}} + 
+\cdots
++
+a_{1} \frac{dy}{dx}
++
+a_{0} y = b(x) ,
+\end{equation*}
+where $a_0, a_1, \ldots, a_n$ are all constants,
+but $b$ may depend on 
+the independent variable $x$.
+The mechanical vibrations equation
+above is a constant coefficient nonhomogeneous second order ODE\@.
+The same nomenclature applies to PDEs, so the transport equation,
+heat equation and wave equation are all examples of constant coefficient
+linear PDEs.
+
+\medskip
+
+Finally, an equation (or system) is called \emph{\myindex{autonomous}}
+if the equation does not explicitly depend on the independent variable.
+For autonomous ordinary differential equations, the
+independent variable is then thought of as time.  Autonomous equation
+means an equation that does not change with time.
+For example, Newton's law of cooling is autonomous, so is equation
+\eqref{classification:eqnonlinode}.  On the other hand, mechanical
+vibrations or 
+\eqref{classification:eqlinex} are not autonomous.
+
+\subsection{Exercises}
+
+\begin{exercise}
+Classify the following equations.  Are they ODE or PDE\@?  Is it an equation
+or a system?  What is the order?  Is it linear or nonlinear, and if it is
+linear, is it homogeneous, constant coefficient?  If it is an ODE\@, is it
+autonomous?
+\begin{tasks}(2)
+\task $\displaystyle \sin(t) \frac{d^2 x}{dt^2} + \cos(t) x = t^2$
+\task $\displaystyle \frac{\partial u}{\partial x} + 3 \frac{\partial u}{\partial y} = xy$
+\task $\displaystyle y''+3y+5x=0, \quad x''+x-y=0$
+\task $\displaystyle \frac{\partial^2 u}{\partial t^2} + u\frac{\partial^2 u}{\partial s^2} =
+0$
+\task $\displaystyle x''+tx^2=t$
+\task $\displaystyle \frac{d^4 x}{dt^4} = 0$
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Classify the following equations.  Are they ODE or PDE\@?  Is it an equation
+or a system?  What is the order?  Is it linear or nonlinear, and if it is
+linear, is it homogeneous, constant coefficient?  If it is an ODE\@, is it
+autonomous?
+\begin{tasks}(2)
+\task $\displaystyle \frac{\partial^2 v}{\partial x^2} + 3 \frac{\partial^2
+v}{\partial y^2} = \sin(x)$
+\task $\displaystyle \frac{d x}{dt} + \cos(t) x = t^2+t+1$
+\task $\displaystyle \frac{d^7 F}{dx^7} = 3F(x)$
+\task $\displaystyle y''+8y'=1$
+\task $\displaystyle x''+tyx'=0, \quad y''+txy = 0$
+\task $\displaystyle \frac{\partial u}{\partial t} = \frac{\partial^2 u}{\partial s^2} + u^2$
+\end{tasks}
+\end{exercise}
+\exsol{%
+a) 
+PDE\@, equation, second order, linear, nonhomogeneous, constant coefficient.\\
+b) 
+ODE\@, equation, first order, linear, nonhomogeneous, not constant coefficient, not autonomous.\\
+c) 
+ODE\@, equation, seventh order, linear, homogeneous, constant coefficient, autonomous.\\
+d) 
+ODE\@, equation, second order, linear, nonhomogeneous, constant coefficient, autonomous.\\
+e) 
+ODE\@, system, second order, nonlinear.\\
+f) 
+PDE\@, equation, second order, nonlinear.
+}
+
+\begin{exercise}
+If $\vec{u} = (u_1,u_2,u_3)$ is a vector, we have the divergence
+$\nabla \cdot \vec{u} =
+\frac{\partial u_1}{\partial x} +
+\frac{\partial u_2}{\partial y} +
+\frac{\partial u_3}{\partial z}$ and curl
+$\nabla \times \vec{u} =
+\Bigl(
+\frac{\partial u_3}{\partial y} - \frac{\partial u_2}{\partial z} , ~
+\frac{\partial u_1}{\partial z} - \frac{\partial u_3}{\partial x} , ~
+\frac{\partial u_2}{\partial x} - \frac{\partial u_1}{\partial y} \Bigr)$.
+Notice that curl of a vector is still a vector.  Write out Maxwell's
+equations in terms of partial derivatives and classify the system.
+\end{exercise}
+
+\begin{exercise}
+Suppose $F$ is a linear function, that is,
+$F(x,y) = ax+by$ for constants $a$ and $b$.  What is the
+classification of equations of the form $F(y',y) = 0$.
+\end{exercise}
+
+\begin{exercise}
+Write down an explicit example of a third order, linear, nonconstant coefficient,
+nonautonomous, nonhomogeneous system of two ODE such that every derivative
+that could appear, does appear.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Write down the general \emph{zero}th order linear ordinary differential
+equation.  Write down the general solution.
+\end{exercise}
+\exsol{%
+equation: $a(x) y = b(x)$, solution: $y = \frac{b(x)}{a(x)}$.
+}
+
+\begin{exercise}\ansMark%
+For which $k$ is $\frac{dx}{dt}+x^k = t^{k+2}$ linear.  Hint: there are two answers.
+\end{exercise}
+\exsol{%
+$k=0$ or $k=1$
+}
+
+\begin{exercise}
+Write out an explicit example of a non-homogeneous fourth order, linear, constant coefficient differential equation. where all possible derivatives of the unknown function $y$ appear. 
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Let $x$, $y$, and $z$ be three functions of $t$ defined by the system of differential equations
+\begin{equation*} 
+x' = y \quad y' = z \quad z' = 3x - 2y + 5z + e^t
+\end{equation*}
+
+with initial conditions $x(0) = 3$, $y(0) = -2$ and $z(0) = 1$, and let $u(t)$ be the function defined by the solution to
+\begin{equation*}
+u''' - 5u'' + 2u' - 3u = e^t
+\end{equation*}
+with initial conditions $u(0) = 3$, $u'(0) = -2$, and $u''(0) = 1$. 
+\begin{tasks}
+\task Use the substitution $u=x$, $u' = y$, and $u'' = z$ to verify that $x(t) = u(t)$ because they solve the same initial value problem.
+\task What is the order of the system defining $x$, $y$, and $z$ and how many components does it have?
+\task What is the order of the equation defining $u$? How many components does that have?
+\task How do these numbers relate to each other?
+\end{tasks}
+\end{exercise}
+\exsol{%
+b) First order with three components.\\
+c) Third order with one component. \\
+d) The product is three in both cases. ($1 \times 3 = 3 \times 1$).
+}
+
+\setcounter{exercise}{100}
+
+
+
+
+
+
+

@@ -1,0 +1,229 @@
+\section{Fourier Integrals}
+\label{fourierInt:section}
+
+
+\LO{
+\item TBW
+}
+
+\subsection{From Series to Integrals}
+
+We have seen how we can use Fourier series to represent and work with periodic functions. We could also use these on functions defined on finite intervals by first extending them to be periodic and then computing the sine or cosine series, depending on the problem at hand. These representations were very useful, so it would be great if there was a way to do the same thing for non-periodic functions that are defined on the entire real line. 
+
+Consider a function $f$ that is defined on the whole real line and is not necessarily periodic. Can we do anything in terms of Fourier series? The function $f$ isn't periodic, but we can restrict the function to an interval from $(-r, r)$, and then apply normal Fourier series representations to the restricted function. This gives that, on the interval $(-r, r)$
+\[ f(x) = a_0 + \sum_{n=1}^\infty a_n \cos\left(\frac{n\pi}{r}x\right) + b_n \sin\left(\frac{n\pi}{r}x\right) \] where the coefficients are given by
+\[ 
+\begin{split}
+a_0 &= \frac{1}{2r} \int_{-r}^{r} f(t)\ dt\\ 
+a_n &= \frac{1}{r} \int_{-r}^r f(t) \cos\left(\frac{n\pi}{r} t\right)\ dt \\
+b_n &= \frac{1}{r} \int_{-r}^r f(t) \sin\left(\frac{n\pi}{r} t\right)\ dt \\\\
+\end{split}.
+\] 
+
+We can write combine the coefficients into the expression for $f$ to get that, on this interval
+\[ \begin{split} 
+f(x) =&  \left( \frac{1}{2r} \int_{-r}^{r} f(t)\ dt \right)  + \sum_{n=1}^\infty \left(\frac{1}{r} \int_{-r}^r f(t) \cos\left(\frac{n\pi}{r}\right)\ dt\right) \cos\left(\frac{n\pi}{r}x\right)  \\
+&+ \left(\frac{1}{r} \int_{-r}^r f(t) \sin\left(\frac{n\pi}{r}\right)\ dt\right) \sin\left(\frac{n\pi}{r}x\right).
+\end{split} \]
+
+Defining $\alpha_n = \frac{n\pi}{r}$, we have that \[ \Delta \alpha = \alpha_{n+1} - \alpha_n = \frac{\pi}{r}. \] We can then rewrite the expression for $f(x)$ as 
+\[ \begin{split} 
+f(x) =&  \left( \frac{1}{2\pi} \int_{-r}^{r} f(t)\ dt \right) \Delta \alpha  + \frac{1}{\pi} \sum_{n=1}^\infty \left( \int_{-r}^r f(t) \cos\left(\alpha_n t\right)\ dt\right) \cos\left(\alpha_n x\right) \Delta \alpha  \\
+&+ \left(\int_{-r}^r f(t) \sin\left(\alpha_n t\right)\ dt\right) \sin\left(\alpha_n x\right) \Delta \alpha.
+\end{split} \]
+
+Now, we don't want this expression to just hold on $(-r, r)$, but on the whole real line, so we are going to take the limit of this expression as $r \rightarrow \infty$. For the integrals defining the Fourier coefficients, these become integrals from $-\infty$ to $\infty$, provided the integrals converge. This expression is then a sum of terms, each multiplied by a $\Delta \alpha$. Since $\Delta \alpha = \frac{\pi}{r}$ and we are sending $r\rightarrow \infty$, this means that $\Delta \alpha \rightarrow 0$. If $\int_{-\infty}^\infty f(t)\ dt$ is finite, the first term above goes to zero, and the rest of the expression looks like
+\[ \frac{1}{\pi} \sum_{n=1}^\infty F(\alpha_n) \Delta \alpha \] which, as $\Delta \alpha \rightarrow 0$, looks like Riemann Sum representation of an integral. Since, as $r \rightarrow \infty$, the range of Thus, the expression here, in this limit, looks like
+\[ f(x) = \int_0^\infty \left( \int_{-\infty}^\infty f(t) \cos\left(\alpha t\right)\ dt\right) \cos\left(\alpha x\right) + \left( \int_{-\infty}^\infty f(t) \sin\left(\alpha t\right)\ dt\right) \sin\left(\alpha x\right) \ d\alpha. \]
+
+This gives rise to the following definitions.
+
+\begin{definition}
+The \emph{Fourier Integral} of a function $f$ defined on $(-\infty, \infty)$ is given by 
+\[ f(x) = \int_0^\infty A(\alpha) \cos\left( \alpha x\right) + B(\alpha) \sin\left(\alpha x \right)\ d\alpha \] where
+\[ \begin{split} A(\alpha) &=  \int_{-\infty}^\infty f(t) \cos\left(\alpha t\right)\ dt \\ B(\alpha) &= \int_{-\infty}^\infty f(t) \sin\left(\alpha t\right)\ dt. \end{split} \]
+\end{definition}
+
+As with Fourier series, an important question to ask is when these integrals give rise to a proper representation of the function $f$. The results are a similar to, but a little more restrictive than, the requirements for Fourier series.
+
+\begin{theorem1}{Convergence of Fourier Integrals}[thm:fintConverge]
+Let $f$ and $f'$ be piecewise continuous on every finite interval and let $f$ be absolutely integrable on $(-\infty, \infty)$, that is, \[ \int_{-\infty}^\infty |f(x)| \ dx \text{ converges. } \] Then, the Fourier integral of $f$ converges to $f(x)$ at every point $x$ where $f$ is continuous. If $f$ is discontinuous at $x$, then the integral converges to the average
+\[ \frac{f(x+) + f(x-)}{2} \] where \[ f(x+) = \lim_{y \rightarrow x^+} f(y) \qquad f(x-) = \lim_{y \rightarrow x^-} f(y). \]
+\end{theorem1}
+
+\begin{example}
+Find the Fourier integral representation of the function
+\[ f(x) = \begin{cases}
+1 & -1 < x < 2 \\
+0 & x <-1 \text{ or } x > 2
+\end{cases}.\]
+\end{example}
+
+\begin{exampleSol}
+The two functions that we need to compute are 
+\[ A(\alpha) = \int_{-\infty}^\infty f(t) \cos\left(\alpha t\right)\ dt \qquad B(\alpha) = \int_{-\infty}^\infty f(t) \sin\left(\alpha t\right)\ dt. \]
+
+Since $f(t)$ is zero outside of the interval from $-1$ to $2$, and $1$ on that interval, both of these integral reduce to
+\[ A(\alpha) = \int_{-1}^2 \cos\left(\alpha t\right)\ dt \qquad B(\alpha) = \int_{-1}^2 \sin\left(\alpha t\right)\ dt. \]
+
+These can be directly computed as
+\[ A(\alpha) = \frac{1}{\alpha} \sin(\alpha t) \mid_{-1}^2 \qquad B(\alpha) = -\frac{1}{\alpha} \cos(\alpha t) \mid_{-1}^2, \] or
+\[ A(\alpha) = \frac{\sin(2\alpha) - \sin(-\alpha)}{\alpha} \qquad B(\alpha) = \frac{\cos(-\alpha) - \cos(2\alpha)}{\alpha}. \]
+
+Using the odd and even nature of sine and cosine, these become
+\[ A(\alpha) = \frac{\sin(2\alpha) + \sin(\alpha)}{\alpha} \qquad B(\alpha) = \frac{\cos(\alpha) - \cos(2\alpha)}{\alpha} .\]
+
+Then, the Fourier integral representation of $f$ is 
+\[ \begin{split}
+f(x) &= \frac{1}{\pi} \int_0^\infty A(\alpha) \cos(\alpha x) + B(\alpha) \sin(\alpha x)\ d\alpha \\
+&= \frac{1}{\pi} \int_0^\infty \frac{\sin(2\alpha) + \sin(\alpha)}{\alpha} \cos(\alpha x) + \frac{\cos(\alpha) - \cos(2\alpha)}{\alpha} \sin(\alpha x)\ d\alpha \\
+&= \frac{1}{\pi} \int_0^\infty \frac{1}{\alpha} \left[ \sin(2\alpha) \cos(\alpha x) + \sin(\alpha) \cos(\alpha x) + \cos(\alpha) \sin(\alpha x) - \cos(2\alpha) \sin(\alpha x)\right]\ d\alpha.
+\end{split} \]
+
+Then, using the identities
+\[ \sin(A) \cos(B) + \sin(B) \cos(A) = \sin(A+B) \] and
+\[ \sin(A) \cos(B) - \sin(B) \cos(A) = \sin(A-B) \] gives
+\[ f(x) = \frac{1}{\pi} \int_0^\infty \frac{1}{\alpha} \left[ \sin(\alpha(2-x)) + \sin(\alpha(1+x))\right]\ d\alpha. \]
+Finally, the identity
+\[ \sin(A) + \sin(B) = 2 \sin\frac{A+B}{2}\cos\frac{A-B}{2} \] gives the final representation as
+\[ f(x) = \frac{2}{\pi} \int_0^\infty \frac{1}{\alpha} \left[ \sin \frac{3\alpha}{2} \cos\frac{\alpha(1 - 2x)}{2} \right]\ d\alpha. \]
+\end{exampleSol}
+
+We can also use these representations to compute integrals. For example \thmref{thm:fintConverge} says that if we plug in $x = \frac{1}{2}$, the integral will converge to $f(\frac{1}{2})$, which we know equals 1. This gives that
+\[ 1 =  \frac{2}{\pi} \int_0^\infty \frac{1}{\alpha} \left[ \sin \frac{3\alpha}{2} \cos\frac{\alpha(0)}{2} \right]\ d\alpha, \] or
+\[ \frac{\pi}{2} = \int_0^\infty \frac{\sin\left(\frac{3}{2}\alpha\right)}{\alpha}\ d\alpha. \]
+
+\begin{exercise}
+Find the Fourier integral representation of the function
+\[ f(x) = \begin{cases}
+1 & 0 < x < 2 \\
+0 & x<0 \text{ or } x > 2
+\end{cases}
+\]
+and use this representation to find the value of $\int_0^\infty \frac{\sin(\alpha)}{\alpha}$.
+\end{exercise} 
+
+\subsection{Cosine and Sine Integrals}
+
+Just like cosine and sine series for representing even and odd periodic functions, we can also talk about cosine and sine integrals for representing even and odd functions on the entire real line. As before, these are the cosine and sine components of the fourier integrals. If $f(x)$ is an even function, then the product $f(x)\cos(\alpha x)$ is an even function and $f(x) \sin(\alpha x)$ is an odd function. In this case, we know that
+\[ B(\alpha) =   \int_{-\infty}^\infty f(t) \sin\left(\alpha t\right)\ dt = 0 \] and that 
+\[ A(\alpha) =  \int_{-\infty}^\infty f(t) \cos\left(\alpha t\right)\ dt = 2 \int_0^\infty f(t) \cos\left(\alpha t\right)\ dt. \]
+
+\begin{theorem1}{Cosine and Sine Integrals}
+The Fourier integral of an even function $f$ on $(-\infty, \infty)$ is the \emph{cosine integral}
+\[ f(x) = \frac{1}{\pi} \int_0^\infty A(\alpha) \cos(\alpha x)\ d\alpha \] where
+\[ A(\alpha) = 2\int_0^\infty f(t) \cos(\alpha t)\ dt. \]
+
+The Fourier integral of an odd function $f$ on $(-\infty, \infty)$ is the \emph{sine integral}
+\[ f(x) = \frac{1}{\pi} \int_0^\infty B(\alpha) \sin(\alpha x)\ d\alpha \] where
+\[ B(\alpha) = 2\int_0^\infty f(t) \sin(\alpha t)\ dt. \]
+\end{theorem1}
+
+\begin{example}
+Compute the Fourier integral representation of the function
+\[ f(x) = \begin{cases}
+1 & 0 < x < 1 \\
+-1 & -1 < x < 0 \\
+0 & x=0,\ |x| > 1
+\end{cases}.\]
+\end{example}
+
+\begin{exampleSol}
+This is an odd function, so we know that the $A(\alpha)$ function will be zero and we can compute $B(\alpha)$ by 
+\[ B(\alpha) = 2\int_0^\infty f(t) \sin(\alpha t)\ dt = 2 \int_0^1 \sin(\alpha t)\ dt = -\frac{2}{\alpha} \left(\cos(\alpha) - 1\right). \]
+Thus, the Fourier integral representation for this function $f$ is 
+\[ f(x) = \frac{1}{\pi} \int_0^\infty \frac{2}{\alpha} \left(1 - \cos(\alpha)\right) \sin(\alpha x)\ d\alpha, \] or
+\[ f(x) = \frac{2}{\pi} \int_0^\infty \frac{\left(1 - \cos(\alpha)\right) \sin(\alpha x)}{\alpha} \ d\alpha. \]
+\end{exampleSol}
+
+Just like for Fourier series, we can use sine and cosine Fourier integrals to represent the odd and even extensions of functions that are defined on $(0, \infty)$. If $f$ is defined on $(0, \infty)$, then with 
+\[ A(\alpha) = 2\int_0^\infty f(t) \cos(\alpha t)\ dt \qquad B(\alpha) = 2\int_0^\infty f(t) \sin(\alpha t)\ dt, \] the function
+\[ F(x) = \frac{1}{\pi} \int_0^\infty A(\alpha) \cos(\alpha x)\ d\alpha \] is the Fourier integral representation of the even extension of $f$ on $(-\infty, \infty)$ and
+\[ G(x) = \frac{1}{\pi} \int_0^\infty B(\alpha) \sin(\alpha x)\ d\alpha \] is the Fourier integral representation of the odd extension of $f$ on $(-\infty, \infty)$. 
+
+\begin{exercise}
+Show that the representation of $e^{-x}$ on $(0, \infty)$ as a cosine integral is
+\[ f(x) = \frac{2}{\pi} \int_0^\infty \frac{\cos(\alpha x)}{1 + \alpha^2}\ d\alpha \] and the representation as a sine integral is
+\[ f(x) = \frac{2}{\pi} \int_0^\infty \frac{\alpha \sin(\alpha x)}{1 + \alpha^2}\ d\alpha. \]
+\end{exercise}
+
+\subsection{Complex Form}
+
+Just like Fourier series had a complex form, Fourier Integrals can also be written in a complex form. We want to use Euler's formula
+\[ e^{ix} = \cos(x) + i \sin(x) \] to rearrange and simplify our expression. First we write $f$ using its Fourier integral representation and combine terms
+\begin{equation*}
+\begin{split}
+f(x) &=  \frac{1}{\pi} \int_0^\infty \left( \int_{-\infty}^\infty f(t) \cos\left(\alpha t\right)\ dt\right) \cos\left(\alpha x\right) + \left( \int_{-\infty}^\infty f(t) \sin\left(\alpha t\right)\ dt\right) \sin\left(\alpha x\right) \ d\alpha \\
+&= \frac{1}{\pi} \int_0^\infty \int_{-\infty}^\infty f(t) \left[ \cos(\alpha t) \cos(\alpha x) + \sin(\alpha t) \sin(\alpha x) \right] \ dt \ d\alpha \\
+&= \frac{1}{\pi} \int_0^\infty \int_{-\infty}^\infty f(t) \cos(\alpha(t-x))\ dt\ d\alpha \\ 
+\end{split}
+\end{equation*}
+
+Now, because $f(t)\cos(\alpha(t-x))$ is an even function of $\alpha$ (since cosine is an even function), we can extend the interval from $-\infty$ to $\infty$ on the outside integral and divide the expression by $2$, to give
+\[ f(x) = \frac{1}{2\pi} \int_{-\infty}^\infty \int_{-\infty}^\infty f(t) \cos(\alpha(t-x))\ dt\ d\alpha. \]
+
+Next, since $f(t) \sin(\alpha(x-t))$ is an odd function of $\alpha$, we know that 
+\[  \int_{-\infty}^\infty \int_{-\infty}^\infty f(t) \sin(\alpha(t-x))\ dt\ d\alpha = 0 \] so that we can add $i$ times this term to our previous expression for $f$ to get that
+\[ f(x) = \frac{1}{2\pi} \int_{-\infty}^\infty \int_{-\infty}^\infty f(t) \left[\cos(\alpha(t-x)) + i \sin(\alpha(t-x))\right] \ dt\ d\alpha. \]
+
+Then, Euler's formula gives that
+\[ f(x) = \frac{1}{2\pi} \int_{-\infty}^\infty \int_{-\infty}^\infty f(t)e^{i\alpha(t-x)}\ dt\ d\alpha = \frac{1}{2\pi} \int_{-\infty}^\infty \left(\int_{-\infty}^\infty f(t)e^{i\alpha(t)}\ dt \right) e^{-i\alpha x}\ d\alpha. \]
+By rearranging this expression, we get the complex form of the Fourier integral.
+
+\begin{theorem1}{Complex Fourier Integrals}
+The complex form of the Fourier integral representation of a function $f$ is given by
+\[ f(x) = \int_{-\infty}^\infty C(\alpha) e^{-i\alpha x}\ d\alpha \] where
+\[C(\alpha) = \int_{-\infty}^\infty f(t)e^{i\alpha t}\ dt.\]
+\end{theorem1}
+
+\subsection{Use of Computers}
+
+For all of these integral representations, numerical and graphical representations can be used to approximate them. For example, for a function $f$, the cosine integral of $f$ is given by 
+\[ A(\alpha) = \int_0^\infty f(t) \cos(\alpha t)\ dt \] and we can represent the even extension of $f$ on $(0, \infty)$ by
+\[ F(x) = \frac{2}{\pi} \int_{0}^\infty A(\alpha) \cos(\alpha x)\ d\alpha. \]
+
+If we can work out the function $A(\alpha)$ analytically, then we can use the function
+
+\[ F_r(x) = \frac{2}{\pi} \int_0^r A(\alpha)\cos(\alpha x)\ d\alpha \] as an approximation to the function $f(x)$, similar to how we can use partial sums of a Fourier series to approximation a function. For example, for the function $f(x) = e^{-2x}$ on $(0, \infty)$, we can compute that the cosine integral is
+\[ A(\alpha) = \frac{2}{4+\alpha^2} \] and the sine integral is 
+\[ B(\alpha) = \frac{\alpha}{4+\alpha^2}.\] Therefore, we can approximate the even extension of $f$ by 
+\[ F_r(x) = \frac{2}{\pi} \int_0^r \frac{2 \cos(\alpha x)}{4+\alpha^2}\ d\alpha \] and the odd extension of $f$ by
+\[ G_r(x) = \frac{2}{\pi} \int_0^r \frac{\alpha \sin(\alpha x)}{4 + \alpha^2}\ d\alpha \] for large enough $r$, since \[ \lim_{r\rightarrow \infty} F_r(x) = f(x) \qquad \lim_{r\rightarrow \infty G_r(x)} = f(x) \] on $(0,\infty)$ with the functions $F_r$ and $G_r$ being even and odd respectively. \figurevref{fig:even5Graph} through \figurevref{fig:odd30Graph} illustrate the even and odd extensions of the function $f(x) = e^{-2x}$ with the approximations $F_r$ and $G_r$ with $r=5$ and $r=30$, generated using Matlab. 
+
+\begin{myfig}
+\parbox[t]{2.5in}{\capstart%
+ \myincludegraphics{width=2.5in}{width=4.5in}{CosIntr5}
+ \caption{Even extension of $e^{-2x}$ with $r=5$ approximation. \label{fig:even5Graph}} 
+ }
+\quad \qquad
+\parbox[t]{2.5in}{ \capstart
+ \myincludegraphics{width=2.5in}{width=4.5in}{SinIntr5}
+ \caption{Odd extension of $e^{-2x}$ with $r=5$ approximation.\label{fig:odd5Graph}}
+}
+\end{myfig}
+
+\begin{myfig}
+\parbox[t]{2.5in}{\capstart%
+ \myincludegraphics{width=2.5in}{width=4.5in}{CosIntr30}
+ \caption{Even extension of $e^{-2x}$ with $r=30$ approximation. \label{fig:even30Graph}} 
+ }
+\quad \qquad
+\parbox[t]{2.5in}{ \capstart
+ \myincludegraphics{width=2.5in}{width=4.5in}{SinIntr30}
+ \caption{Odd extension of $e^{-2x}$ with $r=30$ approximation.\label{fig:odd30Graph}}
+}
+\end{myfig}
+
+
+
+\subsection{Exercises}
+
+
+
+
+
+
+
+
+
+

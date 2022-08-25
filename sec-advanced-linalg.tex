@@ -1,0 +1,698 @@
+\section{Related Topics in Linear Algebra} \label{sec:kernel}
+
+\LAtt{A.4}
+
+\LO{
+\item Determine the kernel of a matrix using row reduction,
+\item Understand the connection between rank and nullity in a given matrix, 
+\item Compute the inverse of a matrix using row reduction, and
+\item Use properties of the trace and determinant to analyze the eigenvalues of a matrix.
+}
+
+\subsection{Kernel}
+
+The set of solutions of a linear equation $L\vec{x} = \vec{0}$, 
+the kernel of $L$, is a subspace:
+If $\vec{x}$ and $\vec{y}$ are solutions,
+then
+\begin{equation*}
+L(\vec{x}+\vec{y}) = 
+L\vec{x}+L\vec{y} = 
+\vec{0}+\vec{0} = \vec{0} ,
+\qquad \text{and} \qquad
+L(\alpha \vec{x}) = 
+\alpha L \vec{x} = 
+\alpha \vec{0} = \vec{0}.
+\end{equation*}
+So $\vec{x}+\vec{y}$ and $\alpha \vec{x}$ are solutions.
+%In other words, the kernel of $L$ is a subspace.
+The dimension of the kernel is called the \emph{\myindex{nullity}} of the
+matrix.
+
+The same sort of idea governs the solutions of linear differential
+equations.  We try to describe the kernel of a linear differential 
+operator, and as it is a subspace, we look for a basis of this
+kernel.  Much of this book is dedicated to finding such bases.
+
+The kernel of a matrix is the same as the kernel of its reduced row echelon
+form.  For a matrix in reduced row echelon form, the kernel is rather easy to
+find.  If a vector $\vec{x}$ is applied to a matrix $L$, then each entry in
+$\vec{x}$ corresponds to a column of $L$, the column that the entry
+multiplies.
+To find the kernel,
+pick a 
+non-pivot column make a vector that has a $-1$ in the entry
+corresponding to this non-pivot column and zeros at all the other entries
+corresponding to the other non-pivot columns.
+Then for all the entries
+corresponding to pivot columns make it precisely the value in the
+corresponding row of the non-pivot column to make the vector be a
+solution to $L \vec{x} = \vec{0}$.
+This procedure is best understood by example.
+
+\begin{example}
+Consider
+\begin{equation*}
+L = 
+\begin{bmatrix}
+\mybxsm{1} & 2 & 0 & 0 & 3 \\
+0 & 0 & \mybxsm{1} & 0 & 4 \\
+0 & 0 & 0 & \mybxsm{1} & 5
+\end{bmatrix} .
+\end{equation*}
+This matrix is in reduced row echelon form, the pivots are marked.
+There are two non-pivot columns, so the kernel has dimension 2, that
+is, it is the span of 2 vectors.  Let us find the first vector.
+We look at the first non-pivot column, the $2^{\text{nd}}$ column, 
+and we put a $-1$ in the
+$2^{\text{nd}}$ entry of our vector.  We put a $0$ in the $5^{\text{th}}$
+entry as the $5^{\text{th}}$ column is also a non-pivot column:
+\begin{equation*}
+\begin{bmatrix}
+? \\ -1 \\ ? \\ ? \\ 0
+\end{bmatrix} .
+\end{equation*}
+Let us fill the rest.  When this vector hits the first row, we get a
+$-2$ and $1$ times whatever the first question mark is.  So make the first
+question mark $2$.  For the second and third rows, it is sufficient to make
+it the question marks zero.  We are really filling in the non-pivot column
+into the remaining entries. Let us check while marking which numbers went
+where:
+\begin{equation*}
+\begin{bmatrix}
+1 & \mybxsm{2} & 0 & 0 & 3 \\
+0 & \mybxsm{0} & 1 & 0 & 4 \\
+0 & \mybxsm{0} & 0 & 1 & 5
+\end{bmatrix} 
+\begin{bmatrix}
+\mybxsm{2} \\ -1 \\ \mybxsm{0} \\ \mybxsm{0} \\ 0
+\end{bmatrix}
+=
+\begin{bmatrix}
+0 \\ 0 \\ 0
+\end{bmatrix}
+.
+\end{equation*}
+Yay!  How about the second vector.  We start with
+\begin{equation*}
+\begin{bmatrix}
+? \\ 0 \\ ? \\ ? \\ -1 .
+\end{bmatrix}
+\end{equation*}
+We set the first question mark to 3, the second to 4, and the
+third to 5.  Let us check, marking things as previously,
+\begin{equation*}
+\begin{bmatrix}
+1 & 2 & 0 & 0 & \mybxsm{3} \\
+0 & 0 & 1 & 0 & \mybxsm{4} \\
+0 & 0 & 0 & 1 & \mybxsm{5}
+\end{bmatrix} 
+\begin{bmatrix}
+\mybxsm{3} \\ 0 \\ \mybxsm{4} \\ \mybxsm{5} \\ -1
+\end{bmatrix}
+=
+\begin{bmatrix}
+0 \\ 0 \\ 0
+\end{bmatrix}
+.
+\end{equation*}
+There are two non-pivot columns, so we only need two vectors.
+We have found the basis of the kernel.  So,
+\begin{equation*}
+\text{kernel of $L$} =
+\operatorname{span} \left\{
+\begin{bmatrix}
+2 \\ -1 \\ 0 \\ 0 \\ 0
+\end{bmatrix}
+,
+\begin{bmatrix}
+3 \\ 0 \\ 4 \\ 5 \\ -1
+\end{bmatrix}
+\right\}
+\end{equation*}
+\end{example}
+
+What we did in finding a basis of the kernel is we expressed all
+solutions of
+$L \vec{x} = \vec{0}$ as a linear combination of some given vectors.
+
+\pagebreak[2]
+The procedure to find the basis of the kernel of a matrix $L$:
+\begin{enumerate}[(i)]
+\item Find the reduced row echelon form of $L$.
+\item Write down the basis of the kernel as above, one vector for each
+non-pivot column.
+\end{enumerate}
+
+
+The rank of a matrix is the dimension of the column space, and that is
+the span on the pivot columns, while the kernel is the span of vectors
+one for each non-pivot column.  So the two numbers must add to the number of
+columns.
+
+\begin{theorem1}{Rank--Nullity}
+If a matrix $A$ has $n$ columns, rank $r$, and nullity $k$ (dimension of the
+kernel), then
+\begin{equation*}
+n = r+k .
+\end{equation*}
+\end{theorem1}
+
+The theorem is immensely useful in applications.  It allows one to compute
+the rank $r$ if one knows the nullity $k$ and vice versa, without doing any
+extra work.
+
+Let us consider an example application, a simple version of the so-called
+\emph{\myindex{Fredholm alternative}}.  A similar result is true for
+differential equations.  Consider
+\begin{equation*}
+A \vec{x} = \vec{b} ,
+\end{equation*}
+where $A$ is a square $n \times n$ matrix.
+There are then two mutually exclusive possibilities:
+\begin{enumerate}[(i)]
+\item
+A nonzero solution $\vec{x}$ to $A \vec{x} = \vec{0}$ exists.
+\item
+The equation $A \vec{x} = \vec{b}$ has a unique solution $\vec{x}$ for every
+$\vec{b}$.
+\end{enumerate}
+How does the Rank--Nullity theorem come into the picture?  Well, if $A$ has
+a nonzero solution $\vec{x}$ to $A \vec{x} = \vec{0}$, then the nullity $k$ is
+positive.  But then the rank $r = n-k$ must be less than $n$.  In particular
+it means that the column space of $A$ is of dimension less than $n$, so it is
+a subspace that does not include everything in ${\mathbb{R}}^n$.
+So ${\mathbb{R}}^n$ has to
+contain some vector $\vec{b}$ not in the column space of $A$.  In fact, most
+vectors in ${\mathbb{R}}^n$ are not in the column space of $A$.
+
+The idea of a kernel also comes up when defining and discussing eigenvectors. In order to find this vector, we are looking for a vector $\vec{v}$ so that
+\[ (A - \lambda I)\vec{v} = \vec{0}.\] This means that we are looking for a vector $\vec{v}$ that is in the kernel of the matrix $(A - \lambda I)$. Since the kernel is also a subspace, this means that the set of all eigenvectors of a matrix $A$ with a certain eigenvalue is a subspace, so it has a dimension. This dimension is number of linearly independent eigenvectors with that eigenvalue, so it is the geometric multiplicity of this eigenvalue. This also motivates why this is sometimes called the \emph{eigenspace} for a given eigenvalue. Finding a basis of this subspace (which is also finding the kernel of the matrix $A - \lambda I$ ) is the exact same as the process of finding the eigenvectors of the matrix $A$. 
+
+\subsection{Computing the inverse}
+
+If the matrix $A$ is square and there exists a unique solution
+$\vec{x}$ to $A \vec{x} = \vec{b}$ for any $\vec{b}$ (there are no free
+variables), then $A$ is invertible.
+% This is equivalent to the $n \times n$ matrix $A$ being of rank $n$.
+
+In particular, if $A \vec{x} = \vec{b}$ then $\vec{x} = A^{-1} \vec{b}$.
+Now we just need to compute what $A^{-1}$ is.  We can surely 
+do elimination every time we want to find $A^{-1} \vec{b}$, but that
+would be ridiculous.  The mapping $A^{-1}$ is linear and
+hence given by a matrix, and we have seen that to figure out the matrix
+we just need to find where does $A^{-1}$ take the standard basis vectors
+$\vec{e}_1$, 
+$\vec{e}_2$, \ldots,
+$\vec{e}_n$.
+
+That is, to find the first column of $A^{-1}$ we solve
+$A \vec{x} = \vec{e}_1$, because then $A^{-1} \vec{e}_1 = \vec{x}$.
+To find the second column of $A^{-1}$ we solve
+$A \vec{x} = \vec{e}_2$.  And so on.  It is really just $n$
+eliminations that we need to do.  But it gets even easier.
+If you think about it, the elimination is the same for
+everything on the left side of the augmented matrix.  Doing
+$n$ eliminations separately we would redo most of the computations.
+Best is to do all at once.
+
+Therefore, to find the inverse of $A$, we write an $n
+\times 2n$ augmented matrix $[ \,A ~|~ I\, ]$, where $I$ is the identity
+matrix, whose columns are precisely the standard basis vectors.
+We then perform row reduction until we arrive at the reduced row echelon
+form.  If $A$ is invertible, then pivots can be found in every column of $A$,
+and so the 
+reduced row echelon form of $[ \,A ~|~ I\, ]$ 
+looks like $[ \,I ~|~ A^{-1}\, ]$.
+We then just read off the inverse $A^{-1}$.
+If you do not find a pivot in every
+one of the first $n$ columns of the augmented matrix, then 
+$A$ is not invertible.
+
+This is best seen by example. 
+\begin{example}
+Find the inverse of the matrix
+\begin{equation*}
+\begin{bmatrix}
+1 & 2 & 3 \\
+2 & 0 & 1 \\
+3 & 1 & 0
+\end{bmatrix} .
+\end{equation*}
+\end{example}
+
+\begin{exampleSol}
+We write the augmented matrix and we start reducing:
+\begin{align*}
+& \left[
+\begin{array}{ccc|ccc}
+\mybxsm{1} & 2 & 3 & 1 & 0 & 0\\
+2 & 0 & 1 & 0 & 1 & 0 \\
+3 & 1 & 0 & 0 & 0 & 1
+\end{array}
+\right]
+\to
+\left[
+\begin{array}{ccc|ccc}
+\mybxsm{1} & 2 & 3 & 1 & 0 & 0\\
+0 & -4 & -5 & -2 & 1 & 0 \\
+0 & -5 & -9 & -3 & 0 & 1
+\end{array}
+\right]
+\to
+\left[
+\begin{array}{ccc|ccc}
+\mybxsm{1} & 2 & 3 & 1 & 0 & 0\\
+0 & \mybxsm{1} & \nicefrac{5}{4} & \nicefrac{1}{2} & \nicefrac{1}{4} & 0 \\
+0 & -5 & -9 & -3 & 0 & 1
+\end{array}
+\right]
+\to \\
+\to
+&
+\left[
+\begin{array}{ccc|ccc}
+\mybxsm{1} & 2 & 3 & 1 & 0 & 0\\
+0 & \mybxsm{1} & \nicefrac{5}{4} & \nicefrac{1}{2} & \nicefrac{1}{4} & 0 \\
+0 & 0 & \nicefrac{-11}{4} & \nicefrac{-1}{2} & \nicefrac{-5}{4} & 1
+\end{array}
+\right]
+\to
+\left[
+\begin{array}{ccc|ccc}
+\mybxsm{1} & 2 & 3 & 1 & 0 & 0\\
+0 & \mybxsm{1} & \nicefrac{5}{4} & \nicefrac{1}{2} & \nicefrac{1}{4} & 0 \\
+0 & 0 & \mybxsm{1} & \nicefrac{2}{11} & \nicefrac{5}{11} & \nicefrac{-4}{11}
+\end{array}
+\right]
+\to
+\\
+\to
+&
+\left[
+\begin{array}{ccc|ccc}
+\mybxsm{1} & 2 & 0 & \nicefrac{5}{11} & \nicefrac{-5}{11} & \nicefrac{12}{11} \\
+0 & \mybxsm{1} & 0 & \nicefrac{3}{11} & \nicefrac{-9}{11} & \nicefrac{5}{11} \\
+0 & 0 & \mybxsm{1} & \nicefrac{2}{11} & \nicefrac{5}{11} & \nicefrac{-4}{11}
+\end{array}
+\right]
+\to
+\left[
+\begin{array}{ccc|ccc}
+\mybxsm{1} & 0 & 0 & \nicefrac{-1}{11} & \nicefrac{3}{11} & \nicefrac{2}{11} \\
+0 & \mybxsm{1} & 0 & \nicefrac{3}{11} & \nicefrac{-9}{11} & \nicefrac{5}{11} \\
+0 & 0 & \mybxsm{1} & \nicefrac{2}{11} & \nicefrac{5}{11} & \nicefrac{-4}{11}
+\end{array}
+\right] .
+\end{align*}
+So
+\begin{equation*}
+{\begin{bmatrix}
+1 & 2 & 3 \\
+2 & 0 & 1 \\
+3 & 1 & 0
+\end{bmatrix}}^{-1}
+=
+\begin{bmatrix}
+\nicefrac{-1}{11} & \nicefrac{3}{11} & \nicefrac{2}{11} \\
+\nicefrac{3}{11} & \nicefrac{-9}{11} & \nicefrac{5}{11} \\
+\nicefrac{2}{11} & \nicefrac{5}{11} & \nicefrac{-4}{11}
+\end{bmatrix} .
+\end{equation*}
+\end{exampleSol}
+Not too terrible, no?  Perhaps harder than inverting a $2 \times 2$ matrix
+for which we had a formula, but not too bad.  Really in practice this 
+is done efficiently by a computer.
+
+\subsection{Trace and Determinant of Matrices}
+
+The next thing to add into our toolbox of matrices is the idea of the trace of a matrix, and how it and the determinant relate to the eigenvalues of said matrix.
+
+\begin{definition}
+Let $A$ be an $n \times n$ square matrix. The \emph{\myindex{trace}} of $A$ is the sum of all diagonal entries of $A$.
+\end{definition}
+
+For example, if we have the matrix
+\begin{equation*}
+\begin{bmatrix}
+1 & 4 & -2 \\
+3 & 2 & 5 \\
+0 & 1 & 3
+\end{bmatrix}
+\end{equation*}
+the trace is $1 + 2 + 3 = 6$.
+
+The trace is important in our context because it also tells us something about the eigenvalues of a matrix. To work this out, let's consider the generic $2\times 2$ matrix and how we would find the eigenvalues. If we have a $2 \times 2$ matrix of the form
+\begin{equation*}
+A = \begin{bmatrix} a & b \\ c & d
+\end{bmatrix}
+\end{equation*}
+we can write out the expression $\det(A - \lambda I)$ in order to find the eigenvalues. In this case, we would get
+\begin{equation*}
+\det(A - \lambda I) = \det\left( \begin{bmatrix} a - \lambda & b \\ c & d - \lambda \end{bmatrix} \right) = (a-\lambda)(d-\lambda) - bc = \lambda^2 - (a+d)\lambda + (ad - bc).
+\end{equation*}
+
+However, the coefficients in this polynomial look familiar. $(ad-bc)$ is just the determinant of the matrix $A$, and $a+d$ is the trace. Therefore, for any $2 \times 2$ matrix, we could write the \myindex{characteristic polynomial} as 
+\begin{equation}
+\det(A - \lambda I) = \lambda^2 - T\lambda + D
+\label{eq:CharPoly1}
+\end{equation}
+where $T$ is the trace of the matrix and $D$ is the determinant. On the other hand, assume that $r_1$ and $r_2$ are the two eigenvalues of this matrix (whether they be real, complex, or repeated). In that case, we know that this polynomial has $r_1$ and $r_2$ as roots. Therefore, it is equal to
+\begin{equation}
+\det(A - \lambda I) = (\lambda - r_1)(\lambda - r_2) = \lambda^2 - (r_1 + r_2)\lambda + r_1r_2.
+\label{eq:CharPoly2}
+\end{equation}
+
+Matching up the coefficient of $\lambda$ and the constant term in \eqref{eq:CharPoly1} and \eqref{eq:CharPoly2} gives the relation that
+\begin{equation*}
+T = r_1 + r_2 \qquad D = r_1r_2,
+\end{equation*}
+that is, the trace of the matrix is the sum of the eigenvalues, and the determinant of the matrix is the product of the eigenvalues. We only showed this fact for $2 \times 2$ matrices, but it does hold for matrices of all sizes, giving us the following theorem.
+
+\begin{theorem}
+Let $A$ be an $n \times n$ square matrix with eigenvalues $\lambda_1,\ \lambda_2,\ ..., \lambda_n$, written with multiplicity if needed. Then
+\begin{enumerate}[(a)]
+\item The trace of $A$ is $\lambda_1 + \lambda_2 + \cdots + \lambda_n$.
+\item The determinant of $A$ is $(\lambda_1)(\lambda_2)\cdots(\lambda_n)$.
+\end{enumerate}
+\end{theorem}
+
+From the above statement, we note that if any of the eigenvalues is zero, the product of all eigenvalues will be zero, and so the matrix will have zero determinant. This gives an extra follow-up fact, and addition to \thmref{thm:bigLinAlg}.
+
+\begin{theorem}
+A matrix $A$ is invertible if and only if all of it's eigenvalues are non-zero.
+\end{theorem}
+
+\begin{example}
+Use the facts above to analyze the eigenvalues of the matrix
+\begin{equation*}
+A = \begin{bmatrix} 1 & 2 \\ 5 & 4 \end{bmatrix}.
+\end{equation*}
+\end{example}
+\begin{exampleSol}
+From the matrix $A$, we can compute that the trace of $A$ is $1+4=5$, and the determinant is $(1)(4) - (2)(5) = -6$. Based on the theorem above, we know that the two eigenvalues of this matrix must add to $5$ and multiply to $-6$. While you could probably guess the numbers here, the important take-aways from this example are what we can learn.
+
+The main fact to point out is that this is enough information, in the $2 \times 2$ case, to tell us that the eigenvalues have to be real and distinct. Since their product is a negative number, we can eliminate the other two options. If we have two complex roots, they must be of the form $x + iy$ and $x-iy$, and so the product is 
+\begin{equation*}
+(x+iy)(x-iy) = x^2 + ixy - ixy  - i^2y^2 = x^2 + y^2
+\end{equation*}
+which is always positive, no matter what $x$ and $y$ are. Similarly, if we have a repeated eigvalue, the product will be that number squared, which is also positive. Therefore, if the determinant of a $ 2 \times 2$ matrix is negative, the eigenvalues must be real and distinct, with one being positive and one negative (otherwise the product can not be negative). These facts will be important when we start to analyze the solutions to systems of differential equations in \Chapterref{sys:chapter}.
+\end{exampleSol}
+
+\begin{example}
+What can be said about the eigenvalues of the matrix
+\begin{equation*}
+A = \begin{bmatrix}
+0 & -1 &  0 \\
+2 & 2 &  0 \\
+-7 &-3 & -1
+\end{bmatrix}?
+\end{equation*}
+\end{example}
+
+\begin{exampleSol}
+We can find the same information as the previous example. The trace of $A$ is $1$, and the determinant, by cofactor expansion along column 3, is $(-1)(0 + 2) = -2$. Therefore, the sum of the \emph{three} eigenvalues is $1$, and the product of them is $-2$. We don't actually have enough information here to determine what the eigenvalues are. The issue is that with three eigenvalues, there are many different ways to get to a product being negative. There could be three negative eigenvalues, two positive and one negative, or one negative real with two complex eigenvalues. However, the one thing we do know for sure is that there must be one negative real eigenvalue. For this particular example, we can compute that the eigenvalues are $-1$, $1+i$, and $1-i$, so we did end up in the complex case. 
+\end{exampleSol}
+
+\begin{exercise}
+Imagine that we have a $3 \times 3$ matrix with a positive determinant (it doesn't matter what the trace is). Think about all the scenarios and verify that at least one eigenvalue must be real and positive for this to happen. 
+\end{exercise}
+
+%Need to write the section here. The goals are
+%\begin{itemize}
+%\item Define trace of a matrix
+%\item State how trace and determinant can come from the eigenvalues
+%\item Examples and analysis of that, as well as how you can interpret it.
+%\end{itemize}
+
+\subsection{Exercises}
+
+\begin{exercise}
+\pagebreak[2]
+For the following matrices, find a basis for the kernel (nullspace).
+\begin{tasks}(4)
+\task
+$\begin{bmatrix}
+1 & 1 & 1 \\
+1 & 1 & 5 \\
+1 & 1 & -4
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+2 & -1 & -3 \\
+4 & 0 & -4 \\
+-1 & 1 & 2
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+-4 & 4 & 4 \\
+-1 & 1 & 1 \\
+-5 & 5 & 5
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+-2 & 1 & 1 & 1 \\
+-4 & 2 & 2 & 2 \\
+1 & 0 & 4 & 3
+\end{bmatrix}$
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}\ansMark%
+For the following matrices, find a basis for the kernel (nullspace).
+\begin{tasks}(4)
+\task
+$\begin{bmatrix}
+2 & 6 & 1 & 9 \\
+1 & 3 & 2 & 9 \\
+3 & 9 & 0 & 9
+\end{bmatrix}$
+\task
+$
+\begin{bmatrix}
+2 & -2 & -5 \\
+-1 & 1 & 5 \\
+-5 & 5 & -3
+\end{bmatrix}$
+\task
+$
+\begin{bmatrix}
+1 & -5 & -4 \\
+2 & 3 & 5 \\
+-3 & 5 & 2
+\end{bmatrix}$
+\task
+$
+\begin{bmatrix}
+0 & 4 & 4 \\
+0 & 1 & 1 \\
+0 & 5 & 5
+\end{bmatrix}$
+\end{tasks}
+\end{exercise}
+\exsol{%
+a)~$\begin{bmatrix} 3 \\ -1 \\ 0 \\ 0 \end{bmatrix}$, $\begin{bmatrix} 3 \\
+0 \\ 3 \\ -1 \end{bmatrix}$
+\quad
+b)~$\begin{bmatrix} -1 \\ -1 \\ 0 \end{bmatrix}$
+\quad
+c)~$\begin{bmatrix} 1 \\ 1 \\ -1 \end{bmatrix}$
+\quad
+d)~$\begin{bmatrix} -1 \\ 0 \\ 0 \end{bmatrix}$, $\begin{bmatrix} 0 \\ 1 \\ -1 \end{bmatrix}$
+}
+
+\begin{exercise}
+Suppose a $5 \times 5$ matrix $A$ has rank 3.  What is the nullity?
+\end{exercise}
+
+\begin{exercise}
+Consider a square matrix $A$, and suppose that $\vec{x}$ is a nonzero
+vector such that $A \vec{x} = \vec{0}$.  What does the Fredholm alternative
+say about invertibility of $A$?
+\end{exercise}
+
+\begin{exercise}
+Consider
+\begin{equation*}
+M =
+\begin{bmatrix}
+1 & 2 & 3 \\
+2 & ? & ? \\
+-1 & ? & ?
+\end{bmatrix} .
+\end{equation*}
+If the nullity of this matrix is 2, fill in the question marks.  Hint: What
+is the rank?
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Suppose the column space of a $9 \times 5$ matrix $A$ of dimension 3.  Find
+\begin{tasks}(2)
+\task
+Rank of $A$.
+\task
+Nullity of $A$.
+\task
+Dimension of the row space of $A$.
+\task
+Dimension of the nullspace of $A$.
+\task
+Size of the maximum subset of
+linearly independent rows of $A$.
+\end{tasks}
+\end{exercise}
+\exsol{%
+a)~3 \quad b)~2 \quad c)~3 \quad d)~2 \quad e)~3
+}
+
+\begin{exercise}
+Compute the inverse of the given matrices
+\begin{tasks}(3)
+\task
+$\begin{bmatrix}
+1 & 0 & 0 \\
+0 & 0 & 1 \\
+0 & 1 & 0
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+1 & 1 & 1 \\
+0 & 2 & 1 \\
+0 & 0 & 1
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+1 & 2 & 3 \\
+2 & 0 & 1 \\
+0 & 2 & 1
+\end{bmatrix}$
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Compute the inverse of the given matrices
+\begin{tasks}(3)
+\task
+$\begin{bmatrix}
+0 & 1 & 0 \\
+-1 & 0 & 0 \\
+0 & 0 & 1
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+1 & 1 & 1 \\
+1 & 1 & 0 \\
+1 & 0 & 0
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+2 & 4 & 0 \\
+2 & 2 & 3 \\
+2 & 4 & 1
+\end{bmatrix}$
+\end{tasks}
+\end{exercise}
+\exsol{%
+a)~$\begin{bmatrix}
+0 & -1 & 0 \\
+1 & 0 & 0 \\
+0 & 0 & 1
+\end{bmatrix}$
+\quad
+b)~$\begin{bmatrix}
+0 & 0 & 1 \\
+0 & 1 & -1 \\
+1 & -1 & 0
+\end{bmatrix}$
+\quad
+c)~$\begin{bmatrix}
+\nicefrac{5}{2} & 1 & -3 \\
+-1 & \nicefrac{-1}{2} & \nicefrac{3}{2} \\
+-1 & 0 & 1
+\end{bmatrix}$
+}
+
+\begin{exercise}
+By computing the inverse,
+solve the following systems for $\vec{x}$.
+\begin{tasks}(2)
+\task
+$\begin{bmatrix}
+4 & 1 \\
+-1 & 3
+\end{bmatrix} \vec{x} =
+\begin{bmatrix} 13 \\ 26 \end{bmatrix}$
+\task
+$\begin{bmatrix}
+3 & 3 \\
+3 & 4
+\end{bmatrix} \vec{x} =
+\begin{bmatrix} 2 \\ -1 \end{bmatrix}$
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}\ansMark%
+By computing the inverse,
+solve the following systems for $\vec{x}$.
+\begin{tasks}(2)
+\task
+$\begin{bmatrix}
+-1 & 1 \\
+3 & 3
+\end{bmatrix} \vec{x} =
+\begin{bmatrix} 4 \\ 6 \end{bmatrix}$
+\task
+$\begin{bmatrix}
+2 & 7 \\
+1 & 6
+\end{bmatrix} \vec{x} =
+\begin{bmatrix} 1 \\ 3 \end{bmatrix}$
+\end{tasks}
+\end{exercise}
+\exsol{%
+a)~$\begin{bmatrix} -1 \\ 3 \end{bmatrix}$ \quad
+b)~$\begin{bmatrix} -3 \\ 1 \end{bmatrix}$
+}
+
+\begin{exercise}\ansMark%
+For each of the following matrices below:
+\begin{tasks}
+\task Compute the trace and determinant of the matrix, and
+\task Find the eigenvalues of the matrix and verify that the trace is the sum of the eigenvalues and the determinant is the product. 
+\end{tasks}
+\begin{equation*}
+(i) \ \begin{bmatrix} -4 & 2 \\ -9 & 5 \end{bmatrix} \qquad (ii) \ \begin{bmatrix} 2 & -3 \\ 6 & -4 \end{bmatrix} \qquad (iii)  \ \begin{bmatrix} -10& -12 \\ 6 & 8\end{bmatrix}. \qquad (iv) \ \begin{bmatrix} -7 & -9 \\ 1 & -1 \end{bmatrix}
+\end{equation*}
+\end{exercise}
+\exsol{%
+(i) Trace is 1, determinant is -2. Eigenvalues are -1 and 2. \\
+(ii) Trace is -2, determinant is 10. Eigenvalues are $-1 \pm 3i$. \\
+(iii) Trace is -2, determinant is -8. Eigenvalues are -4 and 2. \\
+(iv) Trace is -8, determinant is 16. Eigenvalue is $-4$ repeated.
+}%
+
+\begin{exercise}\ansMark%
+For each of the following matrices below:
+\begin{tasks}
+\task Compute the trace and determinant of the matrix, and
+\task Find the eigenvalues of the matrix and verify that the trace is the sum of the eigenvalues and the determinant is the product. 
+\end{tasks}
+\begin{equation*}
+(i) \ \begin{bmatrix} -1 & -16 & -4 \\ 1 & 6 & 1 \\ -2 & -4 & 1  \end{bmatrix} \qquad (ii) \ \begin{bmatrix} 1 & 2 & 0 \\ -12 & -13 & -4 \\ 16 & 14 & 3  \end{bmatrix} \qquad (iii)\ \begin{bmatrix} 10 & -7 & -14 \\ 0 & 5 & 6 \\ 7 & -8 & -14 \end{bmatrix}
+\end{equation*}
+\end{exercise}
+\exsol{%
+(i) Trace is 6, determinant is 6. Eigenvalues are 1, 2, and 3. \\
+(ii) Trace is -9, determinant is -39. Eigenvalues are -3 and $-3 \pm 2i$. \\ 
+(iii) Trace is 1, determinant is -24. Eigenvalues are 2, 3, -4.
+}%
+
+
+\setcounter{exercise}{100}
+
+
+
+
+
+
+

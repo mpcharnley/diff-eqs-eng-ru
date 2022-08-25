@@ -1,0 +1,469 @@
+
+\section{Applications of Fourier series}
+\label{appoffourier:section}
+
+\LAtt{4.5}
+
+\LO{
+\item Apply Fourier Series to solve forced oscillation problems, and
+\item Understand how resonance shows up in these types of problems.
+}
+
+% \sectionnotes{Verbatim from Lebl}
+
+% \sectionnotes{2 lectures\EPref{, \S9.4 in \cite{EP}}\BDref{,
+% not in \cite{BD}}}
+
+\subsection{Periodically forced oscillation}
+
+\begin{mywrapfigsimp}{2.0in}{2.3in}
+\noindent
+\inputpdft{massfigforce}
+\end{mywrapfigsimp}
+Let us return to the forced oscillations.  Consider a mass-spring system as
+before, where we have a mass $m$
+on a spring with spring constant $k$,
+with damping $c$, and a force $F(t)$ applied to the mass.  Suppose 
+the forcing function $F(t)$ is $2L$-periodic for some $L > 0$.
+We saw
+this problem in \chapterref{ho:chapter} with $F(t) = F_0 \cos (\omega t)$.  The
+equation that governs this particular setup is
+\begin{equation} \label{afs:eq}
+mx''(t) + cx'(t) + kx(t) = F(t) .
+\end{equation}
+
+The general solution of \eqref{afs:eq} consists of the complementary solution $x_c$, which
+solves the associated homogeneous equation $mx'' + cx' + kx = 0$, and
+a particular solution of \eqref{afs:eq} we call $x_p$.  For $c > 0$,
+the complementary solution $x_c$ will decay as time goes by.
+Therefore,
+we are mostly interested
+in a particular solution $x_p$ that does not decay
+and is periodic with the same period as $F(t)$.  We call this particular
+solution
+the \emph{\myindex{steady periodic solution}} and we write it as $x_{sp}$ as before.
+What is new in this section is that we consider an arbitrary
+forcing function $F(t)$ instead of a simple cosine.
+
+For simplicity, suppose $c=0$.  The problem with $c > 0$ is very
+similar.
+The equation
+\begin{equation*}
+mx'' + kx = 0 
+\end{equation*}
+has the general solution
+\begin{equation*}
+x(t) = A \cos (\omega_0 t) + 
+B \sin (\omega_0 t) ,
+\end{equation*}
+where $\omega_0 = \sqrt{\frac{k}{m}}$.
+Any solution to
+$mx''(t) + kx(t) = F(t)$ is of the form
+$A \cos (\omega_0 t) + B \sin (\omega_0 t) + x_{sp}$.
+The steady
+periodic solution $x_{sp}$ has the same period as $F(t)$.
+
+In the spirit of the last section and the idea of undetermined coefficients
+we first write
+\begin{equation*}
+F(t) = \frac{c_0}{2} + \sum_{n=1}^\infty
+c_n \cos \left( \frac{n \pi}{L} t \right) +
+d_n \sin \left( \frac{n \pi}{L} t \right) .
+\end{equation*}
+Then we write a proposed steady periodic solution $x$ as
+\begin{equation*}
+x(t) = \frac{a_0}{2} + \sum_{n=1}^\infty
+a_n \cos \left( \frac{n \pi}{L} t \right) +
+b_n \sin \left( \frac{n \pi}{L} t \right) ,
+\end{equation*}
+where $a_n$ and $b_n$ are unknowns.
+We plug $x$ into the differential equation and solve for $a_n$ and
+$b_n$ in terms of $c_n$ and $d_n$.  This process
+is perhaps best understood by example.
+\pagebreak[2]
+
+\begin{example} \label{afs:steadyex}
+Suppose that $k=2$, and $m=1$.
+The units are again the mks units\index{mks units}
+(meters-kilograms-seconds).
+There is a jetpack strapped to the mass, which fires with a force of 1
+newton for 1
+second and then is off for 1 second, and so on.  We want to find the steady periodic
+solution.
+\end{example}
+
+\begin{exampleSol}
+The equation is, therefore,
+\begin{equation*}
+x'' + 2 x = F(t) ,
+\end{equation*}
+where $F(t)$ is the step function
+\begin{equation*}
+F(t) =
+\begin{cases}
+0 & \text{if } \; {-1} < t < 0 , \\
+1 & \text{if } \; \phantom{-}0 < t < 1 ,
+\end{cases}
+\end{equation*}
+extended periodically.
+We write
+\begin{equation*}
+F(t) = \frac{c_0}{2} + \sum_{n=1}^\infty
+c_n \cos (n \pi t) +
+d_n \sin (n \pi t) .
+\end{equation*}
+We compute
+\begin{align*}
+c_n & = \int_{-1}^1 F(t) \cos (n \pi t) \, dt = 
+\int_{0}^1 \cos (n \pi t) \, dt = 0 \qquad \text{for } \; n \geq 1,
+\\
+c_0 & = \int_{-1}^1 F(t) \, dt = 
+\int_{0}^1 \, dt = 1 ,
+\\
+d_n & = \int_{-1}^1 F(t) \sin (n \pi t) \, dt
+\\
+& = \int_{0}^1 \sin (n \pi t) \, dt
+\\
+& = \left[ \frac{-\cos (n \pi t)}{n \pi} \right]_{t=0}^1
+\\
+& = \frac{1-{(-1)}^n}{\pi n} =
+\begin{cases}
+\frac{2}{\pi n} & \text{if } n \text{ odd} , \\
+0 & \text{if } n \text{ even} .
+\end{cases}
+\end{align*}
+So
+\begin{equation*}
+F(t) = \frac{1}{2} + \sum_{\substack{n=1 \\ n \text{ odd}}}^\infty
+\frac{2}{\pi n} \sin (n \pi t) .
+\end{equation*}
+
+We want to try
+\begin{equation*}
+x(t) = \frac{a_0}{2} + \sum_{n=1}^\infty
+a_n \cos (n \pi t) +
+b_n \sin (n \pi t) .
+\end{equation*}
+Once we plug $x$ into the differential equation $x''+2x = F(t)$,
+it is clear that $a_n = 0$ for $n \geq 1$ as there are no corresponding terms
+in the series for
+$F(t)$.  Similarly $b_n = 0$ for $n$ even.  Hence we try
+\begin{equation*}
+x(t) = \frac{a_0}{2} +
+\sum_{\substack{n=1 \\ n \text{ odd}}}^\infty
+b_n \sin (n \pi t) .
+\end{equation*}
+We plug into the differential equation and obtain
+\begin{equation*}
+\begin{split}
+x'' + 2 x & =
+\sum_{\substack{n=1 \\ n \text{ odd}}}^\infty
+\Bigl[ - b_n n^2 \pi^2 \sin (n \pi t) \Bigr] + 
+a_0 +
+2
+\sum_{\substack{n=1 \\ n \text{ odd}}}^\infty
+\Bigl[ b_n \sin (n \pi t) \Bigr]
+\\
+& =
+a_0 +
+\sum_{\substack{n=1 \\ n \text{ odd}}}^\infty
+b_n (2 - n^2 \pi^2 ) \sin (n \pi t)
+\\
+& =
+F(t) = \frac{1}{2} + \sum_{\substack{n=1 \\ n \text{ odd}}}^\infty
+\frac{2}{\pi n} \sin (n \pi t) .
+\end{split}
+\end{equation*}
+So $a_0 = \frac{1}{2}$, $b_n = 0$ for even $n$, and for odd $n$ we
+get
+\begin{equation*}
+b_n = 
+\frac{2}{\pi n (2 - n^2 \pi^2 )} .
+\end{equation*}
+
+The steady periodic solution has the Fourier series
+\begin{equation*}
+x_{sp}(t) = \frac{1}{4} + \sum_{\substack{n=1 \\ n \text{ odd}}}^\infty
+\frac{2}{\pi n (2 - n^2 \pi^2 )}
+\sin (n \pi t) .
+\end{equation*}
+We know this is the steady periodic solution as it contains no terms 
+of the complementary solution and it is periodic with the same period as
+$F(t)$ itself.  See \figurevref{afs:steadyexfig} for the plot of this solution.
+\begin{myfig}
+\capstart
+\diffyincludegraphics{width=3in}{width=4.5in}{afs-steadyex}
+\caption{Plot of the steady periodic solution $x_{sp}$ of
+\exampleref{afs:steadyex}.%
+\label{afs:steadyexfig}}
+\end{myfig}
+\end{exampleSol}
+
+\subsection{Resonance}
+
+Just as when the forcing function was a simple cosine, we may encounter
+resonance.  Assume $c=0$ and let us discuss only pure resonance.
+Let $F(t)$ be $2L$-periodic and consider
+\begin{equation*}
+m x''(t) + k x (t) = F(t) .
+\end{equation*}
+When we expand $F(t)$ and find that some of its terms coincide with the
+complementary solution to $mx''+kx=0$, we cannot use those terms in the
+guess.  Just like before, they disappear when we plug them into the left-hand
+side and we get a contradictory equation (such as $0=1$).   That is,
+suppose
+\begin{equation*}
+x_c = A \cos (\omega_0 t) + B \sin (\omega_0 t), 
+\end{equation*}
+where $\omega_0 = \frac{N \pi}{L}$ for some positive integer $N$.
+We have
+to modify our guess and try
+\begin{equation*}
+x(t) = \frac{a_0}{2} +
+t \left(
+a_N \cos \left( \frac{N \pi}{L} t \right) +
+b_N \sin \left( \frac{N \pi}{L} t \right) \right) +
+\sum_{\substack{n=1\\n\not= N}}^\infty
+a_n \cos \left( \frac{n \pi}{L} t \right) +
+b_n \sin \left( \frac{n \pi}{L} t \right) .
+\end{equation*}
+In other words, we multiply the offending term by $t$.  From then on, we
+proceed as before.
+
+Of course, the solution is not a Fourier series (it is not even
+periodic) since it contains these terms multiplied by $t$.  Further, the
+terms
+$t \left( a_N \cos \left( \frac{N \pi}{L} t \right) +
+b_N \sin \left( \frac{N \pi}{L} t \right) \right)$ eventually dominate and lead to
+wild oscillations.  As before, this behavior is called \emph{\myindex{pure
+resonance}} or just \emph{\myindex{resonance}}.
+
+Note that there now may be infinitely many resonance frequencies to hit.
+That is, as we change the frequency of $F$ (we change $L$), different
+terms from the Fourier series of $F$ may interfere with the complementary
+solution and cause resonance.
+However, we should note that since everything is an approximation and in
+particular $c$ is never actually zero but something very close to zero,
+only the first
+few resonance frequencies matter in real life.
+
+\begin{example}
+We want to solve the equation
+\begin{equation} \label{afs:eq-resonance}
+2 x'' + 18 \pi^2 x = F(t) ,
+\end{equation}
+where
+\begin{equation*}
+F(t) =
+\begin{cases}
+-1 & \text{if } \; {-1} < t < 0 , \\
+1 & \text{if } \; \phantom{-}0 < t < 1 ,
+\end{cases}
+\end{equation*}
+extended periodically. 
+\end{example}
+
+\begin{exampleSol}
+We note that
+\begin{equation*}
+F(t) =
+\sum_{\substack{n=1 \\ n \text{ odd}}}^\infty
+\frac{4}{\pi n}
+\sin (n \pi t) . 
+\end{equation*}
+
+\begin{exercise}
+Compute the Fourier series of $F$ to verify the equation above.
+\end{exercise}
+
+As $\sqrt{\frac{k}{m}} = \sqrt{\frac{18\pi^2}{2}} = 3\pi$,
+the solution to \eqref{afs:eq-resonance} is
+\begin{equation*}
+x(t) = c_1 \cos  (3\pi t) + c_2 \sin (3\pi t) + x_p (t)
+\end{equation*}
+for some particular solution $x_p$.
+
+If we just try an $x_p$ given as a Fourier series with $\sin (n\pi t)$ as usual,
+the complementary equation, $2x''+18\pi^2x=0$, eats our $3^\text{rd}$ harmonic.  That is, the term
+with $\sin(3 \pi t)$
+is already in
+in our complementary solution.
+Therefore, we pull that term out and
+multiply it by $t$.  We also add a cosine term to get everything right.
+That is, we try
+\begin{equation*}
+x_p(t) =
+a_3
+t \cos (3 \pi t )
++
+b_3
+t \sin (3 \pi t)
++
+\sum_{\substack{n=1 \\ n~\text{odd} \\ n\not= 3}}^\infty
+b_n
+\sin (n \pi t) . 
+\end{equation*}
+Let us compute the second derivative.
+\begin{multline*}
+x_p''(t) =
+- 6 a_3
+\pi \, \sin (3 \pi t) - 9\pi^2 a_3 \, t \, \cos (3 \pi t)
++
+6 b_3
+\pi \, \cos (3 \pi t) - 9\pi^2 b_3 \, t \, \sin (3 \pi t)
+\\
+{} +
+\sum_{\substack{n=1 \\ n~\text{odd} \\ n\not= 3}}^\infty
+(-n^2 \pi^2 b_n ) \,
+\sin (n \pi t) . 
+\end{multline*}
+We now plug into the left-hand side of the differential equation.
+\begin{align*}
+2x_p'' + 18\pi^2 x_p 
+= & 
+- 12 a_3 \pi \sin (3 \pi t)
+- 18\pi^2 a_3 t \cos (3 \pi t)
++ 12 b_3 \pi \cos (3 \pi t)
+- 18\pi^2 b_3 t \sin (3 \pi t)
+\\
+& \phantom{\, - 12 a_3 \pi \sin (3 \pi t)} ~
+{} + 18 \pi^2 a_3 t \cos (3 \pi t)
+\phantom{\, + 12 b_3 \pi \cos (3 \pi t)} ~
+{} + 18 \pi^2 b_3 t \sin (3 \pi t)
+\\
+& {} + \sum_{\substack{n=1 \\ n~\text{odd} \\ n\not= 3}}^\infty
+(-2n^2 \pi^2 b_n + 18\pi^2 b_n) \,
+\sin (n \pi t) . 
+\end{align*}
+We simplify,
+\begin{equation*}
+2x_p'' + 18\pi^2 x_p =
+- 12 a_3
+\pi \sin (3 \pi t)
++
+12 b_3
+\pi \cos (3 \pi t)
++
+\sum_{\substack{n=1 \\ n~\text{odd} \\ n\not= 3}}^\infty
+(-2n^2 \pi^2 b_n + 18\pi^2 b_n)
+\sin (n \pi t) . 
+\end{equation*}
+This series has to equal to the series for $F(t)$.
+We equate the coefficients and solve for $a_3$ and $b_n$.
+\begin{align*}
+& a_3 = \frac{4/(3\pi)}{-12\pi} = \frac{-1}{9\pi^2} , \\
+& b_3 = 0 , \\
+& b_n = \frac{4}{n\pi(18\pi^2 - 2n^2 \pi^2)} 
+= \frac{2}{\pi^3 n(9 - n^2)} \qquad \text{for } n \text{ odd and } n\not=3 .
+\end{align*}
+
+That is,
+\begin{equation*}
+x_p(t) =
+\frac{-1}{9\pi^2}
+\,
+t \, \cos (3 \pi t)
++
+\sum_{\substack{n=1 \\ n~\text{odd} \\ n\not= 3}}^\infty
+\frac{2}{\pi^3 n(9 - n^2)}
+\sin (n \pi t) . 
+\end{equation*}
+\end{exampleSol}
+
+When $c > 0$, you do not have to worry about pure resonance.  That is,
+there are never any conflicts and you do not need to multiply any
+terms by $t$.  There is a corresponding concept of
+\myindex{practical resonance}
+and it is very similar to the ideas we already explored in
+\chapterref{ho:chapter}.
+Basically what happens in practical resonance is that one of the
+coefficients in the series for $x_{sp}$ can get very big.  Let us not go
+into details here.
+
+\subsection{Exercises}
+
+\begin{exercise}
+Let $F(t) = \frac{1}{2} + \sum_{n=1}^\infty \frac{1}{n^2} \cos (n \pi t)$.
+Find
+the steady periodic solution to
+$x'' + 2 x = F(t)$.  Express your solution as a Fourier series.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Let $F(t) = \sin(2\pi t) + 0.1 \cos(10 \pi t)$.
+Find the steady periodic solution to $x'' + \sqrt{2}\, x = F(t)$.
+Express your solution as a Fourier series.
+\end{exercise}
+\exsol{%
+$x = \frac{1}{\sqrt{2}-4 \pi^2} \sin(2\pi t) + \frac{0.1}{\sqrt{2}-100 \pi^2} \cos(10 \pi t)$
+}
+
+\begin{exercise}
+Let $F(t) = \sum_{n=1}^\infty \frac{1}{n^3} \sin (n \pi t)$.  Find
+the steady periodic solution to
+$x'' + x' + x = F(t)$.  Express your solution as a Fourier series.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Let $F(t) = \sum_{n=1}^\infty e^{-n} \cos(2 n t)$.
+Find the steady periodic solution to $x'' + 3 x = F(t)$.
+Express your solution as a Fourier series.
+\end{exercise}
+\exsol{%
+$x =
+\sum\limits_{n=1}^\infty
+\frac{e^{-n}}{3-{(2n)}^2} \cos(2n t)$
+}
+
+
+\begin{exercise}
+Let $F(t) = \sum_{n=1}^\infty \frac{1}{n^2} \cos (n \pi t)$.  Find
+the steady periodic solution to
+$x'' + 4 x = F(t)$.  Express your solution as a Fourier series.
+\end{exercise}
+
+\begin{exercise}
+Let $F(t) = t$ for $-1 < t < 1$ and extended periodically.
+Find the steady periodic solution to
+$x'' + x = F(t)$.  Express your solution as a series.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Let $F(t) = \lvert t \rvert$ for $-1 \leq t \leq 1$ extended periodically.
+Find the steady periodic solution to $x'' + \sqrt{3}\, x = F(t)$.
+Express your solution as a series.
+\end{exercise}
+\exsol{%
+$x =
+\frac{1}{2\sqrt{3}} + 
+\sum\limits_{\substack{n=1 \\ n \text{ odd}}}^\infty \frac{-4}{n^2 \pi^2
+(\sqrt{3}-n^2 \pi^2)} \cos (n \pi t)$
+}
+
+\begin{exercise}
+Let $F(t) = t$ for $-1 < t < 1$ and extended periodically.
+Find the steady periodic solution to
+$x'' + \pi^2 x = F(t)$.  Express your solution as a series.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Let $F(t) = \lvert t \rvert$ for $-1 \leq t \leq 1$ extended periodically.
+Find the steady periodic solution to $x'' + \pi^2 x = F(t)$.
+Express your solution as a series.
+\end{exercise}
+\exsol{%
+$x =
+\frac{1}{2\sqrt{3}} -
+\frac{2}{\pi^3} t \sin(\pi t) + 
+\sum\limits_{\substack{n=3 \\ n \text{ odd}}}^\infty \frac{-4}{n^2 \pi^4
+(1-n^2)} \cos (n \pi t)$
+}
+
+\setcounter{exercise}{100}
+
+
+
+
+
+
+

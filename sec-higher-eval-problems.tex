@@ -1,0 +1,261 @@
+\section{Higher order eigenvalue problems}
+\label{sec:appeig}
+
+\sectionnotes{Verbatim from Lebl}
+
+\sectionnotes{1 lecture\EPref{, \S10.2 in \cite{EP}}\BDref{,
+exercises in \S11.2 in \cite{BD}}}
+
+The eigenfunction series can arise even from higher order equations.
+Consider an elastic beam (say made of steel).  We will study the
+transversal vibrations of the beam.  That is, suppose the beam lies along
+the $x$-axis and let $y(x,t)$ measure the displacement of the point $x$
+on the beam at time $t$.  See \figurevref{appeig:transbeamfig}.
+
+\begin{myfig}
+\capstart
+\inputpdft{trans-beam}
+\caption{Transversal vibrations of a beam.\label{appeig:transbeamfig}}
+\end{myfig}
+
+The equation that governs this setup is
+\begin{equation*}
+a^4 \frac{\partial^4 y}{\partial x^4} + \frac{\partial^2 y}{\partial t^2} = 0,
+\end{equation*}
+for some constant $a > 0$, let us not worry about the physics\footnote{If
+you are interested, $a^4 = \frac{EI}{\rho}$, where $E$ is the elastic
+modulus, $I$ is the second moment of area of the cross section,
+and $\rho$ is linear density.}.
+
+Suppose the beam is of length 1 simply supported (hinged) at the ends.
+The beam is displaced by some function $f(x)$ at time $t=0$ and then
+let go (initial velocity is 0).  Then $y$ satisfies:
+\begin{equation} \label{appeig:beameq}
+\begin{aligned}
+& a^4 y_{xxxx} + y_{tt} = 0 \qquad (0 < x < 1, \enspace t > 0), \\
+& y(0,t) = y_{xx}(0,t) = 0 , \\
+& y(1,t) = y_{xx}(1,t) = 0 , \\
+& y(x,0) = f(x), \qquad y_{t}(x,0) = 0 .
+\end{aligned}
+\end{equation}
+
+Again we try $y(x,t) = X(x)T(t)$ and plug in to get
+$a^4 X^{(4)}T + XT'' = 0$ or 
+\begin{equation*}
+\frac{X^{(4)}}{X} = \frac{- T''}{a^4T} = \lambda .
+\end{equation*}
+The equations are
+\begin{equation*}
+T'' + \lambda a^4 T = 0, \qquad
+X^{(4)} - \lambda X = 0 .
+\end{equation*}
+The boundary conditions
+$y(0,t) = y_{xx}(0,t) = 0$ and $y(1,t) = y_{xx}(1,t) = 0$ imply
+\begin{equation*}
+X(0) =  X''(0) = 0, \qquad \text{and} \qquad
+X(1) =  X''(1) = 0 .
+\end{equation*}
+and the initial homogeneous condition $y_t(x,0) = 0$ implies
+\begin{equation*}
+T'(0) = 0 .
+\end{equation*}
+As usual, we leave the nonhomogeneous $y(x,0) = f(x)$ for later.
+
+Considering the equation for $T$, that is,
+$T'' + \lambda a^4 T = 0$, and physical intuition leads us
+to the fact that if $\lambda$ is an eigenvalue then $\lambda > 0$.
+This is because we expect vibration and not exponential growth nor
+decay in the $t$ direction (there is no friction in our model for instance).
+So there are no negative eigenvalues.
+Similarly $\lambda = 0$ is not an eigenvalue.
+
+\begin{exercise}
+Justify $\lambda > 0$ just from the equation for $X$ and the boundary
+conditions.
+\end{exercise}
+
+Let $\omega = \sqrt[4]{\lambda}$, that is $\omega^4 = \lambda$,
+so that we do not need to write the fourth root
+all the time.  Notice $\omega > 0$.
+The equation $X^{(4)} - \omega^4 X = 0$ has the
+general solution is
+\begin{equation*}
+X(x) = A e^{\omega x} + B e^{-\omega x} + C \sin (\omega x) +
+D \cos (\omega x) .
+\end{equation*}
+Now $0 = X(0) = A+B+D$, $0 = X''(0) = \omega^2 (A + B - D)$.  Hence, $D = 0$ and $A+B = 0$, or $B = - A$.  So we have
+\begin{equation*}
+X(x) = A e^{\omega x} - A e^{-\omega x} + C \sin (\omega x) .
+\end{equation*}
+Also $0 = X(1) = A (e^{\omega} - e^{-\omega}) + C \sin \omega$, and
+$0 = X''(1) = A \omega^2 (e^{\omega} - e^{-\omega}) - C \omega^2 \sin \omega$.
+This means that $C \sin \omega  = 0$ and 
+$A (e^{\omega} - e^{-\omega}) = 2 A \sinh \omega = 0$.  If $\omega > 0$, then
+$\sinh \omega \not= 0$ and so $A = 0$.  This means that $C \not=0$ otherwise
+$\lambda$ is not an
+eigenvalue.  Also $\omega$ must be an integer multiple of
+$\pi$.   Hence $\omega = n \pi$ and $n \geq 1$ (as $\omega > 0$).  We can take
+$C=1$.  So the eigenvalues are $\lambda_n = n^4 \pi^4$ and corresponding eigenfunctions
+are $\sin (n \pi x)$.
+
+Now 
+$T'' + n^4 \pi^4 a^4 T = 0$.  The general solution is $T(t) =
+A \sin (n^2 \pi^2 a^2 t) + B \cos (n^2 \pi^2 a^2 t)$.  But $T'(0) = 0$ and hence
+we must have $A=0$.  We can take $B=1$ to make $T(0) = 1$ for convenience.
+So our solutions are $T_n(t) = \cos (n^2 \pi^2 a^2 t)$.
+
+As eigenfunctions are just sines again, we decompose the function
+$f(x)$ on $0 < x < 1$ using the sine series.
+We find numbers $b_n$ such that for
+$0 < x < 1$ we have
+\begin{equation*}
+f(x) = \sum_{n=1}^\infty b_n \sin (n \pi x) .
+\end{equation*}
+Then the solution to \eqref{appeig:beameq} is
+\begin{equation*}
+y(x,t) = \sum_{n=1}^\infty b_n
+X_n(x) T_n(t)
+= \sum_{n=1}^\infty b_n
+\sin (n \pi x)  \cos ( n^2 \pi^2 a^2 t ) .
+\end{equation*}
+The point is that $X_nT_n$ is a solution that satisfies all the homogeneous
+conditions (that is, all conditions except the initial position).  And since
+$T_n(0) = 1$, we have
+\begin{equation*}
+y(x,0) = \sum_{n=1}^\infty b_n X_n(x) T_n(0) = 
+\sum_{n=1}^\infty b_n X_n(x) =
+\sum_{n=1}^\infty b_n
+\sin (n \pi x) = f(x) .
+\end{equation*}
+So $y(x,t)$ solves \eqref{appeig:beameq}.
+
+The natural (angular) frequencies of the system are $n^2 \pi^2 a^2$.
+These frequencies are all integer multiples of the fundamental frequency
+$\pi^2 a^2$, so we get a nice musical note.  The exact frequencies
+and their amplitude
+are what musicians call the \emph{\myindex{timbre}} of the note (outside
+of music it is called the spectrum).
+
+The timbre of a beam
+is different than for a vibrating string where we get \myquote{more}
+of the lower frequencies since we get all integer multiples,
+$1,2,3,4,5,\ldots$.  For a steel beam we get
+only the square multiples $1,4,9,16,25,\ldots$.  That is why when you hit a
+steel beam you hear a very pure sound.  The sound of a
+xylophone or vibraphone is, therefore, very different from a guitar or piano.
+
+\begin{example}
+Let us assume that $f(x) = \frac{x(x-1)}{10}$.  
+On $0 < x < 1$ we have (you know how to do this by now)
+\begin{equation*}
+f(x) = \sum_{\substack{n=1\\n \text{~odd}}}^\infty \frac{4}{5\pi^3 n^3}
+\sin (n \pi x) .
+\end{equation*}
+Hence, the solution to \eqref{appeig:beameq} with the given initial
+position $f(x)$ is
+\begin{equation*}
+y(x,t) = \sum_{\substack{n=1\\n \text{~odd}}}^\infty \frac{4}{5\pi^3 n^3}
+\sin (n \pi x) \cos ( n^2 \pi^2 a^2 t ) .
+\end{equation*}
+\end{example}
+
+There are other boundary conditions than just hinged ends.  There are
+three basic possibilities: hinged, free, or fixed.  Let us consider
+the end at $x=0$.  For the other end, it is the same idea.
+If the end is \emph{hinged}\index{hinged end of beam}, then
+\begin{equation*}
+u(0,t) = u_{xx}(0,t) = 0 .
+\end{equation*}
+If the end is \emph{free}\index{free end of beam}, that is, it is just
+floating in air, then
+\begin{equation*}
+u_{xx}(0,t) = u_{xxx}(0,t) = 0 .
+\end{equation*}
+And finally, if the end is
+\emph{clamped}\index{clamped end of beam}
+or  
+\emph{fixed}\index{fixed end of beam}, for example it is welded to a
+wall,
+then
+\begin{equation*}
+u(0,t) = u_{x}(0,t) = 0 .
+\end{equation*}
+
+
+\subsection{Exercises}
+
+\begin{exercise}
+Suppose you have a beam of length 5 with free ends.  Let $y$ be the
+transverse deviation of the beam at position $x$ on the beam ($0 < x < 5$).
+You know that the
+constants are such that this satisfies the equation $y_{tt} + 4 y_{xxxx} =
+0$.   Suppose you know that the initial shape of the beam is the graph of
+$x(5-x)$, and the initial velocity is uniformly equal to 2 (same for each $x$)
+in the positive $y$ direction.  Set up the equation together with the
+boundary and initial conditions.  Just set up, do not solve.
+\end{exercise}
+
+\begin{exercise}
+Suppose you have a beam of length 5 with one end free and one end fixed
+(the fixed end is at $x=5$).
+Let $u$ be the
+longitudinal deviation of the beam at position $x$ on the beam ($0 < x < 5$).
+You know that the
+constants are such that this satisfies the equation $u_{tt} = 4 u_{xx}$.
+Suppose you know that the initial displacement of the beam
+is $\frac{x-5}{50}$, and the initial velocity is $\frac{-(x-5)}{100}$
+in the positive $u$ direction.  Set up the equation together with the
+boundary and initial conditions.  Just set up, do not solve.
+\end{exercise}
+
+\begin{exercise}
+Suppose the beam is $L$ units long, everything else kept the same
+as in \eqref{appeig:beameq}.  What is the equation and the series
+solution?
+\end{exercise}
+
+\begin{exercise}
+Suppose you have 
+\begin{equation*}
+\begin{aligned}
+& a^4 y_{xxxx} + y_{tt} = 0 \quad (0 < x < 1, t > 0) , \\
+& y(0,t) = y_{xx}(0,t) = 0,\\
+& y(1,t) = y_{xx}(1,t) = 0 ,\\
+& y(x,0) = f(x), \quad y_{t}(x,0) = g(x) .
+\end{aligned}
+\end{equation*}
+That is, you have also an initial velocity.  Find a series solution.  Hint:
+Use the same idea as we did for the wave equation.
+\end{exercise}
+
+\setcounter{exercise}{100}
+
+\begin{exercise}
+Suppose you have a beam of length 1 with hinged ends.  Let $y$ be the
+transverse deviation of the beam at position $x$ on the beam ($0 < x < 1$).
+You know that the
+constants are such that this satisfies the equation $y_{tt} + 4 y_{xxxx} =
+0$.   Suppose you know that the initial shape of the beam is the graph of
+$\sin (\pi x)$, and the initial velocity is 0.  Solve for $y$.
+\end{exercise}
+\exsol{%
+$y(x,t) = \sin(\pi x) \cos (2 \pi^2 t)$
+}
+
+\begin{exercise}
+Suppose you have a beam of length 10 with two fixed ends.  Let $y$ be the
+transverse deviation of the beam at position $x$ on the beam ($0 < x < 10$).
+You know that the
+constants are such that this satisfies the equation $y_{tt} + 9 y_{xxxx} =
+0$.   Suppose you know that the initial shape of the beam is the graph of
+$\sin(\pi x)$, and the initial velocity is uniformly equal to $x(10-x)$.
+Set up the equation together with the
+boundary and initial conditions.  Just set up, do not solve.
+\end{exercise}
+\exsol{%
+$9 y_{xxxx} + y_{tt} = 0 \quad (0 < x < 10, t > 0)$, \quad
+$y(0,t) = y_{x}(0,t) = 0$, \quad
+$y(10,t) = y_{x}(10,t) = 0$, \quad
+$y(x,0) = \sin(\pi x), \quad y_{t}(x,0) = x(10-x)$.
+}
+

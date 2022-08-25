@@ -1,0 +1,1104 @@
+\section{Matrix exponentials} \label{sec:matexp}
+
+\LAtt{3.8}
+
+\LO{
+\item Compute the exponential of a matrix and
+\item Use the matrix exponential to solve linear systems of differential equations.
+}
+
+\subsection{Definition}
+
+There is another way of finding a fundamental
+matrix solution of a system.  Consider the constant
+coefficient equation
+\begin{equation*}
+{\vec{x}}' = P \vec{x} .
+\end{equation*}
+If this would be just one equation (when $P$ is a number or a $1
+\times 1$ matrix), then the solution would be
+\begin{equation*}
+\vec{x} = e^{Pt} .
+\end{equation*}
+That doesn't make sense if $P$ is a larger matrix, but
+essentially the same computation that led to the above
+works for matrices when we define
+$e^{Pt}$ properly.  First let us write down the Taylor series for $e^{at}$
+for some number $a$:
+\begin{equation*}
+e^{at} = 1 + at
++ \frac{{(at)}^2}{2}
++ \frac{{(at)}^3}{6}
++ \frac{{(at)}^4}{24}
++ \cdots
+= \sum_{k=0}^\infty \frac{{(at)}^k}{k!} .
+\end{equation*}
+Recall $k! = 1 \cdot 2 \cdot 3 \cdots k$ is the factorial, and $0! = 1$.
+We differentiate this series term by term
+\begin{equation*}
+\frac{d}{dt} \left(e^{at} \right) = 
+0
++ a
++ a^2 t
++ \frac{a^3t^2}{2}
++ \frac{a^4t^3}{6}
++ \cdots
+= a \left(
+1
++ a t
++ \frac{{(at)}^2}{2}
++ \frac{{(at)}^3}{6}
++ \cdots \right)
+= a e^{at}.
+\end{equation*}
+Maybe we can try the same trick with matrices.
+\begin{definition}
+For an $n \times n$
+matrix $A$ we define the
+\emph{\myindex{matrix exponential}\index{exponential of a matrix}} as
+\begin{equation*}
+% \mybxbg{~~
+e^A \overset{\text{def}}{=} I + A + \frac{1}{2} A^2 + 
+\frac{1}{6} A^3 + \cdots + \frac{1}{k!} A^k + \cdots
+% ~~}
+\end{equation*}
+\end{definition}
+Let us not worry about convergence.  The series really does
+always converge.
+We usually write $Pt$ as $tP$ by convention when $P$ is a matrix.
+With this small change and by the exact same
+calculation as above
+we have that
+\begin{equation*}
+\frac{d}{dt} \left(e^{tP} \right) = 
+P e^{tP} .
+\end{equation*}
+Now $P$ and hence $e^{tP}$ is an $n \times n$ matrix.  What we are looking
+for is a vector.  In the $1 \times 1$ case we would at this
+point multiply by an arbitrary constant to get the general solution.  In the
+matrix case we multiply by a column vector $\vec{c}$.
+
+\begin{theorem1}{}
+Let $P$ be an $n \times n$ matrix.  Then the general solution to
+${\vec{x}}' = P \vec{x}$ is
+\begin{equation*}
+\vec{x} = e^{tP} \vec{c} ,
+\end{equation*}
+where $\vec{c}$ is an arbitrary constant vector.  In fact, $\vec{x}(0) =
+\vec{c}$.
+\end{theorem1}
+
+Let us check:
+\begin{equation*}
+\frac{d}{dt}
+\vec{x} =
+\frac{d}{dt} \left( 
+e^{tP} \vec{c}\, \right)
+=
+P e^{tP} \vec{c} =
+P \vec{x}.
+\end{equation*}
+
+Hence $e^{tP}$ is a \myindex{fundamental matrix solution}
+of the homogeneous system.
+So if we can compute the matrix exponential,
+we have another method of solving constant coefficient homogeneous
+systems.  It also makes it easy to solve for initial conditions.  To solve 
+${\vec{x}}' = A \vec{x}$, $\vec{x}(0) = \vec{b}$, we take the solution
+\begin{equation*}
+\vec{x} = e^{tA} \vec{b} .
+\end{equation*}
+This equation follows because $e^{0A} = I$,
+so $\vec{x} (0) = e^{0A} \vec{b} = \vec{b}$.
+
+\medskip
+
+We mention a drawback of matrix exponentials.
+In general $e^{A+B} \not= e^A e^B$.  The trouble is that matrices do
+not commute, that is, in general $AB \not= BA$.
+If you try to prove $e^{A+B} \not= e^A e^B$ using the Taylor series,
+you will see why the lack of commutativity becomes a problem.
+However, it is still true that if
+$AB = BA$, that is, if $A$ and $B$ commute, then $e^{A+B} = e^Ae^B$.  We will
+find this fact useful.  Let us restate this as a theorem to make a point.
+
+\begin{theorem1}{}
+If $AB = BA$, then $e^{A+B} = e^Ae^B$.  Otherwise,
+$e^{A+B} \not= e^Ae^B$ in general.
+\end{theorem1}
+
+\subsection{Simple cases}
+
+In some instances it may work to just plug into the series definition.
+Suppose the matrix is diagonal\index{diagonal matrix!matrix exponential of}.
+For example,
+$D = \left[ \begin{smallmatrix} a & 0 \\ 0 & b \end{smallmatrix} \right]$.
+Then 
+\begin{equation*}
+D^k = \begin{bmatrix} a^k & 0 \\ 0 & b^k \end{bmatrix} ,
+\end{equation*}
+and
+\begin{equation*}
+\begin{split}
+e^D & =
+I + D + \frac{1}{2} D^2 + 
+\frac{1}{6} D^3 + \cdots
+\\
+&=
+\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix} +
+\begin{bmatrix} a & 0 \\ 0 & b \end{bmatrix} +
+\frac{1}{2}
+\begin{bmatrix} a^2 & 0 \\ 0 & b^2 \end{bmatrix} +
+\frac{1}{6}
+\begin{bmatrix} a^3 & 0 \\ 0 & b^3 \end{bmatrix} + \cdots
+=
+\begin{bmatrix} e^a & 0 \\ 0 & e^b \end{bmatrix} .
+\end{split}
+\end{equation*}
+So by this rationale
+\begin{equation*}
+e^I = \begin{bmatrix} e & 0\\ 0 & e \end{bmatrix}
+\qquad \text{and} \qquad
+e^{aI} = \begin{bmatrix} e^a & 0\\ 0 & e^a \end{bmatrix}.
+\end{equation*}
+
+This makes exponentials of certain other matrices easy to compute.  
+For example, the matrix
+$A = \left[ \begin{smallmatrix} 5 & 4 \\ -1 & 1 \end{smallmatrix} \right]$
+can be written as
+$3I + B$ where
+$B = \left[ \begin{smallmatrix} 2 & 4 \\ -1 & -2 \end{smallmatrix} \right]$.
+Notice that $B^2 = 
+\left[ \begin{smallmatrix} 0 & 0 \\ 0 & 0 \end{smallmatrix} \right]$.  So
+$B^k = 0$ for all $k \geq 2$.  Therefore, $e^B = I + B$.  Suppose we
+actually want to compute $e^{tA}$.  The matrices $3tI$ and $tB$ commute
+(exercise: check this)
+and $e^{tB} = I + tB$, since ${(tB)}^2 = t^2 B^2 = 0$.
+We write
+\begin{multline*}
+e^{tA} = 
+e^{3tI + tB} = e^{3tI} e^{tB} = 
+\begin{bmatrix} e^{3t} & 0 \\ 0 & e^{3t} \end{bmatrix}
+\left(
+I + tB
+\right)
+=
+\\
+=
+\begin{bmatrix} e^{3t} & 0 \\ 0 & e^{3t} \end{bmatrix}
+\begin{bmatrix} 1+2t & 4t \\ -t & 1-2t \end{bmatrix}
+=
+\begin{bmatrix} (1+2t)\,e^{3t} & 4te^{3t} \\ -te^{3t} & (1-2t)\,e^{3t} \end{bmatrix} .
+\end{multline*}
+We found a fundamental matrix solution for the
+system ${\vec{x}}' = A \vec{x}$.  Note that this matrix has a repeated
+eigenvalue with a defect; there is only one eigenvector for the eigenvalue
+3.  So we found a perhaps easier way to handle this case.  In fact, if
+a matrix $A$ is $2 \times 2$ and has an eigenvalue $\lambda$ of multiplicity
+2, then
+either $A = \lambda I$, or $A = \lambda I + B$ where $B^2 = 0$.  This is a
+good exercise.
+
+\begin{exercise}%[challenging] No longer challenging with the hint?
+Suppose that $A$ is $2 \times 2$ and $\lambda$
+is the only eigenvalue.  Show that ${(A - \lambda I)}^2 = 0$, and therefore
+that we can write $A = \lambda I + B$, where $B^2 = 0$ (and possibly $B=0$).
+Hint: First
+write down what does it mean for the eigenvalue to be of multiplicity 2.
+You will get
+an equation for the entries.  Now compute the square of $B$.
+\end{exercise}
+
+Matrices $B$ such that $B^k = 0$ for some $k$ are called
+\emph{\myindex{nilpotent}}.  Computation of the matrix exponential for
+nilpotent matrices is easy by just writing down the first $k$ terms of
+the Taylor series.
+
+\subsection{General matrices}
+
+In general, the exponential is not as easy to compute as above.  We usually
+cannot write a matrix as a sum of commuting matrices where the exponential
+is simple for each one.  But fear not, it is still not too difficult provided
+we can find enough eigenvectors.  First we need the following interesting
+result about matrix exponentials.  For two square matrices $A$ and $B$, with
+$B$ invertible,
+we have
+\begin{equation*}
+e^{BAB^{-1}} = B e^A B^{-1} .
+\end{equation*}
+This can be seen by writing down the Taylor series.  First 
+\begin{equation*}
+{(BAB^{-1})}^2 =
+BAB^{-1} BAB^{-1} =
+BAIAB^{-1} =
+BA^2B^{-1} .
+\end{equation*}
+And by the same reasoning ${(BAB^{-1})}^k = B A^k B^{-1}$.  Now write 
+the Taylor series for
+$e^{BAB^{-1}}$:
+\begin{equation*}
+\begin{split}
+e^{BAB^{-1}} & =
+I + {BAB^{-1}} + \frac{1}{2} {(BAB^{-1})}^2 + 
+\frac{1}{6} {(BAB^{-1})}^3 + \cdots
+\\
+& =
+BB^{-1} + {BAB^{-1}} + \frac{1}{2} BA^2B^{-1} + 
+\frac{1}{6} BA^3B^{-1} + \cdots
+\\
+& =
+B \bigl(
+I + A + \frac{1}{2} A^2 + 
+\frac{1}{6} A^3 + \cdots \bigr) B^{-1} \\
+& = B e^A B^{-1} .
+\end{split}
+\end{equation*}
+
+Given a square matrix $A$, 
+we can usually write $A = E D E^{-1}$, where $D$ is
+diagonal and $E$ invertible.
+This procedure is called \emph{\myindex{diagonalization}}.
+If we can do
+that, the computation  of the
+exponential becomes easy as $e^D$ is just taking the exponential of
+the entries on the diagonal.  Adding $t$ into the mix, 
+we can then compute the exponential
+\begin{equation*}
+e^{tA} = E e^{tD} E^{-1} .
+\end{equation*}
+
+To diagonalize $A$
+we need $n$ linearly independent eigenvectors of $A$.
+Otherwise, this method of computing the exponential does not work and we need to be trickier, but we will
+not get into such details.
+Let $E$ be the matrix with the eigenvectors as columns.  
+Let $\lambda_1$, $\lambda_2$, \ldots, $\lambda_n$ be the eigenvalues and
+let $\vec{v}_1$, $\vec{v}_2$, \ldots, $\vec{v}_n$ be the eigenvectors, then
+$E = [\, \vec{v}_1 \quad \vec{v}_2 \quad \cdots \quad \vec{v}_n \,]$.
+Make a diagonal matrix $D$ with the eigenvalues on the diagonal:
+\begin{equation*}
+D =
+\begin{bmatrix}
+\lambda_1 & 0 & \cdots & 0 \\
+0 & \lambda_2 & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & \lambda_n
+\end{bmatrix} .
+\end{equation*}
+We compute
+\begin{equation*}
+\begin{split}
+AE & = A 
+[\, \vec{v}_1 \quad \vec{v}_2 \quad \cdots \quad \vec{v}_n \,]
+\\
+& =
+[\, A\vec{v}_1 \quad A\vec{v}_2 \quad \cdots \quad A\vec{v}_n \,]
+\\
+& =
+[\, \lambda_1 \vec{v}_1 \quad \lambda_2 \vec{v}_2 \quad \cdots \quad
+\lambda_n \vec{v}_n \,]
+\\
+& =
+[\, \vec{v}_1 \quad \vec{v}_2 \quad \cdots \quad \vec{v}_n \,] D
+\\
+& =
+ED .
+\end{split}
+\end{equation*}
+The columns of $E$ are linearly independent as these are
+linearly independent eigenvectors of
+$A$.  Hence $E$ is invertible.
+Since $AE = ED$, we multiply on the right by $E^{-1}$ and we get
+\begin{equation*}
+A = E D E^{-1}.
+\end{equation*}
+This means that $e^A = E e^D E^{-1}$.  Multiplying the matrix by $t$ we obtain
+\begin{equation} \label{matexp:diagfundsol}
+\mybxbg{~~
+e^{tA} = 
+Ee^{tD}E^{-1} = 
+E
+\begin{bmatrix}
+e^{\lambda_1 t} & 0 & \cdots & 0 \\
+0 & e^{\lambda_2 t} & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & e^{\lambda_n t}
+\end{bmatrix} 
+E^{-1} .
+~~}
+\end{equation}
+The formula \eqref{matexp:diagfundsol}, therefore, gives the formula
+for computing a fundamental matrix solution $e^{tA}$ for the
+system ${\vec{x}}' = A \vec{x}$, in the case where we have
+$n$ linearly independent eigenvectors.
+
+This computation still works when the eigenvalues and
+eigenvectors are complex, though then you have to compute with complex
+numbers.  It is clear from the definition that if $A$ is real,
+then $e^{tA}$ is real.  So you will only need complex numbers in the
+computation and not for the result.  You may need to apply
+\hyperref[eulersformula]{Euler's formula} to simplify the
+result.  If simplified properly, the final matrix will not have any complex
+numbers in it.
+
+\begin{example}
+Compute a fundamental matrix solution using the matrix exponential
+for the system
+\begin{equation*}
+\begin{bmatrix}
+x \\ y
+\end{bmatrix} '
+=
+\begin{bmatrix}
+1 & 2 \\
+2 & 1
+\end{bmatrix}
+\begin{bmatrix}
+x \\ y
+\end{bmatrix} .
+\end{equation*}
+Then compute the particular solution for the initial conditions
+$x(0) = 4$ and $y(0) = 2$.
+
+Let $A$ be the coefficient matrix $\left[ \begin{smallmatrix}
+1 & 2 \\
+2 & 1
+\end{smallmatrix} \right]$.
+We first compute (exercise) that the eigenvalues are 3 and $-1$ and 
+corresponding eigenvectors are
+$\left[ \begin{smallmatrix} 1 \\ 1 \end{smallmatrix} \right]$ and
+$\left[ \begin{smallmatrix} 1 \\ -1 \end{smallmatrix} \right]$.
+Hence the diagonalization of $A$ is
+\begin{equation*}
+\underbrace{
+\begin{bmatrix}
+1 & 2 \\
+2 & 1
+\end{bmatrix}
+}_{A}
+=
+\underbrace{
+\begin{bmatrix}
+1 & 1 \\
+1 & -1
+\end{bmatrix}
+}_{E}
+\underbrace{
+\begin{bmatrix}
+3 & 0 \\
+0 & -1
+\end{bmatrix}
+}_{D}
+\underbrace{
+\begin{bmatrix}
+1 & 1 \\
+1 & -1
+\end{bmatrix}^{-1}
+}_{E^{-1}} .
+\end{equation*}
+We write
+\begin{equation*}
+\begin{split}
+e^{t A}
+=
+E e^{tD} E^{-1}
+& =
+\begin{bmatrix}
+1 & 1 \\
+1 & -1
+\end{bmatrix}
+\begin{bmatrix}
+e^{3t} & 0 \\
+0 & e^{-t}
+\end{bmatrix}
+\begin{bmatrix}
+1 & 1 \\
+1 & -1
+\end{bmatrix}^{-1}
+\\
+& =
+\begin{bmatrix}
+1 & 1 \\
+1 & -1
+\end{bmatrix}
+\begin{bmatrix}
+e^{3t} & 0 \\
+0 & e^{-t}
+\end{bmatrix}
+\frac{-1}{2}
+\begin{bmatrix}
+-1 & -1 \\
+-1 & 1
+\end{bmatrix}
+\\
+& =
+\frac{-1}{2}
+\begin{bmatrix}
+e^{3t} & e^{-t} \\
+e^{3t} & -e^{-t}
+\end{bmatrix}
+\begin{bmatrix}
+-1 & -1 \\
+-1 & 1
+\end{bmatrix}
+\\
+& =
+\frac{-1}{2}
+\begin{bmatrix}
+-e^{3t}-e^{-t} & -e^{3t}+e^{-t} \\
+-e^{3t}+e^{-t} & -e^{3t}-e^{-t}
+\end{bmatrix}
+ =
+\begin{bmatrix}
+\frac{e^{3t}+e^{-t}}{2} & \frac{e^{3t}-e^{-t}}{2} \\
+\frac{e^{3t}-e^{-t}}{2} & \frac{e^{3t}+e^{-t}}{2}
+\end{bmatrix} .
+\end{split}
+\end{equation*}
+
+The initial conditions are $x(0) = 4$ and $y(0) = 2$.  Hence, by the property
+that $e^{0A} = I$ we find that the particular solution we are looking for
+is $e^{tA} \vec{b}$ where $\vec{b}$ is $\left[
+\begin{smallmatrix} 4 \\ 2 \end{smallmatrix} \right]$.
+Then the particular solution we are looking for is
+\begin{equation*}
+\begin{bmatrix}
+x \\ y
+\end{bmatrix}
+=
+\begin{bmatrix}
+\frac{e^{3t}+e^{-t}}{2} & \frac{e^{3t}-e^{-t}}{2} \\
+\frac{e^{3t}-e^{-t}}{2} & \frac{e^{3t}+e^{-t}}{2}
+\end{bmatrix}
+\begin{bmatrix}
+4 \\ 2
+\end{bmatrix}
+=
+\begin{bmatrix}
+2e^{3t}+2e^{-t} + e^{3t}-e^{-t} \\
+2e^{3t}-2e^{-t} + e^{3t}+e^{-t}
+\end{bmatrix}
+=
+\begin{bmatrix}
+3e^{3t}+e^{-t} \\
+3e^{3t}-e^{-t}
+\end{bmatrix} .
+\end{equation*}
+\end{example}
+
+\subsection{Fundamental matrix solutions}
+
+We note that if you can compute a fundamental matrix solution
+in a different way, you can use this to find the matrix exponential $e^{tA}$.
+A fundamental matrix solution of a system of ODEs is not unique.  The
+exponential is the fundamental matrix solution with the property that
+for $t=0$ we get the identity matrix.  So we
+must find the right fundamental matrix solution.  Let $X$ be any fundamental
+matrix solution to ${\vec{x}}' = A \vec{x}$.  Then we claim
+\begin{equation*}
+e^{tA} = X(t) \left[ X(0) \right]^{-1} .
+\end{equation*}
+Clearly, if we plug $t=0$ into 
+$X(t) \left[ X(0) \right]^{-1}$ we get the identity.  
+We can multiply a fundamental matrix solution on the right by any
+constant invertible matrix and we still get a fundamental matrix solution.
+All we are doing is changing what are the arbitrary constants in the general
+solution $\vec{x}(t) = X(t)\, \vec{c}$.
+
+\subsection{Approximations}
+
+If you think about it, the computation of any fundamental matrix solution
+$X$ using the eigenvalue method is
+just as difficult as the computation of $e^{tA}$.
+So perhaps we did not gain
+much by this new tool.  However, the Taylor series expansion actually gives
+us a way to approximate solutions, which the eigenvalue method did
+not.
+
+The simplest thing we can do
+is to just compute the series up to a certain number of terms.  There
+are better ways to approximate the exponential%
+\footnote{C.\ Moler and C.F.\ Van Loan, \emph{Nineteen Dubious Ways
+to Compute the Exponential of a Matrix, Twenty-Five Years Later}, SIAM Review
+45 (1), 2003, 3--49}.  In many cases however,
+few terms of the Taylor series give
+a reasonable approximation for the exponential and may suffice for
+the application.  For example, let us compute the first 4 terms of the
+series for the matrix $A = 
+\left[ \begin{smallmatrix}
+1 & 2 \\
+2 & 1
+\end{smallmatrix} \right]$.
+\begin{multline*}
+e^{tA}
+\approx
+I + tA + \frac{t^2}{2}A^2 + \frac{t^3}{6}A^3
+=
+I + t
+\begin{bmatrix}
+1 & 2 \\
+\noalign{\smallskip}
+2 & 1
+\end{bmatrix}
++ t^2
+\begin{bmatrix}
+\frac{5}{2} & 2 \\
+\noalign{\smallskip}
+2 & \frac{5}{2}
+\end{bmatrix}
++ t^3
+\begin{bmatrix}
+\frac{13}{6} & \frac{7}{3} \\
+\noalign{\smallskip}
+\frac{7}{3} & \frac{13}{6}
+\end{bmatrix}
+=
+\\
+=
+\begin{bmatrix}
+1 + t + \frac{5}{2}\, t^2 + \frac{13}{6}\, t^3 &
+   2\,t + 2\, t^2   + \frac{7}{3}\, t^3 \\
+\noalign{\smallskip}
+   2\,t + 2\, t^2   + \frac{7}{3}\, t^3 &
+1 + t + \frac{5}{2}\, t^2 + \frac{13}{6}\, t^3
+\end{bmatrix} .
+\end{multline*}
+Just like the scalar version of the Taylor series approximation, the
+approximation will be better for small $t$ and worse for larger $t$.  For
+larger $t$, we will generally have to compute more terms.
+Let us see how we stack up against the real solution with $t=0.1$.  The
+approximate solution is approximately (rounded to 8 decimal places)
+\begin{equation*}
+e^{0.1\,A} \approx
+I + 0.1\,A + \frac{0.1^2}{2}A^2 + \frac{0.1^3}{6}A^3
+=
+\begin{bmatrix}
+1.12716667 & 0.22233333 \\
+0.22233333 & 1.12716667 \\
+\end{bmatrix} .
+\end{equation*}
+And plugging $t=0.1$ into the real solution (rounded to 8 decimal places) we get
+\begin{equation*}
+e^{0.1\,A} = 
+\begin{bmatrix}
+1.12734811 & 0.22251069 \\
+0.22251069 & 1.12734811
+\end{bmatrix} .
+\end{equation*}
+Not bad at all!  Although if we take the same approximation for $t=1$
+we get
+\begin{equation*}
+I + A + \frac{1}{2}A^2 + \frac{1}{6}A^3
+=
+\begin{bmatrix}
+6.66666667 & 6.33333333 \\
+6.33333333 & 6.66666667
+\end{bmatrix} ,
+\end{equation*}
+while the real value is (again rounded to 8 decimal places)
+\begin{equation*}
+e^{A} =
+\begin{bmatrix}
+10.22670818           & \phantom{0}9.85882874 \\
+\phantom{0}9.85882874 & 10.22670818
+\end{bmatrix} .
+\end{equation*}
+So the approximation is not very good once we get up to $t=1$.  To get a good
+approximation at $t=1$ (say up to 2 decimal places) we would need to go up to
+the ${11}^{\text{th}}$ power (exercise).
+
+\subsection{Non-Homogeneous Systems}
+\subsubsection{Integrating factor}
+
+Now that we have matrix exponentials, we can try to use them to help us solve non-homogeneous systems of differential equations. First, let's recall what we did for first order equations. If we have an equation of the form 
+\begin{equation*}
+x'(t) + p x(t) = f(t)
+\end{equation*}
+where will assume that $p$ is constant (even though it doesn't have to be). We would go about solving this problem by multiplying both sides of the equation by $e^{pt}$, writing the left-hand side as a product rule, integrating both sides, and solving. 
+
+With matrix exponentials, we can do exactly the same thing with first order systems. Let us focus on the nonhomogeneous first order equation
+\begin{equation*}
+{\vec{x}}'(t) = A\vec{x}(t) + \vec{f}(t) ,
+\end{equation*}
+where $A$ is a constant matrix.  The method we look at here is the
+\emph{integrating factor method\index{integrating factor method!for systems}}.
+For simplicity we rewrite the equation as
+\begin{equation*}
+{\vec{x}}'(t) + P \vec{x}(t) = \vec{f}(t) ,
+\end{equation*}
+where $P = -A$.
+We multiply both sides of the
+equation by $e^{tP}$ (being mindful that we are dealing with matrices that
+may not commute) to obtain
+\begin{equation*}
+e^{tP}{\vec{x}}'(t) + e^{tP}P\vec{x}(t) = e^{tP}\vec{f}(t) .
+\end{equation*}
+We notice that $P e^{tP} = e^{tP} P$.  This fact follows by writing
+down the series definition of $e^{tP}$:
+\begin{equation*}
+\begin{split}
+P e^{tP} & = 
+P \left(
+I + tP + \frac{1}{2} {(tP)}^2 + \cdots \right)
+=
+P + tP^2 + \frac{1}{2} t^2P^3 + \cdots
+=
+\\
+& =
+\left(
+I + tP + \frac{1}{2} {(tP)}^2 + \cdots \right) P 
+= e^{tP} P . 
+\end{split}
+\end{equation*}
+So $\frac{d}{dt} \left( e^{tP} \right) = P e^{tP} = e^{tP} P$.  The product
+rule says
+\begin{equation*}
+\frac{d}{dt}
+\Bigl( e^{tP} \vec{x}(t) \Bigr) =
+e^{tP}{\vec{x}}'(t) + e^{tP}P\vec{x}(t),
+\end{equation*}
+and so
+\begin{equation*}
+\frac{d}{dt}
+\Bigl( e^{tP} \vec{x}(t) \Bigr) = e^{tP}\vec{f}(t) .
+\end{equation*}
+We can now integrate.  That is, we integrate each component of the vector
+separately
+\begin{equation*}
+e^{tP} \vec{x}(t) = \int e^{tP}\vec{f}(t) \, dt + \vec{c} .
+\end{equation*}
+In \exerciseref{matexp:expinvex}, you will compute and verify that ${(e^{tP})}^{-1} = e^{-tP}$.
+Therefore, we obtain
+\begin{equation*}
+\vec{x}(t) = e^{-tP} \int e^{tP}\vec{f}(t) \, dt + e^{-tP} \vec{c} .
+\end{equation*}
+
+Perhaps it is better understood as a definite integral.  In this case
+it will be easy to also solve for the initial conditions.
+Consider the
+equation with initial conditions
+\begin{equation*}
+{\vec{x}}'(t) + P\vec{x}(t) = \vec{f}(t) ,
+\qquad \vec{x}(0) = \vec{b} .
+\end{equation*}
+The solution can then be written as
+\begin{equation} \label{nhsys:intfacsoleq}
+\mybxbg{~~
+\vec{x}(t) = e^{-tP} \int_0^t e^{sP}\vec{f}(s) \, ds + e^{-tP} \vec{b} .
+~~}
+\end{equation}
+Again, the integration means that each component of the vector 
+$e^{sP}\vec{f}(s)$ is integrated separately.
+It is not hard to see that \eqref{nhsys:intfacsoleq} really does satisfy the
+initial condition $\vec{x}(0) = \vec{b}$.
+\begin{equation*}
+\vec{x}(0) = e^{-0P} \int_0^0 e^{sP}\vec{f}(s) \, ds + e^{-0P} \vec{b}
+= I \vec{b} = \vec{b} .
+\end{equation*}
+
+\begin{example}
+Suppose that we have the system
+\begin{align*}
+x_1' + 5x_1 - 3x_2 &= e^t , \\
+x_2' + 3x_1 - x_2 &= 0 ,
+\end{align*}
+with initial conditions $x_1(0) = 1, x_2(0) = 0$.
+\end{example}
+
+\begin{exampleSol}
+Let us write the system as
+\begin{equation*}
+{\vec{x}}' +
+\begin{bmatrix} 5 & -3 \\ 3 & -1 \end{bmatrix}
+\vec{x} =
+\begin{bmatrix} e^t \\ 0 \end{bmatrix} ,
+\qquad
+\vec{x}(0) = 
+\begin{bmatrix} 1 \\ 0 \end{bmatrix} .
+\end{equation*}
+The matrix
+$P = \left[
+\begin{smallmatrix} 5 & -3 \\ 3 & -1 \end{smallmatrix} \right]$
+has a doubled eigenvalue 2 with defect 1, and we leave it as an exercise
+to double check we computed $e^{tP}$ correctly.  Once we have
+$e^{tP}$, we find $e^{-tP}$, simply by negating $t$.
+\begin{equation*}
+e^{tP} = 
+\begin{bmatrix}
+(1+3t)\,e^{2t} & -3te^{2t} \\
+3te^{2t} & (1-3t)\,e^{2t}
+\end{bmatrix}
+, \qquad
+e^{-tP} = 
+\begin{bmatrix}
+(1-3t)\,e^{-2t} & 3te^{-2t} \\
+-3te^{-2t} & (1+3t)\,e^{-2t}
+\end{bmatrix}
+.
+\end{equation*}
+Instead of computing the whole formula at once, let us do it in stages.
+First
+\begin{equation*}
+\begin{split}
+\int_0^t e^{sP}\vec{f}(s) \, ds & = 
+\int_0^t
+ \begin{bmatrix}
+ (1+3s)\,e^{2s} & -3se^{2s} \\
+ 3se^{2s} & (1-3s)\,e^{2s}
+ \end{bmatrix}
+ \begin{bmatrix} e^{s} \\ 0 \end{bmatrix}
+\, ds
+\\
+& =
+\int_0^t
+ \begin{bmatrix}
+ (1+3s)\,e^{3s} \\
+ 3se^{3s}
+ \end{bmatrix}
+\, ds
+\\
+ &=
+ \begin{bmatrix}
+ \int_0^t (1+3s)\,e^{3s} \,ds \\
+ \int_0^t 3se^{3s} \,ds
+ \end{bmatrix}
+\\
+& =
+\begin{bmatrix}
+t e^{3t} \\
+\frac{(3t-1) \,e^{3t} + 1}{3}
+\end{bmatrix} %.
+\qquad \qquad \text{(used integration by parts).}
+\end{split}
+\end{equation*}
+Then
+\begin{equation*}
+\begin{split}
+\vec{x}(t)
+& = e^{-tP} \int_0^t e^{sP}\vec{f}(s) \, ds + e^{-tP} \vec{b} \\
+& =
+\begin{bmatrix}
+(1-3t)\,e^{-2t} & 3te^{-2t} \\
+-3te^{-2t} & (1+3t)\,e^{-2t}
+\end{bmatrix}
+\begin{bmatrix}
+t e^{3t} \\
+\frac{(3t-1) \,e^{3t} + 1}{3}
+\end{bmatrix}
++
+\begin{bmatrix}
+(1-3t)\,e^{-2t} & 3te^{-2t} \\
+-3te^{-2t} & (1+3t)\,e^{-2t}
+\end{bmatrix}
+\begin{bmatrix} 1 \\ 0 \end{bmatrix} \\
+& =
+\begin{bmatrix}
+te^{-2t} \\
+-\frac{e^t}{3}+\left( \frac{1}{3} + t \right) \, e^{-2t}
+\end{bmatrix}
++
+\begin{bmatrix}
+(1-3t)\,e^{-2t} \\
+-3te^{-2t}
+\end{bmatrix} \\
+& =
+\begin{bmatrix}
+(1-2t)\,e^{-2t} \\
+-\frac{e^t}{3}+\left( \frac{1}{3} -2 t \right) \, e^{-2t}
+\end{bmatrix} .
+\end{split}
+\end{equation*}
+Phew!
+
+Let us check that this really works.
+\begin{equation*}
+x_1' + 5 x_1 - 3x_2 = (4te^{-2t} - 4 e^{-2t}) + 5
+(1-2t)\,e^{-2t} 
++e^t-( 1 -6 t ) \, e^{-2t} = e^t .
+\end{equation*}
+Similarly (exercise) $x_2' + 3 x_1 - x_2 = 0$.   The initial conditions are
+also satisfied (exercise).
+\end{exampleSol}
+
+For systems, the integrating factor method
+only works if $P$ does not depend on $t$, that is,
+$P$ is constant.  The
+problem is that in general
+\begin{equation*}
+\frac{d}{dt} \left[ e^{\int P(t)\,dt} \right] \not= P(t) \, e^{\int P(t)\,dt} ,
+\end{equation*}
+because matrix multiplication is not commutative.
+
+\subsection{Exercises}
+
+\begin{exercise}
+Using the matrix exponential,
+find a fundamental matrix solution for the system
+$x' = 3x+y$, $y' = x+3y$.
+\end{exercise}
+
+\begin{exercise}
+Find $e^{tA}$ for the matrix $A =
+\left[ \begin{smallmatrix}
+2 & 3 \\
+0 & 2
+\end{smallmatrix} \right]$.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Compute
+$e^{tA}$ where
+$A=\left[ \begin{smallmatrix}
+1 & -2 \\
+-2 & 1 
+\end{smallmatrix}\right]$.
+\end{exercise}
+\exsol{%
+$e^{tA}=\left[ \begin{smallmatrix}
+\frac{{e}^{3t}+{e}^{-t}}{2} & \quad
+\frac{{e}^{-t}-{e}^{3t}}{2}\\
+\frac{{e}^{-t}-{e}^{3t}}{2} & \quad
+\frac{{e}^{3t}+{e}^{-t}}{2}
+\end{smallmatrix}\right]$
+}
+
+\begin{exercise}\ansMark%
+Compute
+$e^{tA}$ where
+$A=\left[ \begin{smallmatrix}
+1 & -3 & 2 \\
+-2 & 1 & 2 \\
+-1 & -3 & 4
+\end{smallmatrix}\right]$.
+\end{exercise}
+\exsol{%
+$e^{tA}=\left[ \begin{smallmatrix}
+2{e}^{3t}-4{e}^{2t}+3{e}^{t} & \quad
+\frac{3{e}^{t}}{2}-\frac{3{e}^{3t}}{2} & \quad
+-{e}^{3t}+4{e}^{2t}-3{e}^{t} \\
+2{e}^{t}-2{e}^{2t} & \quad
+{e}^{t} & \quad
+2{e}^{2t}-2{e}^{t} \\
+2{e}^{3t}-5{e}^{2t}+3{e}^{t} & \quad
+\frac{3{e}^{t}}{2}-\frac{3{e}^{3t}}{2} & \quad
+-{e}^{3t}+5{e}^{2t}-3{e}^{t}
+\end{smallmatrix}\right]$
+}
+
+\begin{exercise}\ansMark%
+\pagebreak[2]
+\leavevmode
+\begin{tasks}(2)
+\task
+Compute
+$e^{tA}$ where
+$A=\left[ \begin{smallmatrix}
+3 & -1 \\
+1 & 1 
+\end{smallmatrix}\right]$.
+\task
+Solve $\vec{x}\,' = A \vec{x}$
+for $\vec{x}(0) =
+\left[ \begin{smallmatrix}
+1 \\ 2
+\end{smallmatrix}\right]$.
+\end{tasks}
+\end{exercise}
+\exsol{%
+a) $e^{tA}=\left[ \begin{smallmatrix}
+( t+1) \,{e}^{2t} & -t{e}^{2t} \\
+t{e}^{2t} & ( 1-t) \,{e}^{2t}
+\end{smallmatrix}\right]$
+\quad
+b) $\vec{x}=\left[ \begin{smallmatrix}
+(1-t) \,{e}^{2t} \\
+(2-t) \,{e}^{2t}
+\end{smallmatrix}\right]$
+}
+
+\begin{exercise}
+Find a fundamental matrix solution for the system
+$x_1' = 7x_1+4x_2+ 12x_3$,
+$x_2' = x_1+2x_2+x_3$,
+$x_3' = -3x_1-2x_2- 5x_3$.  Then find the solution that
+satisfies $\vec{x}(0) = 
+\left[ \begin{smallmatrix} 0 \\ 1 \\ -2 \end{smallmatrix} \right]$.
+\end{exercise}
+
+\begin{exercise}
+Compute the matrix exponential $e^A$ for
+$A = \left[ \begin{smallmatrix} 1 & 2 \\ 0 & 1 \end{smallmatrix} \right]$.
+\end{exercise}
+
+\begin{exercise}[challenging] \label{matexp:explawex}
+Suppose $AB = BA$.  Show that under this assumption, $e^{A+B} = e^A e^B$.
+\end{exercise}
+
+\begin{exercise} \label{matexp:expinvex}
+Use \exerciseref{matexp:explawex}
+to show that ${(e^{A})}^{-1} = e^{-A}$.  In particular
+this means that $e^A$ is invertible even if $A$ is not.
+\end{exercise}
+
+\begin{exercise}
+Let $A$ be a $2 \times 2$ matrix with eigenvalues $-1$, $1$, and
+corresponding eigenvectors
+$\left[ \begin{smallmatrix}
+1 \\
+1
+\end{smallmatrix} \right]$,
+$\left[ \begin{smallmatrix}
+0 \\
+1
+\end{smallmatrix} \right]$.
+\begin{tasks}
+\task Find matrix $A$ with these properties.
+\task Find a fundamental matrix solution to ${\vec{x}}' = A \vec{x}$.
+\task Solve the system in with initial conditions $\vec{x}(0) =
+\left[ \begin{smallmatrix}
+2 \\
+3
+\end{smallmatrix} \right]$ .
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}
+Suppose that $A$ is an $n \times n$ matrix with a repeated eigenvalue
+$\lambda$ of multiplicity $n$.
+Suppose that there are $n$ linearly independent eigenvectors.  Show that
+the matrix is diagonal, in particular $A = \lambda I$.  Hint: Use
+diagonalization and the fact that the identity matrix commutes with every
+other matrix.
+\end{exercise}
+
+\begin{exercise}
+Let $A = \left[ \begin{smallmatrix}
+-1 & -1 \\
+1 & -3
+\end{smallmatrix} \right]$.
+\begin{tasks}(2)
+\task Find $e^{tA}$.
+\task Solve
+${\vec{x}}' = A \vec{x}$, $\vec{x}(0) =
+\left[ \begin{smallmatrix}
+1 \\
+-2
+\end{smallmatrix} \right]$.
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}
+Let $A = \left[ \begin{smallmatrix}
+1 & 2 \\
+3 & 4 
+\end{smallmatrix} \right]$.
+Approximate $e^{tA}$ by expanding the power series
+up to the third order.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Compute the first 3 terms (up to the second degree) of the Taylor expansion of
+$e^{tA}$ where
+$A=\left[ \begin{smallmatrix}
+2 & 3 \\
+2 & 2 
+\end{smallmatrix}\right]$ (Write as a single matrix).
+Then use it to approximate $e^{0.1A}$.
+\end{exercise}
+\exsol{%
+$\left[ \begin{smallmatrix}
+1+2t+5t^2 & 3t+6t^2 \\
+2t+4t^2 & 1+2t+5t^2
+\end{smallmatrix}\right]$
+\quad
+$e^{0.1A} \approx
+\left[ \begin{smallmatrix}
+1.25 & 0.36 \\
+0.24 & 1.25
+\end{smallmatrix}\right]$
+}
+
+\begin{exercise}
+For any positive integer $n$,
+find a formula (or a recipe) for $A^n$ for the following matrices:
+\begin{tasks}(4)
+\task
+$
+\begin{bmatrix}
+3 & 0 \\ 0 & 9
+\end{bmatrix}
+$
+\task
+$
+\begin{bmatrix}
+5 & 2 \\ 4 & 7
+\end{bmatrix}
+$
+\task
+$
+\begin{bmatrix}
+0 & 1 \\ 0 & 0
+\end{bmatrix}
+$
+\task
+$
+\begin{bmatrix}
+2 & 1 \\ 0 & 2
+\end{bmatrix}
+$
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}\ansMark%
+For any positive integer $n$,
+find a formula (or a recipe) for $A^n$ for the following matrices:
+\begin{tasks}(3)
+\task
+$\begin{bmatrix}
+7 & 4 \\ -5 & -2
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+-3 & 4 \\ -6 & -7
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+0 & 1 \\ 1 & 0
+\end{bmatrix}$
+\end{tasks}
+\end{exercise}
+\exsol{%
+a)
+$\begin{bmatrix}
+5 (3^n)-2^{n+2} & 4 (3^n)-2^{n+2}\\
+5 (2^n)-5 (3^n) & 5 (2^n)-4 (3^n)
+\end{bmatrix}$
+\qquad
+b)
+$\begin{bmatrix}3-2 (3^n) & 2 (3^n)-2\\
+3-3^{n+1} & 3^{n+1}-2\end{bmatrix}$
+\\
+c) 
+$\begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}$
+if $n$ is even,  and
+$\begin{bmatrix}0 & 1 \\ 1 & 0\end{bmatrix}$
+if $n$ is odd.
+}
+
+\begin{exercise}
+Solve the initial value problem
+\[ {\vec{x}}' = \begin{bmatrix} 5 & -6 \\ 3 & -1 \end{bmatrix}\vec{x} + \begin{bmatrix} t \\ 3 \end{bmatrix} \qquad \vec{x}(0) = \begin{bmatrix} 1 \\ -3 \end{bmatrix} \] using matrix exponentials.
+\end{exercise}
+
+\begin{exercise}
+Solve the initial value problem
+\[ {\vec{x}}' = \begin{bmatrix} -4 & 2 \\ -9 & 5 \end{bmatrix}\vec{x} + \begin{bmatrix} e^{3t} \\ e^t - 1 \end{bmatrix} \qquad \vec{x}(0) = \begin{bmatrix} 0 \\ 2 \end{bmatrix} \] using matrix exponentials.
+\end{exercise}
+
+\begin{exercise}
+Solve the initial value problem
+\[ {\vec{x}}' = \begin{bmatrix} 3 & 2 \\ 0 & 4 \end{bmatrix}\vec{x} + \begin{bmatrix} e^{4t} \\ e^{3t} - t \end{bmatrix} \qquad \vec{x}(0) = \begin{bmatrix} 2 \\ -1 \end{bmatrix} \] using matrix exponentials.
+\end{exercise}
+
+\setcounter{exercise}{100}
+

@@ -1,0 +1,586 @@
+\section{Eigenvalues and Eigenvectors}
+\label{eig:section}
+
+\LO{
+\item Find the eigenvalues and eigenvectors of a matrix,
+\item Use complex numbers to find eigenvalues and eigenvectors if necessary, and
+\item Identify the algebraic and geometric multiplicity of an eigenvalue to determine if it is defective.
+}
+
+Consider the matrix \[ A = \begin{bmatrix} 7 & -8 \\ 3 & -3 \end{bmatrix}. \] We
+can compute a few operations with this matrix. For instance
+\[ A\begin{bmatrix} 1 \\ 1\end{bmatrix} = \begin{bmatrix} 7 & -8 \\ 3 & -3 \end{bmatrix}\begin{bmatrix} 1 \\ 1\end{bmatrix} = \begin{bmatrix} -1\\ 0 \end{bmatrix} \] and 
+\[ A\begin{bmatrix} 2 \\ 1\end{bmatrix} = \begin{bmatrix} 7 & -8 \\ 3 & -3 \end{bmatrix}\begin{bmatrix} 2 \\ 1\end{bmatrix} = \begin{bmatrix} 6\\ 3 \end{bmatrix}. \] This last computation is fairly interesting, because the result we get is the same as 3 times the original vector. However, the matrix $A$ does not multiply every vector by 3, as seen in the first example and the fact that \[ A\begin{bmatrix} 4 \\ 3 \end{bmatrix} = \begin{bmatrix} 4 \\ 3 \end{bmatrix} \] so $A$ actually preserves this vector, multiplying it by 1. So, these vectors, $\begin{bmatrix} 2 \\ 1 \end{bmatrix}$ and $\begin{bmatrix} 4 \\ 3 \end{bmatrix}$, and numbers, $3$ and $1$, are somehow special for this matrix $A$. With this information, we want to define these vectors as \emph{\myindex{eigenvectors}} and numbers as \emph{\myindex{eigenvalues}} of the matrix $A$.
+
+\begin{definition}
+For a square matrix $A$, we say that non-zero vector $\vec{v}$ is an \emph{eigenvector} of the matrix $A$ if there exists a number $\lambda$ so that \[ A \vec{v} = \lambda\vec{v}. \] In this case, we say that $\lambda$ is an \emph{eigenvalue} of $A$ and it is the \emph{corresponding eigenvalue} for the eigenvector $\vec{v}$. 
+\end{definition}
+
+Thus, we can say that, for the matrix \[ A = \begin{bmatrix} 7 & -8 \\ 3 & -3 \end{bmatrix}, \] we see that $\begin{bmatrix}2 \\ 1 \end{bmatrix}$ is an eigenvector with corresponding eigenvalue $3$, and that $\begin{bmatrix}4 \\ 3 \end{bmatrix}$ is an eigenvector with corresponding eigenvalue $1$.
+
+Why are these important? It turns out that these eigenvalues and eigenvectors characterize the behavior of the matrix $A$. For example, if we wanted to figure out what happens when $A$ is applied to the vector $\begin{bmatrix} 6 \\ 4 \end{bmatrix}$, we can figure this out as
+\[ \begin{split}
+A\begin{bmatrix} 6 \\ 4 \end{bmatrix} &= A\left(\begin{bmatrix} 4 \\ 3 \end{bmatrix} + \begin{bmatrix} 2 \\ 1 \end{bmatrix} \right) \\
+&= A\begin{bmatrix} 4 \\ 3 \end{bmatrix} + A\begin{bmatrix}2 \\ 1 \end{bmatrix} \\
+&= \begin{bmatrix}4 \\ 3 \end{bmatrix} + 3\begin{bmatrix}2 \\ 1 \end{bmatrix} = \begin{bmatrix} 10 \\ 6 \end{bmatrix}
+\end{split}
+\]
+
+In addition, eigenvectors determine directions in which multiplying by the matrix $A$ behaves just like scalar multiplication. This idea will be very important for our understanding of systems of differential equations, because we have already seen how to solve a scalar first order equation way back in \sectionref{introde:section} and \sectionref{separable:section}. 
+
+\subsection{Finding Eigenvalues and Eigenvectors}
+
+Since eigenvalues and eigenvectors are so important, we want to know how to find them. To do this, we are looking for a number $\lambda$ and a non-zero vector $\vec{v}$ so that \[ A\vec{v} = \lambda\vec{v}. \] We can rewrite this as \[A\vec{v} - \lambda \vec{v} = 0 \] or, using the identity matrix, \[ (A - \lambda I)\vec{v} = 0. \] This means that we are looking for a non-zero solution to a homogeneous vector equation of the form $B\vec{v} = 0$. This is where all of our linear algebra theory comes into play.
+
+Theorem \ref{thm:bigLinAlg} tells us that, combining parts (b) and (d), that there is a non-zero solution to $(A - \lambda I)\vec{v} = 0$ if and only if the determinant of the matrix $A - \lambda I$ is zero. Therefore, we can compute this determinant, find the values of $\lambda$ so that $\det(A - \lambda I) = 0$, and these will give us our eigenvalues. Let's see an example of what this looks like.
+
+\begin{example}
+Compute $\det(A - \lambda I)$ for the matrix \[ A = \begin{bmatrix} 7 & -8 \\ 3 & -3 \end{bmatrix}.\]
+\end{example}
+
+\begin{exampleSol}
+For this matrix, we have that 
+\[ A - \lambda I = \begin{bmatrix} 7 & -8 \\ 3 & -3 \end{bmatrix} - \lambda \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix} = \begin{bmatrix} 7-\lambda & -8 \\ 3 & -3-\lambda \end{bmatrix}. \]
+Thus
+\[ \begin{split}
+ \det(A - \lambda I) &= \det\left(\begin{bmatrix} 7-\lambda & -8 \\ 3 & -3-\lambda \end{bmatrix}\right) \\
+ &= (7-\lambda)(-3-\lambda) - (-8)(3) = \lambda^2 + 3\lambda - 7\lambda - 21 +24 \\
+ &= \lambda^2 - 4\lambda + 3
+ \end{split}
+ \]
+
+If we were looking for eigenvalues here, we could then set this equal to zero, getting that
+\[ 0 = \lambda^2 - 4\lambda+ 3 = (\lambda -1)(\lambda -3) \] so that the eigenvalues are $1$ and $3$. 
+\end{exampleSol}
+
+In this case, we saw that computing $\det(A - \lambda I)$ for this case, we ended up with a quadratic polynomial, so it was easy to find the eigenvalues. Thankfully, no matter the size of the matrix, we will always get a polynomial here. 
+
+\begin{definition}
+For a matrix $A$, the expression $\det(A - \lambda I)$ is called the \emph{\myindex{characteristic polynomial}} of the matrix. It will always be a polynomial, and for $A$ an $n \times n$ matrix, it will be a degree $n$ polynomial.
+\end{definition}
+This explains why we got a quadratic polynomial for the $2 \times 2$ matrix $A$. Therefore, for a matrix $A$, the roots of the characteristic polynomial are the eigenvalues of $A$. 
+
+Once we have the eigenvalues, we can use them to find the eigenvectors. As with how we started this discussion, we are looking for a non-zero vector $\vec{v}$ so that \[ (A - \lambda I)\vec{v} = 0,\] and we know the value of $\lambda$. Therefore, we can set up a system of equations that correponds to \[ (A - \lambda I)\vec{v} = 0\] and solve it for the components of the eigenvector. 
+
+\begin{example}
+Find the eigenvalues and eigenvectors of the matrix
+\[ A = \begin{bmatrix} 7 & -8 \\ 3 & -3 \end{bmatrix}.\]
+\end{example}
+
+\begin{exampleSol}
+The previous example shows that the eigenvalues for this matrix are $1$ and $3$. For the eigenvalue $1$, we want to find a non-zero solution to $(A - I)\vec{v} = 0$, which means we want to solve for
+\[ (A - I)\vec{v} = \begin{bmatrix} 7-1 & -8 \\ 3 & -3-1 \end{bmatrix}\vec{v} = \begin{bmatrix} 6 & -8 \\ 3 & -4 \end{bmatrix}\vec{v}= 0. \]
+
+Writing the vector $\vec{v}$ as $\begin{bmatrix} v_1 \\ v_2 \end{bmatrix}$, this system of equations becomes
+\begin{equation*} 
+\begin{split}
+6v_1 - 8v_2 &= 0 \\
+3v_1 - 4v_2 &= 0
+\end{split}.
+\end{equation*}
+
+Since the second equation is two times the first one, these equations are redundant, so we only need to satisfy $3v_1 - 4v_2 = 0$. We can do this by choosing $v_1 = 4$ and $v_2 = 3$, which gives that for $\lambda = 1$, a corresponding eigenvector is $\begin{bmatrix} 4 \\ 3 \end{bmatrix}$. 
+
+We can follow the same process for the eigenvalue $3$. For this, we want to find a non-zero solution to $(A - 3I)\vec{v} = 0$, which means that we want to solve 
+\begin{equation*} (A - 3I)\vec{v} = \begin{bmatrix} 7-3 & -8 \\ 3 & -3-3 \end{bmatrix}\vec{v} = \begin{bmatrix} 4 & -8 \\ 3 & -6 \end{bmatrix}\vec{v}= 0. \end{equation*}
+
+Writing the vector $\vec{v}$ as $\begin{bmatrix} v_1 \\ v_2 \end{bmatrix}$, we get the two equations
+\[
+\begin{split}
+4v_1 - 8v_2 &= 0 \\
+3v_1 - 6v_2 &= 0
+\end{split}.
+\]
+As before, these two equations are the same, since they are both a multiple of $v_1 - 2v_2 = 0$. Therefore, we just need to find a solution to that previous equation, which can be done with $v_1 = 2$ and $v_2 = 1$. Therefore, an eigenvector for eigenvalue $3$ is $\begin{bmatrix} 2 \\ 1 \end{bmatrix}$. 
+\end{exampleSol}
+
+This example illustrates the standard process that is always used to find eigenvalues and eigenvectors of matrices: find the characteristic polynomial, get the roots of this polynomial, and use each of these eigenvalues to set up a system of equations for the components of each eigenvector. In addition, the equations that we get from this system will always be redundant if we have found the eigenvalue correctly. Since $\det(A - \lambda I) = 0$, we know that the rows of the matrix $A - \lambda I$ are not linearly independent, and so the row-echelon form of $A - \lambda I$ must have a zero row in it. This process works for any size matrix, but it becomes harder to find the roots of this polynomial when it is higher degree. 
+
+\begin{example}
+Find the eigenvalues and eigenvectors of the matrix
+\[ A = \begin{bmatrix} 1 & 6 & 0 \\ 9 & -4 & 10 \\ 2 & -6 & 3 \end{bmatrix}. \]
+\end{example}
+
+\begin{exampleSol}
+We start by hunting for eigenvalues by taking the determinant of $A - \lambda I$, which will require the cofactor expansion in order to solve.
+
+\[ \begin{split}
+\det(A - \lambda I) &= \det \left( \begin{bmatrix} 1-\lambda & 6 & 0 \\ 9 & -4-\lambda & 10 \\ 2 & -6 & 3-\lambda \end{bmatrix} \right) \\
+&=(1-\lambda) \det\left( \begin{bmatrix} -4-\lambda & 10 \\ -6 & 3-\lambda \end{bmatrix} \right) - 6 \det \left( \begin{bmatrix} 9 & 10 \\ 2 & 3-\lambda \end{bmatrix} \right) \\
+&= (1-\lambda)( (-4-\lambda)(3-\lambda) + 60) - 6 ( 9(3-\lambda) - 20) \\
+&= (1-\lambda)(\lambda^2 + 4\lambda- 3\lambda - 12 + 60) - 6(27 - 9\lambda - 20) \\
+&= (1-\lambda)(\lambda^2 + \lambda + 48) - 42 + 54\lambda \\
+&= \lambda^2 + \lambda + 48 - \lambda^3 - \lambda^2 - 48 \lambda - 42 + 54\lambda \\
+&= -\lambda^3 + 7\lambda + 6
+\end{split}
+\]
+
+We need to look for the roots of this polynomial. There's no nice way to factor this right away, so we need to start guessing roots. We know that the root must be a factor of 6. If we try $\lambda = 1$, we get
+\[ -1 + 7 + 6 = 12 \neq 0\] so that one doesn't work. Plugging in $\lambda = -1$, we get
+\[ -(-1)^3 - 7 + 6 = 1 - 7 +6 = 0 \] so this is a root, meaing that $\lambda+1$ is a factor of the characteristic polynomial. We can then use polynomial long division to get that
+\[ -\lambda^3 + 7\lambda + 6 = (\lambda+ 1)(-\lambda^2 + \lambda + 6) = -(\lambda+1)(\lambda^2 - \lambda - 6) \] and the quadratic term here factors as $(\lambda - 3)(\lambda+2)$. Thus, the characteristic polynomial of this matrix is
+\[ (\lambda+1)(\lambda-3)(\lambda+2) \] so the eigenvalues are $-1$, $3$, and $-2$.
+
+For the eigenvalue $-1$, the eigenvector must satisfy
+\[ (A + I)\vec{v} = \vec{0} \] which we can write as
+\[ \begin{bmatrix} 2 & 6 & 0 \\ 9 & -3 & 10 \\ 2 & -6 & 4 \end{bmatrix} \begin{bmatrix} v_1 \\ v_2 \\ v_3 \end{bmatrix} = \vec{0}. \]
+
+To solve this, we row-reduce the coefficient matrix.
+\[ \begin{split}
+\begin{bmatrix} 2 & 6 & 0 \\ 9 & -3 & 10 \\ 2 & -6 & 4 \end{bmatrix} &\rightarrow \begin{bmatrix} 1 & 3 & 0 \\ 9 & -3 & 10 \\ 2 & -6 & 4 \end{bmatrix} \\
+&\rightarrow  \begin{bmatrix} 1 & 3 & 0 \\ 0 & -30 & 10 \\ 0 & -12 & 4 \end{bmatrix} \\
+&\rightarrow  \begin{bmatrix} 1 & 3 & 0 \\ 0 & -3 & 1 \\ 0 & -12 & 4 \end{bmatrix} \\
+&\rightarrow  \begin{bmatrix} 1 & 3 & 0 \\ 0 & -3 & 1 \\ 0 & 0 & 0 \end{bmatrix} \\
+\end{split}
+\]
+
+Therefore, the eigenvector must satsify $v_1 + 3v_2 = 0$ and $-3v_2 + v_3 = 0$. We need to pick any non-zero set of numbers that solves these equations. For example, we could pick $v_2 = 1$ to get that we need $v_1 = -3$ and $v_3 = 3$. This gives an eigenvector of \[ \begin{bmatrix} -3 \\ 1 \\ 3 \end{bmatrix}. \]
+
+For the eigenvalue $3$, the eigenvector must satisfy
+\[ \begin{bmatrix} -2 & 6 & 0 \\ 9 & -7 & 10 \\ 2 & -6 & 0 \end{bmatrix} \begin{bmatrix} v_1 \\ v_2 \\ v_3 \end{bmatrix} = \vec{0}. \]
+
+Row reduction gives
+\[ \begin{split}
+\begin{bmatrix} -2 & 6 & 0 \\ 9 & -7 & 10 \\ 2 & -6 & 0 \end{bmatrix} &\rightarrow \begin{bmatrix} 1 & -3 & 0 \\ 9 & -7 & 10 \\ 2 & -6 & 0 \end{bmatrix} \\
+&\rightarrow \begin{bmatrix} 1 & -3 & 0 \\ 0 & 20 & 10 \\ 0 & 0 & 0 \end{bmatrix} \\
+&\rightarrow \begin{bmatrix} 1 & -3 & 0 \\ 0 & 2 & 1 \\ 0 & 0 & 0 \end{bmatrix} \\
+\end{split}
+\] which means that the eigenvector must satisfy $v_1 - 3v_2 = 0$ and $2v_2 + v_3 = 0$. Again, choosing $v_2 = 1$ gives that we want $v_1 = 3$ and $v_3 = -2$. Therefore, a corresponding eigenvector here is 
+\[ \begin{bmatrix} 3 \\ 1 \\ -2 \end{bmatrix}. \]
+
+For the eigenvalue $-2$, the eigenvector must satisfy
+\[ \begin{bmatrix} 3 & 6 & 0 \\ 9 & -2 & 10 \\ 2 & -6 & 5 \end{bmatrix} \begin{bmatrix} v_1 \\ v_2 \\ v_3 \end{bmatrix} = \vec{0} \] where we can row reduce the coefficient matrix.
+
+\[ \begin{split}
+\begin{bmatrix} 3 & 6 & 0 \\ 9 & -2 & 10 \\ 2 & -6 & 5 \end{bmatrix}  &\rightarrow \begin{bmatrix} 1 & 2 & 0 \\ 9 & -2 & 10 \\ 2 & -6 & 5 \end{bmatrix} \\
+ &\rightarrow \begin{bmatrix} 1 & 2 & 0 \\ 0 & -20 & 10 \\ 0 & -10 & 5 \end{bmatrix} \\
+ &\rightarrow \begin{bmatrix} 1 & 2 & 0 \\ 0 & -2 & 1 \\ 0 & -10 & 5 \end{bmatrix} \\
+  &\rightarrow \begin{bmatrix} 1 & 2 & 0 \\ 0 & -2 & 1 \\ 0 & 0 & 0 \end{bmatrix} \\
+\end{split}. \]
+
+Therefore, the eigenvector must satisfy $v_1 + 2v_2 = 0$ and $-2v_2 + v_3 = 0$. Picking $v_2 = 1$ again gives that we want $v_1 = -2$ and $v_3 = 2$. Therefore, an eigenvector with eigenvalue $-2$ is 
+\[ \begin{bmatrix} -2 \\ 1 \\ 2 \end{bmatrix}. \]
+\end{exampleSol}
+
+\subsection{Real Eigenvalues}
+
+Since eigenvalues come from finding the roots of a polynomial, there are a few different situations that can arise in terms of these eigenvalues. If we take a quadratic polynomial, there are three options for the two roots. 
+\begin{itemize}
+\item Two real and different roots,
+\item Two complex roots in a conjugate pair, or
+\item One double (repeated) root.
+\end{itemize}
+
+The same is true for eigenvalues, they are either all real and distinct, there are some that appear in complex conjugate pairs, or there are some repeated eigenvalues. The easiest of these cases is when the characteristic polynomial has all real and distinct eigenvalues.
+
+In this case, we get a very nice result. We know that for each eigenvalue, there will always be at least one eigenvector, otherwise it wouldn't be an eigenvalue. If the matrix $A$ is an $n \times n$ matrix, then the characteristic polynomial is a degree $n$ polynomial, which will have $n$ distinct roots by our assumption. Each of these will have a corresponding eigenvector, giving us $n$ eigenvectors as well. A more involved result tells us that eigenvectors for different eigenvalues are always linearly independent. Therefore, we get $n$ vectors in $\mathbb{R}^n$, that are linearly independent, and so they are a basis. This gives the following result.
+
+\begin{theorem1}{}
+Let $A$ be an $n \times n$ matrix. Assume that the characteristic polynomial of $A$ has all real and distinct roots, namely that
+\[ \det(A - \lambda I) = (\lambda - \lambda_1)(\lambda - \lambda_2) \cdots (\lambda - \lambda_n) \] for $\lambda_1, ..., \lambda_n$ the distinct real eigenvalues. Then there exist vectors $\vec{v}_1$, ..., $\vec{v}_n$ such that $\vec{v}_i$ is an eigenvector for eigenvalue $\lambda_i$ and $\{\vec{v}_1, ..., \vec{v}_n\}$ form a basis of $\mathbb{R}^n$. 
+\end{theorem1}
+
+To reference, look at the previous example. We found three distinct real eigenvalues of $-1$, $3$, and $-2$. For these eigenvalues, we had eigenvectors
+\begin{equation*}
+-1 \rightarrow \begin{bmatrix} -3 \\ 1 \\ 3 \end{bmatrix} \quad 3 \rightarrow \begin{bmatrix} 3 \\ 1 \\ -2 \end{bmatrix} \quad -2 \rightarrow \begin{bmatrix} -2 \\ 1 \\ 2 \end{bmatrix}.
+\end{equation*} These three vectors are linearly independent (check this!) and since they are three component vectors, the space has dimension 3, and so 3 linearly independent vectors must make up a basis. This is useful to know for now, but will be critical when we want to use this information to solve systems of differential equations later. 
+
+\subsection{Complex Eigenvalues}
+
+When the matrix has complex eigenvalues, the process is very similar to before. However, the eigenvector will necessarily also be complex, that is, some of the components of this vector will be complex numbers. Let's illustrate this with an example.
+
+\begin{example}
+Find the eigenvalues and eigenvectors of the matrix
+\[ A = \begin{bmatrix} 3 & -8 \\ 5 & -9 \end{bmatrix}.\]
+\end{example}
+
+\begin{exampleSol}
+We first look for the eigenvalues using the characteristic polynomial of $A$. 
+
+\[ \begin{split}
+\det(A - \lambda I) &= \det \left( \begin{bmatrix} 3-\lambda & -8 \\ 5 & -9 -\lambda \end{bmatrix} \right) \\ 
+&= (3-\lambda)(-9-\lambda) + 40 \\
+&= \lambda^2 + 9\lambda - 3\lambda - 27+40 \\
+&= \lambda^2 + 6\lambda + 13
+\end{split}. \]
+This quadratic does not factor, so we use the quadratic formula to find that 
+\[ \lambda = \frac{-6 \pm \sqrt{6^2 - 4\cdot 13}}{2} = \frac{-6 \pm \sqrt{-16}}{2}  = -3\pm 2i \] so that we have complex eigenvalues. 
+
+We now look for the eigenvectors in the same way as in the real case. If we take the eigenvalue $-3+2i$, then such an eigenvector must satisfy
+\[ (A - (-3+2i)I)\vec{v} = \vec{0}. \] 
+This means that 
+\[\begin{bmatrix} 3-(-3+2i) & -8 \\ 5 & -9-(-3+2i) \end{bmatrix}\vec{v} = \begin{bmatrix} 6-2i & -8 \\ 5 & -6-2i \end{bmatrix}\vec{v} = \vec{0}. \]
+
+These two equations should be redundant, and to verify that, we will multiply the top row by $6+2i$ in row reduction to get
+\[ \begin{split}
+ \begin{bmatrix} 6-2i & -8 \\ 5 & -6-2i \end{bmatrix} &\rightarrow  \begin{bmatrix} (6-2i)(6+2i) & -8(6+2i) \\ 5 & -6-2i \end{bmatrix} \\
+ &\rightarrow \begin{bmatrix} 40 & -48 - 16i \\ 5 & -6-2i \end{bmatrix}
+\end{split} \] and from this, we can see that the top row is 8 times the bottom one, so they are redundant. Thus, an eigenvector must satisfy \[5v_1- (6+2i)v_2 = 0 \] and we can pick any non-zero numbers that satisfy this. One simple way to do this is by switching the coefficients, so that $v_1 = 6+2i$ and $v_2 = 5$. Therefore, an eigenvector that we get is 
+\[ \begin{bmatrix} 6+2i \\ 5 \end{bmatrix}. \]
+
+Now, we can take the other eigenvalue, $-3-2i$. The process is the same, so that the vector must satisfy
+\[\begin{bmatrix} 3-(-3-2i) & -8 \\ 5 & -9-(-3-2i) \end{bmatrix}\vec{v} = \begin{bmatrix} 6+2i & -8 \\ 5 & -6+2i \end{bmatrix}\vec{v} = \vec{0}. \]
+
+To check redundancy again, we multiply the top row by $6-2i$ to get  
+\[ \begin{split}
+ \begin{bmatrix} 6+2i & -8 \\ 5 & -6+2i \end{bmatrix} &\rightarrow  \begin{bmatrix} (6+2i)(6-2i) & -8(6-2i) \\ 5 & -6+2i \end{bmatrix} \\
+ &\rightarrow \begin{bmatrix} 40 & -48 + 16i \\ 5 & -6+2i \end{bmatrix}
+\end{split} \] and again, the first equation is 8 times the second one. Thus, the eigenvector will need to satisfy \[ 5v_1 - (6 - 2i)v_2 = 0\] which can be done by picking $v_1 = 6-2i$ and $v_2 = 5$, giving an eigenvector of
+\[ \begin{bmatrix} 6-2i \\ 5 \end{bmatrix}. \]
+\end{exampleSol}
+
+The process here is the same as it was in the real case, except that now all of the equations are complex equations. In particular, the ``redundancy'' that we expect to see between the equations will likely be via a complex multiple. The easiest way to verify that these equations are redundant is by multiplying the first entry in each row by its complex conjugate. This is because, if we have the complex number $a + bi$, multiplying this by $a-bi$ gives
+\[ (a+bi)(a-bi) = a^2 + abi - abi - b^2i^2 = a^2 + b^2 \] which is now a real number. This will make it easier to compare the two equations to make sure that they are redundant, and that the eigenvalue was found correctly.
+
+\begin{example}
+Find the eigenvalues and eigenvectors of the matrix
+\[ A = \begin{bmatrix} 1 & 9 & 6 \\ 0 & 1 & 6 \\ 0 & -3 & -5 \end{bmatrix}.\]
+\end{example}
+
+\begin{exampleSol}
+We first look for eigenvalues, like always. We get these by computing
+\[ \det(A - \lambda I) = \det \left( \begin{bmatrix} 1-\lambda & 9 & 6 \\ 0 & 1-\lambda & 6 \\ 0 & -3 & -5-\lambda \end{bmatrix}\right).\]
+
+We will compute this by cofactor expansion along the second row.
+\[ \begin{split}
+\det \left( \begin{bmatrix} 1-\lambda & 9 & 6 \\ 0 & 1-\lambda & 6 \\ 0 & -3 & -5-\lambda \end{bmatrix}\right) &= (-1)^{2+2}(1-\lambda)\det\left(\begin{bmatrix}1-\lambda & 6 \\ 0 & -5-\lambda \end{bmatrix}\right) \\ &\qquad + (-1)^{2+3} 6 \det\left( \begin{bmatrix} 1-\lambda & 9 \\ 0 & -3 \end{bmatrix}\right) \\
+&= (1-\lambda)(1-\lambda)(-5-\lambda) - 6(1-\lambda)(-3) \\
+&= (1-\lambda)((1-\lambda)(-5-\lambda) + 18) \\
+&= (1-\lambda)(\lambda^2 + 4\lambda + 13)
+\end{split} \]
+so that one eigenvalue is at $\lambda = 1$. For the other two, we use the quadratic formula to obtain \[ \lambda = \frac{-4 \pm \sqrt{16 - 4\cdot 13}}{2} = \frac{-4 \pm \sqrt{-36}}{2} = -2 \pm 3i. \] Thus, we have one real eigenvalue and two complex eigenvalues. 
+
+For $\lambda = 1$, we know that the eigenvector must satisfy
+\[ \begin{bmatrix} 0 & 9 & 6 \\ 0 & 0 & 6 \\ 0 & -3 & -6 \end{bmatrix} \vec{v} = \vec{0}. \] Row reduction will reduce this matrix to
+\[ \begin{bmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \\ 0 & 0 & 0 \end{bmatrix} \] (\emph{Check this!}) so that the eigenvector in this case is \[ \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}.\]
+
+For the eigenvalue $-2 + 3i$, we get that the eigenvector must satisfy
+\[ \begin{bmatrix} 3 - 3i & 9 & 6 \\ 0 & 3-3i & 6 \\ 0 & -3 & -3-3i \end{bmatrix} \vec{v} = \vec{0}. \] We now want to row reduce the coefficient matrix. To do so, we start by dividing the first row by 3 then multiplying by $1+i$. 
+\[ \begin{split}
+\begin{bmatrix} 3 - 3i & 9 & 6 \\ 0 & 3-3i & 6 \\ 0 & -3 & -3-3i \end{bmatrix} &\rightarrow \begin{bmatrix} 1 - i & 3 & 2 \\ 0 & 3-3i & 6 \\ 0 & -3 & -3-3i \end{bmatrix} \\
+&\rightarrow \begin{bmatrix} (1 - i)(1+i) & 3(1+i) & 2(1+i) \\ 0 & 3-3i & 6 \\ 0 & -3 & -3-3i \end{bmatrix}\\
+&\rightarrow \begin{bmatrix} 2 & 3+3i & 2+2i \\ 0 & 3-3i & 6 \\ 0 & -3 & -3-3i \end{bmatrix}\\
+\end{split}. \] We could divide the first row by 2 to get to a 1 in the top-right entry, but we'll wait on that in order to avoid fractions. To row reduce the rest of the matrix, we will divide each of the remaining two rows by 3, and then multiply the second by $1+i$, just like we did to the first row. 
+
+\[ \begin{split}
+\begin{bmatrix} 2 & 3+3i & 2+2i \\ 0 & 3-3i & 6 \\ 0 & -3 & -3-3i \end{bmatrix} &\rightarrow \begin{bmatrix} 2 & 3+3i & 2+2i \\ 0 & 1-i & 2 \\ 0 & -1 & -1-i \end{bmatrix} \\
+&\rightarrow \begin{bmatrix} 2 & 3+3i & 2+2i \\ 0 & 2 & 2+2i \\ 0 & -1 & -1-i \end{bmatrix} \\
+&\rightarrow \begin{bmatrix} 2 & 3+3i & 2+2i \\ 0 & 1 & 1+i \\ 0 & -1 & -1-i \end{bmatrix}
+\end{split}
+\] which illlustrates that the last two rows are redundant. Thus, the reduced form of the matrix that we have (which is not quite a row echelon form, but it is enough to back-solve for the eigenvector) is
+\[ \begin{bmatrix} 2 & 3+3i & 2+2i \\ 0 & 1 & 1+i \\ 0 & 0 & 0 \end{bmatrix}.\]
+This means that the eigenvector $\vec{v}$ must satisfy
+\[ 2v_1 + (3+3i)v_2 + (2+2i)v_3 = 0 \qquad v_2 + (1+i)v_3 = 0. \]
+We can satisfy the second of these equations by choosing $v_2 = 1+i$ and $v_3 = -1$. Plugging these values into the first equation gives that
+\[ \begin{split}
+0 &= 2v_1 + (3+3i)v_2 + (2+2i)v_3 \\
+&= 2v_1 + (3+3i)(1+i) + (2+2i)(-1) \\
+&= 2v_1 + 3 + 3i + 3i - 3 - 2 - 2i \\
+&= 2v_1 - 2 + 4i
+\end{split} \]
+Therefore, we need to take $v_1 = 1 - 2i$, giving that the eigenvector is
+\[ \begin{bmatrix} 1 - 2i \\ 1+i \\ -1 \end{bmatrix}. \]
+
+A very similar computation following the same set of steps (or just using the remark below) for the eigenvalue $-2-3i$ gives that this corresponding eigenvector is 
+\[ \begin{bmatrix} 1 + 2i \\ 1-i \\ -1 \end{bmatrix}. \]
+
+\end{exampleSol}
+
+One fact that comes out of those examples is that the eigenvectors for conjugate eigenvalues are also complex conjugates. This comes from the fact that $A$ is a real matrix, which means that if
+\[ A\vec{v} = \lambda \vec{v} \] and we take the complex conjugate of both sides, we get that
+\[ A\bar{\vec{v}} = \bar{A\vec{v}} = \bar{\lambda\vec{v}} = \bar{\lambda}\bar{\vec{v}} \] so that $\bar{\vec{v}}$ is an eigenvector for $\bar{\lambda}$. This means that, when solving these types of problems, we only need to find one of the complex eigenvectors and can get the other by taking the complex conjugate. 
+
+\subsection{Repeated Eigenvalues}
+
+Distinct and complex eigenvalues all work out nicely and in pretty much the same manner. For repeated eigenvalues, the issues get more significant. 
+
+\begin{example}
+Find the eigenvalues and eigenvectors of the matrices
+\[ A = \begin{bmatrix} 3 & 0 \\ 0 & 3 \end{bmatrix} \qquad B = \begin{bmatrix} 4 & -1 \\ 1 & 2 \end{bmatrix}.\]
+\end{example}
+
+\begin{exampleSol}
+For the matrix $A$, we can compute the characteristic polynomial
+\[ \det(A - \lambda I) = \det \left( \begin{bmatrix} 3-\lambda &0 \\ 0 & 3 - \lambda \end{bmatrix}\right) = (3 - \lambda)(3 - \lambda) \]
+
+Therefore, we have a double root at $3$ for this matrix. Therefore, the only eigenvalue we get is $3$. When we look to find the eigenvectors, we get 
+\[ A - 3 I = \begin{bmatrix} 0 & 0 \\ 0 & 0 \end{bmatrix} \] so that this matrix multiplied by \emph{any} vector is zero. Therefore, we can use both $\begin{bmatrix} 1 \\ 0 \end{bmatrix}$ and $\begin{bmatrix} 0 \\ 1 \end{bmatrix}$ as eigenvectors. 
+
+On the other hand, the matrix $B$ has a characteristic polynomial 
+\[ \begin{split}
+\det(B - \lambda I) &= \det\left( \begin{bmatrix} 4 - \lambda & -1 \\ 1 & 2 - \lambda \end{bmatrix} \right) \\
+&= (4-\lambda)(2-\lambda) - (-1)(1) = \lambda^2 - 6\lambda + 8 + 1 \\
+&= \lambda^2 - 6\lambda + 9 = (\lambda - 3)^2 
+\end{split}
+\]
+so again, we have a double root at $3$. However, when we go to find the eigenvectors, we get that
+\[ B - 3 I = \begin{bmatrix} 1 & -1 \\ 1 & -1 \end{bmatrix} \] which gives that an eigenvector must satisfy $v_1 - v_2 = 0$ so $\begin{bmatrix} 1 \\ 1 \end{bmatrix}$ works. 
+\end{exampleSol}
+
+There is a big difference between these two examples. Both had the same characteristic polynomial of $(\lambda - 3)^2$, but for $A$, we could find two linearly independent eigenvectors, but for $B$, we could only find 1. This seems like it might be a problem, since we would like to get to two eigenvectors like we did for both of the previous two cases. This leads us to define the following for $A$ and $n \times n$ matrix and $r$ an eigenvalue of $A$. 
+
+\begin{definition}
+\begin{itemize}
+\item The \emph{algebraic multiplicity} of $r$ is the power of $(\lambda - r)$ in the characteristic polynomial if $A$.
+\item The \emph{geometric multiplicity} of $r$ is the number of linearly independent eigenvectors of $A$ with eigenvalue  $r$.
+\item The \emph{defect} of $r$ is the difference between the algebraic multiplicity and the geometric multiplicity of $r$. 
+\item We say that an eigenvalue is \emph{defective} if the defect is at least 1. 
+\end{itemize}
+\end{definition}
+
+For the previous example, the algebraic multiplicity of $3$ for both $A$ and $B$ was 2, but the geometric multiplictiy of $3$ for $A$ is 2, and for $B$ is it only $1$. Therefore $A$ has a defect of $0$ and $B$ has a defect of $1$, so $3$ is a defective eigenvalue for matrix $B$.
+
+In terms of these multiplicities, there are two facts that are known to be true.
+\begin{enumerate}
+\item If $r$ is an eigenvalue, then both the algebraic and geometric multiplicity are at least 1.
+\item The algebraic multiplicity of any eigenvalue is always greater than or equal to the geometric multiplicity.
+\end{enumerate}
+
+This tells us that in the case of real and distinct eigenvalues, every eigenvalue has multiplicity 1. Since the geometric multiplicity is also $1$, this means that none of these eigenvalues are defective. This was great, because it let us get to $n$ eigenvectors for an $n \times n$ matrix, and these generated a basis of $\mathbb{R}^n$. 
+
+Why is a defective eigenvalue a problem? When we go solve differential equations using the method in \Chapterref{sys:chapter}, having a `full set' of eigenvectors, or $n$ eigenvectors for an $n \times n$ matrix, will be very important. When we have a defective eigenvalue, we can't get there. Since the degree of the characteristic polynomial is $n$, the only way we get to $n$ eigenvectors is if every eigenvalue has a number of linearly independent eigenvectors equal to the algebraic multiplicity, which means they are not defective. 
+
+So how can we fix this? Well, there's not really much we can do in the way of finding more eigenvectors, because they don't exist. The replacement that we have is, in linear algebra contexts, called a \emph{generalized eigenvector}. We will see this idea come back up in \sectionref{eigenmethod-repeat:section} in a more natural way. The rest of this section contains a more detailed definition of generalized eigenvectors. You are welcome to skip this part on a first reading and come back after you are more comfortable with eigenvalues and eigenvectors, or when the material comes back around again in \sectionref{eigenmethod-repeat:section}.
+
+If $r$ is an defective eigenvalue of the matrix $A$ with eigenvector $\vec{v}$, a \emph{\myindex{generalized eigenvector}} of $A$ is a vector $\vec{w}$ so that $(A - rI)\vec{w} = \vec{v}$. This is the same as the normal eigenvector equation with $\vec{v}$ on the right-hand side instead of $\vec{0}$. Since $(A - rI)\vec{v} = \vec{0}$, this also means that \[ (A - rI)^2\vec{w} = 0. \] More generally, a generalized eigenvector is a vector $\vec{w}$ where there is a power $k \geq 1$ so that
+\[ (A - rI)^k\vec{w} = 0 \qquad \text{ but } \qquad (A - rI)^{k-1}\vec{w} \neq 0. \]
+
+It might seems strange where this comes from, but we will see why this formula makes more sense once we try to solve differential equations using matrices in \sectionref{eigenmethod-repeat:section}.
+
+\begin{example}
+Find a generalized eigenvector of eigenvalue $3$ for the matrix 
+\[ B = \begin{bmatrix} 4 & -1 \\ 1 & 2 \end{bmatrix}.\]
+\end{example}
+
+\begin{exampleSol}
+Previously, we found that $\vec{v} = \begin{bmatrix}1 \\ 1 \end{bmatrix}$ is an eigenvector for $B$ with eigenvalue $3$. To find a generalized eigenvector, we need a vector $\vec{w}$ so that
+\[ (B - 3I)\vec{w} = \begin{bmatrix}1 \\ 1 \end{bmatrix}. \] 
+
+Plugging in the matrix for $B - 3I$ gives that we need
+\[ \begin{bmatrix} 1 & -1 \\ 1 & -1 \end{bmatrix} \begin{bmatrix} w_1 \\ w_2 \end{bmatrix} = \begin{bmatrix} 1 \\ 1 \end{bmatrix}. \] Both of the rows of this matrix becomes the equation
+\[ w_1 - w_2 = 1. \]
+There are many values of $w_1$ and $w_2$ that make this work. We can pick $w_1 = 1$ and $w_2 = 0$. This will give a generalized eigenvector of $\begin{bmatrix} 1 \\ 0 \end{bmatrix}$. We could also pick $w_1 = 3$ and $w_2 = 2$, to get a generalized eigenvector as $\begin{bmatrix} 3 \\ 2 \end{bmatrix}$. Any of these choices work as a generalized eigenvector.
+\end{exampleSol}
+
+\begin{example}
+Find the eigenvalues and eigenvectors (and generalized eigenvectors if needed) of the matrix 
+\[ A = \begin{bmatrix} -2 & 0 & 1 \\ 19 & 2 & -16 \\ -1 & 0 & 0 \end{bmatrix}. \]
+\end{example}
+
+\begin{exampleSol}
+We start by looking for the eigenvalues through the characteristic polynomial.
+\[ \det(A - \lambda I) = \det\left( \begin{bmatrix} -2-\lambda & 0 & 1 \\ 19 & 2-\lambda & -16 \\ -1 & 0 & 0-\lambda \end{bmatrix}\right) \] To compute this determinant, we will expand along column 2, because it only has one non-zero entry. This gives
+\[ \begin{split}
+\det(A - \lambda I) &= (-1)^{2+2} (2-\lambda)\det\left( \begin{bmatrix} -2-\lambda & 1 \\ -1 & -\lambda \end{bmatrix}\right) \\
+&= (2-\lambda)((-2-\lambda)(-\lambda) + 1) \\
+&= (2-\lambda)(\lambda^2 + 2\lambda + 1) = (2-\lambda)(\lambda+1)^2
+\end{split}
+\] so we have an eigenvalue at $2$ and a double eigenvalue at $-1$. 
+
+First, let's look for the eigenvector for eigenvalue $2$. In this case, we know that the eigenvector must satisfy
+\[ \begin{bmatrix} -4 & 0 & 1 \\ 19 & 0 & -16 \\ -1 & 0 & -2 \end{bmatrix} \vec{v} = \vec{0}. \] Row reducing the coefficient matrix will give
+\[ \begin{bmatrix} 1 & 0 & 0 \\ 0 & 0 & 1 \\ 0 & 0 & 0 \end{bmatrix} \] so that a corresponding eigenvector is \[ \begin{bmatrix} 0 \\ 1 \\ 0 \end{bmatrix} \] since we know that $v_1 = 0$ and $v_3 = 0$. 
+
+For $\lambda = -1$, we see that an eigenvector must satisfy
+\[ \begin{bmatrix} -1 & 0 & 1 \\ 19 & 3 & -16 \\ -1 & 0 & 1 \end{bmatrix} \vec{v} = \vec{0}.\] We now look to row reduce this coefficient matrix. 
+\[
+\begin{split}
+\begin{bmatrix} -1 & 0 & 1 \\ 19 & 3 & -16 \\ -1 & 0 & 1 \end{bmatrix} &\rightarrow \begin{bmatrix} 1 & 0 & -1 \\ 19 & 3 & -16 \\ -1 & 0 & 1 \end{bmatrix} \\
+&\rightarrow \begin{bmatrix} 1 & 0 & -1 \\ 0 & 3 & 3 \\ 0 & 0 & 0 \end{bmatrix} \\
+&\rightarrow \begin{bmatrix} 1 & 0 & -1 \\ 0 & 1 & 1 \\ 0 & 0 & 0 \end{bmatrix} \\
+\end{split}.
+\]
+Therefore, we know that \[ v_1 - v_3 = 0 \qquad v_2 + v_3 = 0. \] If we pick $v_3 = 1$, then we know that $v_2 = -1$ and $v_1 = 1$, so the only eigenvector we get for $\lambda = -1$ is \[ \begin{bmatrix} 1 \\ -1 \\ 1 \end{bmatrix}. \]
+
+Since we only found one eigenvector for $\lambda = -1$ and $\lambda + 1$ was squared in the characteristic polynomial, this is a defective eigenvalue. Thus, we can look for a generalized eigenvalue here, which means that we need to solve for a vector $\vec{w}$ with
+\[ 
+\begin{bmatrix} -1 & 0 & 1 \\ 19 & 3 & -16 \\ -1 & 0 & 1 \end{bmatrix} \vec{w} = \begin{bmatrix} 1 \\ -1 \\ 1 \end{bmatrix}
+\]
+We can then row reduce the augmented matrix to see what we can pick for $\vec{w}$. 
+\[
+\begin{split}
+\begin{bmatrix} -1 & 0 & 1 & 1 \\ 19 & 3 & -16 & -1\\ -1 & 0 & 1 & 1 \end{bmatrix} &\rightarrow \begin{bmatrix} 1 & 0 & -1 & -1 \\ 19 & 3 & -16 & -1\\ -1 & 0 & 1 & 1 \end{bmatrix} \\
+&\rightarrow \begin{bmatrix} 1 & 0 & -1 & -1 \\ 0 & 3 & 3 & 18\\ 0 & 0 & 0 & 0 \end{bmatrix} \\
+&\rightarrow \begin{bmatrix} 1 & 0 & -1 & -1 \\ 0 & 1 & 1 & 6\\ 0 & 0 & 0 & 0 \end{bmatrix} \\
+\end{split}
+\]
+Thus, the generalized eigenvector $\vec{w}$ must satisfy
+\[ w_1 - w_3 = -1 \qquad w_2 + w_3 = 6. \] We can pick any non-zero numbers to do this, so we can take $w_3 = 1$, $w_2 = 5$ and $w_1 = 0$. Thus, the generalized eigenvector here is
+\[ \begin{bmatrix} 0 \\ 5 \\ 1 \end{bmatrix}.\]
+\end{exampleSol}
+
+\subsection{Exercises}
+\begin{exercise}\ansMark%
+Find the eigenvalues and corresponding eigenvectors of the matrix 
+\[ \begin{bmatrix} -8 & -18 \\ 4 & 10 \end{bmatrix} \]
+\end{exercise}
+\exsol{%
+$\lambda_1 = -2$, $\vec{v}_1 = \begin{bmatrix} -3 \\ 1 \end{bmatrix}$, $\lambda_2 = 4$, $\vec{v}_2 = \begin{bmatrix} 3 \\ -2 \end{bmatrix}$. 
+}
+
+\begin{exercise}\ansMark%
+Find the eigenvalues and corresponding eigenvectors of the matrix 
+\[ \begin{bmatrix} -2 & 0 \\ 8 & -4 \end{bmatrix} \]
+\end{exercise}
+\exsol{%
+$\lambda_1 = -2$, $\vec{v}_1 = \begin{bmatrix} 1 \\ 4 \end{bmatrix}$, $\lambda_2 = -4$, $\vec{v}_2 = \begin{bmatrix} 0 \\ 1 \end{bmatrix}$. 
+}
+
+\begin{exercise}\ansMark%
+Find the eigenvalues and corresponding eigenvectors of the matrix 
+\[ \begin{bmatrix} -7 & 1 \\ -12 & 0 \end{bmatrix} \]
+\end{exercise}
+\exsol{%
+$\lambda_1 = -4$, $\vec{v}_1 = \begin{bmatrix} 1 \\ 3 \end{bmatrix}$, $\lambda_2 = -3$, $\vec{v}_2 = \begin{bmatrix} 1 \\ 4 \end{bmatrix}$. 
+}
+
+\begin{exercise}\ansMark%
+Find the eigenvalues and corresponding eigenvectors of the matrix 
+\[ \begin{bmatrix} -3 & 5 \\ -8 & 9 \end{bmatrix} \]
+\end{exercise}
+\exsol{%
+$\lambda_1 = 3+2i$, $\vec{v}_1 = \begin{bmatrix} 3-i \\ 4 \end{bmatrix}$, $\lambda_2 = 3-2i$, $\vec{v}_2 = \begin{bmatrix} 3+i \\ 4 \end{bmatrix}$. 
+}
+
+\begin{exercise}\ansMark%
+Find the eigenvalues and corresponding eigenvectors of the matrix 
+\[ \begin{bmatrix} 0 & 2 \\ -1 & -2 \end{bmatrix} \]
+\end{exercise}
+\exsol{%
+$\lambda_1 = -1+i$, $\vec{v}_1 = \begin{bmatrix} 2 \\ -1+i \end{bmatrix}$, $\lambda_2 = -1-i$, $\vec{v}_2 = \begin{bmatrix} 2 \\ -1-i \end{bmatrix}$. 
+}
+
+\begin{exercise}\ansMark%
+Find the eigenvalues and corresponding eigenvectors of the matrix 
+\[ \begin{bmatrix} -4 & 1 \\ -8 & 0 \end{bmatrix} \]
+\end{exercise}
+\exsol{%
+$\lambda_1 = -2+2i$, $\vec{v}_1 = \begin{bmatrix} 1-i \\ 4 \end{bmatrix}$, $\lambda_2 = -2-2i$, $\vec{v}_2 = \begin{bmatrix} 1+i\\ 4 \end{bmatrix}$. 
+}
+
+\begin{exercise}\ansMark%
+Find the eigenvalues and corresponding eigenvectors of the matrix 
+\[ \begin{bmatrix} 0 & -8 \\ 2 & 8 \end{bmatrix} \]
+\end{exercise}
+\exsol{%
+$\lambda_1 = 4$, $\vec{v}_1 = \begin{bmatrix} -2 \\ 1 \end{bmatrix}$
+}
+
+\begin{exercise}\ansMark%
+Find the eigenvalues and corresponding eigenvectors of the matrix 
+\[ \begin{bmatrix} 1 & -2 \\ 8 & -7 \end{bmatrix} \]
+\end{exercise}
+\exsol{%
+$\lambda_1 = -3$, $\vec{v}_1 = \begin{bmatrix} 1 \\ 2 \end{bmatrix}$
+}
+
+\begin{exercise}\ansMark%
+Find the eigenvalues and corresponding eigenvectors of the matrix 
+\[ \begin{bmatrix} 4 & 0 & 0 \\ -4 & 2 & 1 \\ -6 & 0 & 1 \end{bmatrix} \]
+\end{exercise}
+\exsol{%
+$\lambda_1 = 2$, $\vec{v}_1 = \begin{bmatrix} 0\\ 1\\ 0 \end{bmatrix}$, $\lambda_2 = 1$, $\vec{v}_2 = \begin{bmatrix} 0\\ -1\\ 1 \end{bmatrix}$, $\lambda_3 = 4$, $\vec{v}_3 = \begin{bmatrix} 1\\ -3\\ -2 \end{bmatrix}$
+}
+
+\begin{exercise}\ansMark%
+Find the eigenvalues and corresponding eigenvectors of the matrix 
+\[ \begin{bmatrix} -4 & 9 & 9 \\ -3 & 6 & 9 \\ 3 & -7 & -10 \end{bmatrix} \]
+\end{exercise}
+\exsol{%
+$\lambda_1 = -4$, $\vec{v}_1 = \begin{bmatrix} 1\\ 3\\ -3 \end{bmatrix}$, $\lambda_2 = -3$, $\vec{v}_2 = \begin{bmatrix} 0\\ -1\\ 1 \end{bmatrix}$, $\lambda_3 = -1$, $\vec{v}_3 = \begin{bmatrix} 3\\ 0\\ 1 \end{bmatrix}$
+}
+
+\begin{exercise}\ansMark%
+Find the eigenvalues and corresponding eigenvectors of the matrix 
+\[ \begin{bmatrix} -2 & 0 & 0 \\ 0 & 4 & 6 \\ 6 & -3 & -2 \end{bmatrix} \]
+\end{exercise}
+\exsol{%
+$\lambda_1 = 1+3i$, $\vec{v}_1 = \begin{bmatrix} 0\\ 2\\ -1+i \end{bmatrix}$, $\lambda_2 = 1-3i$, $\vec{v}_2 = \begin{bmatrix} 0\\ 2\\ -1-i \end{bmatrix}$, $\lambda_3 = -2$, $\vec{v}_3 = \begin{bmatrix} 1\\ 2\\ -2 \end{bmatrix}$
+}
+
+\begin{exercise}\ansMark%
+Find the eigenvalues and corresponding eigenvectors of the matrix 
+\[ \begin{bmatrix} 5 & 3 & 6 \\ 2 & 2 & 2 \\ -3 & -2 & -3 \end{bmatrix} \]
+\end{exercise}
+\exsol{%
+$\lambda_1 = 2$, $\vec{v}_1 = \begin{bmatrix} 1\\ 1\\ -1 \end{bmatrix}$, $\lambda_2 = 1$, $\vec{v}_2 = \begin{bmatrix} 0\\ -2\\ 1 \end{bmatrix}$ (double root)
+}
+
+\begin{exercise}\ansMark%
+Find the eigenvalues and eigenvectors for the matrix below. Compute generalized eigenvectors if needed to get to a total of two vectors. 
+\[ \begin{bmatrix} -11 & -9 \\ 12 & 10 \end{bmatrix} \]
+\end{exercise}
+\exsol{%
+$\lambda_1 = -2$, $\vec{v}_1 = \begin{bmatrix} -1 \\ 1 \end{bmatrix}$, $\lambda_2 = 1$, $\vec{v}_2 = \begin{bmatrix} 3 \\ -4 \end{bmatrix}$. 
+}
+
+\begin{exercise}\ansMark%
+Find the eigenvalues and eigenvectors for the matrix below. Compute generalized eigenvectors if needed to get to a total of two vectors. 
+\[ \begin{bmatrix} 4 & -4 \\ 1 & 0 \end{bmatrix} \]
+\end{exercise}
+\exsol{%
+$\lambda_1 = 2$, $\vec{v}_1 = \begin{bmatrix} 2 \\ 1 \end{bmatrix}$, Generalized eigenvector $\vec{w} = \begin{bmatrix} 1 \\ 0 \end{bmatrix}$.  
+}
+
+\begin{exercise}
+This exercise will work through the process of finding the eigenvalues and corresponding eigenvectors of the matrix
+\begin{equation*}
+A = \begin{bmatrix}
+-2 & 0 & -3 \\ 12 & 5  & 12 \\ 0 &-1 & 1
+\end{bmatrix}.
+\end{equation*}
+\begin{tasks}
+\task Find the characteristic polynomial of this matrix by computing $\det(A - \lambda I)$. In finding this, use cofactor expansion along either column 1 or row 1 and do \textbf{not} expand out all of the terms. Use grouping to factor this polynomial.
+\task This polynomial can be rewritten as $-(\lambda - r_1)^2(\lambda - r_2)$ where $r_1$ and $r_2$ are the eigenvalues of $A$. What are the eigenvalues? What is each of their algebraic multiplicity?
+\task Find an eigenvector for eigenvalue $r_2$ above. What is the geometric multiplicity of this eigenvalue?
+\task Find an eigenvector for eigenvalue $r_1$. What is the geometric multiplicity of this eigenvalue?
+\task There is only one possible eigenvector for $r_1$, which means it is defective. Find a solution to the equation $(A - r_1 I) \vec{w} = \vec{v}$, where $\vec{v}$ is the eigenvector you found in the previous part. This is the generalized eigenvector for $r_1$. 
+\end{tasks}
+\end{exercise}
+\exsol{%
+\begin{tasks}
+\task $(-2-\lambda)\left[(5-\lambda)(1-\lambda) + 12\right] + 36 = (2-\lambda)(5-\lambda)(1-\lambda) - 12(2+\lambda) - 12(-3)$ which can be regrouped as $(2-\lambda)(5-\lambda)(1-\lambda) - 12(2+\lambda) - 12(-3) = (2-\lambda)(5-\lambda)(1-\lambda) + 12(1-\lambda)$ and can then be factored as $(1-\lambda)(\lambda^2 - 5\lambda + 2\lambda - 10 + 12) = (1-\lambda)(\lambda-1)(\lambda-2)$.
+\task $r_1 = 1$ with algebraic multiplicity 2, and $r_2 = 2$ with algebraic multiplicity 1. 
+\task $[3\ 4\ -4]$. Geometric multiplicity is 1.
+\task $[1\ 0 \ -1]$. Geometric multiplicity is 1.
+\task $[ -1/3 \ 1 \ 0]$. There are many answers here, and they will satisfy $v_2 = 1$ and $v_1 + v_3 = -1/3$. 
+\end{tasks}
+}
+
+\begin{exercise} \label{ex:diagonalization}
+We say that a matrix $A$ is \emph{\myindex{diagonalizable}} if there exist matrices $D$ and $P$ so that $PDP^{-1} = A$. This really means that $A$ can be represented by a diagonal matrix in a different basis (as opposed to the standard basis). One way this can be done is with eigenvalues.
+\begin{tasks}
+\task Consider the matrix $A$ given by 
+\[ A = \begin{bmatrix} -4 & 6 \\ -1 & 1 \end{bmatrix}. \]
+Find the eigenvalues and corresponding eigenvectors of this matrix.
+\task Form two matrices, $D$, a diagonal matrix with the eigenvalues of $A$ on the diagonal, and $E$, a matrix whose columns are the eigenvectors of $A$ in the \emph{same order} as the eigenvalues were put into $D$. Write out these matrices.
+\task Compute $E^{-1}$. 
+\task Work out the products $EDE^{-1}$ and $E^{-1}AE$. What do you notice here?
+\end{tasks}
+This shows that, in the case of a $2\times 2$ matrix, if we have two distinct real eigenvalues, that matrix is diagonalizable, using the eigenvectors.
+\end{exercise}
+
+\begin{exercise}
+Follow the process outlined in Exercise \ref{ex:diagonalization} to attempt to diagonalize the matrix
+\[ \begin{bmatrix} 13 & 14 & 12 \\ -6 & -4 & -6 \\ -3 & -6 & -2 \end{bmatrix}\] Hint: 1 is an eigenvalue. 
+\end{exercise}
+
+\begin{exercise} \label{ex:jordanform}
+The diagonalization process decribed in Exercise \ref{ex:diagonalization} works for any case where there are real and distinct eigenvalues, as well as complex eigenvalues (but the algebra with the complex numbers gets complicated). It may or may not work in the case of repeated eigenvalues, and it fails whenever there are defective eigenvalues. Consider the matrix
+\[ \begin{bmatrix} 4 & -1 \\ 1 & 2 \end{bmatrix} \]
+\begin{tasks}
+\task Find the eigenvalue(s) of this matrix, and see that we have a repeated eigenvalue. 
+\task Find the eigenvector for that eigenvalue, as well as a generalized eigenvector.
+\task Build a matrix $E$ like before, but this time put the eigenvector in the first column and the generalized eigenvector in the second. Compute $E^{-1}$. 
+\task Find the product $E^{-1}AE$. Before, this gave us a diagonal matrix, but what do we get now? 
+\end{tasks}
+The matrix we get here is almost diagonal, but not quite. It turns out that this is the best we can do for matrices with defective eigenvalues. This matrix is often called $J$ and is the \emph{Jordan Form} of the matrix $A$. 
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Follow the process in Exercise \ref{ex:jordanform} to find the Jordan Form of the matrix
+\[ \begin{bmatrix} -7 & 5 & 5 \\ -4 & 5 & 7 \\ -6 & 3 & 1 \end{bmatrix}. \]
+\end{exercise}
+\exsol{%
+$\begin{bmatrix} 3 & 0 & 0 \\ 0 & -2 & 1 \\ 0 & 0 & -2 \end{bmatrix}$
+}

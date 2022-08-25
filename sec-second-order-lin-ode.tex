@@ -1,0 +1,721 @@
+%\sectionnewpage
+
+\section{Second order linear ODEs} \label{solinear:section}
+
+\LAtt{2.1}
+
+\LO{
+\item Identify the general second order linear differential equation,
+\item Determine the characteristic equation for constant coefficient equations,
+\item Find the general solution for constant coefficient equations in the real and distinct roots case, and
+\item Determine if two functions are linearly independent.
+}
+
+% \sectionnotes{1 lecture, reduction of order optional\EPref{,
+% first part of \S3.1 in \cite{EP}}\BDref{,
+% parts of \S3.1 and \S3.2 in \cite{BD}}}
+
+The general second order ordinary differential equation is of the form 
+\begin{equation*}
+y'' = F(x, y, y')
+\end{equation*} for $F$ an arbitrary function of three variables. As with first order equations, if the function $F$ is not in a nice or simple form, there really isn't a hope to find a solution for this. For second order equations, we need to be even more specific about the structure of these equations in order to find solutions than we did for first order.
+
+% \TODO{Add some build-up to this point, starting from general second order equations. Also discuss solvability and how even for linear equations we don't have an explicit method.}
+
+\begin{definition}
+The general
+\emph{\myindex{second order linear differential equation}} is of the form
+\begin{equation*}
+A(x) y'' + B(x)y' + C(x)y = F(x) .
+\end{equation*}
+This equation can be written in \emph{standard form} by dividing throuhg by $A(x)$ to get
+\begin{equation} \label{sol:eqlin}
+y'' + p(x)y' + q(x)y = f(x) ,
+\end{equation}
+where $p(x) = \nicefrac{B(x)}{A(x)}$, $q(x) = \nicefrac{C(x)}{A(x)}$, and
+$f(x) = \nicefrac{F(x)}{A(x)}$.
+\end{definition}
+
+The word \emph{linear\index{linear equation}} means that the equation contains no powers nor
+functions of $y$, $y'$, and $y''$. In the special case when $f(x) = 0$, we have a so-called
+\emph{homogeneous\index{homogeneous linear equation}}
+equation
+\begin{equation} \label{sol:eqlinhom}
+y'' + p(x)y' + q(x)y = 0 .
+\end{equation}
+We have already seen some second order linear homogeneous equations.
+\begin{align*}
+\qquad y'' + k^2 y & = 0 &
+& \text{Two solutions are:} \quad y_1 = \cos (kx), \quad y_2 = \sin(kx) . \qquad \\
+\qquad y'' - k^2 y & = 0 &
+& \text{Two solutions are:} \quad y_1 = e^{kx}, \quad y_2 = e^{-kx} . \qquad
+\end{align*}
+
+With the examples above, we were able to find solutions. However, notice that these equations don't have functions of $x$ as coefficients of the $y$ term. This means they are \myindex{constant coefficient} equations. It turns out that one of the few ways we can have a guaranteed method for finding solutions to these equation is if they have constant coefficients. For first order, we had a method for every linear equation, but for second order, we only have a formulaic method for constant coefficient and homogeneous linear equations. 
+
+% \TODO{Lead in better. Also enphasize that this only works for linear equations. Make an exercise illustrating this for a non-linear equation.}
+
+If we know two solutions of a linear homogeneous equation, we know many
+more of them.
+
+\begin{theorem1}{Superposition}\index{superposition}
+Suppose $y_1$ and $y_2$ are two solutions of the
+homogeneous equation \eqref{sol:eqlinhom}.  Then 
+\begin{equation*}
+y(x) = C_1 y_1(x) + C_2 y_2(x) ,
+\end{equation*}
+also solves \eqref{sol:eqlinhom} for arbitrary constants $C_1$ and $C_2$.
+\end{theorem1}
+
+That is, we can add solutions together and multiply them by constants to
+obtain new and different solutions.  We call
+the expression $C_1 y_1 + C_2 y_2$ a
+\emph{\myindex{linear combination}} of $y_1$ and $y_2$.
+Let us
+prove this theorem; the
+proof is very enlightening and illustrates how linear equations work.
+
+\medskip
+
+\emph{Proof:}
+Let 
+$y = C_1 y_1 + C_2 y_2$.  Then
+\begin{equation*}
+\begin{split}
+y'' + py' + qy & =
+(C_1 y_1 + C_2 y_2)'' + p(C_1 y_1 + C_2 y_2)' + q(C_1 y_1 + C_2 y_2) \\
+& = C_1 y_1'' + C_2 y_2'' + C_1 p y_1' + C_2 p y_2' + C_1 q y_1 + C_2 q y_2 \\
+& = C_1 ( y_1'' + p y_1' + q y_1 ) + C_2 ( y_2'' + p y_2' + q y_2 ) \\
+& = C_1 \cdot 0 + C_2 \cdot 0 = 0 . \qed
+\end{split}
+\end{equation*}
+
+\medskip
+
+The proof becomes even simpler to state if we use the
+operator notation.
+An \emph{\myindex{operator}} is an object that eats functions and spits out functions (kind of
+like what a function is, but a function eats numbers and spits out numbers).
+Define the operator $L$ by
+\begin{equation*}
+L[y] = y'' + py' + qy .
+\end{equation*}
+The differential equation now becomes $L[y]=0$.
+The operator (and the equation)
+$L$ being \emph{linear}\index{linear operator} means that $L[C_1y_1 + C_2y_2] = 
+C_1 L[y_1] + C_2 L[y_2]$.  The proof above becomes
+\begin{equation*}
+L[y] = L[C_1y_1 + C_2y_2] = 
+C_1 L[y_1] + C_2 L[y_2] = C_1 \cdot 0 + C_2 \cdot 0 = 0 .
+\end{equation*}
+
+\begin{exercise}
+This fact does not hold if the equation is non-linear. Show that $y_1(t) = e^t$ and $y_2(t) = 1$ solve 
+\begin{equation*}
+y'' = \sqrt{y\cdot y'}
+\end{equation*}
+but $y(t) = e^t + 1$ does not.
+\end{exercise}
+
+% \TODO{Do we want to remove cosh and sinh from everywhere?}
+
+Two different solutions to the second equation $y'' - k^2y = 0$ are
+$y_1 = \cosh (kx)$ and $y_2 = \sinh (kx)$.  Let us remind ourselves of the
+definition, $\cosh x = \frac{e^x  + e^{-x}}{2}$ and
+$\sinh x = \frac{e^x - e^{-x}}{2}$.  Therefore, these are solutions by
+superposition as they
+are linear combinations of the two
+exponential solutions.
+
+The functions $\sinh$ and $\cosh$ are sometimes more convenient to use than the
+exponential.  Let us review some of their properties:
+\begin{align*}
+& \cosh 0  = 1 , &   & \sinh 0 = 0 , \\
+& \frac{d}{dx} \Bigl[ \cosh x \Bigr] = \sinh x , &  & \frac{d}{dx} \Bigl[ \sinh x \Bigr] = \cosh x , \\
+& \cosh^2 x - \sinh^2 x = 1 .
+\end{align*}
+
+
+\begin{exercise}
+Derive these properties using the definitions of $\sinh$
+and $\cosh$ in terms of exponentials.
+\end{exercise}
+
+\subsection{Intial Value Problems}
+
+For first order equations, a lot of problems were stated as Initial Value Problems, containing both a differential equation and an initial condition of the value of $y$ at some point $x_0$. What do these initial condition(s) look like for second order equations?
+
+\begin{example}
+Solve the second-order differential equation
+\begin{equation*}
+y'' = x.
+\end{equation*}
+\end{example}
+
+\begin{exampleSol}
+We can attempt to find a solution to this problem by integrating both sides twice. A first integration gives
+\begin{equation*}
+y' = \frac{x^2}{2} + C
+\end{equation*}
+and a second integration leads to 
+\begin{equation*}
+y = \frac{x^3}{6} + Cx + D
+\end{equation*}
+for any two constants $C$ and $D$. We can check that differentiating this $y$ function twice gives us back the function $x$ that we wanted.
+\end{exampleSol}
+
+In the previous example, we ended up with two unknown constants in our answer, whereas for first order equations, we only had one. In order to specify these two constants, we will need to give two additional facts about this function. This could be the value of the function at two points, but more traditionally, it is given as the value of the function $y$ and its first derivative $y'$ at a value $x_0$. Fairly often, this value $x_0$ is $0$, but it could be any other number.
+
+\begin{example}
+Solve the initial value problem
+\begin{equation*}
+y'' = x, \qquad y(1) = 2,\ y'(1) = 3
+\end{equation*}
+\end{example}
+
+\begin{exampleSol}
+We previously found our solution with unknown constants as
+\begin{equation*}
+y = \frac{x^3}{6} + Cx + D
+\end{equation*}
+and also found that
+\begin{equation*}
+y' = \frac{x^2}{2} + C.
+\end{equation*}
+To find the values of $C$ and $D$, we need to plug in the two initial conditions into their corresponding functions. The initial value of the derivative gives that
+\begin{equation*}
+3 = y'(1) = \frac{1^2}{2} + C = C + \frac{1}{2}
+\end{equation*}
+so that we have $C = \frac{5}{2}$. We can then use the initial value of $y$, along with this $C$ value, to conclude that
+\begin{equation*}
+2 = y(1) = \frac{1^3}{6} + \frac{5}{2}(1) + D = \frac{1}{6} + \frac{5}{2} + D = \frac{16}{6} + D.
+\end{equation*}
+Solving this out gives that $D = -\frac{4}{6} = -\frac{2}{3}$. Putting these constants in gives that the solution to the initial value problem is
+\begin{equation*}
+y = \frac{x^3}{6} + \frac{5}{2}x - \frac{2}{3}.
+\end{equation*}
+\end{exampleSol}
+
+For first-order equations, we have theorems that told us that solutions existed and were unique, at least on small intervals. Linear first-order equations in particular had a very nice existence and uniqueness theorem (Theorem \ref{exist:lin1thm}), guaranteeing existence on a full interval wherever the coefficient functions are continuous. Linear second-order equations have an existence and uniqueness theorem that gives the same type of result when the initial condition is stated properly.
+
+\begin{theorem1}{Existence and uniqueness}\index{existence and uniqueness}
+Suppose $p, q, f$ are continuous functions on some interval
+$I$, $a$ is a number in $I$,
+and $a, b_0, b_1$ are constants.
+The equation
+\begin{equation*}
+y'' + p(x) y' + q(x) y = f(x) ,
+\end{equation*}
+has exactly one solution $y(x)$ defined on the same interval $I$ satisfying the initial conditions
+\begin{equation*}
+y(a) = b_0 , \qquad y'(a) = b_1 .
+\end{equation*}
+\end{theorem1}
+
+For example, the equation $y'' + k^2 y = 0$ with $y(0) = b_0$ and $y'(0) = b_1$
+has the solution
+\begin{equation*}
+y(x) = b_0 \cos (kx) + \frac{b_1}{k} \sin (kx) .
+\end{equation*}
+
+The equation $y'' - k^2 y = 0$ with $y(0) = b_0$ and $y'(0) = b_1$
+has the solution
+\begin{equation*}
+y(x) = b_0 \cosh (kx) + \frac{b_1}{k} \sinh (kx) .
+\end{equation*}
+Using $\cosh$ and $\sinh$ in this solution allows us to solve for
+the initial conditions
+in a cleaner way
+than if we have used the exponentials.
+
+As it did for first order equations, this theorem tells us what the proper form is for initial value problems for second order equations. The take-away here is that in order to fully specify a solution to an initial value problem, a second order equation requires two initial conditions. They are usually given in the form $y(a)$ and $y'(a)$, but could be given as $y(a_1)$ and $y(a_2)$ in other applications. In any case, two pieces of information are needed to determine a problem of second order, where we only needed one for first order. 
+
+\medskip
+
+\subsection{Constant Coefficient Equations - Real and Distinct Roots}
+
+Now we want to try to solve some of these equations. As discussed earlier in this section, there is no explicit solution method possible for second order equations. However, if we restrict to a very simple case (which is also one that shows up frequently in physical systems) we can start to develop a method for solving these equations. The type of equation we restrict to is linear and constant coefficient equations.  \emph{Constant coefficients\index{constant coefficient}}
+means that the functions 
+in front of $y''$, $y'$, and $y$ are constants, they do not depend on $x$. The most general second order, linear, constant coefficient equation is
+\begin{equation*}
+ay'' + by' + cy = g(x)
+\end{equation*}
+for real constants $a, b, c$ and an arbitrary function $g(x)$. We will study the solution of nonhomogeneous equations (with $g(x) \neq 0$) in
+\sectionref{sec:nonhom}.  We will first focus on finding general solutions to
+homogeneous equations, which are of the form
+\begin{equation*}
+ay'' + by' + cy = 0.
+\end{equation*}
+
+Consider the problem
+\begin{equation*}
+y''-6y'+8y = 0.
+\end{equation*}
+This is a second order linear homogeneous equation with constant
+coefficients, so it fits the type of equation where we want to hunt for solutions. To guess a solution, think of a function that stays essentially the
+same when we differentiate it, so that we can take the function and its
+derivatives, add some multiples of these together, and end up with zero.
+Yes, we are talking about the exponential.
+
+Let us try\footnote{%
+Making an educated guess with some parameters to solve for 
+is such a central technique in differential equations, that people sometimes use
+a fancy name for such a guess: \emph{\myindex{ansatz}}, German for \myquote{initial
+placement of a tool at a work piece.}  Yes, the Germans have a word for that.}
+a solution of the form $y = e^{rx}$.  Then $y' = r e^{rx}$ and
+$y'' = r^2 e^{rx}$.  Plug in to get
+\begin{align*}
+y''-6y'+8y & = 0 , \\
+\underbrace{r^2 e^{rx}}_{y''} -6 \underbrace{r e^{rx}}_{y'}+8 \underbrace{e^{rx}}_{y} & = 0 , \\
+r^2 -6 r +8 & = 0 \qquad \text{(divide through by } e^{rx} \text{)},\\
+(r-2)(r-4) & = 0 .
+\end{align*}
+Hence, if $r=2$ or $r=4$, then $e^{rx}$ is a solution.  So let $y_1 = e^{2x}$
+and $y_2 = e^{4x}$.
+
+\begin{exercise}
+Check that $y_1$ and $y_2$ are solutions.
+\end{exercise}
+
+So we have found two solutions to this differential equation! That's great, but there may be a few concerning ideas at this point:
+\begin{enumerate}[(1)]
+\item Did we just get lucky with this particular equation?
+\item How do we know that there aren't other solutions that aren't of the form $e^{rx}$? We made that assumption, so we could have missed something.
+\end{enumerate}
+
+The second point comes back to the existence and uniqueness theorem. This differential equation satisfies the conditions of the existence and uniqueness theorem. That means that as long as we find \emph{a} solution that can meet any initial condition, then we know that the solution we have found is the \emph{only} solution. We have not yet verified the part about meeting initial conditions yet (that's coming later), but once we do, we'll know that making this assumption is completely fine, because it got us to a solution that works, and the uniqueness theorem tells us that this is the only solution. 
+
+For the first point, let's try to generalize the calculation we did above into a method that will work for more equations. Suppose that we have an equation
+\begin{equation} \label{ccsol:eq}
+a y'' + b y' + c y = 0 ,
+\end{equation}
+where $a, b, c$ are constants. We can take our same assumption that the solution is of the form $y = e^{rx}$ to obtain
+\begin{equation*}
+a r^2 e^{rx} + 
+b r e^{rx} + 
+c e^{rx} = 0 .
+\end{equation*}
+Divide by $e^{rx}$ to obtain the so-called
+\emph{\myindex{characteristic equation}} of the ODE:
+\begin{equation*}
+a r^2 + 
+b r + 
+c = 0 .
+\end{equation*}
+Solve for the $r$ by using the \myindex{quadratic formula}.
+\begin{equation*}
+r_1, r_2 = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} .
+\end{equation*}
+
+There are three cases that can arise based on this equation.
+\begin{enumerate}[(1)]
+\item If $b^2 - 4ac > 0$, then we have $r_1$ and $r_2$ as two real roots to the equation. This is the same as the example above, and we get $e^{r_1x}$ and $e^{r_2x}$ as two solutions. This is the larger class of problems to which this exact process applies.
+\item If $b^2 - 4ac < 0$, then $r_1$ and $r_2$ are complex numbers. We can still use $e^{r_1x}$ and $e^{r_2x}$ as solutions, but this runs into some issues, which will be addressed in Section \ref{complexroots:section}.
+\item If $b^2 - 4ac = 0$, then we only get one root, since $r_1 = r_2$. We do get that $e^{r_1x}$ as a solution, but that's all we get. This is another issue, which is addressed in Section \ref{reproots:section}.
+\end{enumerate}
+
+So, as long as we have $b^2 - 4ac > 0$, this method will work to give us two solutions to this differential equation.
+
+\begin{example}
+Find two values of $r$ so that $e^{rx}$ is a solution to 
+\begin{equation*}
+y'' + 3y' - 10y = 0
+\end{equation*}
+
+Our first step is to find the characteristic equation by plugging $e^{rx}$ into the equation. This gives that
+\begin{equation*}
+r^2 + 3r - 10 = 0
+\end{equation*}
+This polynomial factors as $(r-2)(r+5)$, so we know that values of $r=2$ and $r=-5$ will work. This means (check this!) that $e^{2x}$ and $e^{-5x}$ solve this differential equation.
+\end{example}
+
+\subsection{Linear Independence}
+
+Since $e^{2x}$ and $e^{-5x}$ solve the linear differential equation in the previous example, we know that superposition applies, so that $C_1e^{2x} + C_2e^{-5x}$ solves the differential equation for any $C_1$ and $C_2$. The last thing to check is that we can pick $C_1$ and $C_2$ in order to meet any initial condition that we want. If this is possible, then we know that our method using the characteristic equation to find $e^{2x}$ and $e^{-5x}$ as solutions was enough to always solve this problem. The end of this argument is done using the existence and uniqueness theorem as described previously.
+
+Let's work this out. Assume that we are given $b_0$ and $b_1$ and want to solve the initial value problem
+\begin{equation*}
+y'' + 3y' - 10y = 0 \qquad y(0) = b_0,\ y'(0) = b_1.
+\end{equation*}
+We want to do this by picking $C_1$ and $C_2$ in the expression $y=C_1e^{2x} + C_2e^{-5x}$ Since 
+\begin{equation*}
+y' = 2C_1e^{2x} - 5C_2e^{-5x}
+\end{equation*}
+we can plug zero into this equation and the equation for $y$ to get that we would need to have
+\begin{equation*}
+\begin{split}
+b_0 = y(0) &= C_1 + C_2 \\
+b_1 = y'(0) &= 2C_1 - 5C_2
+\end{split}.
+\end{equation*}
+We can solve this system of equations by elimination. Multiplying the first equation by 5 adding them together gives
+\begin{equation*}
+5b_0 + b_1 = 7C_1
+\end{equation*}
+so that
+\begin{equation*}
+C_1 = \frac{5b_0 + b_1}{7}.
+\end{equation*}
+We can then compute the value of $C_2$ as 
+\begin{equation*}
+C_2 = b_0 - C_1 = b_0 - \frac{5b_0 + b_1}{7} = \frac{2b_0 - b_1}{7}.
+\end{equation*}
+Therefore, we can appropriate values of $C_1$ and $C_2$ that will meet the initial conditions for arbitrary values $b_0$ and $b_1$. This is great! This means that our method of finding solutions was sufficient for this problem. 
+
+Let's look at this situation in more generality. Assume that we have two solutions $y_1$ and $y_2$ that solve a second order linear, homogeneous differential equation, and we want to know if $C_1y_1 + C_2y_2$ can meet any initial condition for this problem. We have two unknowns and two equations ($y(x_0)$ and $y'(x_0)$ for some value $x_0$), so it should work out. 
+
+We can carry out the same steps as above. If we have initial conditions $y(x_0) = b_0$ and $y'(x_0) = b_1$, we want to satisfy
+\begin{equation*}
+\begin{split}
+b_0 = y(x_0) &= C_1y_1(x_0) + C_2y_2(x_0) \\
+b_1 = y'(x_0) &= C_1y_1'(x_0)  + C_2y_2'(x_0)
+\end{split},
+\end{equation*}
+which we get by taking the derivative of $y(x) = C_1y_1(x) + C_2y_2(x)$ and plugging in $x_0$. We will again use elimination to solve this. We can multiply the first equation by $y_1'(x_0)$, multiply the second by $y_1(x_0)$, and subtract them. This will cancel out the $C_1$ term, leaving us with 
+\begin{equation*}
+b_0y_1'(x_0) - b_1y_1(x_0) = C_2(y_1'(x_0)y_2(x_0) - y_1(x_0)y_2'(x_0)).
+\end{equation*}
+We want to solve for $C_2$ here, and once we do that, solving for $C_1$ happens by plugging back into one of the original equations. Most of the time, this will be completely fine, but there's one issue left. We can't divide by zero. So to be able to solve these equations for $C_1$ and $C_2$, we need to know that
+\begin{equation}
+y_1'(x_0)y_2(x_0) - y_1(x_0)y_2'(x_0) \neq 0.
+\label{eqn:linindep}
+\end{equation}
+
+The left side of this equation is often called the \emph{\myindex{Wronskian}} of the functions $y_1$ and $y_2$ at the point $x_0$. In general, the Wronskian is the function $y_1'(x)y_2(x) - y_2'(x)y_1(x)$ for two solutions to a second order differential equation. This relation (the Wronskian being non-zero) tells us that the two solutions $y_1$ and $y_2$ are different enough to allow us to meet every initial condition for the differential equation. This condition is so important to the study of second order linear equations that we give it a name. We say that two solutions $y_1$ and $y_2$ are \emph{\myindex{linearly independent} at $x_0$} if \eqref{eqn:linindep} holds, that is, if the Wronskian of the solutions is non-zero at that point. For two solutions of a differential equation (which is more specific than just having two random functions), two solutions being linearly independent is equivalent to \ref{eqn:linindep} holding for any\footnote{%
+Abel's Theorem, another theoretical result, says that the Wronskian $y_1'y_2 - y_1y_2'$ is either always zero or never zero. That means that any one value can be checked to determine if two solutions are linearly independent. Picking $0$ is usually a convenient choice.} value $x_0$ where they are defined. Our work and calculations above leads to the following theorem: 
+
+\begin{theorem1}{}
+Let $p, q$ be continuous functions.
+Let $y_1$ and $y_2$ be two linearly independent
+solutions to the homogeneous equation \eqref{sol:eqlinhom}. 
+Then every other solution is 
+of the form
+\begin{equation*}
+y = C_1 y_1 + C_2 y_2
+\end{equation*} for some constants $C_1$ and $C_2$. That is, $y = C_1 y_1 + C_2 y_2$ is the general solution.
+\end{theorem1}
+
+Note that this theorem works for all linear homogeneous equations, not just constant coefficients ones. However, the methods that we have described here (and will in future sections) for \emph{finding} these solutions will generally only work for constant coefficient equations.
+
+This idea of linear independence can also be expressed in a different way: two solutions $y_1$ and $y_2$ are linearly independent if only way to make the expression \[c_1 y_1 + c_2 y_2 = 0 \] is by setting both $c_1 = 0$ and $c_2 = 0$. This comes from the idea of linear independence from linear algebra (see \Chapterref{linalg:appendix}) and uniqueness of solutions to differential equations. If there are such constants, we can also rearrange the equation to give
+\[ y_1 = -\frac{c_2}{c_1}y_2 \] which says that $y_1$ is a constant multiple of $y_2$, which holds for all values of $x$. Thus, if we have $y_1$ and $y_2$, and there is no constant $A$ so that $y_1 = Ay_2$, then these functions are linearly independent. 
+
+\begin{example}
+Find the general solution of the differential equation $y'' + y = 0$.
+\end{example}
+
+\begin{exampleSol}
+One of the four fundamental equations in \sectionref{subsection:fourfundamental} showed that the two functions $y_1 = \sin x$ and $y_2 = \cos x$ are solutions to the
+equation $y'' + y = 0$.  It is not hard to see that sine and cosine are not
+constant
+multiples of each other.  If $\sin x = A \cos x$ for some \textbf{constant} $A$,
+we let $x=0$ and this would imply $A = 0$.  But then $\sin x = 0$ for all
+$x$, which is preposterous.
+So $y_1$ and $y_2$ are linearly independent.  We could also have checked this by taking derivatives and plugging in zero. Since 
+\begin{equation*}
+y_1(0) = 0 \ \ y_1'(0) = 1\ \ y_2(0) = 1\ \ y_2'(0) = 0 
+\end{equation*}
+we have that
+\begin{equation*}
+y_1'(0)y_2(0) - y_1(0)y_2'(0) = (1)(1) - (0)(0) = 1 \neq 0
+\end{equation*}
+so these solutions are linearly independent. Hence,
+\begin{equation*}
+y = C_1 \cos x + C_2 \sin x 
+\end{equation*}
+is the general solution to $y'' + y = 0$.
+\end{exampleSol}
+
+For two functions, checking linear independence is rather simple.  Let us
+see another example using non-constant coefficient equations.  Consider $y''-2x^{-2}y = 0$.  Then $y_1 = x^2$ and $y_2 =
+\nicefrac{1}{x}$ are solutions.  To see that they are linearly indepedent,
+suppose one is a multple of the other: $y_1 = A y_2$, we just have to find
+out that $A$ cannot be a constant.  In this case we have $A =
+\nicefrac{y_1}{y_2} = x^3$, this most decidedly not a constant.
+So $y = C_1 x^2 + C_2 \nicefrac{1}{x}$ is the general solution.
+
+\medskip
+
+Now, back to our discussion of constant coefficient equations. If $b^2 - 4ac > 0$, then we have two distinct real roots $r_1$ and $r_2$, giving rise to solutions of the form $y_1(x) = e^{r_1x}$ and $y_2(x) = e^{r_2x}$. Using condition \ref{eqn:linindep} with $x_0 = 0$, we compute
+\begin{equation*}
+y_1'(0)y_2(0) - y_1(0)y_2'(0) = (r_1)(1) - (1)(r_2) = r_1 - r_2.
+\end{equation*}
+Since $r_1 \neq r_2$, this expression is not zero, so the two solutions are linearly independent. Therefore, in this case, we know that the general solution will be
+\begin{equation*}
+y = C_1e^{r_1x} + C_2e^{r_2x}.
+\end{equation*}
+Using the other formulation of linear independence of two functions, we would need to show that there is no constant $A$ so that 
+\[ e^{r_1x} = A e^{r_2x}. \] Since this can be rewritten as $A = e^{(r_2-r_1)x}$ and we know that $r_1 \neq r_2$, this is not a constant, so we again know that these functions are linearly independent and give rise to a general solution.
+
+\begin{example}
+Solve the initial value problem
+\begin{equation*}
+y'' + 2y' - 3y = 0 \qquad y(0) = 2,\ y'(0) = 1. 
+\end{equation*}
+\end{example}
+
+\begin{exampleSol}
+To start, we find the characteristic equation of this differential equation and look for the roots. The characteristic equation here is 
+\begin{equation*}
+r^2 + 2r - 3 = 0
+\end{equation*}
+and this factors as $(r+3)(r-1) = 0$. Thus, the two roots are $r=1$ and $r=-3$, so that the general solution (and we know it is the general solution because these are different exponents and so the solutions are linearly independent) is
+\begin{equation*}
+y(x) = C_1e^{x} + C_2e^{-3x}.
+\end{equation*}
+
+In order to find the values of $C_1$ and $C_2$, we need to use the initial conditions. Plugging zero into $y(x)$ gives
+\begin{equation*}
+y(0) = 2 = C_1 + C_2
+\end{equation*}
+and since the derivative $y'(x) = C_1e^x - 3C_2e^{-3x}$, the second condition gives that
+\begin{equation*}
+y'(0) = 1 = C_1 - 3C_2.
+\end{equation*}
+Subtracting the second equation from the first gives that
+\begin{equation*}
+1 = 4C_2
+\end{equation*}
+so that $C_2 = 1/4$ and $C_1 = 7/4$. Thus, the solution to the initial value problem is
+\begin{equation*}
+y(x) = \frac{7}{4}e^x + \frac{1}{4}e^{-3x}.
+\end{equation*}
+\end{exampleSol}
+
+In this second example, we solve a problem in the same way, but the roots of the characteristic equation do not work out as nicely. Even with that, the structure and process for the problem is identical to the previous example.
+
+\begin{example}
+Solve the initial value problem 
+\begin{equation*}
+y'' - 2y' - y = 0 \qquad y(0) = 2,\ y'(0) = 3.
+\end{equation*}
+\end{example}
+
+\begin{exampleSol}
+We start by looking for the characteristic equation of this differential equation and finding its roots. The characteristic equation is
+\begin{equation*}
+r^2 - 2r - 1 = 0
+\end{equation*} which has roots
+\begin{equation*}
+r = \frac{2 \pm \sqrt{(-2)^2 - 4(1)(-1)}}{2} = \frac{2 \pm \sqrt{8}}{2} = 1 \pm \sqrt{2}.
+\end{equation*}
+
+There are two real and distinct roots, so we know that the two solutions $y_1(x) = e^{(1+\sqrt{2})x}$ and $y_2(x) = e^{(1-\sqrt{2})x}$ are linearly independent, so we have that the general solution to this problem is
+\begin{equation*}
+y(x) = C_1e^{(1+\sqrt{2})x} + C_2e^{(1 - \sqrt{2})x}.
+\end{equation*}
+
+Next, we need to find the constants $C_1$ and $C_2$ to meet the initial conditions. We can see that, by computing the first derivative,
+\begin{equation*}
+\begin{split}
+y(x) &= C_1e^{(1+\sqrt{2})x} + C_2e^{(1 - \sqrt{2})x}, \\
+y'(x) &= (1+\sqrt{2})C_1e^{(1+\sqrt{2})x} + (1 - \sqrt{2})C_2e^{(1 - \sqrt{2})x},
+\end{split}
+\end{equation*}
+and plugging in $x=0$ gives that we want $C_1$ and $C_2$ to solve
+\begin{equation*}
+\begin{split}
+2 &= C_1 + C_2, \\
+3 &= (1 + \sqrt{2})C_1 + (1 - \sqrt{2})C_2.
+\end{split}
+\end{equation*}
+We can solve this by any method. One trick at the start is to subtract equation 1 from equation 2, giving that
+\begin{equation*}
+\begin{split}
+2 &= C_1 + C_2, \\
+1 &= \sqrt{2}C_1 - \sqrt{2}C_2,
+\end{split}
+\end{equation*}
+which can be rewritten as
+\begin{equation*}
+\begin{split}
+2 &= C_1 + C_2, \\
+\frac{1}{\sqrt{2}} &= C_1 - C_2.
+\end{split}
+\end{equation*}
+Adding these equations together and dividing by 2 gives that
+\begin{equation*}
+2C_1 = 2 + \frac{1}{\sqrt{2}}
+\end{equation*}
+so that $C_1 = 1 + \frac{1}{2\sqrt{2}}$, and since $C_1 + C_2 = 2$, we have that $C_2 = 1 - \frac{1}{2\sqrt{2}}$. Therefore, the solution to the desired initial value problem is
+\begin{equation*}
+y(x) = \left(1 + \frac{1}{2\sqrt{2}}\right)e^{(1 + \sqrt{2})x} + \left(1 - \frac{1}{2\sqrt{2}}\right)e^{(1 - \sqrt{2})x}.
+\end{equation*}
+\end{exampleSol}
+
+\subsection{Exercises}
+
+\begin{exercise}
+Show that $y=e^x$ and $y=e^{2x}$ are linearly independent.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Are $\sin(x)$ and $e^x$ linearly independent?  Justify.
+\end{exercise}
+\exsol{%
+Yes.  To justify try to find a constant $A$ such that $\sin(x) = A e^x$
+for all $x$.
+}
+
+
+\begin{exercise}\ansMark%
+Are $e^x$ and $e^{x+2}$ linearly independent?  Justify.
+\end{exercise}
+\exsol{%
+No.  $e^{x+2} = e^2 e^x$.
+}
+
+\begin{exercise}\ansMark%
+Guess a solution to $y'' + y' + y= 5$.
+\end{exercise}
+\exsol{%
+$y=5$
+}
+
+\begin{exercise}
+Take $y'' + 5 y = 10 x + 5$.  Find (guess!) a solution.
+\end{exercise}
+
+\begin{exercise}
+Verify that $y_1(t) = e^t \cos(2t)$ and $y_2(t) = e^t \sin(2t)$ both solve $y'' - 2y' + 5y = 0$. Are these two solutions linearly independent? What does that mean about the general solution to $y'' - 2y' + 5y = 0$?
+\end{exercise}
+
+\begin{exercise}
+Prove the superposition principle for nonhomogeneous equations.  Suppose that
+$y_1$ is a solution to $L y_1 = f(x)$ and $y_2$ is a solution to
+$L y_2 = g(x)$ (same linear operator $L$).  Show that $y = y_1+y_2$ solves
+$Ly = f(x) + g(x)$.
+\end{exercise}
+
+\begin{exercise}
+Determine the maximal interval of existence of the solution to the differential equation
+\[ (t - 5)y'' + \frac{1}{t+1}y' + e^t y = \frac{\cos(t)}{t^2 + 1} \] with initial condition $y(3) = 8$. What about if the initial condition is $y(-3) = 4$?
+\end{exercise}
+
+\begin{exercise}
+For the equation $x^2 y'' - x y' = 0$, find two solutions, show that they
+are linearly independent and find the general solution.
+Hint: Try $y = x^r$.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Find the general solution to
+$x y'' + y' = 0$.  Hint: It is a first order ODE in $y'$.
+\end{exercise}
+\exsol{%
+$y=C_1 \ln(x) + C_2$
+}
+
+\begin{exercise}
+Find the general solution of $2y'' + 2y' -4 y = 0$.
+\end{exercise}
+
+\begin{exercise}
+Solve $y'' + 9y' = 0$ with $y(0) = 1$, $y'(0) = 1$.
+\end{exercise}
+
+\begin{exercise}
+Find the general solution of $y'' + 9y' - 10 y = 0$.
+\end{exercise}
+
+\begin{exercise}
+Find the general solution to $y'' - 3y' - 4y = 0$.
+\end{exercise}
+
+\begin{exercise}
+Find the general solution to $y'' + 6y' + 8y = 0$.
+\end{exercise}
+
+\begin{exercise}
+Find the solution to $y'' - 3y' + 2y = 0$ with $y(0) = 3$ and $y'(0) = -1$.
+\end{exercise}
+
+\begin{exercise}
+Find the solution to $y'' + y' -12y = 0$ with $y(0) = 1$ and $y'(0) = -2$.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Find the general solution to
+$y''+4y'+2y=0$.
+\end{exercise}
+\exsol{%
+$y =
+C_1 e^{(-2+\sqrt{2}) x}
++
+C_2 e^{(-2-\sqrt{2}) x}$
+}
+
+\begin{exercise}\ansMark%
+Find the solution to
+$2y''+y'-3y=0$, $y(0) = a$, $y'(0)=b$.
+\end{exercise}
+\exsol{%
+$y = \frac{2(a-b)}{5} \, e^{-3x/2}+\frac{3 a+2 b}{5} \, e^x$
+}
+
+\begin{exercise}\ansMark%
+Find the solution to
+$y''-(\alpha+\beta) y' + \alpha \beta y=0$, $y(0) = a$, $y'(0)=b$,
+where $\alpha$, $\beta$, $a$, and $b$ are real numbers, and $\alpha \not=
+\beta$.
+\end{exercise}
+\exsol{%
+$y =
+\frac{a \beta-b}{\beta-\alpha} e^{\alpha x} + 
+\frac{b-a \alpha}{\beta-\alpha} e^{\beta x}$
+}
+
+\begin{exercise}\ansMark%
+Write down an equation (guess) for which we have the solutions
+$e^x$ and $e^{2x}$.  Hint: Try an equation of the form
+$y''+Ay'+By = 0$ for constants $A$ and $B$,
+plug in both $e^x$ and $e^{2x}$ and solve for $A$ and $B$.
+\end{exercise}
+\exsol{%
+$y''-3y'+2y = 0$
+}
+
+\begin{exercise}\ansMark%
+Construct an equation such that $y = C_1 e^{3x} + C_2 e^{-2x}$ is the general
+solution.
+\end{exercise}
+\exsol{%
+$y'' -y'-6y=0$
+}
+
+\begin{exercise}
+Give an example of a 2nd-order DE whose general solution is $y=c_1e^{-2t}+c_2e^{-4t}$.
+\end{exercise}
+
+\pagebreak[2]
+Equations of the form $a x^2 y'' + b x y' + c y = 0$ are called
+\emph{Euler's equations\index{Euler's equation}} or
+\emph{Cauchy--Euler equations\index{Cauchy--Euler equation}}.
+They are solved by trying
+$y=x^r$ and solving for $r$ (assume that $x \geq 0$ for simplicity).
+
+\begin{exercise} \label{sol:eulerex}
+\pagebreak[2]
+Suppose that ${(b-a)}^2-4ac > 0$.
+\begin{tasks}
+\task Find a formula for the general solution
+of $a x^2 y'' + b x y' + c y = 0$.  Hint: Try $y=x^r$ and find a formula for
+$r$.
+\task What happens when ${(b-a)}^2-4ac = 0$ or ${(b-a)}^2-4ac < 0$?
+\end{tasks}
+\end{exercise}
+
+We will revisit the case when ${(b-a)}^2-4ac < 0$ later.
+
+\begin{exercise} \label{sol:eulerexln}
+Same equation as in \exerciseref{sol:eulerex}.
+Suppose ${(b-a)}^2-4ac = 0$.  Find a formula for the general solution
+of $a x^2 y'' + b x y' + c y = 0$.  Hint: Try $y=x^r \ln x$ for the second
+solution.
+\end{exercise}
+
+
+\setcounter{exercise}{100}
+
+
+

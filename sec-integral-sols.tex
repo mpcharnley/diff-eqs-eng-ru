@@ -1,0 +1,301 @@
+\section{Integrals as solutions}
+\label{integralsols:section}
+
+\LAtt{1.1}
+
+\LO{
+\item Solve a first order differential equation by direct integration and
+\item Understand the difference between a general solution and the solution to an initial value problem.
+}
+
+% \sectionnotes{1 lecture (or less)\EPref{, \S1.2 in \cite{EP}}\BDref{,
+% covered in \S1.2 and \S2.1 in \cite{BD}}}
+
+A first order ODE is an equation of the form
+\begin{equation*}
+\frac{dy}{dx} = f(x,y) ,
+\end{equation*}
+or just
+\begin{equation*}
+y' = f(x,y) .
+\end{equation*} Some examples that fit this form are
+\[ y' = x^2y - e^x \sin{x} \] and
+\[ y' = e^y(x^2 + 1) - \cos(y). \] Looking back at the last section, the first of these is linear and the second is not. 
+In general, there is no simple formula or procedure one can follow to find
+solutions.
+In the next few sections we will look at special cases where solutions are not
+difficult to obtain.
+In this section, let us assume that $f$ is a function of $x$ alone,
+that is, the equation is
+\begin{equation} \label{ias:inteq}
+y' = f(x) .
+\end{equation}
+We could just integrate (antidifferentiate) both sides with respect to $x$.
+\begin{equation*}
+\int y'(x) \,dx = \int f(x) \,dx + C ,
+\end{equation*}
+that is
+\begin{equation*}
+y(x) = \int f(x) \,dx + C .
+\end{equation*}
+This $y(x)$ is actually the general solution.
+So to solve \eqref{ias:inteq},
+we find some antiderivative of $f(x)$
+and then we add an arbitrary constant to get the general solution.
+
+\medskip
+
+Now is a good time to discuss a point about
+calculus notation and terminology.  One of the final keystone concepts in Calculus 1 is that of the fundamental theorem of calculus, which ties together two mathematical ideas: \myindex{definite integrals} (defined as the area under a curve) and \myindex{indefinite integrals} or \myindex{antidifferentiation} (undoing the operation of differentiation). This theorem says that these two ideas are in some sense the same; in order to compute a definite integral, one can first find an antiderivative and plug in the endpoints (the most common use of the theorem), and that the derivative of a definite integral gives back the function inside (something that will be useful in this course).
+
+The main distinction between these two is the type of object that they are. Definite integrals evaluate to numbers, so they are functions, which means they are the object we want to deal with in this course. Indefinite integrals are families of functions, and while they have their uses (motivating the idea of a general solution), their main use is the process of antidifferentiation which leads us to solutions in the form of definite integrals. Provided that you can evaluate the antiderivative in question, these two processes will end up at exactly the same solution. If you end up confused about the terminology, the goal for this class is always a definite integral, but we can use antiderivatives to get there.
+% textbooks muddy the waters by talking about the integral as primarily the
+% so-called indefinite integral.  The \myindex{indefinite integral}
+% is really the \emph{\myindex{antiderivative}} 
+% (in fact the whole one-parameter family
+% of antiderivatives).  There really exists only one integral and that
+% is the definite integral.
+% The only reason for the indefinite integral notation is that we can always
+% write an antiderivative as a (definite) integral.  That is, by the fundamental
+% theorem of calculus we can always write
+% $\int f(x) \,dx + C$ as
+% \begin{equation*}
+% \int_{x_0}^x f(t) \,dt + C .
+% \end{equation*}
+Hence the terminology \emph{to \myindex{integrate}} when we may really mean
+\emph{to \myindex{antidifferentiate}}.
+Integration is just one way to compute the
+antiderivative (and it is a way that always works, see the following
+examples).  Integration is defined as the area under the graph and it
+also happens to also compute antiderivatives.
+For sake of consistency, we will keep using the
+indefinite integral notation when we want an antiderivative,
+and you should \emph{always} think of the definite integral
+as a way to write it.
+
+\begin{example}
+Find the general solution of $y' = 3 x^2$.
+\end{example}
+
+\begin{exampleSol}
+Elementary calculus tells us
+that the general solution must be $y = x^3 + C$.  Let us check by
+differentiating:
+$y' = 3x^2$.  We got \emph{precisely} our equation back.
+\end{exampleSol}
+
+Normally, we will also have an \myindex{initial condition} such as $y(x_0) = y_0$
+for some two numbers $x_0$ and $y_0$ ($x_0$ is often 0, but not always). If we do, the combination of a differential equation and an initial condition is called an \myindex{initial value problem}. We can then write the solution as a definite integral in a nice way.
+Suppose our problem is $y' = f(x)$, $y(x_0) = y_0$.  Then the solution is
+\begin{equation} \label{int:eqdef}
+y(x) = \int_{x_0}^x f(s) \,ds + y_0 .
+\end{equation}
+Let us check!
+We compute
+\[y'(x) = \frac{d}{dx} \left[ \int_{x_0}^x f(s) \,ds + y_0 \right]. \] Since $y_0$ is a constant, it's derivative is zero, and by the fundamental theorem of calculus \[ \frac{d}{dx} \int_{x_0}^x f(s)\ dx = f(x). \] Therefore $y' = f(x)$, and by Jupiter, $y$ is a
+solution.  Is it the one satisfying the initial condition?  Well,
+\[y(x_0) = \int_{x_0}^{x_0} f(x)\,dx + y_0\] and since $f$ is a nice function, we know that the integral of $f$ with matching endpoints is $0$. Therefore $y(x_0) = y_0$.  It is!
+
+Do note that the definite integral and the indefinite integral
+(antidifferentiation) are completely different beasts.  The definite integral
+always evaluates to a number.  Therefore, \eqref{int:eqdef} is a formula we
+can plug into the calculator or a computer, and it will be happy to calculate
+specific values for us.  We will easily be able to plot the
+solution and work with it just like with any other function.
+It is not so crucial to always find a
+closed form for the antiderivative.
+
+\begin{example}
+Solve
+\begin{equation*}
+y' = e^{-x^2}, \qquad y(0) = 1 .
+\end{equation*}
+\end{example}
+
+\begin{exampleSol}
+By the preceding discussion, the solution must be
+\begin{equation*}
+y(x) = \int_0^x e^{-s^2} \,ds + 1 .
+\end{equation*}
+Here is a good way to make fun of your friends taking second semester
+calculus.  Tell them to
+find the closed form solution.  Ha ha ha (bad math joke).  It is
+not possible (in closed form).
+There is absolutely nothing wrong with writing the solution as a
+definite integral. 
+This particular integral
+is in fact very important
+in statistics.
+\end{exampleSol}
+
+While there is nothing wrong with writing solutions as a definite integral, they should be simplified and evaluated if possible. Given the differential equation
+\[ y' = 3x^2, \qquad y(2) = 6, \] the solution can be written as 
+\[ y(x) = \int_2^x 3s^2\ ds + 6.\] However, it is much more convenient, both for human reasoning and computers, to write this solution as 
+\[ y(x) = x^3 - 2.\] So, if integrals can be evaluated and simplified to explicit functions, then they should be worked out. If it is not possible, then answers in integral form are completely fine. 
+
+Classical problems leading to differential equations solvable by integration
+are problems 
+dealing with \myindex{velocity},
+\myindex{acceleration} and \myindex{distance}.  You have surely seen these
+problems before in your calculus class.
+
+\begin{example}
+Suppose a car drives at a speed $e^{t/2}$ meters per second,
+where $t$ is time in seconds.
+How far did the car get in 2 seconds (starting at $t=0$)?  How far in 10 seconds?
+\end{example}
+
+\begin{exampleSol}
+Let $x$ denote the distance the car traveled.
+The equation is
+\begin{equation*}
+x' = e^{t/2} .
+\end{equation*}
+We just integrate this equation to get that
+\begin{equation*}
+x(t) = 2 e^{t/2} + C . 
+\end{equation*}
+We still need to figure out $C$.  We know that when $t=0$, then
+$x=0$.  That is, $x(0) = 0$.  So
+\begin{equation*}
+0 = x(0) = 2e^{0/2} + C = 2 + C .
+\end{equation*}
+Thus $C = -2$ and 
+\begin{equation*}
+x(t) = 2 e^{t/2} - 2 .
+\end{equation*}
+Now we just plug in to get where the car is at 2 and at 10 seconds.
+We obtain
+\begin{equation*}
+x(2) = 2e^{2/2} - 2 \approx 3.44 \text{ meters} ,
+\qquad
+x(10) = 2e^{10/2} - 2 \approx 294 \text{ meters} .
+\end{equation*}
+\end{exampleSol}
+
+\begin{example}
+Suppose that the car accelerates at a rate of $\unitfrac[t^2]{m}{s^2}$.
+At time $t=0$ the car is at the 1 meter mark and is traveling at
+\unitfrac[10]{m}{s}.  Where is the car at time $t=10$?
+\end{example}
+\begin{exampleSol}
+Well this is actually a second order problem.  If $x$ is the distance
+traveled, then $x'$ is the velocity, and $x''$ is the acceleration.
+The initial value problem for this situation is
+\begin{equation*}
+x'' = t^2 , \qquad x(0) = 1 , \qquad x'(0) = 10 .
+\end{equation*}
+What if we say $x' = v$.  Then we have the problem
+\begin{equation*}
+v' = t^2, \qquad v(0) = 10 .
+\end{equation*}
+Once we solve for $v$, we can integrate and find $x$.
+\end{exampleSol}
+
+\begin{exercise}
+Solve for $v$, and then solve for $x$.  Find $x(10)$ to answer the
+question.
+\end{exercise}
+
+\subsection{Exercises}
+
+\begin{exercise}
+Solve $\frac{dy}{dx} = x^2+x$ with $y(1)=3$.
+\end{exercise}
+
+\begin{exercise}
+Solve $\frac{dy}{dx} = \sin (5x)$ with $y(0)=2$.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Solve $\frac{dy}{dx} = e^x + x$ with $y(0) = 10$.
+\end{exercise}
+\exsol{%
+$y = e^x + \frac{x^2}{2} + 9$
+}
+
+\begin{exercise}
+Solve $\frac{dy}{dx} = 2xe^{3x}$ with $y(0) = 1$. 
+\end{exercise}
+
+\begin{exercise}
+Solve $\frac{dx}{dt} = e^t\cos(2t) + t$ with $y(0) = 3$. 
+\end{exercise}
+
+\begin{exercise}
+Solve $\frac{dy}{dx} = \frac{1}{x^2 + 1} + 3e^{2x}$ with $y(0) =2$. 
+\end{exercise}
+
+\begin{exercise}
+Solve $\frac{dy}{dx} = \frac{1}{x^2-1}$ for $y(0)=0$. (This requires partial fractions or hyperbolic trigonometric functions.)
+\end{exercise}
+
+\begin{exercise}[harder]
+Solve $y'' = \sin x$ for $y(0)=0$, $y'(0) = 2$.
+\end{exercise}
+
+\begin{exercise}
+A spaceship is traveling at the speed \unitfrac[$2t^2+1$]{km}{s} ($t$ is
+time in seconds).  It is pointing directly away from earth and at time $t=0$
+it is 1000 kilometers from earth.  How far from earth is it at one minute from
+time $t=0$?
+\end{exercise}
+
+\begin{exercise}\ansMark
+Sid is in a car traveling at speed $10t+70$ miles per hour away from Las Vegas,
+where $t$ is in hours.  At $t=0$, Sid is 10 miles away from Vegas.  How
+far from Vegas is Sid 2 hours later?
+\end{exercise}
+\exsol{%
+170
+}
+
+\begin{exercise}
+Solve $\frac{dx}{dt} = \sin(t^2)+t$, $x(0)=20$.  It is OK to leave your
+answer as a definite integral.
+\end{exercise}
+
+\begin{exercise}
+Solve $\frac{dy}{dt} = e^{t^2} + \sin(t)$, $y(0) = 4$. The answer can be left as a definite integral. 
+\end{exercise}
+
+\begin{exercise}
+A dropped ball accelerates downwards at a constant rate $9.8$ meters per second
+squared.  Set up the differential equation for the height above ground $h$ in meters.
+Then supposing $h(0) = 100$ meters, how long does it take for the ball to hit
+the ground.
+\end{exercise}
+
+\begin{exercise}\ansMark
+The rate of change of the volume of a snowball that is melting is 
+proportional to the surface area of the snowball.  Suppose the
+snowball is perfectly spherical.  The volume (in centimeters cubed)
+of a ball of radius $r$ centimeters is
+$(\nicefrac{4}{3}) \pi r^3$.  The surface area is
+$4 \pi r^2$.  Set up the differential equation for how the radius $r$ is changing.
+Then, suppose that at time $t=0$ minutes, the radius is 10 centimeters.
+After 5 minutes, the radius is 8 centimeters.  At what time $t$ will the 
+snowball be completely melted?
+\end{exercise}
+\exsol{%
+The equation is $r' = -C$ for some constant $C$.
+The snowball will be completely melted in 25 minutes from time $t=0$.
+}
+
+\begin{exercise}\ansMark%
+Find the general solution to $y''''= 0$.  How many distinct constants do you need?
+\end{exercise}
+\exsol{%
+$y = Ax^3 + Bx^2 + Cx + D$, so 4 constants.
+}
+
+\setcounter{exercise}{100}
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,1538 @@
+\section{Nonhomogeneous systems}
+\label{nonhomogsys:section}
+
+\LAtt{3.9}
+
+\LO{
+\item Use the eigenvector decomposition or diagonalization to solve non-homogeneous systems,
+\item Use undetermined coefficients to solve non-homogeneous systems, and
+\item Use variation of parameters and fundamental matrices of solutions to solve non-homogeneous systems. 
+}
+
+Now, we want to take a look at solving non-homogeneous linear systems. As discussed previously, the process here is the same as it was for second order non-homogeneous equations. We can solve the homogeneous equation and then need one particular solution to the non-homogeneous problem. Adding these together gives the general solution to the non-homogeneous problem, where we can pick constants to meet an initial condition if it is given. This section here will focus on a variety of methods to find this particular solution.
+
+\subsection{First order constant coefficient}
+
+\subsubsection{Diagonalization}
+\index{diagonalization}
+
+% For this first method, note that eigenvectors of a matrix give the 
+% directions in which the matrix acts like a scalar.  If we solve
+% the system along these directions, the computations are simpler as we
+% treat the matrix as a scalar.  We then
+% put those solutions together to get the general solution
+% for the system.
+
+Diagonalization is a linear algebra-based process for adjusting a matrix into one that is diagonal. In order to see why this might be helpful in the process of solving non-homogeneous systems, or generating a particular solution to the non-homogeneous system, let's start by looking at a problem with a diagonal matrix to see how we could solve it. 
+
+\begin{example}
+Find the general solution of the non-homogeneous system
+\[ \vec{x}'(t) = \begin{bmatrix}1& 0 \\ 0 & 3 \end{bmatrix}\vec{x} + \begin{bmatrix} e^{2t} \\ e^{-t} \end{bmatrix}.\]
+\end{example}
+
+\begin{exampleSol}
+If we write this system out in components, we get 
+\[ \begin{bmatrix} x_1' \\ x_2' \end{bmatrix} = \begin{bmatrix}1& 0 \\ 0 & 3 \end{bmatrix}\begin{bmatrix} x_1 \\ x_2 \end{bmatrix} + \begin{bmatrix} e^{2t} \\ e^{-t} \end{bmatrix}, \] or 
+\[ x_1' = x_1 + e^{2t} \qquad x_2' = 3x_2 + e^{-t}.\]
+
+These are two completely separated, or \emph{\myindex{decoupled}} equations. We can solve each of these via first-order integrating factor methods. For the first, we get
+\[
+\begin{split}
+x_1' - x_1 &= e^{2t} \\
+(e^{-t}x_1)' &= e^{t} \\
+e^{-t}x_1 &= e^t + C_1 \\
+x_1(t) &= e^{2t} + C_1e^t
+\end{split}
+\]
+and for the second, we see that
+\[
+\begin{split}
+x_2' - 3x_2 &= e^{-t} \\
+(e^{-3t}x_2)' &= e^{2t} \\
+e^{-3t}x_2 &= \frac{1}{2}e^{2t} + C_2 \\
+x_2(t) &= \frac{1}{2}e^{-t} + C_2e^{3t}
+\end{split}.
+\]
+
+Therefore, the solution to this system is
+\[ \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} = \begin{bmatrix}e^{2t} + C_1e^t \\ \frac{1}{2}e^{-t} + C_2e^{3t} \end{bmatrix} \] or, rewriting in a different form,
+\[ \vec{x}(t) = \begin{bmatrix} e^{2t} \\ \frac{1}{2}e^{-t} \end{bmatrix} + C_1 \begin{bmatrix} 1 \\ 0 \end{bmatrix} e^{t} + C_2 \begin{bmatrix} 0 \\ 1 \end{bmatrix} e^{3t}.\]
+\end{exampleSol}
+
+Therefore, if we have a non-homogeneous system with a diagonal matrix, then we can separate the decoupled equations, solve them individually, and put them back together into a full solution. In this particular case, the eigenvectors of $A$ were $\begin{bmatrix} 1 \\ 0 \end{bmatrix}$ and $\begin{bmatrix} 0 \\ 1 \end{bmatrix}$, and so the standard basis vectors were the directions in which $A$ acts like a scalar. When the eigenvectors are not the standard basis vectors, we need to take them into account in order to use this method.
+
+Take the equation
+\begin{equation} \label{nhsys:ednhsys}
+{\vec{x}}' (t) = A \vec{x}(t) + \vec{f}(t) .
+\end{equation}
+Assume $A$ has $n$ linearly independent eigenvectors
+$\vec{v}_1, \vec{v}_2, \ldots, \vec{v}_n$ with corresponding eigenvalues $\lambda_1, \lambda_2, \ldots, \lambda_n$. Build the matrices 
+\begin{equation*}
+E = \left[ \vec{v}_1 \mid \vec{v}_2 \mid \cdots \mid \vec{v}_n \right] \qquad D = \begin{bmatrix} \lambda_1 & 0 & \cdots & 0 \\ 0 & \lambda_2 & \cdots & 0 \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & \cdots & \lambda_n \end{bmatrix},
+\end{equation*}
+that is, $E$ is the matrix with the eigenvectors as columns, and $D$ is a diagonal matrix with the eigenvalues on the diagonal in the same order as the eigenvectors are put into $E$. Since we have $n$ eigenvectors, both of these are $n \times n$ square matrices. It is a fact from linear algebra that
+\begin{equation*}
+A = EDE^{-1} \quad \text{ or } \quad D = E^{-1}AE.
+\end{equation*}
+
+\begin{exercise}
+For the matrix 
+\begin{equation*}
+A = \begin{bmatrix} 6 & 2 \\ -4 & 0 \end{bmatrix}
+\end{equation*}
+compute the matrices $E$ and $D$ and verify that $EDE^{-1} = A$. 
+\end{exercise}
+
+With this tool in hand, we look to approach our non-homogeneous system. We would like for the system to use the matrix $D$ instead of the matrix $A$, because that is decoupled and we can solve it directly. To do this, we define a new unknown function $\vec{y}$ by the relation $\vec{x} = E\vec{y}$. If we plug this into \eqref{nhsys:ednhsys}, we get
+\begin{equation*}
+{E\vec{y}}' (t) = A E\vec{y}(t) + \vec{f}(t).
+\end{equation*} 
+Using the relation for $A$ and the fact that $E$ is a constant matrix, we get that
+\begin{equation*}
+E{\vec{y}}' (t) = EDE^{-1} E \vec{y}(t) + \vec{f}(t) = ED\vec{y}(t) + \vec{f}(t).
+\end{equation*}
+If we multiply both sides of this equation by $E^{-1}$, we get
+\begin{equation*}
+{\vec{y}}' (t) = D\vec{y}(t) + E^{-1}\vec{f}(t)
+\end{equation*}
+and this is now a decoupled system of equations. Once we compute $E^{-1}\vec{f}(t)$, we can then solve this directly because it is based on a decoupled system of differential equations to solve for the solution $\vec{y}$. Once we have $\vec{y}$, we can compute $\vec{x}$ as $\vec{x} = E\vec{y}$ to get our solution. 
+
+\begin{example}
+Let $A = \left[
+\begin{smallmatrix}
+1 & 3 \\
+3 & 1
+\end{smallmatrix} \right]$.
+Solve ${\vec{x}}' = A \vec{x} +
+\vec{f}$ where $\vec{f}(t) = 
+\left[ \begin{smallmatrix}
+2e^t \\
+2t
+\end{smallmatrix} \right]$ for $\vec{x}(0) =
+\left[ \begin{smallmatrix}
+3/16 \\
+-5/16
+\end{smallmatrix} \right]$.
+\end{example}
+
+\begin{exampleSol}
+The first step in this process is always to find the eigenvalues and eigenvectors of the coefficient matrix. We do this in the standard way
+\begin{equation*}
+\det(A - \lambda I) = (1-\lambda)(1-\lambda) - (3)(3) = \lambda^2 - 2\lambda + 1 - 9 = \lambda^2 - 2 \lambda - 8.
+\end{equation*}
+Since this factors as $(\lambda + 2)(\lambda - 4)$, the eigenvalues are $-2$ and $4$. Using these (exercise!) we can show that the corresponding eigenvectors are $\left[\begin{smallmatrix} 1 \\ -1 \end{smallmatrix}\right]$ for $\lambda = -2$ and $\left[\begin{smallmatrix} 1 \\ 1 \end{smallmatrix}\right]$ for $\lambda = 4$. Therefore, the general solution to the homogeneous problem is
+\begin{equation*}
+\vec{x}(t) = c_1 \begin{bmatrix} 1 \\ -1 \end{bmatrix}e^{-2t} + c_2 \begin{bmatrix} 1 \\ 1 \end{bmatrix}e^{4t}.
+\end{equation*}
+
+Now that we have this solution, we can work to solve the non-homogeneous problem. To do this, we form the matrices
+\begin{equation*}
+E = \begin{bmatrix} 1 & 1 \\ -1 & 1 \end{bmatrix} \qquad D = \begin{bmatrix} -2 & 0 \\ 0 & 4 \end{bmatrix}
+\end{equation*}
+and, using the fact that for a $ 2 \times 2$ matrix
+\begin{equation*}
+\begin{bmatrix} 
+a& b \\
+c & d 
+\end{bmatrix}^{-1} = \frac{1}{ad-bc} \begin{bmatrix}
+d & -b \\ -c & a
+\end{bmatrix}
+\end{equation*} 
+we can compute $E^{-1}$ as
+\begin{equation*}
+E^{-1} = \frac{1}{(1)(1) - (1)(-1)} \begin{bmatrix} 1 & -1 \\ 1 & 1 \end{bmatrix} = \begin{bmatrix} 1/2 & -1/2 \\ 1/2 & 1/2 \end{bmatrix}.
+\end{equation*}
+
+As an aside, we can check that $A = EDE^{-1}$ to make sure that we did this right.
+
+\begin{equation*}
+\begin{split}
+EDE^{-1} &= \begin{bmatrix} 1 & 1 \\ -1 & 1 \end{bmatrix} \begin{bmatrix} -2 & 0 \\ 0 & 4 \end{bmatrix} \begin{bmatrix} 1/2 & -1/2 \\ 1/2 & 1/2 \end{bmatrix} \\
+&= \begin{bmatrix} 1 & 1 \\ -1 & 1 \end{bmatrix} \begin{bmatrix} -1 & 1 \\ 2 & 2 \end{bmatrix} \\
+&= \begin{bmatrix} 1 & 3 \\ 3 & 1 \end{bmatrix} = A.
+\end{split}
+\end{equation*}
+
+Thus, we can proceed. From the general process of diagonalization, we know that the system we need to solve is
+\begin{equation*}
+\vec{y}' = D\vec{y} + E^{-1}\vec{f} = \begin{bmatrix} -2 & 0 \\ 0 & 4 \end{bmatrix} \vec{y} + \begin{bmatrix} 1/2 & -1/2 \\ 1/2 & 1/2 \end{bmatrix} \begin{bmatrix} 2e^t \\ 2t \end{bmatrix}
+\end{equation*}
+for $\vec{y} = E^{-1}\vec{x}$, or $\vec{y}$ defined by $\vec{x} = E\vec{y}$. Computing the non-homogenoeus term gives
+\begin{equation*}
+\begin{bmatrix} 1/2 & -1/2 \\ 1/2 & 1/2 \end{bmatrix} \begin{bmatrix} 2e^t \\ 2t \end{bmatrix} = \begin{bmatrix} e^t - t \\ e^t + t \end{bmatrix}
+\end{equation*}
+so that we can now decouple the system
+\begin{equation*}
+\begin{bmatrix} y_1' \\ y_2' \end{bmatrix}  = \begin{bmatrix} -2 & 0 \\ 0 & 4 \end{bmatrix} \begin{bmatrix} y_1 \\ y_2 \end{bmatrix} + \begin{bmatrix} e^t - t \\ e^t + t \end{bmatrix}
+\end{equation*}
+into two separate first-order equations that we can solve
+\begin{equation*}
+y_1' = -2y_1 + e^t - t \qquad y_2' = 4y_2 + e^t + t
+\end{equation*}
+by normal first-order integrating factor methods. For the $y_1$ equation, we want to use an integrating factor of $e^{2t}$ to solve it as
+\begin{equation*}
+\begin{split}
+y_1' + 2y_1 &= e^t - t \\
+e^{2t}y_1' + 2e^{2t}y_1 &= e^{3t} - te^{2t} \\
+(e^{2t}y_1)' &= e^{3t} - te^{2t} \\
+e^{2t}y_1 &= \int e^{3t} - te^{2t}\ dt = \frac{1}{3}e^{3t} - \frac{1}{2}te^{2t} + \frac{1}{4}e^{2t} + C_1 \\
+y_1 &= \frac{1}{3}e^t - \frac{1}{2} t + \frac{1}{4} + C_1e^{-2t}.
+\end{split}
+\end{equation*}
+
+For the second, we need the integrating factor $e^{-4t}$ to solve
+\begin{equation*}
+\begin{split}
+y_2' - 4y_2 &= e^t + t \\
+e^{-4t}y_2' - 4e^{-4t}y_2 &= e^{-3t} + te^{-4t} \\
+e^{-4t}y_2 &= \int e^{-3t} + te^{-4t}\ dt = -\frac{1}{3}e^{-3t} - \frac{1}{4}te^{-4t} - \frac{1}{16}e^{-4t} + C_2 \\
+y_2 &= -\frac{1}{3}e^{t} - \frac{1}{4}t - \frac{1}{16} + C_2e^{4t}. 
+\end{split}
+\end{equation*}
+
+Therefore, we have the vector solution
+\begin{equation*}
+\vec{y}(t) = \begin{bmatrix} 
+\frac{1}{3}e^t - \frac{1}{2} t + \frac{1}{4} + C_1e^{-2t} \\
+-\frac{1}{3}e^{t} - \frac{1}{4}t - \frac{1}{16} + C_2e^{4t}
+\end{bmatrix}. 
+\end{equation*}
+
+To get to the actual solution $\vec{x}$, we need to multiply this solution by the matrix $E$
+\begin{equation*}
+\begin{split}
+\vec{x} &= E\vec{y} = \begin{bmatrix} 1 & 1 \\ -1 & 1 \end{bmatrix} \begin{bmatrix} 
+\frac{1}{3}e^t - \frac{1}{2} t + \frac{1}{4} + C_1e^{-2t} \\
+-\frac{1}{3}e^{t} - \frac{1}{4}t - \frac{1}{16} + C_2e^{4t}
+\end{bmatrix} \\
+&= \begin{bmatrix}\frac{1}{3}e^t - \frac{1}{2} t + \frac{1}{4} + C_1e^{-2t} + (-\frac{1}{3}e^{t} - \frac{1}{4}t - \frac{1}{16} + C_2e^{4t}) \\
+-(\frac{1}{3}e^t - \frac{1}{2} t + \frac{1}{4} + C_1e^{-2t}) + (-\frac{1}{3}e^{t} - \frac{1}{4}t - \frac{1}{16} + C_2e^{4t}) \end{bmatrix} \\
+&= \begin{bmatrix} -\frac{3}{4}t + \frac{3}{16} + C_1e^{-2t} + C_2e^{-4t} \\ -\frac{2}{3}e^{t} - \frac{1}{4}t - \frac{5}{16} - C_1e^{-2t} + C_2e^{4t} \end{bmatrix}
+\end{split}
+\end{equation*}
+which is a valid way to write the general solution. We can also write this solution in the form
+\begin{equation*}
+\vec{x}(t) = \begin{bmatrix} 0 \\ -\frac{2}{3} \end{bmatrix} e^t + \begin{bmatrix} -\frac{3}{4} \\ -\frac{1}{4} \end{bmatrix} t + \begin{bmatrix} \frac{3}{16} \\ -\frac{5}{16} \end{bmatrix} + C_1\begin{bmatrix} 1 \\ -1 \end{bmatrix}e^{-2t} + C_2\begin{bmatrix} 1 \\ 1 \end{bmatrix} e^{4t}
+\end{equation*}
+and we see that the general solution to the homogeneous problem shows up at the end of this solution.
+
+Finally, we need to satisfy the initial conditions. If we plug in $t=0$, we get
+\begin{equation*}
+\vec{x}(0) = \begin{bmatrix} 0 \\ -\frac{2}{3} \end{bmatrix} + 0 + \begin{bmatrix} \frac{3}{16} \\ -\frac{5}{16} \end{bmatrix} + C_1\begin{bmatrix} 1 \\ -1 \end{bmatrix} + C_2 \begin{bmatrix} 1 \\ 1 \end{bmatrix} =
+\begin{bmatrix}
+3/16 \\
+-5/16
+\end{bmatrix}.
+\end{equation*}
+Rearranging this expression gives the two equations
+\begin{equation*}
+C_1 + C_2 = 0 \qquad -C_1 + C_2 = \frac{2}{3}
+\end{equation*}
+which has solution $C_1 = -\nicefrac{1}{3}$ and $C_2 = \nicefrac{1}{3}$. Therefore, the solution to the initial value problem is
+\begin{equation*}
+\vec{x}(t) = \begin{bmatrix} 0 \\ -\frac{2}{3} \end{bmatrix} e^t + \begin{bmatrix} -\frac{3}{4} \\ -\frac{1}{4} \end{bmatrix} t + \begin{bmatrix} \frac{3}{16} \\ -\frac{5}{16} \end{bmatrix} - \frac{1}{3}\begin{bmatrix} 1 \\ -1 \end{bmatrix}e^{-2t} + \frac{1}{3}\begin{bmatrix} 1 \\ 1 \end{bmatrix} e^{4t}.
+\end{equation*}
+\end{exampleSol}
+
+Another way to view this process is by thinking about it as eigenvector decomposition. (This approach is not necessary on a first reading. The next new information starts at the undetermined coefficients section.) The eigenvectors of $A$ are the directions in which the matrix $A$ basically acts like a scalar. If we can solve the differential equation in those directions, then it acts like a scalar equation, which we know how to solve. We can then reorient everything to get back to our original solution. 
+
+Again, we start with the equation
+\begin{equation} \label{nhsys:ednhsys2}
+{\vec{x}}' (t) = A \vec{x}(t) + \vec{f}(t)
+\end{equation}
+and assume $A$ has $n$ linearly independent eigenvectors
+$\vec{v}_1, \vec{v}_2, \ldots, \vec{v}_n$
+ Write
+\begin{equation} \label{nhsys:decompx}
+\vec{x}(t) =
+\vec{v}_1 \, \xi_1(t) + 
+\vec{v}_2 \, \xi_2(t) + \cdots +
+\vec{v}_n \, \xi_n(t) .
+\end{equation}
+That is, we wish to write our solution as a linear combination of
+eigenvectors of $A$.
+If we solve for the scalar functions $\xi_1$ through $\xi_n$, we have
+our solution $\vec{x}$.
+Let us decompose $\vec{f}$ in terms of the eigenvectors as well.  We wish to write
+\begin{equation} \label{nhsys:decompf}
+\vec{f}(t) =
+\vec{v}_1 \, g_1(t) + 
+\vec{v}_2 \, g_2(t) + \cdots +
+\vec{v}_n \, g_n(t) .
+\end{equation}
+That is, we wish to find $g_1$ through $g_n$ that satisfy
+\eqref{nhsys:decompf}.  Since all the eigenvectors
+are independent, the matrix
+$E = [\, \vec{v}_1 \quad \vec{v}_2 \quad \cdots \quad \vec{v}_n \,]$
+is invertible.  Write the equation \eqref{nhsys:decompf}
+as $\vec{f} = E \vec{g}$, where the components of
+$\vec{g}$ are the functions $g_1$ through $g_n$.
+Then $\vec{g} = E^{-1} \vec{f}$.
+Hence it is always possible to find $\vec{g}$ when there
+are $n$ linearly independent eigenvectors.
+
+We plug \eqref{nhsys:decompx} into \eqref{nhsys:ednhsys2}, and note that
+$A \vec{v}_k = \lambda_k \vec{v}_k$:
+\begin{equation*}
+\begin{split}
+%{\vec{x}}' & =
+\overbrace{
+\vec{v}_1 \xi_1' + 
+\vec{v}_2 \xi_2' + \cdots +
+\vec{v}_n \xi_n'
+}^{{\vec{x}}'}
+%\\
+& =
+\overbrace{
+A \left( \vec{v}_1 \xi_1 + 
+\vec{v}_2 \xi_2 + \cdots +
+\vec{v}_n \xi_n \right)
+}^{A\vec{x}}
++
+\overbrace{
+\vec{v}_1 g_1 + 
+\vec{v}_2 g_2 + \cdots +
+\vec{v}_n g_n
+}^{\vec{f}}
+\\
+& = 
+A \vec{v}_1 \xi_1 + 
+A \vec{v}_2 \xi_2 + \cdots +
+A \vec{v}_n \xi_n
++
+\vec{v}_1 g_1 + 
+\vec{v}_2 g_2 + \cdots +
+\vec{v}_n g_n
+\\
+& =
+\vec{v}_1 \lambda_1 \xi_1 + 
+\vec{v}_2 \lambda_2 \xi_2 + \cdots +
+\vec{v}_n \lambda_n \xi_n
++
+\vec{v}_1 g_1 + 
+\vec{v}_2 g_2 + \cdots +
+\vec{v}_n g_n
+\\
+& =
+\vec{v}_1 ( \lambda_1 \xi_1 + g_1 ) +
+\vec{v}_2 ( \lambda_2 \xi_2 + g_2 ) + \cdots + 
+\vec{v}_n ( \lambda_n \xi_n + g_n ) .
+\end{split}
+\end{equation*}
+If we identify the coefficients of the vectors $\vec{v}_1$ through
+$\vec{v}_n$, we get the
+equations
+\begin{align*}
+\xi_1' & = \lambda_1 \xi_1 + g_1 , \\
+\xi_2' & = \lambda_2 \xi_2 + g_2 , \\
+& ~~ \vdots \\
+\xi_n' & = \lambda_n \xi_n + g_n .
+\end{align*}
+Each one of these equations is independent of the others.  They are all
+linear first order equations and can easily be solved by the standard
+integrating factor method for single equations.
+That is, for the $k^{\text{th}}$
+equation we write
+\begin{equation*}
+\xi_k'(t) - \lambda_k \xi_k(t) = g_k(t) .
+\end{equation*}
+We use the integrating factor $e^{-\lambda_k t}$ to find that
+\begin{equation*}
+\frac{d}{dt}\Bigl[ \xi_k(t) \, e^{-\lambda_k t} \Bigr] = 
+e^{-\lambda_k t} g_k(t) .
+\end{equation*}
+We integrate and solve for $\xi_k$ to get
+\begin{equation*}
+\xi_k(t) =  e^{\lambda_k t} 
+\int e^{-\lambda_k t} g_k(t) \,dt + C_k e^{\lambda_k t} .
+\end{equation*}
+If we are looking for just any particular solution, we can set
+$C_k$ to be zero.  If we leave these constants in, we get the
+general solution.  Write
+$\vec{x}(t) =
+\vec{v}_1 \xi_1(t) + 
+\vec{v}_2 \xi_2(t) + \cdots +
+\vec{v}_n \xi_n(t)$, and we are done.
+
+\medskip
+
+As always,
+it is perhaps better to write these integrals as definite integrals.  
+Suppose that we have an initial condition $\vec{x}(0) = \vec{b}$.
+Take $\vec{a} = E^{-1} \vec{b}$ to find
+$\vec{b} = \vec{v}_1 a_1 + \vec{v}_2 a_2 + \cdots + \vec{v}_n a_n$,
+just like before.
+Then if we write 
+\begin{equation*}
+\mybxbg{~~
+\xi_k(t) =  e^{\lambda_k t} 
+\int_0^t e^{-\lambda_k s} g_k(s) \,ds + a_k e^{\lambda_k t} ,
+~~}
+\end{equation*}
+we get the particular solution
+$\vec{x}(t) =
+\vec{v}_1 \xi_1(t) + 
+\vec{v}_2 \xi_2(t) + \cdots +
+\vec{v}_n \xi_n(t)$ satisfying $\vec{x}(0) = \vec{b}$,
+because $\xi_k(0) = a_k$.
+
+Let us remark that the technique we just outlined is the eigenvalue
+method applied to nonhomogeneous systems.  If a system is homogeneous, that
+is, if $\vec{f}=\vec{0}$, then the equations we get are
+$\xi_k' = \lambda_k \xi_k$, and so $\xi_k = C_k e^{\lambda_k t}$ are the
+solutions and that's precisely what we got in
+\sectionref{eigenmethod:section}.
+
+
+\begin{example} (Same as the previous example)
+Let $A = \left[
+\begin{smallmatrix}
+1 & 3 \\
+3 & 1
+\end{smallmatrix} \right]$.
+Solve ${\vec{x}}' = A \vec{x} +
+\vec{f}$ where $\vec{f}(t) = 
+\left[ \begin{smallmatrix}
+2e^t \\
+2t
+\end{smallmatrix} \right]$ for $\vec{x}(0) =
+\left[ \begin{smallmatrix}
+3/16 \\
+-5/16
+\end{smallmatrix} \right]$.
+\end{example}
+
+\begin{exampleSol}
+The eigenvalues of $A$ are $-2$ and 4 and corresponding eigenvectors
+are
+$\left[ \begin{smallmatrix}
+1 \\
+-1
+\end{smallmatrix} \right]$ and
+$\left[ \begin{smallmatrix}
+1 \\
+1
+\end{smallmatrix} \right]$ respectively. We write down the matrix $E$ of the eigenvectors and compute its
+inverse (using the inverse formula for $2 \times 2$ matrices)
+\begin{equation*}
+E = \begin{bmatrix}
+1 & 1 \\
+-1 & 1
+\end{bmatrix} ,
+\qquad
+E^{-1}
+=
+\frac{1}{2}
+\begin{bmatrix}
+1 & -1 \\
+1 & 1
+\end{bmatrix} .
+\end{equation*}
+
+We are looking for a solution of the form $\vec{x} = 
+\left[ \begin{smallmatrix}
+1 \\
+-1
+\end{smallmatrix} \right] \xi_1 +
+\left[ \begin{smallmatrix}
+1 \\
+1
+\end{smallmatrix} \right] \xi_2$.  We first need to write $\vec{f}$
+in terms of the eigenvectors.
+That is we wish to write $\vec{f} = 
+\left[ \begin{smallmatrix}
+2e^t \\
+2t
+\end{smallmatrix} \right] = 
+\left[ \begin{smallmatrix}
+1 \\
+-1
+\end{smallmatrix} \right] g_1 +
+\left[ \begin{smallmatrix}
+1 \\
+1
+\end{smallmatrix} \right] g_2$.  Thus
+\begin{equation*}
+\begin{bmatrix}
+g_1 \\
+g_2
+\end{bmatrix} = 
+E^{-1}
+\begin{bmatrix}
+2e^t \\
+2t
+\end{bmatrix}
+=
+\frac{1}{2}
+\begin{bmatrix}
+1 & -1 \\
+1 & 1
+\end{bmatrix}
+\begin{bmatrix}
+2e^t \\
+2t
+\end{bmatrix}
+=
+\begin{bmatrix}
+e^t-t \\
+e^t+t
+\end{bmatrix} .
+\end{equation*}
+So $g_1 = e^t-t$ and $g_2 = e^t+t$.
+
+We further need to write $\vec{x}(0)$ in terms of the eigenvectors.
+That is, we wish to write $\vec{x}(0) = 
+\left[ \begin{smallmatrix}
+3/16 \\
+-5/16
+\end{smallmatrix} \right] = 
+\left[ \begin{smallmatrix}
+1 \\
+-1
+\end{smallmatrix} \right] a_1 +
+\left[ \begin{smallmatrix}
+1 \\
+1
+\end{smallmatrix} \right] a_2$.  Hence
+\begin{equation*}
+\begin{bmatrix}
+a_1 \\
+\noalign{\smallskip}
+a_2
+\end{bmatrix} = 
+E^{-1}
+\begin{bmatrix}
+\nicefrac{3}{16} \\
+\noalign{\smallskip}
+\nicefrac{-5}{16}
+\end{bmatrix}
+=
+\begin{bmatrix}
+\nicefrac{1}{4} \\
+\noalign{\smallskip}
+\nicefrac{-1}{16}
+\end{bmatrix} .
+\end{equation*}
+So $a_1 = \nicefrac{1}{4}$ and $a_2 = \nicefrac{-1}{16}$.
+We plug our $\vec{x}$ into the equation and get
+\begin{equation*}
+\begin{split}
+\overbrace{
+\begin{bmatrix}
+1 \\
+-1
+\end{bmatrix} \xi_1' +
+\begin{bmatrix}
+1 \\
+1
+\end{bmatrix} \xi_2'
+}^{\vec{x}'}
+& =
+\overbrace{
+A
+\begin{bmatrix}
+1 \\
+-1
+\end{bmatrix} \xi_1 +
+A
+\begin{bmatrix}
+1 \\
+1
+\end{bmatrix} \xi_2
+}^{A\vec{x}}
++
+\overbrace{
+\begin{bmatrix}
+1 \\
+-1
+\end{bmatrix} g_1 +
+\begin{bmatrix}
+1 \\
+1
+\end{bmatrix} g_2
+}^{\vec{f}}
+\\
+& =
+\begin{bmatrix}
+1 \\
+-1
+\end{bmatrix} (-2\xi_1) +
+\begin{bmatrix}
+1 \\
+1
+\end{bmatrix} 4\xi_2
++
+\begin{bmatrix}
+1 \\
+-1
+\end{bmatrix} (e^t - t)
++
+\begin{bmatrix}
+1 \\
+1
+\end{bmatrix} (e^t + t) .
+\end{split}
+\end{equation*}
+We get the two equations
+\begin{align*}
+& \xi_1' = -2\xi_1 + e^t -t, & & \text{where } \xi_1(0) = a_1 = \frac{1}{4} , \\
+& \xi_2' = 4\xi_2 + e^t + t, & & \text{where } \xi_2(0) = a_2 = \frac{-1}{16} .
+\end{align*}
+We solve with integrating factor.  Computation of the integral is left as
+an exercise to the student.  You will need integration by parts.
+\begin{equation*}
+\xi_1 = e^{-2t}\int e^{2t} \, (e^t-t) \, dt + C_1 e^{-2t} = 
+\frac{e^t}{3}-\frac{t}{2}+\frac{1}{4}+C_1 e^{-2t} .
+\end{equation*}
+$C_1$ is the constant of integration.
+As $\xi_1(0) = \nicefrac{1}{4}$, then $\nicefrac{1}{4}= \nicefrac{1}{3}
++ \nicefrac{1}{4} + C_1$ and hence
+$C_1 = \nicefrac{-1}{3}$.
+Similarly
+\begin{equation*}
+\xi_2 = e^{4t}\int e^{-4t} \, (e^t+ t) \, dt + C_2 e^{4t} = 
+-\frac{e^t}{3}-\frac{t}{4}-\frac{1}{16} + C_2 e^{4t} .
+\end{equation*}
+As $\xi_2(0) = \nicefrac{-1}{16}$ we have $\nicefrac{-1}{16}= \nicefrac{-1}{3}
+-\nicefrac{1}{16} + C_2$ and hence
+$C_2 = \nicefrac{1}{3}$.
+The solution is
+\begin{equation*}
+\vec{x}(t)=
+\begin{bmatrix}
+1 \\
+-1
+\end{bmatrix}
+\underbrace{\left( \frac{e^t-e^{-2t}}{3}+\frac{1-2t}{4} \right)}%
+_{\xi_1} +
+\begin{bmatrix}
+1 \\
+1
+\end{bmatrix}
+\underbrace{\left( \frac{e^{4t}-e^t}{3}-\frac{4t+1}{16} \right)}%
+_{\xi_2}
+=
+\begin{bmatrix}
+\frac{e^{4t}-e^{-2t}}{3}+\frac{3-12t}{16} \\
+\frac{e^{-2t}+e^{4t}-2e^t}{3}+\frac{4t-5}{16}
+\end{bmatrix} .
+\end{equation*}
+That is,
+$x_1 = \frac{e^{4t}-e^{-2t}}{3}+\frac{3-12t}{16}$
+and
+$x_2 = \frac{e^{-2t}+e^{4t}-2e^t}{3}+\frac{4t-5}{16}$.
+\end{exampleSol}
+
+\begin{exercise}
+Check that $x_1$ and $x_2$ solve the problem.  Check both that they satisfy
+the differential equation and that they satisfy the initial conditions.
+\end{exercise}
+
+%Another way to view this method is via diagonalization of the matrix $A$. With the matrix $E$ of eigenvectors, and $D$, a diagonal matrix with the eigenvalues in the same order as the eigenvectors are in $E$, a fact from linear algebra says that
+%\[ A = EDE^{-1}. \] If we take the original equation 
+%\[ {\vec{x}}' (t) = A \vec{x}(t) + \vec{f}(t) \]
+%and define a new vector function $\vec{y}$ by $\vec{x} = E\vec{y}$, plugging this in gives 
+%\[
+%E\vec{y}'(t) = EDE^{-1}E\vec{y}(t) + \vec{f}(t)
+%\]
+%or 
+%\[ 
+%\vec{y}'(t) = D\vec{y}(t) + E^{-1}\vec{f}(t) 
+%\]
+%which is now a decoupled system that we can solve by the method in the first example. This also matches the $\vec{\xi}(t)$ solutions found in the second method. The solution can then be converted back to $\vec{x}$ by multiplying by the matrix $E$. 
+
+\subsubsection{Undetermined coefficients}
+
+The method of
+undetermined coefficients\index{undetermined coefficients!for systems} also
+works for systems.
+The only
+difference is that we use unknown vectors rather than just
+numbers.  Same caveats apply to undetermined coefficients for systems
+as for single equations.  This method does not always work for the same reasons that the corresponding method did not work for second order equations. We need to have a right-hand side of a proper form so that we can ``guess'' a solution of the correct form for the non-homogeneous solution.
+Furthermore, if the right-hand side is complicated, we have to solve
+for lots of
+variables.  Each element of an
+unknown vector is an unknown number.  In system of 3 equations with say
+say 4 unknown vectors (this would not be uncommon), we already have 12
+unknown numbers to solve for.
+The method can turn into a lot of
+\myindex{tedious} % a bit of fun
+work if done by hand.
+As the method is essentially the same as for single equations,
+let us just do an example.
+
+\begin{example}
+Let $A = \left[
+\begin{smallmatrix}
+-1 & 0 \\
+-2 & 1
+\end{smallmatrix} \right]$.
+Find a particular solution of ${\vec{x}}' = A \vec{x} +
+\vec{f}$ where $\vec{f}(t) = 
+\left[ \begin{smallmatrix}
+e^t \\
+t
+\end{smallmatrix} \right]$.
+\end{example}
+
+\begin{exampleSol}
+Note that we can solve this system in an easier way (can you see how?), but
+for the purposes of the example, let us use the eigenvalue method plus
+undetermined coefficients.
+The eigenvalues of $A$ are 
+$-1$ and 1 and corresponding eigenvectors
+are
+$\left[ \begin{smallmatrix}
+1 \\
+1
+\end{smallmatrix} \right]$ and
+$\left[ \begin{smallmatrix}
+0 \\
+1
+\end{smallmatrix} \right]$ respectively.
+Hence our complementary solution is
+\begin{equation*}
+\vec{x}_c = 
+c_1
+\begin{bmatrix}
+1 \\ 1
+\end{bmatrix}
+e^{-t}
++
+c_2
+\begin{bmatrix}
+0 \\ 1
+\end{bmatrix}
+e^{t} ,
+\end{equation*}
+for some arbitrary constants $c_1$ and $c_2$.
+
+We would want to guess a particular solution of
+\begin{equation*}
+\vec{x} = 
+\vec{a}
+e^{t}
++
+\vec{b}
+t +
+\vec{d} .
+\end{equation*}
+However, something of the form $\vec{a} e^t$ appears in the complementary
+solution.  Because we do not yet know if the vector $\vec{a}$
+is a multiple of $\left[ \begin{smallmatrix}
+0 \\
+1
+\end{smallmatrix} \right]$, we do not know if a conflict
+arises.  It is possible that there is no conflict,
+but to be safe we should also try
+$\vec{k} t e^t$.
+Here we find
+the crux of the difference between a single equation and systems.  We try
+\emph{both} terms $\vec{a} e^t$ and $\vec{k} t e^t$ in the solution,
+not just the term $\vec{k} t e^t$.
+Therefore, we try
+\begin{equation*}
+\vec{x} = 
+\vec{a}
+e^{t}
++
+\vec{k}
+t
+e^{t}
++
+\vec{b}
+t +
+\vec{d}.
+\end{equation*}
+Thus we have 8 unknowns.  We write
+$\vec{a} =
+\Bigl[ \begin{smallmatrix} a_1 \\ a_2 \end{smallmatrix} \Bigr]$,
+$\vec{b} =
+\Bigl[ \begin{smallmatrix} b_1 \\ b_2 \end{smallmatrix} \Bigr]$,
+$\vec{k} =
+\Bigl[ \begin{smallmatrix} k_1 \\ k_2 \end{smallmatrix} \Bigr]$,
+and
+$\vec{d} =
+\Bigl[ \begin{smallmatrix} d_1 \\ d_2 \end{smallmatrix} \Bigr]$.
+We plug $\vec{x}$ into the equation.  First
+let us compute ${\vec{x}}'$.
+\begin{equation*}
+{\vec{x}}' = 
+\left( \vec{a} + \vec{k} \right)
+e^{t}
++
+\vec{k}
+t
+e^{t}
++
+\vec{b} =
+\begin{bmatrix}
+a_1 + k_1 \\ a_2+k_2
+\end{bmatrix}
+e^{t}
++
+\begin{bmatrix}
+k_1 \\ k_2
+\end{bmatrix}
+t e^{t}
++
+\begin{bmatrix}
+b_1 \\ b_2
+\end{bmatrix} .
+\end{equation*}
+Now ${\vec{x}}'$ must equal $A\vec{x} + \vec{f}$, which is
+\begin{equation*}
+\begin{split}
+A \vec{x} + \vec{f} &=
+A \vec{a}
+e^{t}
++
+A \vec{k}
+t e^{t}
++
+A \vec{b}
+t
++
+A \vec{d}
++ \vec{f}
+\\
+& =
+\begin{bmatrix}
+-a_1 \\ -2a_1+a_2
+\end{bmatrix}
+e^{t}
++
+\begin{bmatrix}
+-k_1 \\ -2k_1+k_2
+\end{bmatrix}
+t e^{t}
++
+\begin{bmatrix}
+-b_1 \\ -2b_1+b_2
+\end{bmatrix}
+t
++
+\begin{bmatrix}
+-d_1 \\ -2d_1+d_2
+\end{bmatrix}
++
+\begin{bmatrix}
+1 \\ 0
+\end{bmatrix} 
+e^t
++
+\begin{bmatrix}
+0 \\ 1
+\end{bmatrix} 
+t 
+\\
+&=
+\begin{bmatrix}
+-a_1+1 \\ -2a_1+a_2
+\end{bmatrix}
+e^{t}
++
+\begin{bmatrix}
+-k_1 \\ -2k_1+k_2
+\end{bmatrix}
+t e^{t}
++
+\begin{bmatrix}
+-b_1 \\ -2b_1+b_2+1
+\end{bmatrix}
+t
++
+\begin{bmatrix}
+-d_1 \\ -2d_1+d_2
+\end{bmatrix} .
+\end{split}
+\end{equation*}
+We identify the coefficients of $e^t$, $te^t$, $t$ and any constant
+vectors in $\vec{x}'$ and in $A\vec{x}+\vec{f}$ to find the equations:
+\begin{align*}
+a_1+k_1 & = -a_1+1 , &
+0 & = -b_1 , \\
+a_2+k_2 & = -2a_1+a_2 , &
+0 & = -2b_1+b_2 + 1 , \\
+k_1 & = -k_1 , &
+b_1 & = -d_1 , \\
+k_2 & = -2k_1+k_2 , &
+b_2 & = -2d_1+d_2 .
+\end{align*}
+We could write the $8 \times 9$ augmented matrix and start row
+reduction, but it is easier to just solve the equations in an ad hoc
+manner. Immediately we see that $k_1 = 0$, $b_1 = 0$, $d_1 = 0$.  Plugging
+these
+back in, we get that $b_2 = -1$ and $d_2 = -1$.  The remaining equations
+that tell us something are
+\begin{align*}
+a_1 & = -a_1+1 , \\
+a_2+k_2 & = -2a_1+a_2 .
+\end{align*}
+So $a_1 = \nicefrac{1}{2}$ and $k_2 = -1$.  Finally, $a_2$ can be arbitrary and still satisfy the
+equations.  We are looking for just a single solution so presumably the
+simplest
+one is when $a_2 = 0$.
+Therefore,
+\begin{equation*}
+\vec{x} = 
+\vec{a}
+e^{t}
++
+\vec{k}
+t
+e^{t}
++
+\vec{b}
+t +
+\vec{d}
+=
+\begin{bmatrix}
+\nicefrac{1}{2} \\ 0
+\end{bmatrix}
+e^t
++
+\begin{bmatrix}
+0 \\ -1
+\end{bmatrix}
+te^t
++
+\begin{bmatrix}
+0 \\ -1
+\end{bmatrix}
+t
++
+\begin{bmatrix}
+0 \\ -1
+\end{bmatrix}
+=
+\begin{bmatrix}
+\frac{1}{2}\,e^t \\
+-te^t - t - 1
+\end{bmatrix} .
+\end{equation*}
+That is, $x_1 = \frac{1}{2}\,e^t$, $x_2 = 
+-te^t - t - 1$.  We would add this to the complementary solution to get the
+general solution of the problem.  Notice that both $\vec{a} e^t$
+and $\vec{k} te^t$ were really needed.
+\end{exampleSol}
+
+\begin{exercise}
+Check that $x_1$ and $x_2$ solve the problem.  Try setting $a_2 = 1$
+and check we get a solution as well.  What is the difference between the two
+solutions we obtained (one with $a_2=0$ and one with $a_2=1$)?
+\end{exercise}
+
+As you can see, other than the handling of conflicts, undetermined
+coefficients works exactly the same as it did for
+single equations.  However, the computations can get out of hand pretty
+quickly for systems.  The equation we considered was pretty simple.
+
+\subsection{First order variable coefficient}
+
+\subsubsection{Variation of parameters}
+
+Just as for a single equation, there is the method of
+variation of parameters\index{variation of parameters!for systems}.
+% For constant coefficient systems, it is essentially
+% the same thing as the integrating factor method we discussed earlier. However, 
+This method works for any linear system, even if it is not
+constant coefficient, provided we somehow solve the associated
+homogeneous problem.
+
+Suppose we have the equation
+\begin{equation} \label{nhsys:nhvceq}
+{\vec{x}}' = A(t) \, \vec{x} + \vec{f}(t) .
+\end{equation}
+Further, suppose we solved the associated homogeneous equation
+${\vec{x}}' = A(t) \, \vec{x}$ and found
+a fundamental matrix solution
+$X(t)$. If we find separate, linearly independent solutions, this matrix $X(t)$ can be generated by putting these solutions as the columns of a matrix. The general solution to the associated homogeneous equation
+is $X(t) \vec{c}$ for a constant vector $\vec{c}$.  Just like for
+variation of parameters for single equation we try the solution
+to the nonhomogeneous equation of the form
+\begin{equation*}
+\vec{x}_p = X(t)\, \vec{u}(t) ,
+\end{equation*}
+where $\vec{u}(t)$ is a vector-valued function instead of a constant.
+We substitute $\vec{x}_p$ into \eqref{nhsys:nhvceq} to obtain
+\begin{equation*}
+%{\vec{x}_p}'(t)
+%=
+\underbrace{X'(t)\, \vec{u}(t) + X(t)\, {\vec{u}}'(t)}%
+_{{\vec{x}_p}'(t)}
+=
+\underbrace{A(t)\, X(t)\, \vec{u}(t)}%
+_{A(t) \vec{x}_p (t)} 
+ + \vec{f}(t) .
+\end{equation*}
+But $X(t)$ is a fundamental matrix solution to the homogeneous problem.
+So $X'(t) = A(t)X(t)$, and
+\begin{equation*}
+\cancel{X'(t)\, \vec{u}(t)} + X(t)\, {\vec{u}}'(t)
+=
+\cancel{X'(t)\, \vec{u}(t)} + \vec{f}(t) .
+\end{equation*}
+Hence
+$X(t)\, {\vec{u}}'(t) = \vec{f}(t)$.  If we compute
+$\left[X(t)\right]^{-1}$,
+then
+${\vec{u}}'(t) = \left[X(t)\right]^{-1}\vec{f}(t)$.  We integrate
+to obtain $\vec{u}$ and we have the particular solution
+$\vec{x}_p = X(t)\, \vec{u}(t)$.
+Let us write this as a formula
+\begin{equation*}
+\mybxbg{~~
+\vec{x}_p = 
+X(t)
+\int \left[X(t)\right]^{-1}\vec{f}(t) \, dt .
+~~}
+\end{equation*}
+
+% If $A$ is constant and $X(t) = e^{tA}$, then
+% $\left[X(t)\right]^{-1} = e^{-tA}$.  
+% We get a solution
+% $\vec{x}_p = 
+% e^{tA}
+% \int e^{-tA}\,\vec{f}(t) \, dt$,
+% which is precisely what we got using the integrating factor method.
+
+\begin{example}
+Find a particular solution to
+\begin{equation} \label{nhsys:vcexeq}
+{\vec{x}}'
+=
+\frac{1}{t^2+1}
+\begin{bmatrix}
+t & -1 \\
+1 & t
+\end{bmatrix}
+\vec{x}
++ \begin{bmatrix} t \\ 1 \end{bmatrix} \,(t^2+1),
+\end{equation} given that the general solution to the homogeneous problem 
+\begin{equation*} 
+{\vec{x}}'
+=
+\frac{1}{t^2+1}
+\begin{bmatrix}
+t & -1 \\
+1 & t
+\end{bmatrix}
+\vec{x}
+\end{equation*} is
+\begin{equation*}
+\vec{x}_c(t) = c_1 \begin{bmatrix} 1 \\ t \end{bmatrix} + c_2 \begin{bmatrix} -t \\ 1 \end{bmatrix}.
+\end{equation*}
+\end{example}
+
+\begin{exampleSol}
+Here $A = 
+\frac{1}{t^2+1}
+\left[ \begin{smallmatrix}
+t & -1 \\
+1 & t
+\end{smallmatrix} \right]$ is most definitely not constant, so it's a good thing that we have the general solution to this system. From this, we can build the matrix $X(t)$ as 
+\begin{equation*}
+X = 
+\begin{bmatrix}
+1 & -t \\
+t & 1
+\end{bmatrix}
+\end{equation*}, which is a fundamental matrix for this system and solves
+$X'(t) = A(t) X(t)$.  Once we know the complementary solution we can find
+a solution to \eqref{nhsys:vcexeq}.  First we find
+\begin{equation*}
+\left[ X(t) \right]^{-1}
+=
+\frac{1}{t^2+1}
+\begin{bmatrix}
+1 & t \\
+-t & 1
+\end{bmatrix} .
+\end{equation*}
+Next we know a particular solution to
+\eqref{nhsys:vcexeq} is
+\begin{equation*}
+\begin{split}
+\vec{x}_p & = 
+X(t)
+\int \left[X(t)\right]^{-1}\vec{f}(t) \, dt 
+\\
+& =
+\begin{bmatrix}
+1 & -t \\
+t & 1
+\end{bmatrix} 
+\int
+\frac{1}{t^2+1}
+\begin{bmatrix}
+1 & t \\
+-t & 1
+\end{bmatrix}
+\begin{bmatrix} t \\ 1 \end{bmatrix} \,(t^2+1) 
+\,dt
+\\
+& =
+\begin{bmatrix}
+1 & -t \\
+t & 1
+\end{bmatrix} 
+\int
+\begin{bmatrix}
+2t \\
+-t^2 + 1
+\end{bmatrix} 
+\,dt
+\\
+& =
+\begin{bmatrix}
+1 & -t \\
+t & 1
+\end{bmatrix} 
+\begin{bmatrix}
+t^2 \\
+-\frac{1}{3}\,t^3 + t
+\end{bmatrix} 
+\\
+& =
+\begin{bmatrix}
+\frac{1}{3}\,t^4 \\
+\frac{2}{3}\,t^3 + t
+\end{bmatrix}  .
+\end{split}
+\end{equation*}
+Adding the complementary solution we find the general solution
+to \eqref{nhsys:vcexeq}:
+\begin{equation*}
+\vec{x} =
+\begin{bmatrix}
+1 & -t \\
+t & 1
+\end{bmatrix}
+\begin{bmatrix}
+c_1 \\ c_2
+\end{bmatrix}
++
+\begin{bmatrix}
+\frac{1}{3}\,t^4 \\
+\frac{2}{3}\,t^3 + t
+\end{bmatrix}
+=
+\begin{bmatrix}
+c_1 - c_2 t
++
+\frac{1}{3}\,t^4 \\
+c_2 + 
+(c_1 + 1)\, t
++
+\frac{2}{3}\,t^3
+\end{bmatrix} .
+\end{equation*}
+\end{exampleSol}
+
+\begin{exercise}
+Check that $x_1 = 
+\frac{1}{3}\,t^4$ and $x_2 = 
+\frac{2}{3}\,t^3 + t$ really solve
+\eqref{nhsys:vcexeq}.
+\end{exercise}
+
+In the variation of parameters, %just like in the integrating factor method
+we can obtain the general solution by adding in constants of integration.
+That is, we will add $X(t) \vec{c}$ for a vector of arbitrary constants.  But
+that is precisely the complementary solution.
+
+To conclude this section, we will solve one example using all three methods to be able to compare and contrast them. All of them have their benefits and drawbacks, and it's good to be able to do all three to be able to choose which to apply in a given circumstance.
+
+\begin{example}
+Find the general solution to the system of differential equations
+\begin{equation*}
+\vec{x}' = \begin{bmatrix} -5 & -2 \\ 4 & 1 \end{bmatrix} \vec{x} + \begin{bmatrix} e^{2t} + 1 \\ e^{2t} + 3 \end{bmatrix} .
+\end{equation*}
+\end{example}
+
+\begin{exampleSol}
+No matter which of the three methods we want to use to solve this problem, we always need the eigenvalues and eigenvectors of the coefficient matrix in order to find the general solution to the homogeneous problem. These are found by
+\begin{equation*}
+\det(A - \lambda I) = (-5-\lambda)(1-\lambda) - (-2)(4) = \lambda^2 + 4\lambda -5+8 = \lambda^2 + 4\lambda + 3.
+\end{equation*}
+This polynomial factors as $(\lambda + 1)(\lambda+3)$ so the eigenvalues are $-1$ and $-3$. For $\lambda = -1$, the system we need to solve is
+\begin{equation*}
+(A + I)\vec{v} = \begin{bmatrix} -4 & -2 \\ 4 & 2 \end{bmatrix}\vec{v} = \vec{0}
+\end{equation*}
+which can be solved by the vector $\vec{v} = \left[ \begin{smallmatrix} 1 \\ -2 \end{smallmatrix} \right]$. For $\lambda = -3$, the system is
+\begin{equation*}
+(A + 3I)\vec{v} = \begin{bmatrix} -2 & -2 \\ 4 & 4 \end{bmatrix}\vec{v}  = \vec{0}
+\end{equation*}
+which can be solved by the vector $\vec{v} = \left[ \begin{smallmatrix} 1 \\ -1 \end{smallmatrix} \right]$. Therefore, the general solution to the homogeneous problem is
+\begin{equation} \label{eq:genSolAllEx}
+\vec{x}_c(t) = C_1\begin{bmatrix} 1 \\ -2 \end{bmatrix}e^{-t} + C_2\begin{bmatrix} 1 \\ -1 \end{bmatrix}e^{-3t}.
+\end{equation}
+
+Now, we can divide into the different methods that we want to use to solve the non-homogeneous problem. 
+\begin{enumerate}[1.]
+\item Diagonalization. For this method, we need the matrices $E$ and $D$ defined by
+\begin{equation*}
+E = \begin{bmatrix} 1 & 1 \\ -2 & -1 \end{bmatrix} \qquad D = \begin{bmatrix} -1 & 0 \\ 0 & -3 \end{bmatrix} 
+\end{equation*}
+and can then compute $E^{-1}$ as 
+\begin{equation*}
+E^{-1} = \frac{1}{(1)(-1) - (1)(-2)} \begin{bmatrix} -1 & -1 \\ 2 & 1 \end{bmatrix} = \begin{bmatrix} -1 & -1 \\ 2 & 1 \end{bmatrix}.
+\end{equation*}
+We then compute 
+\begin{equation*}
+E^{-1}\vec{f} =  \begin{bmatrix} -1 & -1 \\ 2 & 1 \end{bmatrix} \begin{bmatrix} e^{2t} + 1 \\ e^{2t} + 3 \end{bmatrix} = \begin{bmatrix} -2e^{2t} - 4 \\ 3e^{2t} + 5 \end{bmatrix}
+\end{equation*}
+which gives rise to the decoupled system 
+\begin{equation*}
+\vec{y}' = \begin{bmatrix} -1 & 0 \\ 0 & -3 \end{bmatrix} \vec{y} + \begin{bmatrix} -2e^{2t} - 4 \\ 3e^{2t} + 5 \end{bmatrix}
+\end{equation*} where $\vec{y}$ is defined by $\vec{x} = E\vec{y}$. We can solve for $y_1$ and $y_2$ using normal first-order methods:
+\begin{minipage}{0.49\textwidth}
+\begin{equation*}
+\begin{split}
+y_1' + y_1 &= -2e^{2t} - 4 \\ 
+(e^t y_1)' &= -2e^{3t} - 4e^t \\
+e^t y_1 &= -\frac{2}{3}e^{3t} - 4e^{t} + C_1 \\
+y_1 &= -\frac{2}{3}e^{2t} - 4 + C_1e^{-t} 
+\end{split}
+\end{equation*}
+\end{minipage}
+\begin{minipage}{0.49\textwidth}
+\begin{equation*}
+\begin{split}
+y_2' + 3y_2 &= 3e^{2t} + 5 \\ 
+(e^{3t} y_2)' &= 3e^{5t} + 5e^{3t} \\
+e^{3t} y_2 &= \frac{3}{5}e^{5t} + \frac{5}{3}e^{3t} + C_2 \\
+y_2 &= \frac{3}{5}e^{2t} + \frac{5}{3} + C_2e^{-3t}
+\end{split}
+\end{equation*}
+\end{minipage}
+
+Therefore, our solution for $\vec{y}$ is
+\begin{equation*}
+\vec{y}(t) = \begin{bmatrix} 
+-\frac{2}{3}e^{2t} - 4 + C_1e^{-t}\\
+\frac{3}{5}e^{2t} + \frac{5}{3} + C_2e^{-3t}
+\end{bmatrix}
+\end{equation*}
+and by converting back to $\vec{x}$, we get
+\begin{equation*} 
+\begin{split}
+\vec{x}(t)  &= E\vec{y} = \begin{bmatrix} 1 & 1 \\ -2 & -1 \end{bmatrix}\begin{bmatrix} 
+-\frac{2}{3}e^{2t} - 4 + C_1e^{-t}\\
+\frac{3}{5}e^{2t} + \frac{5}{3} + C_2e^{-3t}
+\end{bmatrix} \\
+&= \begin{bmatrix} \frac{1}{15}e^{2t} - \frac{7}{3} + C_1e^{-t} + C_2e^{-3t} \\
+\frac{11}{15}e^{2t} + \frac{19}{3} - 2C_1e^{-t} - C_2e^{-3t} \end{bmatrix}.
+\end{split}
+\end{equation*}
+Or, rewriting in a different way,
+\begin{equation} \label{eq:AllExDiag}
+\vec{x}(t) = \begin{bmatrix} \frac{1}{15} \\  \frac{11}{15} \end{bmatrix} e^{2t} + \begin{bmatrix} -\frac{7}{3} \\ \frac{19}{3} \end{bmatrix} + C_1\begin{bmatrix} 1 \\ -2 \end{bmatrix} e^{-t} + C_2 \begin{bmatrix} 1 \\ -1 \end{bmatrix} e^{-3t}.
+\end{equation}
+Notice how the general solution to the homogeneous equation \eqref{eq:genSolAllEx} shows up at the end of this expression.
+\item Undetermined coefficients. Since the non-homogeneous part of our equation has terms of the form $e^{2t}$ and constants, we should make a guess of the form
+\begin{equation*}
+\vec{x}_p(t) = \vec{B}e^{2t} + \vec{D}.
+\end{equation*}
+We can plug this into our equation to get that 
+\begin{equation}\label{eq:AllSolUCRight}
+\vec{x}_p' = 2\vec{B}e^{2t}
+\end{equation}
+and the right hand side of the equation is 
+\begin{equation*}
+\begin{bmatrix} -5 & -2 \\ 4 & 1 \end{bmatrix}\left(\vec{B}e^{2t} + \vec{D}\right) + \begin{bmatrix} e^{2t} + 1 \\ e^{2t} + 3 \end{bmatrix}.
+\end{equation*}
+Writing out $\vec{B}$ and $\vec{D}$ in components will give the right-hand side as
+\begin{equation*}
+\begin{split}
+& \begin{bmatrix} -5b_1 - 2b_2 \\ 4b_1 + b_2 \end{bmatrix}e^{2t} + \begin{bmatrix} -5d_1 - 2d_2 \\ 4d_1 + d_2 \end{bmatrix} + \begin{bmatrix} e^{2t} + 1 \\ e^{2t} + 3 \end{bmatrix} \\
+&= \begin{bmatrix} -5b_1 - 2b_2 + 1 \\ 4b_1 + b_2 + 1 \end{bmatrix}e^{2t} + \begin{bmatrix} -5d_1 - 2d_2 + 1\\ 4d_1 + d_2 + 3 \end{bmatrix}.
+\end{split}
+\end{equation*}
+We can now set this equal to the left-hand side in \eqref{eq:AllSolUCRight} to get the vector equation
+\begin{equation*}
+\begin{bmatrix} 2b_1 \\ 2b_2 \end{bmatrix} e^{2t} = \begin{bmatrix} -5b_1 - 2b_2 + 1 \\ 4b_1 + b_2 + 1 \end{bmatrix}e^{2t} + \begin{bmatrix} -5d_1 - 2d_2 + 1\\ 4d_1 + d_2 + 3 \end{bmatrix}
+\end{equation*}
+and we can match up the terms on the left and right sides to get a system that we need to solve:
+\begin{equation*}
+\begin{split}
+2b_1 &= -5b_1 - 2b_2 + 1 \\
+2b_2 &= 4b_1 + b_2 + 1 \\
+0 &= -5d_1- 2d_2 + 1 \\
+0 &= 4d_1 + d_2 + 3.
+\end{split}
+\end{equation*}
+Let's start with the $b$ equations. Rearranging these gives
+\begin{equation*}
+7b_1 + 2b_2 = 1 \qquad -4b_1 + b_2 = 1
+\end{equation*}
+Subtracting two copies of the second equation from the first gives $15b_1 = -1$ or $b_1 = -\nicefrac{1}{15}$, which gives $b_2 = 1 + \frac{4}{15} = \frac{19}{13}$. Next, we can solve the $d$ equations, which we can rearrange to give
+\begin{equation*}
+5d_1 + 2d_2 = 1 \qquad 4d_1 + d_2 = -3
+\end{equation*} 
+Subtracting two copies of the second equation from the first gives $-3d_1 = 7$ so $d_1 = -\nicefrac{7}{3}$, leading to $d_2 = -3 - 4(-\nicefrac{7}{3}) = \nicefrac{19}{3}$. Therefore, a solution to the non-homogeneous problem is
+\begin{equation*}
+\vec{x}_p(t) = \begin{bmatrix} -\frac{1}{15} \\ \frac{19}{15} \end{bmatrix} e^{2t} + \begin{bmatrix} -\frac{7}{3} \\ \frac{19}{3} \end{bmatrix}
+\end{equation*}
+and so we can add in the homogeneous solution from \eqref{eq:genSolAllEx} to get the full general solution as
+\begin{equation} \label{eq:AllExUC}
+\begin{bmatrix} -\frac{1}{13} \\ \frac{17}{13} \end{bmatrix} e^{2t} + \begin{bmatrix} -\frac{7}{3} \\ \frac{19}{3} \end{bmatrix} + C_1\begin{bmatrix} 1 \\ -2 \end{bmatrix}e^{-t} + C_2\begin{bmatrix} 1 \\ -1 \end{bmatrix}e^{-3t}.
+\end{equation}
+\item Variation of Parameters. For this method, we write down the fundamental matrix $X(t)$ by combining the two basis solutions into a matrix, as
+\begin{equation*}
+X(t) = \begin{bmatrix} e^{-t} & e^{-3t} \\ -2e^{-t} & -e^{-3t} \end{bmatrix}
+\end{equation*}
+and compute the inverse matrix as
+\begin{equation*}
+X^{-1}(t) = \frac{1}{(e^{-t})(-e^{-3t}) - (e^{-3t})(-2e^{-t})}\begin{bmatrix} -e^{-3t} & -e^{-3t} \\ 2e^{-t} & e^{-t} \end{bmatrix} = \begin{bmatrix} -e^{t} & -e^{t} \\ 2e^{3t} & e^{3t} \end{bmatrix}.
+\end{equation*}
+We can then work out the components of the method of variation of parameters.
+\begin{equation*}
+\begin{split}
+X(t)^{-1}\vec{f} &= \begin{bmatrix} -e^{t} & -e^{t} \\ 2e^{3t} & e^{3t} \end{bmatrix}  \begin{bmatrix} e^{2t} + 1 \\ e^{2t} + 3 \end{bmatrix} \\
+&= \begin{bmatrix} -e^{3t} - e^{t} - e^{3t} - 3e^{t} \\ 2e^{5t} + 2e^{3t} + e^{5t} + 3e^{3t} \end{bmatrix} \\
+&= \begin{bmatrix} -2e^{3t} - 4e^{t} \\ 3e^{5t} + 5e^{3t} \end{bmatrix}.
+\end{split}
+\end{equation*}
+Integrating this expression gives
+\begin{equation*}
+\int X(t)^{-1}\vec{f}\ dt = \begin{bmatrix} -\frac{2}{3}e^{3t} - 4e^t + C_1 \\ \frac{3}{5}e^{5t} + \frac{5}{3}e^{3t} + C_2 \end{bmatrix},
+\end{equation*}
+and so the general solution to this system is
+\begin{equation}\label{eq:AllExVP}
+\begin{split}
+X(t) \int X(t)^{-1}\vec{f}\ dt &= \begin{bmatrix} e^{-t} & e^{-3t} \\ -2e^{-t} & -e^{-3t} \end{bmatrix}\begin{bmatrix} -\frac{2}{3}e^{3t} - 4e^t + C_1 \\ \frac{3}{5}e^{5t} + \frac{5}{3}e^{3t} + C_2 \end{bmatrix} \\
+&= \begin{bmatrix} 
+-\frac{2}{3}e^{2t} - 4 + C_1e^{-t} + \frac{3}{5}e^{2t} + \frac{5}{3} + C_2e^{-3t} \\
+ \frac{4}{3}e^{2t} + 8 - 2C_1e^{-t} - \frac{3}{5}e^{2t} - \frac{5}{3} - C_2e^{-3t}
+\end{bmatrix} \\
+&= \begin{bmatrix}
+-\frac{1}{15} e^{2t} - \frac{7}{3} + C_1e^{-t} + C_2e^{-3t} \\
+\frac{11}{15}e^{2t} + \frac{19}{3} - 2C_1e^{-t} - C_2e^{-3t}
+\end{bmatrix}.
+\end{split}
+\end{equation}
+Notice again that the homogeneous solution \eqref{eq:genSolAllEx} shows up at the end of these terms, so we do not need to add it in at the end.
+\end{enumerate}
+Comparing the solutions \eqref{eq:AllExDiag}, \eqref{eq:AllExUC}, and \eqref{eq:AllExVP}, we see that the three solutions generated by these three methods are all the same. 
+\end{exampleSol}
+
+For this previous example, we only found the general solution. If the solution to an initial value problem was needed, we would need to wait until the very end, once we have figured out the solution to the non-homogeneous problem and added in the solution to the homogeneous problem to determine the value of the constants to meet the initial condition.  
+
+\subsection{Exercises}
+
+\begin{exercise}
+Find a particular solution to
+$x' = x+ 2y +2t$, 
+$y' = 3x + 2y -4$,
+\begin{tasks}(2)
+% \task using integrating factor method,
+%\task using eigenvector decomposition,
+\task using diagonalization,
+\task using undetermined coefficients.
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Find a particular solution to $x' = 5x + 4y + t$, $y' = x + 8y - t$,
+\begin{tasks}(2)
+% \task using integrating factor method,
+% \task using eigenvector decomposition,
+\task using diagonalization,
+\task using undetermined coefficients.
+\end{tasks}
+\end{exercise}
+\exsol{%
+The general solution is
+(particular solutions should agree with one of these):\\
+$x(t) = C_1 e^{9 t}+4 C_2 e^{4t}-\nicefrac{t}{3}-\nicefrac{5}{54}$,
+\quad
+$y(t) = C_1 e^{9 t}-C_2 e^{4t}+\nicefrac{t}{6}+\nicefrac{7}{216}$
+}
+
+\begin{exercise}
+Find the general solution to
+$x' = 4x+ y -1$, 
+$y' = x + 4y -e^t$,
+\begin{tasks}(2)
+% \task using integrating factor method,
+% \task using eigenvector decomposition,
+\task using diagonalization,
+\task using undetermined coefficients.
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Find a particular solution to $x' = y + e^t$, $y' = x +e^t$,
+\begin{tasks}(2)
+% \task using integrating factor method,
+% \task using eigenvector decomposition,
+\task using diagonalization,
+\task using undetermined coefficients.
+\end{tasks}
+\end{exercise}
+\exsol{%
+The general solution is
+(particular solutions should agree with one of these):\\
+$x(t) = C_1 e^t + C_2 e^{-t}+te^t$,
+\quad
+$y(t) = C_1 e^t - C_2 e^{-t}+te^t$
+}
+
+\begin{exercise}
+Let $A=\displaystyle \begin{bmatrix}2&2\\-2&7\end{bmatrix}$. This matrix has eigenvectors $\displaystyle \begin{bmatrix} 1 \\ 2 \end{bmatrix}$ and $\displaystyle \begin{bmatrix} 2 \\ 1 \end{bmatrix}$.
+\begin{tasks}
+\task Find a fundamental matrix, $\Psi(t)$, for the system $\vec{x}'=A\vec{x}$.
+\task Use variation of parameters to solve the non-homogeneous system $\vec{x}'=A\vec{x}+\displaystyle \begin{bmatrix}e^{6t} \\ 0 \end{bmatrix}$.
+\task If we used method of undetermined coefficients instead, what would be the appropriate guess for the form of the non-homogeneous solution?
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Solve
+$x_1' = x_2 + t$, $x_2' = x_1 +t$ with initial conditions
+$x_1(0) = 1$, $x_2(0) = 2$,
+using diagonalization. %eigenvector decomposition.
+\end{exercise}
+\exsol{%
+$\vec{x} = 
+\left[ \begin{smallmatrix}
+1 \\ 1
+\end{smallmatrix}\right]
+\left(\frac{5}{2} e^t-t-1\right)
++
+\left[ \begin{smallmatrix}
+1 \\ -1
+\end{smallmatrix}\right]
+\frac{-1}{2} e^{-t}$
+}
+
+\begin{exercise}
+For each of the following vector functions $\vec{f}(t)$, find the general solution to the system of differential equations given by
+\[ {\vec{x}}' = \begin{bmatrix} -1 & -4 \\ 2 & 5 \end{bmatrix} \vec{x} + \vec{f}(t)\] using any of the methods described in this section. Notice the similarities and differences between using these methods for different non-homogeneous parts.
+\begin{tasks}(3)
+\task $\vec{f}(t) = \begin{bmatrix} e^{2t} \\ 1 \end{bmatrix}$
+\task $\vec{f}(t) = \begin{bmatrix} e^{-t} + 2 \\ e^{4t} - 1 \end{bmatrix}$
+\task $\vec{f}(t) = \begin{bmatrix} e^{3t} \\ t \end{bmatrix}$
+\task $\vec{f}(t) = \begin{bmatrix} \sin(3t) \\ 1 - \sin(3t) \end{bmatrix}$
+\task $\vec{f}(t) = \begin{bmatrix} t + 2 \\ e^{-2t} \end{bmatrix}$
+\task $\vec{f}(t) = \begin{bmatrix} te^{t} \\ 3 \end{bmatrix}$
+\end{tasks} 
+\end{exercise}
+
+\begin{exercise}
+The variation of parameters method can also be applied to constant coefficient systems. Find the general solution of the system
+\[ {\vec{x}}' = \begin{bmatrix} 3 & -1 \\ 2 & -2 \end{bmatrix} \vec{x} + \begin{bmatrix} e^{2t} \\ e^t \end{bmatrix} \] using 
+\begin{tasks}(2)
+%\task eigenvector decomposition
+\task diagonalization
+\task variation of parameters.
+\end{tasks}
+Compare and contrast these methods. You can use undetermined coefficients to check your answer.
+\end{exercise}
+
+\begin{exercise}
+Find the general solution to the differential equation
+\begin{equation*}
+{\vec{x}}' = \begin{bmatrix} -3 & -1 \\ 4 & -3 \end{bmatrix} \vec{x} + \begin{bmatrix} e^{3t} + 1 \\ 2 \end{bmatrix}. 
+\end{equation*}
+The best option is undetermined coefficients here because of the eigenvalues of the matrix. Diagonalization can be used, but care will be needed with solving the decoupled system because the coefficients will be complex. 
+\end{exercise}
+
+\begin{exercise}
+Find the general solution to the differential equation
+\begin{equation*}
+{\vec{x}}' = \begin{bmatrix} -5 & 16 \\ -1 & 3 \end{bmatrix} \vec{x} + \begin{bmatrix} \cos(2t) \\ \sin(2t) - 2\cos(2t) \end{bmatrix}. 
+\end{equation*}
+The best option is undetermined coefficients here because of the eigenvalues of the matrix. We can't actually use diagonalization (try it and see why!).
+\end{exercise}
+
+\begin{exercise}
+Find the general solution to the differential equation
+\begin{equation*}
+{\vec{x}}' = \begin{bmatrix} -2 & -12 \\ 2 & 8 \end{bmatrix} \vec{x} + \begin{bmatrix} e^{2t} + e^{3t} \\ -2e^{2t} \end{bmatrix}. 
+\end{equation*}
+\end{exercise}
+
+\begin{exercise}
+Consider the system %4.8
+\begin{equation}
+\frac{dx}{dt}= x+2y+4e^{3t};\ \frac{dy}{dt}=3x-e^{3t}. \label{eq:NLSysEx1}
+\end{equation}
+
+\begin{tasks}
+\task Rewrite \eqref{eq:NLSysEx1} in the form $\vec{x}'=A\vec{x}+\vec{g}(t)$, where $\vec{x}'=A\vec{x}$ is a homogeneous system, and $\vec{g}(t)$ is a vector-valued function.
+\task Solve \eqref{eq:NLSysEx1} using Method of Undetermined Coefficients.
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}
+\ 
+\begin{tasks} 
+\task Use variation of parameters to solve the system $\vec{x}'=\begin{bmatrix}1&-4\\ 4&-7\end{bmatrix}\vec{x}+\displaystyle \begin{bmatrix} e^{-3t} \\ 0 \end{bmatrix}$.
+\task What does that solution tell you about how to set up the guess for the method of undetermined coefficients when there is a repeated eigenvalue?
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}
+Solve the initial value problem
+\[ {\vec{x}}' = \begin{bmatrix} 5 & -6 \\ 3 & -1 \end{bmatrix}\vec{x} + \begin{bmatrix} t \\ 3 \end{bmatrix} \qquad \vec{x}(0) = \begin{bmatrix} 1 \\ -3 \end{bmatrix}. \]
+\end{exercise}
+
+\begin{exercise}
+Solve the initial value problem
+\[ {\vec{x}}' = \begin{bmatrix} -4 & 2 \\ -9 & 5 \end{bmatrix}\vec{x} + \begin{bmatrix} e^{3t} \\ e^t - 1 \end{bmatrix} \qquad \vec{x}(0) = \begin{bmatrix} 0 \\ 2 \end{bmatrix}. \]
+\end{exercise}
+
+\begin{exercise}
+Solve the initial value problem
+\[ {\vec{x}}' = \begin{bmatrix} 3 & 2 \\ 0 & 4 \end{bmatrix}\vec{x} + \begin{bmatrix} e^{4t} \\ e^{3t} - t \end{bmatrix} \qquad \vec{x}(0) = \begin{bmatrix} 2 \\ -1 \end{bmatrix}. \]
+\end{exercise}
+
+\begin{exercise}
+Take the equation
+$\displaystyle
+{\vec{x}}'
+=
+\begin{bmatrix}
+\frac{1}{t} & -1 \\
+1 & \frac{1}{t}
+\end{bmatrix}
+\vec{x}
++ \begin{bmatrix} t^2 \\ -t \end{bmatrix} .
+$
+\begin{tasks}
+\task
+Check that
+$\displaystyle
+\vec{x}_c =
+c_1
+\begin{bmatrix}
+t\, \sin t \\
+- t \, \cos t
+\end{bmatrix}
++
+c_2
+\begin{bmatrix}
+t\, \cos t \\
+t \, \sin t
+\end{bmatrix}
+$
+is the complementary solution.
+\task
+Use variation of parameters to
+find a particular solution.
+\end{tasks}
+\end{exercise}
+
+\setcounter{exercise}{100}
+
+
+
+
+
+
+
+

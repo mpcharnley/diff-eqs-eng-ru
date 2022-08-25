@@ -1,0 +1,359 @@
+\section{Autonomous equations}
+\label{auteq:section}
+
+\LAtt{1.6}
+
+\LO{
+\item Identify autonomous first order differential equations,
+\item Find critical points or equilibrium solutions for autonomous equations, and
+\item Sketch a phase line for these equations.
+}
+
+% \sectionnotes{1 lecture\EPref{, \S2.2 in \cite{EP}}\BDref{,
+% \S2.5 in \cite{BD}}}
+\begin{definition} \label{def:autonomousEqn}
+An equation of the form
+\begin{equation}
+\frac{dx}{dt} = f(x) , \label{eq:basicAutonomous}
+\end{equation}
+where the derivative of solutions depends only on $x$ (the dependent
+variable) is called an \emph{autonomous
+equation\index{autonomous equation}}. If we think
+of $t$ as time, the naming comes from the fact that the equation is
+independent of time.
+\end{definition}
+
+We return to the cooling coffee problem
+(\exampleref{sep:coffeeexample}).
+\myindex{Newton's law of cooling}
+says
+\begin{equation*}
+\frac{dx}{dt} = k (A-x) ,
+\end{equation*}
+where $x$ is the temperature, $t$ is time, $k$ is some positive constant,
+and $A$ is
+the ambient temperature.  See \figurevref{2.2:coffeefig} for an example
+with $k=0.3$ and $A=5$.
+
+Note the solution $x(t)=A$ (in the figure $x=5$).
+We call these constant solutions the
+\emph{equilibrium solutions}\index{equilibrium solution}.
+The points on the $x$-axis where $f(x) = 0$ are called
+\emph{critical points\index{critical point}} of the differential equation \eqref{eq:basicAutonomous}.  The point
+$x=A$ is a critical point.  In fact, each
+critical point corresponds to an equilibrium solution.
+
+Now, we want to determine what happens for other values of $x$ that are not $A$. Based on the existence and uniqueness theorem in \sectionref{existunique:section} for first order differential equations, the fact that $k(A-x)$ and its partial derivative in $x$, $-k$, are continuous everywhere gives that solution curves can not cross. This means that since we know $x(t)=A$ is a solution, if a solution starts below $x(t)=A$, it must always stay there, and solutions that start above $x(t)=A$ will also stay there. For more information about what the solutions do, we'll need to look back at the equation and some sample solution curves.
+
+Note also, by looking at the graph, that the solution $x=A$ is
+\myquote{stable} in
+that small perturbations in $x$ do not lead to substantially different
+solutions as $t$ grows.
+If we change the initial condition a little bit, then as 
+$t \to \infty$ we get $x(t) \to A$.  We call such a critical point
+\emph{asymptotically stable}\index{asymptotically stable critical point}.
+In this simple example, it turns out that all solutions in fact go to $A$
+as $t \to \infty$.  If there is a critical point where all nearby solutions move away from the critical point, we say it is
+\emph{unstable}\index{unstable critical point}. If some nearby solutions go towards the critical point, and some others move away, then we say it is \emph{semistable}\index{semistable critical point}. The final option is that solutions nearby neither move towards nor away from the critical point, and these critical points are called \emph{stable}\index{stable critical point}.
+
+The last of these options may seem strange at first, and that is because stable critical points are not possible for autonomous equations with one unknown function. If a solution does not move towards or away from a critical point, that means it doesn't move anywhere, and so is a critical point on its own. However, when we get to autonomous systems in \sectionref{sec:twodimaut} and \sectionref{linearization:section}, we will see that in two dimensions, this is possible (think of a circle that does not spiral into or away from the center point). 
+
+\begin{myfig}
+\parbox[t]{3.0in}{
+ \capstart
+ \diffyincludegraphics{width=2.93in}{width=4.5in}{2-2-coffee}
+ \caption{The slope field and some solutions of
+ $x' = 0.3\,(5-x)$.\label{2.2:coffeefig}}
+ %$dx/dt = -0.3*(x-5)$, $t: [0,20], x: [-10,10]$, plot solutions for
+ %$t=0$, $x=10$, $x=5$, $x=0$, $x=-5$, $x=-10$.
+}
+\quad
+\parbox[t]{3.0in}{
+ \capstart
+ \diffyincludegraphics{width=3in}{width=4.5in}{2-2-logistic}
+ \caption{The slope field and some solutions of
+ $x' = 0.1\,x\,(5-x)$.\label{2.2:logisticfig}}
+}
+\end{myfig}
+
+\medskip
+
+Consider now the \emph{\myindex{logistic equation}}
+\begin{equation*}
+\frac{dx}{dt} = kx(M-x) ,
+\end{equation*}
+for some positive $k$ and $M$.  This equation is commonly used to model
+population if we know the limiting population $M$, that is the maximum
+sustainable population.  The logistic equation leads to 
+less catastrophic
+predictions on world population than $x'=kx$.  In the real world there is no
+such thing as negative population, but we will still consider negative $x$ for
+the purposes of the math.
+
+See \figurevref{2.2:logisticfig} for an example, $x' = 0.1 x(5-x)$.
+There are two critical points, $x=0$ and $x=5$.  The critical point
+at $x=5$ is asymptotically stable, while the critical point at $x=0$ is
+unstable.
+
+It is not necessary to find the exact solutions to talk about the long
+term behavior of the solutions.  From the slope field above of
+$x' = 0.1 x(5-x)$, we 
+see that
+\begin{equation*}
+\lim_{t\to \infty} x(t) = 
+\begin{cases}
+5 & \text{if } \; x(0) > 0 , \\
+0 & \text{if } \; x(0) = 0 , \\
+\text{DNE or } {-\infty} & \text{if } \; x(0) < 0 . \\
+\end{cases}
+\end{equation*}
+Here DNE means \myquote{does not exist.}  From just looking at the slope field we
+cannot quite decide what happens if $x(0) < 0$.  It could be that the
+solution does not exist for $t$ all the way to $\infty$.
+Think of the equation $x' = x^2$; we
+have seen that solutions only exist for some finite period of time.  Same can happen
+here.  In our example equation above it turns out that the
+solution does not exist for all time, but to see that we would have to solve
+the equation.  In any case, the solution does go to $-\infty$, but it may get
+there rather quickly.
+
+
+If we are interested only in the long term behavior of the solution, 
+we would be doing unnecessary work if we solved the
+equation exactly.
+We could draw the slope field, but
+it is easier to just look at the \emph{\myindex{phase diagram}} or
+\emph{\myindex{phase line}}, which is a simple
+way to visualize the behavior of
+autonomous equations.  The phase line for this equation is visible in \figurevref{fig:PL1}. In this case there is one dependent variable $x$.
+We draw the $x$-axis, we mark all the critical points,
+and then we draw arrows in
+between.  Since $x$ is the dependent variable we draw the axis vertically,
+as it appears in the slope field diagrams above.
+If $f(x) > 0$, we draw an up arrow.  If $f(x) < 0$, we draw 
+a down arrow.
+To figure this out, we could just plug in some $x$ between the critical
+points, $f(x)$ will have the same sign at all $x$ between two critical
+points as long $f(x)$ is continuous.
+For example, $f(6) = -0.6 < 0$, so $f(x) < 0$ for $x > 5$,
+and the arrow above $x=5$ is a down
+arrow.  Next, $f(1) = 0.4 > 0$, so $f(x) > 0$ whenever $0 < x < 5$, and
+the arrow points up.  Finally, $f(-1) = -0.6 < 0$ so $f(x) < 0$ when $x <
+0$, and the arrow points down.
+
+\begin{myfig}
+\inputpdft{2-2-l-phasedia}
+\caption{Phase line for the differential equation $x' = 0.1x(5-x)$.}
+\label{fig:PL1}
+\end{myfig}
+
+\pagebreak[0]
+Armed with the phase diagram,
+it is easy to sketch the solutions approximately:  As time $t$
+moves from left to right,
+the graph of a solution
+goes up if the arrow is up, and it goes down if the arrow is down.
+
+\begin{exercise}
+Try sketching a few solutions simply from looking at the phase diagram.
+Check with the preceding graphs to see if
+you are getting the types of curves that match the solutions.
+\end{exercise}
+
+\pagebreak[0]
+Once we draw the phase diagram, we can use it to classify critical points
+as asymptotically stable, semistable, or unstable based on whether the ``arrows'' point into or away from the critical point on each side. Two arrows in means that the critical point is asymptotically stable, two arrows away means unstable, and one in one out means semistable. 
+
+% \begin{center}
+% \inputpdft{2-2-ph-class}
+% \end{center}
+
+% Since any mathematical model we cook up will only be an approximation
+% to the real world, unstable points are generally bad news.
+
+\begin{example}
+Consider the autonomous differential equation
+\begin{equation}
+\frac{dx}{dt} = x(x-2)^2(x+3)(x-4) \label{autoexample:eqn}
+\end{equation}
+Find all equilibrium solutions for this equation, and determine their stability. Draw a phase line and use this information to sketch some approximate solution curves. 
+\end{example}
+
+\begin{exampleSol}
+This equation is already in factored form. This makes it simple to determine the equilibrium solutions as $x=0$, $x=2$, $x=-3$ and $x=4$. In order to determine the stability of each critical point and draw the phase line, we need to plug in values surrounding these points to $f(x) = x(x-2)^2(x+3)(x-4)$. We can see that
+\begin{equation*}
+\begin{split}
+f(-4) &= (-4)(-6)^2(-1)(-8) < 0, \\
+f(-1) &= (-1)(-3)^2(2)(-5) > 0, \\
+f(1) &= (1)(-1)^2(4)(-3) < 0, \\
+f(3) &= (3)(1)^2(6)(-1) < 0, \\
+f(5) &= (5)(3)^2(8)(1) > 0.
+\end{split}
+\end{equation*}
+This lets us draw the phase line and determine the stability of each critical point. Thus, we see that $x=-3$ is an unstable critical point, $x=0$ is asymptotically stable, $x=2$ is semistable, and $x=4$ is unstable. A set of sample solution curves also validates these conclusions.
+\begin{myfig}
+\capstart
+\myincludegraphics{width=4.5in}{width=6in}{Auto_PL_SS.png}
+\caption{Phase line for the differential equation $\frac{dx}{dt} = x(x-2)^2(x+3)(x-4)$ and a plot of some solutions to this equation.\label{autoexsolplot:fig}}
+\end{myfig}
+\end{exampleSol}
+
+\subsection{Concavity of Solutions}
+
+We can tell from the phase line for an autonomous equation when the solution will be increasing or decreasing. Is there any more we can learn about the shape of these graphs? There is, and it comes from looking for the concavity, which is determined by the second derivative.
+
+We can compute the second derivative 
+\begin{equation*}
+\frac{d^2x}{dt^2} = \frac{d}{dx} \Bigl[ \frac{dx}{dt} \Bigr]
+\end{equation*}
+of our solution by noticing that $\frac{dx}{dt} = f(x)$. This function can be differentiated by the chain rule
+\begin{equation*}
+\frac{d}{dt} f(x) = f'(x) \frac{dx}{dt} = f'(x) f(x).
+\end{equation*}
+So, the solution is concave up if $f'(x)f(x)$ is positive, and concave down if that is negative. Phrased another way, the solution is concave up if $f$ and $f'$ have the same sign, and it is concave down if $f$ and $f'$ have opposite signs. 
+
+Let's see what this looks like in action. Take the logistic equation $x' = 0.1x(5-x)$, whose solutions are plotted in \figureref{2.2:logisticfig}. \figurevref{autologfplot:fig} shows the graph of $f(x)$ as a function of $x$ for this scenario. When do $f$ and $f'$ have the same sign? Well, this happens when $f$ is both positive and increasing, or negative and decreasing. This happens between $0$ and the vertex, as well as for $x> 5$. The vertex here is at $x=2.5$, and so we conlude that the solution should be concave up when $x$ is on the intervals $(0, 2.5)$ and $(5, \infty)$, and be concave down otherwise. Looking back at \figureref{2.2:logisticfig}, this is exactly what we observe. All of the solutions between $0$ and $5$ seem to ``flip over'' to be concave down when $x$ crosses $2.5$.   
+
+\begin{myfig}
+\parbox[t]{3.0in}{
+ \capstart
+ \myincludegraphics{width=2.93in}{width=4.5in}{Auto_fGraph1.png}
+ \caption{Plot of $x$ vs. $f(x)$ for the differential equation $\frac{dx}{dt} = 0.1x(5-x)$.\label{autologfplot:fig}}
+ %$dx/dt = -0.3*(x-5)$, $t: [0,20], x: [-10,10]$, plot solutions for
+ %$t=0$, $x=10$, $x=5$, $x=0$, $x=-5$, $x=-10$.
+}
+\quad
+\parbox[t]{3.0in}{
+ \capstart
+ \myincludegraphics{width=3in}{width=4.5in}{Auto_fGraph2.png}
+ \caption{{Plot of $x$ vs. $f(x)$ for the differential equation $\frac{dx}{dt} = x(x-2)^2(x+3)(x-4)$.\label{autoexfplot:fig}}
+} }
+\end{myfig}
+
+The same can be seen for solutions to \eqref{autoexample:eqn}, even though we can't compute the extreme values explicitly. \figurevref{autoexfplot:fig} shows the graph of $f(x)$ vs. $x$ for this situation. Between each pair of equilibrium solutions there is a critical point of $f$ (in the Calculus 1 sense) where the derivative is zero, and at this point, the derivative changes sign, and since the function value does not change sign, the concavity of the solution to the differential equation flips at this point. Comparing this graph and these points where concavity shifts with the solutions drawn in \figureref{autoexsolplot:fig} again validates these results.
+
+
+\subsection{Exercises}
+
+\begin{samepage}
+\begin{exercise}
+Consider $x' = x^2$.
+\begin{tasks}
+\task Draw the phase diagram,
+find the critical points, and mark them asymptotically stable, semistable, or unstable.
+\task Sketch typical solutions of the equation.
+\task Find $\displaystyle \lim_{t\to \infty} x(t)$ for the solution with the initial condition
+$x(0) = -1$.
+\end{tasks}
+\end{exercise}
+\end{samepage}
+
+\begin{exercise}
+Consider $x' = \sin x$.
+\begin{tasks}
+\task Draw the phase diagram for $-4\pi \leq x \leq 4\pi$.  On this interval
+mark the critical points asymptotically stable, semistable, or unstable.
+\task Sketch typical solutions of the equation.
+\task Find $\displaystyle \lim_{t\to \infty} x(t)$ for the solution with the initial condition
+$x(0) = 1$.
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Let $x'=(x-1)(x-2)x^2$.
+\begin{tasks}
+\task Sketch the phase diagram and find critical
+points.
+\task Classify the critical points.
+\task If $x(0)=0.5$, then find $\displaystyle \lim_{t\to\infty} x(t)$.
+\end{tasks}
+\end{exercise}
+\exsol{%
+a) 0, 1, 2 are critical points.
+\quad
+b) $x=0$ is unstable (semistable), $x=1$ is asymptotically stable, and $x=2$ is unstable.
+\quad
+c) 1
+}
+
+\begin{exercise}
+Let $y' = (y-2)(y^2 + 1)(y+3)$. Sketch a phase diagram for this differential equation. Find and classify all critical points. If $y(0) = 0$, what will happen to the solution as $t \rightarrow \infty$?
+\end{exercise}
+
+\begin{exercise}
+Find and classify all equilibrium solutions for the differential equation $x' = (x-2)^2(x+1)(x+3)^3(x+2)$.
+\end{exercise}
+
+\begin{exercise}
+Let $y' = (y-3)(y+2)^2e^y$. Sketch a phase diagram for this differential equation. Find and classify all critical points. If $y(0) = 0$, what will happen to the solution as $t \rightarrow \infty$?
+\end{exercise}
+
+\begin{exercise}
+Consider the DE $\dfrac{dy}{dt}=y^5-3y^4+3y^3-y^2$. %1.7
+Find and classify all equilibrium solutions of this DE. Then sketch a representative selection of solution curves.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Let $x'=e^{-x}$.
+\begin{tasks}(2)
+\task Find and classify all critical points.
+\task Find $\displaystyle \lim_{t\to\infty} x(t)$ given any 
+initial condition.
+\end{tasks}
+\end{exercise}
+\exsol{%
+a) There are no critical points.
+\quad
+b) $\infty$
+}
+
+
+\begin{exercise}
+Suppose $f(x)$ is positive for $0 < x < 1$, it is zero when $x=0$ and $x=1$,
+and it is negative for all other $x$.
+\begin{tasks}
+\task Draw the phase diagram for $x' = f(x)$,
+find the critical points, and mark them asymptotically stable, semistable, or unstable.
+\task Sketch typical solutions of the equation.
+\task Find $\displaystyle \lim_{t\to \infty} x(t)$ for the solution with the initial condition
+$x(0) = 0.5$.
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Suppose $\frac{dx}{dt} = (x-\alpha)(x-\beta)$ for two numbers $\alpha <
+\beta$.
+\begin{tasks}
+\task Find the critical points, and classify them.
+\end{tasks}
+For b), c), d), find $\displaystyle \lim_{t\to\infty} x(t)$ based on
+the phase diagram.
+\begin{tasks}[resume](3)
+\task $x(0) < \alpha$,
+\task $\alpha < x(0) < \beta$,
+\task $\beta < x(0)$.
+\end{tasks}
+\end{exercise}
+\exsol{%
+a) $\alpha$ is a stable critical point, $\beta$ is an unstable one.
+\quad
+b) $\alpha$, \quad c) $\alpha$, \quad d) $\infty$ or DNE\@.
+}
+
+\begin{exercise}
+A disease is spreading through the country.  Let $x$ be the number of people
+infected.  Let the constant $S$ be the number of people susceptible to
+infection.  The infection rate $\frac{dx}{dt}$ is proportional to the product
+of already infected people, $x$, and the number of susceptible but
+uninfected people, $S-x$.
+\begin{tasks}
+\task Write down the differential equation.
+\task Supposing $x(0) > 0$, that is, some people are infected at time $t=0$,
+what is
+$\displaystyle \lim_{t\to\infty} x(t)$.
+\task Does the solution to part b) agree with your intuition?  Why or why not?
+\end{tasks}
+\end{exercise}
+
+
+\setcounter{exercise}{100}

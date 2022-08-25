@@ -1,0 +1,765 @@
+\section{More on the Fourier series}
+\label{moreonfourier:section}
+
+\LAtt{4.3}
+
+\LO{
+\item Discuss Fourier series over intervals of different lengths,
+\item Discuss the convergence of Fourier series, and
+\item Compute derivatives and integrals of functions written as Fourier series.
+}
+
+% \sectionnotes{Verbatim from Lebl}
+
+% \sectionnotes{2 lectures\EPref{, \S9.2--\S9.3 in \cite{EP}}\BDref{,
+% \S10.3 in \cite{BD}}}
+
+%Before reading the lecture, it may be good to first try
+%Project IV (Fourier series)\index{IODE software!Project IV} from the
+%IODE website: \url{http://www.math.uiuc.edu/iode/}.  After reading the
+%lecture it may be good to continue with 
+%Project V (Fourier series again)\index{IODE software!Project V}.
+
+\subsection{$2L$-periodic functions}
+
+We have computed the Fourier series for a $2\pi$-periodic function, but what
+about functions of different periods.  Well, fear not, the computation is a
+simple case of change of variables.  We just rescale the independent
+axis.  Suppose we have a $2L$-periodic function $f(t)$.  Then $L$ is called
+the \emph{\myindex{half period}}.  Let $s = \frac{\pi}{L}  t$.
+Then the function
+\begin{equation*}
+g(s) = f\left(\frac{L}{\pi} s \right)
+\end{equation*}
+is $2\pi$-periodic.  We must also rescale all our sines and cosines.
+In the series we use $\frac{\pi}{L} t$ as the variable.  That is, we
+want to write
+\begin{equation*}
+\mybxbg{~~
+f(t) = 
+\frac{a_0}{2} +
+\sum_{n=1}^\infty a_n \cos \left( \frac{n \pi}{L} t \right)
++ b_n \sin \left(\frac{n \pi}{L} t \right) .
+~~}
+\end{equation*}
+If we change variables to $s$, we see that
+\begin{equation*}
+g(s) = 
+\frac{a_0}{2} +
+\sum_{n=1}^\infty a_n \cos (n s)
++ b_n \sin (n s) .
+\end{equation*}
+We compute $a_n$ and $b_n$ as before.  After we write down the
+integrals, we change variables from $s$ back to $t$, noting also
+that $ds = \frac{\pi}{L} \, dt$.
+\begin{equation*}
+\mybxbg{~~
+\begin{aligned}
+& a_0 =
+\frac{1}{\pi}
+\int_{-\pi}^\pi
+g(s) \, ds
+=
+\frac{1}{L}
+\int_{-L}^L
+f(t) \, dt , \\
+& a_n =
+\frac{1}{\pi}
+\int_{-\pi}^\pi
+g(s) \, \cos (n s) \, ds
+=
+\frac{1}{L}
+\int_{-L}^L
+f(t) \, \cos \left( \frac{n \pi}{L} t \right) \, dt , \\
+& b_n =
+\frac{1}{\pi}
+\int_{-\pi}^\pi
+g(s) \, \sin (n s) \, ds
+=
+\frac{1}{L}
+\int_{-L}^L
+f(t) \, \sin \left( \frac{n \pi}{L} t \right) \, dt .
+\end{aligned}
+~~}
+\end{equation*}
+
+The two most common half periods that show up in examples
+are $\pi$ and 1 because of the simplicity of the formulas.  We should stress that we have
+done no new mathematics, we have only changed variables.  If you understand 
+the Fourier series for $2\pi$-periodic functions, you understand it for
+$2L$-periodic functions.  You can think of it as just using
+different units for time.  All that we are doing is moving some constants
+around, but all the mathematics is the same.
+
+\begin{example}
+Let
+\begin{equation*}
+f(t) =
+\lvert t \rvert
+\qquad \text{for } \; {-1} < t \leq 1,
+\end{equation*}
+extended periodically.  The plot of the
+periodic extension is given in \figurevref{gfs:sawcontfig}.
+Compute the Fourier series of $f(t)$.
+
+\begin{myfig}
+\capstart
+\diffyincludegraphics{width=3in}{width=4.5in}{gfs-sawcont}
+\caption{Periodic extension of the function $f(t)$.\label{gfs:sawcontfig}}
+\end{myfig}
+\end{example}
+\begin{exampleSol}
+We want to
+write $f(t) = \frac{a_0}{2} + \sum_{n=1}^\infty a_n \cos (n \pi t) + b_n
+\sin (n \pi t)$.  For $n \geq 1$ we note that $\lvert t \rvert \cos (n \pi t)$
+is even and hence
+\begin{equation*}
+\begin{split}
+a_n & = \int_{-1}^1 f(t) \cos (n \pi t) \, dt \\
+& = 2 \int_{0}^1 t \cos (n \pi t) \, dt \\
+ & = 2 \left[ \frac{t}{n \pi} \sin (n \pi t) \right]_{t=0}^1 -
+2 \int_{0}^1 \frac{1}{n \pi} \sin (n \pi t) \, dt \\
+& =  0 + \frac{1}{n^2 \pi^2} \Bigl[ \cos (n \pi t) \Bigr]_{t=0}^1
+ =  \frac{2 \bigl( {(-1)}^n -1 \bigr) }{n^2 \pi^2}
+=
+\begin{cases}
+0 & \text{if } n \text{ is even} , \\
+\frac{-4 }{n^2 \pi^2} & \text{if } n \text{ is odd}  .
+\end{cases}
+\end{split}
+\end{equation*}
+Next we find $a_0$:
+\begin{equation*}
+a_0 = \int_{-1}^1 \lvert t \rvert \, dt 
+=
+1 .
+\end{equation*}
+You should be able to find this integral by thinking about the integral
+as the area under the graph without doing any computation at all.
+Finally we can find $b_n$.  Here, we notice that
+$\lvert t \rvert \sin (n \pi t)$ is odd and, therefore,
+\begin{equation*}
+b_n = \int_{-1}^1 f(t) \sin (n \pi t) \, dt = 0 .
+\end{equation*}
+Hence,
+the series is 
+\begin{equation*}
+\frac{1}{2} + 
+\sum_{\substack{n=1 \\ n \text{ odd}}}^\infty \frac{-4}{n^2 \pi^2} \cos (n \pi t) .
+\end{equation*}
+
+Let us explicitly write down the first few terms of the series
+up to the $3^{\text{rd}}$ harmonic.
+\begin{equation*}
+\frac{1}{2} -
+\frac{4}{\pi^2} \cos (\pi t)
+-
+\frac{4}{9 \pi^2} \cos (3 \pi t)
+- \cdots
+\end{equation*}
+The plot of these few terms and also a plot up to the ${20}^{\text{th}}$
+harmonic is given in
+\figurevref{gfs:sawcontfsfig}.  You should notice how close the graph is
+to the real function.  You should also notice that there is no
+\myquote{Gibbs phenomenon} present as there are no discontinuities.
+
+\begin{myfig}
+\capstart
+%original files gfs-sawcontfs3 gfs-sawcont-fs20
+\diffyincludegraphics{width=6.24in}{width=9in}{gfs-sawcont-fs3-fs20}
+\caption{Fourier series of $f(t)$ up to the $3^{\text{rd}}$ harmonic (left
+graph)
+and up to the ${20}^{\text{th}}$ harmonic (right graph).\label{gfs:sawcontfsfig}}
+\end{myfig}
+\end{exampleSol}
+
+\subsection{Convergence}
+
+We will need the one sided limits of functions.
+We will use the following notation
+\begin{equation*}
+f(c-) = \lim_{t \uparrow c} f(t),
+\qquad \text{and} \qquad
+f(c+) = \lim_{t \downarrow c} f(t).
+\end{equation*}
+If you are unfamiliar with this notation,
+$\lim_{t \uparrow c} f(t)$ means we are taking a limit of $f(t)$
+as $t$ approaches $c$ from below (i.e.\ $t < c$) and
+$\lim_{t \downarrow c} f(t)$ means we are taking a limit of $f(t)$
+as $t$ approaches $c$ from above (i.e.\ $t > c$).
+For example, for the square wave function
+\begin{equation} \label{gfs:sqwaveeq}
+f(t) =
+\begin{cases}
+0 & \text{if } \; {-\pi} < t \leq 0 , \\
+\pi & \text{if } \; \phantom{-}0 < t \leq \pi ,
+\end{cases}
+\end{equation}
+we have $f(0-) = 0$ and $f(0+) = \pi$.
+
+Let $f(t)$ be a function defined on an interval $[a,b]$.  Suppose
+that we find finitely many points
+$a=t_0$, $t_1$, $t_2$, \ldots, $t_k=b$ in
+the interval, such that $f(t)$ is continuous
+on the intervals
+$(t_0,t_1)$, 
+$(t_1,t_2)$, \ldots, 
+$(t_{k-1},t_k)$.
+Also suppose that all the one sided limits exist, that is,
+all of
+$f(t_0+)$,
+$f(t_1-)$,
+$f(t_1+)$,
+$f(t_2-)$,
+$f(t_2+)$,
+\ldots,
+$f(t_k-)$
+exist and are finite.
+Then
+we say $f(t)$ is \emph{\myindex{piecewise continuous}}.
+
+If moreover, $f(t)$ is differentiable at all but finitely many points,
+and $f'(t)$ is piecewise continuous, then 
+$f(t)$ is said to be \emph{\myindex{piecewise smooth}}.
+
+\begin{example}
+The square wave function \eqref{gfs:sqwaveeq}
+is piecewise smooth on $[-\pi,\pi]$ or any other interval.  In such a
+case we simply say that the function is piecewise smooth.
+\end{example}
+
+\begin{example}
+The function $f(t) = \lvert t \lvert$
+is piecewise smooth.
+\end{example}
+
+\begin{example}
+The function $f(t) = \frac{1}{t}$ is not piecewise smooth on
+$[-1,1]$ (or any other interval containing zero).  In fact, it is not
+even piecewise continuous.
+\end{example}
+
+\begin{example}
+The function $f(t) = \sqrt[3]{t}$ is not piecewise smooth on
+$[-1,1]$ (or any other interval containing zero).  $f(t)$ is continuous, but
+the derivative of $f(t)$ is unbounded near zero and hence not piecewise
+continuous.
+\end{example}
+
+Piecewise smooth functions have an easy answer on the convergence
+of the Fourier series.
+
+\begin{theorem1}{}
+Suppose $f(t)$ is a $2L$-periodic piecewise smooth function.
+Let
+\begin{equation*}
+\frac{a_0}{2} + \sum_{n=1}^\infty a_n \cos \left( \frac{n \pi}{L} t
+\right)
++ b_n \sin \left( \frac{n \pi}{L} t \right)
+\end{equation*}
+be the Fourier series for $f(t)$.  Then the series converges
+for all $t$.  If $f(t)$ is continuous
+at $t$, then
+\begin{equation*}
+f(t) = \frac{a_0}{2} + \sum_{n=1}^\infty
+a_n \cos \left( \frac{n \pi}{L} t \right)
++ b_n \sin \left( \frac{n \pi}{L} t \right) .
+\end{equation*}
+Otherwise,
+\begin{equation*}
+\frac{f(t-)+f(t+)}{2} =
+\frac{a_0}{2} + \sum_{n=1}^\infty a_n \cos \left( \frac{n \pi}{L}  t
+\right)
++ b_n \sin \left( \frac{n \pi}{L} t \right) .
+\end{equation*}
+\end{theorem1}
+
+If we happen to have that
+$f(t) = \frac{f(t-)+f(t+)}{2}$ at all the discontinuities, the Fourier series
+converges to $f(t)$ everywhere.  We can always just redefine $f(t)$
+by changing the value at each discontinuity appropriately.  Then we can write
+an equals sign between $f(t)$ and the series without any worry.
+We mentioned this fact
+briefly at the end last section.
+
+The theorem does not say how fast the series converges.
+Think back to the discussion of the Gibbs phenomenon in the last section.
+The closer you get to the discontinuity, the more terms you need to take
+to get an accurate approximation to the function.
+
+\subsection{Differentiation and integration of Fourier series}
+
+Not only does Fourier series converge nicely, but it is easy to differentiate
+and integrate the series.  We can do this just by differentiating or
+integrating term by term.
+
+\begin{theorem1}{}
+Suppose
+\begin{equation*}
+f(t) = \frac{a_0}{2} + \sum_{n=1}^\infty a_n \cos \left( \frac{n \pi}{L} t
+\right)
++ b_n \sin \left( \frac{n \pi}{L} t \right)
+\end{equation*}
+is a piecewise smooth continuous function and the derivative $f'(t)$ is
+piecewise smooth.  Then the derivative can be
+obtained by differentiating term by term,
+\begin{equation*}
+f'(t) = \sum_{n=1}^\infty \frac{-a_n n \pi}{L} 
+\sin \left( \frac{n \pi}{L} t \right)
++ \frac{b_n n \pi}{L} \cos \left( \frac{n \pi}{L} t \right) .
+\end{equation*}
+\end{theorem1}
+
+It is important that the function is continuous.  It can have corners, but no
+jumps.  Otherwise, the differentiated series will fail to converge.  For an
+exercise, take the series obtained for the square wave and try to
+differentiate the series.  Similarly, we can also integrate a Fourier series.
+
+\begin{theorem1}{}
+Suppose
+\begin{equation*}
+f(t) = \frac{a_0}{2} + \sum_{n=1}^\infty
+a_n \cos \left( \frac{n \pi}{L} t \right)
++ b_n \sin \left( \frac{n \pi}{L} t \right)
+\end{equation*}
+is a piecewise smooth function.  Then the antiderivative is
+obtained by antidifferentiating term by term and so
+\begin{equation*}
+F(t) = \frac{a_0 t}{2} + C + \sum_{n=1}^\infty
+\frac{a_n L}{n \pi} \sin \left( \frac{n \pi}{L} t \right)
++ \frac{-b_n L}{n \pi}  \cos \left( \frac{n \pi}{L} t \right) ,
+\end{equation*}
+where $F'(t) = f(t)$ and $C$ is an arbitrary constant.
+\end{theorem1}
+
+Note that the series for $F(t)$ is no longer a Fourier series as it contains
+the $\frac{a_0 t}{2}$ term.  The antiderivative
+of a periodic function need no longer be periodic and so we should not
+expect a Fourier series.
+
+\subsection{Rates of convergence and smoothness}
+
+Let us do an example of a periodic function with one derivative everywhere.
+
+\begin{example}
+Take the function
+\begin{equation*}
+f(t) =
+\begin{cases}
+(t+1)\,t & \text{if } \; {-1} < t \leq 0 , \\
+(1-t)\,t & \text{if } \; \phantom{-}0 < t \leq 1 ,
+\end{cases}
+\end{equation*}
+and extend to a
+2-periodic function.  The plot is given in
+\figurevref{gfs:smoothexfig}.
+
+\begin{myfig}
+\capstart
+\diffyincludegraphics{width=3in}{width=4.5in}{gfs-smoothex}
+\caption{Smooth 2-periodic function.\label{gfs:smoothexfig}}
+\end{myfig}
+
+This function has one derivative everywhere, but it
+does not have a second derivative whenever $t$ is an integer.
+
+\begin{exercise}
+Compute $f''(0+)$ and $f''(0-)$.
+\end{exercise}
+
+Let us compute the Fourier series coefficients.  The actual computation
+involves several integration by parts and is left to student.
+\begin{align*}
+a_0 & = 
+\int_{-1}^1
+f(t) \, dt = 
+\int_{-1}^0
+(t+1)\,t \, dt +
+\int_0^1
+(1-t)\,t \, dt = 0 , \\
+a_n & = 
+\int_{-1}^1
+f(t) \, \cos (n\pi t) \, dt = 
+\int_{-1}^0
+(t+1)\,t
+\, \cos (n \pi t) \, dt +
+\int_0^1
+(1-t)\,t
+\, \cos (n \pi t) \, dt = 0, \\
+b_n & = 
+\int_{-1}^1
+f(t) \, \sin (n\pi t) \, dt = 
+\int_{-1}^0
+(t+1)\,t
+\, \sin (n \pi t) \, dt +
+\int_0^1
+(1-t)\,t
+\, \sin (n \pi t) \, dt \\
+& =
+\frac{4 ( 1-{(-1)}^n)}{\pi^3 n^3} 
+=
+\begin{cases}
+\frac{8}{\pi^3 n^3} & \text{if } n \text{ is odd} , \\
+0 & \text{if } n \text{ is even} .
+\end{cases}
+\end{align*}
+That is, the series is
+\begin{equation*}
+\sum_{\substack{n=1 \\ n \text{ odd}}}^\infty \frac{8}{\pi^3 n^3} \sin (n \pi t) .
+\end{equation*}
+
+This series converges very fast.
+If you plot up
+to the third harmonic, that is the function
+\begin{equation*}
+\frac{8}{\pi^3} \sin (\pi t) + 
+\frac{8}{27 \pi^3} \sin (3 \pi t) ,
+\end{equation*}
+it is almost indistinguishable from the plot of $f(t)$ in
+\figurevref{gfs:smoothexfig}.
+In fact, the coefficient 
+$\frac{8}{27 \pi^3}$ is already just 0.0096 (approximately).
+The reason for this behavior is the $n^3$ term in the denominator.
+The coefficients $b_n$ in this case go to zero as fast as
+$\nicefrac{1}{n^3}$ goes to
+zero.
+\end{example}
+
+For functions constructed piecewise from polynomials as above,
+it is generally true that
+if you have one derivative, the Fourier
+coefficients will go to zero approximately like $\nicefrac{1}{n^3}$.  If you
+have only a continuous function, then the Fourier coefficients will go to
+zero as $\nicefrac{1}{n^2}$.  If you have discontinuities, then 
+the Fourier coefficients will go to zero approximately as $\nicefrac{1}{n}$.
+For more general functions the story is somewhat more complicated but the
+same idea holds, the more derivatives you have, the faster the coefficients
+go to zero.  Similar reasoning works in reverse.  If the coefficients go to
+zero like $\nicefrac{1}{n^2}$, you always obtain a continuous function.  If
+they go to zero like $\nicefrac{1}{n^3}$, you obtain an everywhere differentiable
+function.
+%Therefore, we can tell a lot about the smoothness of a function by looking
+%at its Fourier coefficients.
+
+To justify this behavior, take for example the function defined by
+the Fourier series
+\begin{equation*}
+f(t) = \sum_{n=1}^\infty \frac{1}{n^3} \sin (n t) .
+\end{equation*}
+When we differentiate term by term we notice
+\begin{equation*}
+f'(t) = \sum_{n=1}^\infty \frac{1}{n^2} \cos (n t) .
+\end{equation*}
+Therefore, the coefficients now go down like $\nicefrac{1}{n^2}$, which 
+means that we have a continuous function.
+The derivative 
+of $f'(t)$ is defined
+at most points, but there are points where $f'(t)$ is not differentiable.
+It has corners, but no jumps.
+If we
+differentiate again (where we can), we find that the function
+$f''(t)$,
+now fails to be continuous (has jumps)
+\begin{equation*}
+f''(t) = \sum_{n=1}^\infty \frac{-1}{n} \sin (n t) .
+\end{equation*}
+This function is similar to the sawtooth.  If we tried to differentiate
+the series again, we would obtain
+\begin{equation*}
+\sum_{n=1}^\infty -\cos (n t) ,
+\end{equation*}
+which does not converge!
+
+\begin{exercise}
+Use a computer to plot the series we obtained for $f(t)$, $f'(t)$ and
+$f''(t)$.  That is, plot say the first 5 harmonics of the functions.  At what
+points does $f''(t)$ have the discontinuities?
+\end{exercise}
+
+\subsection{Exercises}
+
+\begin{exercise}
+Let
+\begin{equation*}
+f(t) =
+\begin{cases}
+0 & \text{if } \; {-1} < t \leq 0 , \\
+t & \text{if } \; \phantom{-}0 < t \leq  1 ,
+\end{cases}
+\end{equation*}
+extended periodically.
+\begin{tasks}
+\task Compute the Fourier series for $f(t)$.
+\task Write out the series explicitly up to the $3^{\text{rd}}$ harmonic.
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Let
+\begin{equation*}
+f(t) = t^2 \qquad \text{for } \; {-2} < t \leq 2
+\end{equation*}
+extended periodically.
+\begin{tasks}
+\task Compute the Fourier series for $f(t)$.
+\task Write out the series explicitly up to the $3^{\text{rd}}$ harmonic.
+\end{tasks}
+\end{exercise}
+\exsol{%
+a) $\frac{8}{6} +
+\sum\limits_{n=1}^\infty
+\frac{16{(-1)}^n}{\pi^2 n^2}
+\cos\bigl(\frac{n\pi}{2} t\bigr)$
+\quad
+b) $\frac{8}{6}
+-
+\frac{16}{\pi^2 }
+\cos\bigl(\frac{\pi}{2} t\bigr)
++
+\frac{4}{\pi^2}
+\cos\bigl(\pi t\bigr)
+-
+\frac{16}{9\pi^2}
+\cos\bigl(\frac{3\pi}{2} t\bigr) + \cdots$
+}
+
+\begin{exercise}
+Let
+\begin{equation*}
+f(t) =
+\begin{cases}
+-t & \text{if } \; {-1} < t \leq 0 , \\
+t^2 & \text{if } \; \phantom{-}0 < t \leq  1 ,
+\end{cases}
+\end{equation*}
+extended periodically.
+\begin{tasks}
+\task Compute the Fourier series for $f(t)$.
+\task Write out the series explicitly up to the $3^{\text{rd}}$ harmonic.
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Let
+\begin{equation*}
+f(t) = t \qquad \text{for } \; {-\lambda} < t \leq \lambda \; \text{ (for some } \lambda > 0 \text{)}
+\end{equation*}
+extended periodically.
+\begin{tasks}
+\task Compute the Fourier series for $f(t)$.
+\task Write out the series explicitly up to the $3^{\text{rd}}$ harmonic.
+\end{tasks}
+\end{exercise}
+\exsol{%
+a)
+$\sum\limits_{n=1}^\infty
+\frac{{(-1)}^{n+1}2\lambda}{n \pi}
+\sin\bigl(\frac{n\pi}{\lambda} t\bigr)$
+\quad
+b)
+$\frac{2\lambda}{\pi}
+\sin\bigl(\frac{\pi}{\lambda} t\bigr)
+-
+\frac{\lambda}{\pi}
+\sin\bigl(\frac{2\pi}{\lambda} t\bigr)
++
+\frac{2\lambda}{3\pi}
+\sin\bigl(\frac{3\pi}{\lambda} t\bigr) - \cdots$
+}
+
+\begin{exercise}
+Let
+\begin{equation*}
+f(t) =
+\begin{cases}
+\frac{-t}{10} & \text{if } \; {-10} < t \leq 0 , \\
+\frac{t}{10} & \text{if } \; \phantom{-1}0 < t \leq  10 ,
+\end{cases}
+\end{equation*}
+extended periodically (period is 20).
+\begin{tasks}
+\task Compute the Fourier series for $f(t)$.
+\task Write out the series explicitly up to the $3^{\text{rd}}$ harmonic.
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Let
+\begin{equation*}
+f(t) = \frac{1}{2} + \sum_{n=1}^\infty
+\frac{1}{n(n^2+1)}
+\sin(n\pi t) .
+\end{equation*}
+Compute $f'(t)$.
+\end{exercise}
+\exsol{%
+$f'(t) = \sum\limits_{n=1}^\infty
+\frac{\pi}{n^2+1}
+\cos(n\pi t)$
+}
+
+\begin{exercise}
+Let $f(t) = \sum_{n=1}^\infty \frac{1}{n^3} \cos (n t)$.  Is $f(t)$
+continuous and differentiable everywhere?  Find the derivative (if it exists
+everywhere)
+or justify why $f(t)$ is not differentiable everywhere.
+\end{exercise}
+
+\begin{exercise}
+Let $f(t) = \sum_{n=1}^\infty \frac{{(-1)}^n}{n} \sin (n t)$.  Is $f(t)$
+differentiable everywhere?  Find the derivative (if it exists everywhere) or
+justify why $f(t)$ is not differentiable everywhere.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Let
+\begin{equation*}
+f(t) = \frac{1}{2} + \sum_{n=1}^\infty
+\frac{1}{n^3}
+\cos(n t) .
+\end{equation*}
+\begin{tasks}
+\task Find the antiderivative.
+\task Is the antiderivative periodic?
+\end{tasks}
+\end{exercise}
+\exsol{%
+a)
+$F(t) = \frac{t}{2} + C + \sum\limits_{n=1}^\infty
+\frac{1}{n^4}
+\sin(nt)$
+\qquad
+b) no
+}
+
+\begin{exercise}
+Let
+\begin{equation*}
+f(t) =
+\begin{cases}
+0 & \text{if } \; {-2} < t \leq 0, \\
+t & \text{if } \; \phantom{-}0 < t \leq 1, \\
+-t+2 & \text{if } \; \phantom{-}1 < t \leq 2,
+\end{cases}
+\end{equation*}
+extended periodically.
+\begin{tasks}
+\task Compute the Fourier series for $f(t)$.
+\task Write out the series explicitly up to the $3^{\text{rd}}$ harmonic.
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}
+Let
+\begin{equation*}
+f(t) = e^t \qquad \text{for } \; {-1} < t \leq 1
+\end{equation*}
+extended periodically.
+\begin{tasks}
+\task Compute the Fourier series for $f(t)$.
+\task Write out the series explicitly up to the $3^{\text{rd}}$ harmonic.
+\task What does the series converge to at $t=1$.
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}
+Let
+\begin{equation*}
+f(t) = t^2 \qquad \text{for } \; {-1} < t \leq 1
+\end{equation*}
+extended periodically.
+\begin{tasks}
+\task Compute the Fourier series for $f(t)$.
+\task By plugging in $t=0$,
+evaluate $\displaystyle \sum_{n=1}^\infty \frac{{(-1)}^n}{n^2} = 1 - \frac{1}{4} +
+\frac{1}{9} - \cdots$.
+\task Now evaluate $\displaystyle \sum_{n=1}^\infty \frac{1}{n^2} = 1 + \frac{1}{4} +
+\frac{1}{9} + \cdots$.
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Let
+\begin{equation*}
+f(t) = \nicefrac{t}{2} \qquad \text{for } \; {-\pi} < t < \pi
+\end{equation*}
+extended periodically.
+\begin{tasks}
+\task Compute the Fourier series for $f(t)$.
+\task Plug in $t=\nicefrac{\pi}{2}$ to find a series representation
+for $\nicefrac{\pi}{4}$.
+\task Using the first 4 terms of the result from part b) approximate
+$\nicefrac{\pi}{4}$.
+\end{tasks}
+\end{exercise}
+\exsol{%
+a)
+$\sum\limits_{n=1}^\infty
+\frac{{(-1)}^{n+1}}{n} \sin(nt)$
+\qquad
+b) $f$ is continuous at $t=\nicefrac{\pi}{2}$ so the
+Fourier series converges to $f(\nicefrac{\pi}{2}) = \nicefrac{\pi}{4}$.
+Obtain
+$\nicefrac{\pi}{4} = \sum\limits_{n=1}^\infty
+\frac{{(-1)}^{n+1}}{2n-1} = 1 - \nicefrac{1}{3} + \nicefrac{1}{5}-
+\nicefrac{1}{7} + \cdots$.
+\qquad
+c) Using the first 4 terms get $\nicefrac{76}{105}\approx 0.72$ (quite a bad
+approximation, you would have to take about 50 terms to start to get to
+within $0.01$ of $\nicefrac{\pi}{4}$).
+}
+
+\begin{exercise}
+Let
+\begin{equation*}
+f(t) =
+\begin{cases}
+0 & \text{if } \; {-3} < t \leq 0, \\
+t & \text{if } \; \phantom{-}0 < t \leq 3,
+\end{cases}
+\end{equation*}
+extended periodically.  Suppose $F(t)$ is the function given
+by the Fourier series of $f$.  Without computing the Fourier series
+evaluate
+\begin{tasks}(3)
+\task $F(2)$
+\task $F(-2)$
+\task $F(4)$
+\task $F(-4)$
+\task $F(3)$
+\task $F(-9)$
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Let
+\begin{equation*}
+f(t) = 
+\begin{cases}
+0 & \text{if } \; {-2} < t \leq 0, \\
+2 & \text{if } \; \phantom{-}0 < t \leq 2,
+\end{cases}
+\end{equation*}
+extended periodically.  Suppose $F(t)$ is the function given
+by the Fourier series of $f$.  Without computing the Fourier series
+evaluate
+\begin{tasks}(3)
+\task $F(0)$
+\task $F(-1)$
+\task $F(1)$
+\task $F(-2)$
+\task $F(4)$
+\task $F(-8)$
+\end{tasks}
+\end{exercise}
+\exsol{%
+a) $F(0) = 1$, 
+b) $F(-1) = 0$, 
+c) $F(1) = 2$, 
+d) $F(-2) = 1$, 
+e) $F(4) = 1$, 
+f) $F(-9) = 0$ 
+}
+
+\setcounter{exercise}{100}
+

@@ -1,0 +1,558 @@
+
+\section{The Laplace transform}
+\label{laplace:section}
+
+\LAtt{6.1}
+
+\LO{
+\item Define the Laplace transform,
+\item Compute the Laplace transform of a variety of functions, and
+\item Compute the inverse Laplace transform of functions when it exists. 
+}
+
+% \sectionnotes{Verbatim from Lebl}
+
+% \sectionnotes{1.5--2 lectures\EPref{, \S10.1 in \cite{EP}}\BDref{,\S6.1 and parts of \S6.2 in \cite{BD}}}
+
+\subsection{The transform}
+
+In this chapter we will discuss the Laplace transform%
+\footnote{Just like the Laplace equation and the Laplacian, the Laplace
+transform is also named after 
+\href{https://en.wikipedia.org/wiki/Laplace}{Pierre-Simon, marquis de Laplace}
+(1749--1827).}.
+The Laplace transform
+is a very efficient method to solve certain ODE or PDE problems.
+The transform takes a differential equation and turns it into
+an algebraic equation.  If the algebraic equation can be solved, applying the
+inverse transform gives us our desired solution.
+The Laplace transform also has applications in
+the analysis of 
+electrical circuits, NMR spectroscopy, signal processing, and elsewhere.
+Finally,
+understanding the Laplace
+transform will also help with understanding the related Fourier transform,
+which, however, requires more
+understanding of complex numbers.  We will not cover the Fourier transform.
+
+The Laplace transform also gives a lot of insight into the nature of the
+equations we are dealing with.  It can be seen as converting between the time
+and the frequency domain.  For example, take the standard equation
+\begin{equation*}
+m x''(t) + c x'(t) + k x(t) = f(t) .
+\end{equation*}
+We can think of $t$ as time and $f(t)$ as incoming signal.  The Laplace
+transform will convert the equation from a differential equation in time to
+an algebraic (no derivatives) equation, where the new independent variable
+$s$ is the frequency.
+
+We can think of the \emph{\myindex{Laplace transform}} as a black box.  It
+eats functions and spits out functions in a new variable.  We write
+$\mathcal{L} \bigl\{ f(t) \bigr\} = F(s)$ for the Laplace transform of $f(t)$.
+It is common to write lower case letters for
+functions in the time domain and upper case letters for functions in the
+frequency domain.  We use the same letter to denote that one function
+is the Laplace transform of the other.  For example, $F(s)$ is the Laplace
+transform of $f(t)$.  Let us define the transform.
+\begin{equation*}
+\mathcal{L} \bigl\{ f(t) \bigr\} =
+F(s) \overset{\text{def}}{=} \int_0^\infty e^{-st} f(t) \, dt .
+\end{equation*}
+We note that we are only considering $t \geq 0$ in the transform.  Of course,
+if we think of $t$ as time there is no problem, we are generally interested in
+finding out what will happen in the future (Laplace transform is one place
+where it is safe to ignore the past).  Let us compute some simple
+transforms.
+
+\begin{example}
+Suppose $f(t) = 1$, then
+\begin{equation*}
+\mathcal{L} \{1\} = \int_0^\infty e^{-st} \, dt
+=
+\left[ \frac{e^{-st}}{-s} \right]_{t=0}^\infty
+=
+\lim_{h\to\infty}
+\left[ \frac{e^{-st}}{-s} \right]_{t=0}^h
+=
+\lim_{h\to\infty}
+\left( \frac{e^{-sh}}{-s} - \frac{1}{-s} \right)
+= \frac{1}{s} .
+\end{equation*}
+The limit (the improper integral) only exists if $s > 0$.  So 
+$\mathcal{L} \{1\}$ is only defined for $s > 0$.
+\end{example}
+
+\begin{example}
+Suppose $f(t) = e^{-at}$, then
+\begin{equation*}
+\mathcal{L} \bigl\{e^{-at}\bigr\}
+= \int_0^\infty e^{-st} e^{-at} \, dt
+= \int_0^\infty e^{-(s+a)t} \, dt
+=
+\left[ \frac{e^{-(s+a)t}}{-(s+a)} \right]_{t=0}^\infty
+= \frac{1}{s+a} .
+\end{equation*}
+The limit only exists if $s+a > 0$.  So 
+$\mathcal{L} \bigl\{e^{-at}\bigr\}$ is only defined for $s+a > 0$.
+\end{example}
+
+\begin{example}
+Suppose $f(t) = t$, then using integration by parts
+\begin{equation*}
+\begin{split}
+\mathcal{L} \{t\}
+& = \int_0^\infty e^{-st} t \, dt \\
+& =
+\left[ \frac{-te^{-st}}{s} \right]_{t=0}^\infty
++
+\frac{1}{s}
+\int_0^\infty e^{-st} \,dt \\
+& =
+0
++
+\frac{1}{s}
+\left[ \frac{e^{-st}}{-s} \right]_{t=0}^\infty \\
+& =
+\frac{1}{s^2} .
+\end{split}
+\end{equation*}
+Again, the limit only exists if $s > 0$.
+\end{example}
+
+\begin{example}
+A common function is the \emph{\myindex{unit step function}}, which is
+sometimes called the \emph{\myindex{Heaviside function}}%
+\footnote{The function is named after the English mathematician, engineer, and
+physicist
+\href{https://en.wikipedia.org/wiki/Heaviside}{Oliver Heaviside}
+(1850--1925).  Only
+by coincidence is the function \myquote{heavy} on \myquote{one side.}}.
+This function is generally given as
+\begin{equation*}
+u(t) = 
+\begin{cases}
+0 & \text{if } \; t < 0 , \\
+1 & \text{if } \; t \geq 0 .
+\end{cases}
+\end{equation*}
+%Note that some authors prefer to define $u(0) = \frac{1}{2}$.
+Let us find the Laplace transform of $u(t-a)$, where $a \geq 0$
+is some constant.
+That is, the function that is 0 for $t < a$ and 1 for $t \geq a$.
+\begin{equation*}
+\mathcal{L} \bigl\{ u(t-a) \bigr\}
+=
+\int_0^{\infty} e^{-st} u(t-a) \, dt
+=
+\int_a^{\infty} e^{-st} \, dt
+=
+\left[ \frac{e^{-st}}{-s} \right]_{t=a}^\infty \\
+=
+\frac{e^{-as}}{s} ,
+\end{equation*}
+where of course $s > 0$ (and $a \geq 0$ as we said before).
+\end{example}
+
+By applying similar procedures we can compute the transforms of many
+elementary functions.  Many basic transforms are listed in
+\tablevref{lt:table}.
+
+\begin{table}[h!t]
+\mybeginframe
+\capstart
+\begin{center}
+\begin{tabular}{@{}lllll@{}}
+\toprule
+$f(t)$ & $\mathcal{L} \bigl\{ f(t) \bigr\}$ & $\qquad\quad$ &
+$f(t)$ & $\mathcal{L} \bigl\{ f(t) \bigr\}$ \\
+\midrule
+$C$ & $\frac{C}{s}$
+& &
+$\sin (\omega t)$ & $\frac{\omega}{s^2+\omega^2}$
+\\[4pt]
+$t$ & $\frac{1}{s^2}$
+& &
+$\cos (\omega t)$ & $\frac{s}{s^2+\omega^2}$
+\\[4pt]
+$t^2$ & $\frac{2}{s^3}$
+& &
+$\sinh (\omega t)$ & $\frac{\omega}{s^2-\omega^2}$
+\\[4pt]
+$t^3$ & $\frac{6}{s^4}$
+& &
+$\cosh (\omega t)$ & $\frac{s}{s^2-\omega^2}$
+\\[4pt]
+$t^n$ & $\frac{n!}{s^{n+1}}$
+& &
+$u(t-a)$ & $\frac{e^{-as}}{s}$
+\\[4pt]
+$e^{-at}$ & $\frac{1}{s+a}$
+& & &
+\\[4pt]
+\bottomrule
+\end{tabular}
+\end{center}
+\caption{Some Laplace transforms ($C$, $\omega$, and $a$ are
+constants).\label{lt:table}}
+\myendframe
+\end{table}
+
+\begin{exercise}
+Verify \tablevref{lt:table}.
+\end{exercise}
+
+Since the transform is defined by an integral.  We can use the linearity
+properties of the integral.  For example, suppose $C$ is a constant, then
+\begin{equation*}
+\mathcal{L} \bigl\{ C f(t) \bigr\} =
+\int_0^\infty e^{-st} C f(t) \,dt =
+C \int_0^\infty e^{-st} f(t) \,dt =
+C \mathcal{L} \bigl\{ f(t) \bigr\} .
+\end{equation*}
+So we can \myquote{pull out} a constant out of the transform.  Similarly  we have
+linearity.
+Since linearity is very important we state it as a theorem.
+
+\begin{theorem1}{Linearity of the Laplace transform}
+\index{linearity of the Laplace transform}
+Suppose that $A$, $B$, and $C$ are constants, then
+\begin{equation*}
+%\mybxbg{~~
+\mathcal{L} \bigl\{ A f(t) + B g(t) \bigr\} =
+A \mathcal{L} \bigl\{ f(t) \bigr\} +
+B \mathcal{L} \bigl\{ g(t) \bigr\} ,
+%~~}
+\end{equation*}
+and in particular
+\begin{equation*}
+\mathcal{L} \bigl\{ C f(t) \bigr\} =
+C \mathcal{L} \bigl\{ f(t) \bigr\} .
+\end{equation*}
+\end{theorem1}
+
+\begin{exercise}
+Verify the theorem.  That is, show that
+$\mathcal{L} \bigl\{ A f(t) + B g(t) \bigr\} =
+A \mathcal{L} \bigl\{ f(t) \bigr\} +
+B \mathcal{L} \bigl\{ g(t) \bigr\}$.
+\end{exercise}
+
+These rules together with \tablevref{lt:table} make it easy to find
+the Laplace transform of a whole lot of functions already.
+But be careful.
+It is a common mistake to think that the Laplace transform of a product
+is the product of the transforms.  In general 
+\begin{equation*}
+\mathcal{L} \bigl\{ f(t) g(t) \bigr\} \not=
+\mathcal{L} \bigl\{ f(t) \bigr\}
+\mathcal{L} \bigl\{ g(t) \bigr\} .
+\end{equation*}
+
+It must also be noted that not all functions have a Laplace transform.  For
+example, the function $\frac{1}{t}$ does not have a Laplace transform as the
+integral diverges for all $s$.  Similarly,
+$\tan t$ or $e^{t^2}$ do not have Laplace transforms.
+
+\subsection{Existence and uniqueness}
+
+When does the Laplace transform exist?  A function $f(t)$ is of
+\emph{\myindex{exponential order}} as $t$ goes to infinity if
+\begin{equation*}
+\lvert f(t) \rvert \leq M e^{ct} ,
+\end{equation*}
+for some constants $M$ and $c$, for
+sufficiently large $t$ (say for all $t > t_0$ for some $t_0$).  The simplest
+way to check this condition is to try and compute
+\begin{equation*}
+\lim_{t\to \infty} \frac{f(t)}{e^{ct}} .
+\end{equation*}
+If the limit exists and is finite (usually zero), then $f(t)$ is of
+exponential order.
+
+\begin{exercise}
+Use L'Hopital's rule from calculus to show that a polynomial is of
+exponential order.  Hint: Note that a sum of two exponential order functions
+is also of exponential order.  Then show that $t^n$ is of exponential order
+for any $n$.
+\end{exercise}
+
+For an exponential order function we have existence and uniqueness of the
+Laplace transform.
+
+\begin{theorem1}{Existence}
+Let $f(t)$ be continuous and of exponential order for a certain
+constant $c$.  Then $F(s) = \mathcal{L} \bigl\{ f(t) \bigr\}$ is defined for
+all $s > c$.
+\end{theorem1}
+
+The existence is not difficult to see.  Let $f(t)$ be of exponential order,
+that is $\lvert f(t) \rvert \leq M e^{ct}$ for all $t > 0$ (for simplicity $t_0 = 0$).
+Let $s > c$, or in other words $(c-s) < 0$.
+By the comparison theorem from calculus, the improper integral defining
+$\mathcal{L} \bigl\{ f(t) \bigr\}$ exists if the following integral exists
+\begin{equation*}
+\int_0^\infty e^{-st} ( M e^{ct} ) \,dt
+=
+M \int_0^\infty e^{(c-s)t} \,dt = M \left[ \frac{e^{(c-s)t}}{c-s}
+\right]_{t=0}^\infty = \frac{M}{c-s} .
+\end{equation*}
+
+The transform also exists for some other functions
+that are not of exponential
+order, but that will not be relevant to us.
+Before dealing with uniqueness, let
+us note that for exponential order functions we obtain that their
+Laplace transform decays at infinity:
+\begin{equation*}
+\lim_{s\to\infty} F(s) = 0 .
+\end{equation*}
+
+\begin{theorem1}[lt:uniqthm]{Uniqueness}
+Let $f(t)$ and $g(t)$ be continuous and of exponential order.
+Suppose that there exists a constant $C$,
+such that $F(s) = G(s)$ for all $s > C$.
+Then $f(t) = g(t)$ for all $t \geq 0$.
+\end{theorem1}
+
+Both theorems hold for piecewise continuous functions as well.
+Recall that piecewise continuous means that the function
+is continuous except perhaps at a discrete set of points, where it has jump
+discontinuities like the Heaviside function.  Uniqueness, however, does
+not \myquote{see} values at the discontinuities.  So we can only conclude that
+$f(t) = g(t)$ outside of discontinuities.  For example, the unit step
+function is sometimes defined using $u(0) = \nicefrac{1}{2}$.  This new
+step function, however, has the exact same Laplace transform
+as the one we defined earlier where $u(0) = 1$.
+
+\subsection{The inverse transform}
+
+As we said, the Laplace transform will allow us to convert a differential
+equation into an algebraic equation.  Once we solve the
+algebraic equation in the frequency domain we will want to get back to the
+time domain, as that is what we are interested in.
+Given a function
+$F(s)$, we wish to find a function
+$f(t)$ such that $\mathcal{L} \bigl\{ f(t) \bigr\} = F(s)$.
+\thmref{lt:uniqthm} says that the solution $f(t)$ is unique.
+So we can without fear make the following definition.
+
+Suppose $F(s) = \mathcal{L} \bigl\{ f(t) \bigr\}$ for some function $f(t)$.
+Define the
+\emph{\myindex{inverse Laplace transform}} as
+\begin{equation*}
+{\mathcal{L}}^{-1} \bigl\{ F(s) \bigr\} \overset{\text{def}}{=} f(t) .
+\end{equation*}
+There is an integral formula for the inverse, but it is not as simple
+as the transform itself---it requires complex numbers and path integrals.
+For us it will
+suffice to
+compute the inverse using \tablevref{lt:table}.
+
+\begin{example}
+Take
+$F(s) = \frac{1}{s+1}$.  Find the inverse Laplace transform.
+
+We look at the table to find
+\begin{equation*}
+{\mathcal{L}}^{-1} \left\{ \frac{1}{s+1} \right\} = 
+e^{-t} .
+\end{equation*}
+\end{example}
+
+As the Laplace transform is linear, the inverse Laplace
+transform is also linear.  That is,
+\begin{equation*}
+{\mathcal{L}}^{-1} \bigl\{ A F(s) + B G(s) \bigr\} =
+A {\mathcal{L}}^{-1} \bigl\{ F(s) \bigr\} +
+B {\mathcal{L}}^{-1} \bigl\{ G(s) \bigr\} .
+\end{equation*}
+Of course, we also have
+${\mathcal{L}}^{-1} \bigl\{ A F(s) \bigr\} =
+A {\mathcal{L}}^{-1} \bigl\{ F(s) \bigr\}$.
+Let us demonstrate how linearity can be used.
+
+\begin{example}
+Take
+$F(s) = \frac{s^2+s+1}{s^3+s}$.  Find the inverse Laplace transform.
+\end{example}
+
+\begin{exampleSol}
+First we use the \emph{\myindex{method of partial fractions}} to write $F$ in a form where
+we can use \tablevref{lt:table}.  We factor the denominator as
+$s(s^2+1)$ and write
+\begin{equation*}
+\frac{s^2+s+1}{s^3+s}
+=
+\frac{A}{s} + 
+\frac{Bs+C}{s^2+1} .
+\end{equation*}
+Putting the right-hand side over a common
+denominator and equating the numerators we get
+$A(s^2+1) + s(Bs+C) = s^2+s+1$.  Expanding and equating coefficients
+we obtain $A+B = 1$, $C=1$, $A=1$,
+and thus $B=0$.  In
+other words,
+\begin{equation*}
+F(s) =
+\frac{s^2+s+1}{s^3+s}
+=
+\frac{1}{s} +
+\frac{1}{s^2+1} .
+\end{equation*}
+By linearity of the inverse Laplace transform we get 
+\begin{equation*}
+{\mathcal{L}}^{-1} \left\{ 
+\frac{s^2+s+1}{s^3+s} \right\}
+=
+{\mathcal{L}}^{-1} \left\{ 
+\frac{1}{s} \right\} 
++
+{\mathcal{L}}^{-1} \left\{ 
+\frac{1}{s^2+1} \right\}
+=
+1 + 
+\sin t .
+\end{equation*}
+\end{exampleSol}
+
+Another useful property is the 
+so-called \emph{\myindex{shifting property}} or
+the \emph{\myindex{first shifting property}}
+\begin{equation*}
+\mybxbg{~~
+\mathcal{L} \bigl\{ e^{-at} f(t) \bigr\} = F(s+a) ,
+~~}
+\end{equation*}
+where $F(s)$ is the Laplace transform of $f(t)$.
+
+\begin{exercise}
+Derive the first shifting property
+from the definition of the Laplace transform.
+\end{exercise}
+
+The shifting property can be used, for example, when the denominator is a
+more complicated quadratic that may come up in the method of partial
+fractions.  We complete the square and write such quadratics as ${(s+a)}^2+b$
+and then use the shifting property.
+
+\begin{example}
+Find
+${\mathcal{L}}^{-1} \left\{ \frac{1}{s^2+4s+8} \right\}$.
+\end{example}
+
+\begin{exampleSol}
+First we complete the square to make the denominator ${(s+2)}^2+4$.  
+Next we find
+\begin{equation*}
+{\mathcal{L}}^{-1} \left\{ \frac{1}{s^2+4} \right\}
+=
+\frac{1}{2} \sin (2t) .
+\end{equation*}
+Putting it all together with the shifting property, we find
+\begin{equation*}
+{\mathcal{L}}^{-1} \left\{ \frac{1}{s^2+4s+8} \right\} = 
+{\mathcal{L}}^{-1} \left\{ \frac{1}{{(s+2)}^2+4} \right\}
+=
+\frac{1}{2}\,e^{-2t} \sin (2t) .
+\end{equation*}
+\end{exampleSol}
+
+In general, we want to be able to apply the Laplace transform to
+rational functions, that is functions of the form
+\begin{equation*}
+\frac{F(s)}{G(s)}
+\end{equation*}
+where $F(s)$ and $G(s)$ are polynomials.  Since normally, for the functions
+that we are considering, the Laplace transform goes
+to zero as $s \to \infty$, it is not hard to see that the degree of $F(s)$
+must be smaller than that of $G(s)$.  Such rational functions
+are called \emph{proper rational functions\index{proper rational function}}
+and we can always apply the method of partial fractions.  Of
+course this means we need to be able to factor the denominator into
+linear and quadratic terms, which involves finding the roots of the
+denominator.
+
+\subsection{Exercises}
+
+\begin{exercise}
+Find the Laplace transform of $3+t^5+\sin (\pi t)$.
+\end{exercise}
+
+\begin{exercise}
+Find the Laplace transform of $a+bt+ct^2$ for some constants $a$, $b$, and
+$c$.
+\end{exercise}
+
+\begin{exercise}\ansMark
+Find the Laplace transform of $4{(t+1)}^2$.
+\end{exercise}
+\exsol{%
+$\frac{8}{s^3} + \frac{8}{s^2} + \frac{4}{s}$
+}
+
+\begin{exercise}
+Find the Laplace transform of $A \cos (\omega t) + B \sin (\omega t)$.
+\end{exercise}
+
+\begin{exercise}
+Find the Laplace transform of $\cos^2 (\omega t)$.
+\end{exercise}
+
+\begin{exercise}
+Find the inverse Laplace transform of $\frac{4}{s^2-9}$.
+\end{exercise}
+
+\begin{exercise}
+Find the inverse Laplace transform of $\frac{2s}{s^2-1}$.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Find the inverse Laplace transform of $\frac{8}{s^3(s+2)}$.
+\end{exercise}
+\exsol{%
+$2t^2-2t+1-e^{-2t}$
+}
+
+\begin{exercise}
+Find the inverse Laplace transform of $\frac{1}{{(s-1)}^2(s+1)}$.
+\end{exercise}
+
+\begin{exercise}
+Find the Laplace transform of $f(t) =
+\begin{cases}
+t & \text{if } \; t \geq 1, \\
+0 & \text{if } \; t < 1.
+\end{cases}$
+\end{exercise}
+
+\begin{exercise}
+Find the inverse Laplace transform of $\frac{s}{(s^2+s+2)(s+4)}$.
+\end{exercise}
+
+\begin{exercise}
+Find the Laplace transform of $\sin\bigl(\omega (t-a)\bigr)$.
+\end{exercise}
+
+\begin{exercise}\ansMark
+Find the Laplace transform of $te^{-t}$ (Hint: integrate by parts).
+\end{exercise}
+\exsol{%
+$\frac{1}{{(s+1)}^2}$
+}
+
+\begin{exercise}
+Find the Laplace transform of $t\sin(\omega t)$.  Hint: Several integrations
+by parts.
+\end{exercise}
+
+
+\begin{exercise}\ansMark
+Find the Laplace transform of $\sin(t)e^{-t}$ (Hint: integrate by parts).
+\end{exercise}
+\exsol{%
+$\frac{1}{s^2+2s+2}$
+}
+
+
+\setcounter{exercise}{100}
+

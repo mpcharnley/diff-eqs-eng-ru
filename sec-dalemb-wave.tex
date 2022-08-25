@@ -1,0 +1,521 @@
+
+\section{D'Alembert solution of the wave equation}
+\label{dalemb:section}
+
+\LAtt{4.8}
+
+\LO{
+\item Use D'Alembert solutions to solve the wave equation.
+}
+
+% \sectionnotes{Verbatim from Lebl}
+
+% \sectionnotes{1 lecture\EPref{, different from \S9.6 in \cite{EP}}\BDref{,
+% part of \S10.7 in \cite{BD}}}
+
+We have solved the wave equation by using Fourier series.  But it is often
+more convenient to use the so-called
+\emph{\myindex{d'Alembert solution to the wave equation}}%
+\footnote{Named after the French mathematician
+\href{https://en.wikipedia.org/wiki/D\%27Alembert}{Jean le Rond d'Alembert}
+(1717--1783).}.
+While this solution can be derived using Fourier series as well, it
+is really an awkward use of those concepts.  It is easier and more
+instructive to derive this
+solution by making a correct change of variables to get an equation that
+can be solved by simple integration.
+
+Suppose we wish to solve the \myindex{wave equation}
+\begin{equation} \label{dalemb:weq}
+y_{tt} = a^2 y_{xx}
+\end{equation}
+subject to the side conditions
+\begin{equation} \label{dalemb:weqside}
+\begin{aligned}
+y(0,t) &=  y(L,t) = 0 &
+& \text{for all } t , \\
+y(x,0) &= f(x) &  & 0 < x < L , \\
+y_t(x,0) &= g(x) &  & 0 < x < L .
+\end{aligned}
+\end{equation}
+
+\subsection{Change of variables}
+
+We will transform the equation into a simpler form where it can be solved by
+simple integration.
+We change variables to $\xi = x - at$, $\eta = x + at$.
+The chain rule says:
+\begin{align*}
+& \frac{\partial}{\partial x}
+=
+\frac{\partial \xi}{\partial x}
+\frac{\partial}{\partial \xi}
++
+\frac{\partial \eta}{\partial x}
+\frac{\partial}{\partial \eta}
+=
+\frac{\partial}{\partial \xi}
++
+\frac{\partial}{\partial \eta} , \\
+& \frac{\partial}{\partial t}
+=
+\frac{\partial \xi}{\partial t}
+\frac{\partial}{\partial \xi}
++
+\frac{\partial \eta}{\partial t}
+\frac{\partial}{\partial \eta}
+=
+-a
+\frac{\partial}{\partial \xi}
++
+a
+\frac{\partial}{\partial \eta} .
+\end{align*}
+We compute
+\begin{align*}
+& y_{xx} = \frac{\partial^2 y}{\partial x^2}
+=
+\left(
+\frac{\partial}{\partial \xi}
++
+\frac{\partial}{\partial \eta}
+\right)
+\left(
+\frac{\partial y}{\partial \xi}
++
+\frac{\partial y}{\partial \eta}
+\right)
+=
+\frac{\partial^2 y}{\partial \xi^2}
++
+2 \frac{\partial^2 y}{\partial \xi \partial \eta}
++
+\frac{\partial^2 y}{\partial \eta^2} ,
+\\
+& y_{tt} = \frac{\partial^2 y}{\partial t^2}
+=
+\left(
+-a
+\frac{\partial}{\partial \xi}
++ a
+\frac{\partial}{\partial \eta}
+\right)
+\left(
+-a
+\frac{\partial y}{\partial \xi}
++
+a
+\frac{\partial y}{\partial \eta}
+\right)
+=
+a^2
+\frac{\partial^2 y}{\partial \xi^2}
+-
+2 a^2 \frac{\partial^2 y}{\partial \xi \partial \eta}
++
+a^2
+\frac{\partial^2 y}{\partial \eta^2} .
+\end{align*}
+In the computations above, we used the fact from calculus that
+$\frac{\partial^2 y}{\partial \xi \partial \eta} = 
+\frac{\partial^2 y}{\partial \eta \partial \xi}$.
+We plug what we got into the wave equation,
+\begin{equation*}
+0 = a^2 y_{xx} - y_{tt} =
+4 a^2 \frac{\partial^2 y}{\partial \xi \partial \eta} = 4 a^2 y_{\xi\eta} .
+\end{equation*}
+Therefore, the wave equation \eqref{dalemb:weq} transforms into
+$y_{\xi\eta} = 0$.
+It is easy to find the general solution to this equation by integrating
+twice.  Keeping $\xi$ constant, we integrate with respect to $\eta$
+first\footnote{There is nothing special about $\eta$, you can integrate with
+$\xi$ first, if you wish.}
+and notice that
+the constant of integration depends on $\xi$; for each $\xi$ we might get a
+different constant of integration.  We get
+$y_{\xi} = C(\xi)$.
+Next, we integrate with respect to $\xi$ and notice that the constant of
+integration depends on $\eta$.
+Thus,
+$y = \int C(\xi) ~ d\xi + B(\eta)$.
+The solution must, therefore, be of the following form for some functions
+$A(\xi)$ and $B(\eta)$:
+\begin{equation*}
+y = A(\xi) + B(\eta) = A(x-at) + B(x+at) .
+\end{equation*}
+The solution is a superposition of two functions (waves) traveling at speed
+$a$
+in opposite directions.  The coordinates $\xi$ and $\eta$ are called the
+\emph{\myindex{characteristic coordinates}}, and a similar technique can
+be applied to more complicated hyperbolic PDE\@.
+And in fact, in \sectionref{fopde:section} it is used to solve first
+order linear PDE\@.  Basically, to solve the wave equation (or more general
+hyperbolic equations) we find certain characteristic curves along which
+the equation is really just an ODE\@, or a pair of ODEs.  In this case
+these are the curves where $\xi$ and $\eta$ are constant.
+
+\subsection{D'Alembert's formula}
+
+We know what any solution must look like, but we need to solve for the
+given side conditions.  We will just give the formula and see that it works.
+First let $F(x)$
+denote the odd periodic extension of $f(x)$, and let $G(x)$ denote the
+odd periodic extension of $g(x)$.  Define
+\begin{equation*}
+A(x) = \frac{1}{2} F(x) - \frac{1}{2a} \int_0^x G(s) \,ds ,
+\qquad
+B(x) = \frac{1}{2} F(x) + \frac{1}{2a} \int_0^x G(s) \,ds .
+\end{equation*}
+We claim this $A(x)$ and $B(x)$ give the solution.  Explicitly, the
+solution is $y(x,t) = A(x-at) + B(x+at)$ or in other words:
+\begin{equation} \label{dalemb:form}
+\mybxbg{~~
+\begin{aligned}
+y(x,t) & =
+\frac{1}{2} F(x-at) - \frac{1}{2a} \int_0^{x-at} G(s) \,ds 
++
+\frac{1}{2} F(x+at) + \frac{1}{2a} \int_0^{x+at} G(s) \,ds \\
+& =
+\frac{F(x-at) + F(x+at)}{2} + \frac{1}{2a} \int_{x-at}^{x+at} G(s) \,ds .
+\end{aligned}
+~~}
+\end{equation}
+
+Let us check that the d'Alembert formula really works.
+\begin{equation*}
+y(x,0) =
+\frac{F(x) + F(x)}{2} + \frac{1}{2a} \int_{x}^{x} G(s) \,ds 
+=
+F(x) .
+\end{equation*}
+So far so good.  Assume for simplicity $F$ is differentiable.
+And we use the first form of \eqref{dalemb:form} as it is
+easier to differentiate.
+By the fundamental theorem of calculus we have
+\begin{equation*}
+y_t(x,t) =
+\frac{-a}{2} F'(x-at) + \frac{1}{2} G(x-at)
++
+\frac{a}{2} F'(x+at) + \frac{1}{2} G(x+at) .
+\end{equation*}
+So
+\begin{equation*}
+y_t(x,0) =
+\frac{-a}{2} F'(x) + \frac{1}{2} G(x)
++
+\frac{a}{2} F'(x) + \frac{1}{2} G(x) = G(x) .
+\end{equation*}
+Yay!  We're smoking now.  OK\@, now the boundary conditions.  Note
+that $F(x)$ and $G(x)$ are odd.  So
+\begin{equation*}
+y(0,t) =
+\frac{F(-at) + F(at)}{2} + \frac{1}{2a} \int_{-at}^{at} G(s) \,ds 
+=
+\frac{-F(at) + F(at)}{2} + \frac{1}{2a} \int_{-at}^{at} G(s) \,ds 
+= 0 + 0 = 0.
+\end{equation*}
+Now $F(x)$ is odd and $2L$-periodic, so
+\begin{equation*}
+F(L-at)+F(L+at)
+= 
+F(-L-at)+F(L+at)
+=
+-F(L+at)+F(L+at)
+= 0 .
+\end{equation*}
+Next, $G(s)$ is odd and $2L$-periodic, so we change
+variables $v = s-L$.  We then notice that $G(v+L)=G(v-L)=-G(-v+L)$,
+so $G(v+L)$ is odd as a function of $v$:
+\begin{equation*}
+\int_{L-at}^{L+at}
+G(s)\,ds
+=
+\int_{-at}^{at}
+G(v+L)\,dv
+=
+0 .
+\end{equation*}
+Hence
+\begin{equation*}
+y(L,t) =
+\frac{F(L-at) + F(L+at)}{2} + \frac{1}{2a} \int_{L-at}^{L+at} G(s) \,ds 
+=
+0 + 0  = 0.
+\end{equation*}
+And voil\`a, it works.
+
+\begin{example} \label{dalemb:implusexample}
+D'Alembert says that the solution is a superposition of
+two functions (waves) moving in the opposite direction at \myquote{speed} $a$.
+To get an idea of
+how it works, let us work out an example.  Consider the simpler setup
+\begin{align*}
+& y_{tt} = y_{xx} , \\
+& y(0,t) = y(1,t) = 0 , \\
+& y(x,0) = f(x) , \\
+& y_t(x,0) = 0 .
+\end{align*}
+Here $f(x)$ is an impulse of height 1 centered at $x=0.5$:
+\begin{equation*}
+f(x) =
+\begin{cases}
+0 & \text{if } \; \phantom{0.5}0 \leq x < 0.45, \\
+20\,(x-0.45) & \text{if } \; 0.45 \leq x < 0.5, \\
+20\,(0.55-x) & \text{if } \; \phantom{5}0.5 \leq x < 0.55, \\
+0 & \text{if } \; 0.55 \leq x \leq 1 .
+\end{cases}
+\end{equation*}
+The graph of this impulse is the top left plot in
+\figurevref{dalemb:impulsfig}.
+\end{example}
+
+\begin{exampleSol}
+Let $F(x)$ be the odd periodic extension of $f(x)$.  Then
+\eqref{dalemb:form} says that
+the solution is
+\begin{equation*}
+y(x,t) = \frac{F(x-t) + F(x+t)}{2} .
+\end{equation*}
+It is not hard to compute specific values of $y(x,t)$.  For example, to
+compute $y(0.1,0.6)$ we notice $x-t = -0.5$ and $x+t = 0.7$.  Now $F(-0.5) =
+-f(0.5) = - 20\,(0.55 - 0.5) = -1$
+and $F(0.7) = f(0.7) = 0$.  Hence
+$y(0.1,0.6) = \frac{-1 + 0}{2} = -0.5$.  As you can see the d'Alembert
+solution is much easier to actually compute and to plot than the Fourier series
+solution.  See \figurevref{dalemb:impulsfig} for plots of the solution $y$
+for several different $t$.
+\begin{myfig}
+\capstart
+%original files dalemb-impuls1 dalemb-impuls2 dalemb-impuls3 dalemb-impuls4
+\diffyincludegraphics{width=6.24in}{width=9in}{dalemb-impuls-1-2}
+\\[5pt]
+\diffyincludegraphics{width=6.24in}{width=9in}{dalemb-impuls-3-4}
+\caption{Plot of the d'Alembert solution for $t=0$, $t=0.2$, $t=0.4$, and
+$t=0.6$.%
+\label{dalemb:impulsfig}}
+\end{myfig}
+\end{exampleSol}
+
+\subsection{Another way to solve for the side conditions}
+
+It is perhaps easier and more useful
+to memorize the procedure rather than the formula
+itself.  The important thing to remember is that a solution to the wave
+equation is a superposition of two waves traveling in opposite directions.
+That is,
+\begin{equation*}
+y(x,t) = A(x-at) + B(x+at) .
+\end{equation*}
+If you think about it, the exact formulas for $A$ and $B$ are not hard
+to guess once you realize what kind of side conditions $y(x,t)$ is supposed to
+satisfy.  Let us find the formula again, but slightly differently.
+Best approach is to do it in stages.  When $g(x) = 0$ (and hence
+$G(x) = 0$) the solution is
+\begin{equation*}
+\frac{ F(x-at) + F(x+at) }{2} .
+\end{equation*}
+On the other hand,
+when $f(x) = 0$ (and hence $F(x) = 0$), we let
+\begin{equation*}
+H(x) = \int_0^x G(s) \,ds .
+\end{equation*}
+The solution in this case is
+\begin{equation*}
+\frac{1}{2a} \int_{x-at}^{x+at} G(s) \,ds
+=
+\frac{ -H(x-at) + H(x+at) }{2a} .
+\end{equation*}
+By superposition we get a solution for the general side conditions
+\eqref{dalemb:weqside} (when neither $f(x)$ nor $g(x)$ are identically zero).
+\begin{equation} \label{dalemb:altform}
+y(x,t) = \frac{ F(x-at) + F(x+at) }{2} +
+\frac{ -H(x-at) + H(x+at) }{2a} .
+\end{equation}
+Do note the minus sign before the $H$, and the $a$ in the second denominator.
+
+\begin{exercise}
+Check that the new formula \eqref{dalemb:altform} satisfies
+the side conditions
+\eqref{dalemb:weqside}.
+\end{exercise}
+
+\textbf{Warning:}
+Make sure you use the odd periodic extensions $F(x)$ and $G(x)$,
+when you have formulas for $f(x)$ and $g(x)$.
+The thing is, those formulas in general hold
+only for $0 < x < L$, and are not usually equal to $F(x)$ and $G(x)$
+for other $x$.
+
+\subsection{Some remarks}
+
+Let us remark that the formula $y(x,t) = A(x-at) + B(x+at)$ is the reason
+why the solution of the wave equation doesn't get \myquote{nicer} as time
+goes on, that is, why in the examples where the initial conditions
+had corners, the solution also has corners at every time $t$.
+
+\medskip
+
+The corners bring us to another interesting remark.  Nobody ever notices at first
+that our example solutions are not even differentiable (they have corners):
+In \exampleref{dalemb:implusexample} above, the solution is not
+differentiable whenever $x=t+0.5$ or $x=-t+0.5$ for example.
+Really to be able to compute $u_{xx}$ or $u_{tt}$, you need not one, but two
+derivatives.  Fear not, we could think of a shape that is very nearly
+$F(x)$ but does have two derivatives by rounding the corners a little bit,
+and then the solution would be very nearly
+$\frac{F(x-t)+F(x+t)}{2}$ and nobody would notice the switch.
+
+\medskip
+
+One final remark is what the d'Alembert solution tells us about what
+part of the initial conditions influence the solution at a certain point.
+We can figure this out by \myquote{traveling backwards along the
+characteristics.}  Let us suppose that the string is very long (perhaps
+infinite) for simplicity.  Since the solution at time $t$ is
+\begin{equation*}
+y(x,t) =
+\frac{F(x-at) + F(x+at)}{2} + \frac{1}{2a} \int_{x-at}^{x+at} G(s) \,ds ,
+\end{equation*}
+we notice that we have only used the initial conditions in the interval
+$[x-at,x+at]$.  These two endpoints are called the
+\emph{\myindex{wavefronts}}, as that is where the wave front is given an
+initial ($t=0$) disturbance at $x$.
+So if $a=1$, an observer sitting at $x=0$ at time $t=1$ has only seen the
+initial conditions for $x$ in the range $[-1,1]$
+and is blissfully unaware of anything else.
+This is why for example we do not know that a supernova has occurred in the
+universe until we see its light, millions of years from the time
+when it did in fact happen.
+
+\subsection{Exercises}
+
+\begin{exercise}
+Using the d'Alembert solution solve $y_{tt} = 4y_{xx}$, $0 < x < \pi$, $t >
+0$,
+$y(0,t) = y(\pi, t) = 0$, $y(x,0) = \sin x$, and
+$y_t(x,0) = \sin x$.  Hint: Note that $\sin x$ is the odd periodic extension of
+$y(x,0)$ and $y_t(x,0)$.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Using the d'Alembert solution solve $y_{tt} = 9y_{xx}$, $0 < x < 1$, $t >
+0$,
+$y(0,t) = y(1, t) = 0$, $y(x,0) = \sin (2 \pi x)$, and
+$y_t(x,0) = \sin (3 \pi x)$.
+\end{exercise}
+\exsol{%
+$y(x,t)=
+\frac{\sin(2 \pi (x-3 t))+\sin(2 \pi (3 t+x))}{2}
++
+\frac{\cos(3 \pi (x-3 t))-\cos(3 \pi (3 t+x))}{18\pi}$
+}
+
+\begin{exercise}
+Using the d'Alembert solution solve $y_{tt} = 2y_{xx}$, $0 < x < 1$, $t > 0$,
+$y(0,t) = y(1, t) = 0$, $y(x,0) = \sin^5 (\pi x)$, and
+$y_t(x,0) = \sin^3 (\pi x)$.
+\end{exercise}
+
+\begin{exercise}
+Take
+$y_{tt} = 4y_{xx}$, $0 < x < \pi$, $t > 0$,
+$y(0,t) = y(\pi, t) = 0$, $y(x,0) = x(\pi-x)$, and
+$y_t(x,0) = 0$.
+\begin{tasks}
+\task Solve using the d'Alembert formula.  Hint: You can use the sine series
+for $y(x,0)$.
+\task Find the solution as a function of $x$ for a fixed $t=0.5$, $t=1$, and
+$t=2$.  Do not use the sine series here.
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Take $y_{tt} = 4y_{xx}$, $0 < x < 1$, $t > 0$,
+$y(0,t) = y(1, t) = 0$, $y(x,0) = x-x^2$, and
+$y_t(x,0) = 0$.  Using the d'Alembert solution find
+the solution at
+\begin{tasks}(3)
+\task $t=0.1$,
+\task $t=\nicefrac{1}{2}$,
+\task $t=1$.
+\end{tasks}
+You may have to split your answer up by cases.
+\end{exercise}
+\exsol{%
+a)
+$y(x,0.1) =
+\begin{cases}
+%\frac{(x-0.2)-{(x-0.2)}^2+(x+0.2)-{(x+0.2)}^2}{2}
+x-x^2-0.04
+& \text{if } \; 0.2 \leq x \leq 0.8 \\
+%\frac{-(x+0.8)+{(x+0.8)}^2+(x+0.2)-{(x+0.2)}^2}{2}
+0.6x
+& \text{if } \; x \leq 0.2 \\
+%\frac{(x-0.2)-{(x-0.2)}^2-(x-0.8)+{(x-0.8)}^2}{2}
+0.6-0.6x
+& \text{if } \; x \geq 0.8 \\
+\end{cases}$
+\\
+b)
+$y(x,\nicefrac{1}{2}) = -x+x^2$
+\quad
+c)
+$y(x,1) = x-x^2$
+}
+
+\begin{exercise}
+Derive the d'Alembert solution for $y_{tt} = a^2 y_{xx}$, $0 < x < \pi$, $t >
+0$,
+$y(0,t) = y(\pi, t) = 0$, $y(x,0) = f(x)$, and
+$y_t(x,0) = 0$, using the Fourier series solution of the wave equation,
+by applying an appropriate trigonometric identity.
+Hint: Do it first for a single term of the Fourier series solution,
+in particular do it when $y$ is
+$\sin\left(\frac{n \pi}{L} x \right)\sin\left(\frac{n \pi a}{L} t \right)$.
+\end{exercise}
+
+\begin{exercise}
+The d'Alembert solution still works if there are no boundary conditions and
+the initial condition is defined on the whole real line.  Suppose that
+$y_{tt} = y_{xx}$ (for all $x$ on the real line and $t \geq 0$),
+$y(x,0) = f(x)$, and
+$y_t(x,0) = 0$, where
+\begin{equation*}
+f(x) =
+\begin{cases}
+0 & \text{if } \; \phantom{{-1} \leq {} }x < -1, \\
+x+1 & \text{if } \; {-1} \leq x < 0, \\
+-x+1 & \text{if } \; \phantom{-}0 \leq x < 1, \\
+0 & \text{if } \; \phantom{-}1 < x .
+\end{cases}
+\end{equation*}
+Solve using the d'Alembert solution. That is, write down a piecewise
+definition for the solution.  Then sketch the solution for $t=0$,
+$t=\nicefrac{1}{2}$, $t=1$, and $t=2$.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Take $y_{tt} = 100y_{xx}$, $0 < x < 4$, $t > 0$,
+$y(0,t) = y(4, t) = 0$, $y(x,0) = F(x)$, and
+$y_t(x,0) = 0$.  Suppose that
+$F(0)=0$,
+$F(1)=2$,
+$F(2)=3$,
+$F(3)=1$.
+Using the d'Alembert solution find
+\begin{tasks}(3)
+\task $y(1,1)$,
+\task $y(4,3)$,
+\task $y(3,9)$.
+\end{tasks}
+\end{exercise}
+\exsol{%
+a) $y(1,1) = -\nicefrac{1}{2}$
+\quad
+b) $y(4,3) = 0$
+\quad
+c) $y(3,9) = \nicefrac{1}{2}$
+}
+
+\setcounter{exercise}{100}
+

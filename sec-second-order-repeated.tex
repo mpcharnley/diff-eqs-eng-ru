@@ -1,0 +1,340 @@
+\section{Repeated Roots and Reduction of Order}
+\label{reproots:section}
+
+\LAtt{2.1, 2.2}
+
+\LO{
+\item Find the general solution to a second order constant coefficient equation with repeated roots,
+\item Apply the method of reduction of order to generate a second solution to an equation given one solution, and
+\item Solve Euler equations using the method of reduction of order.
+}
+
+% \sectionnotes{1 lecture, \BDref{ \S3.4}}
+
+The last case we have to handle for solving all second order linear constant coefficient equations is the case where $b^2 - 4ac = 0$ in the equation
+\begin{equation*}
+ay'' + by' + cy = 0.
+\end{equation*}
+When we try to find the characteristic equation and find solutions to this equation, we get a double root at $r_1$, so that the characteristic polynomial is $(r-r_1)^2$. For this, we get that $e^{r_1x}$ is a solution. However, that's the only solution we get. We need to have two linearly independent solutions in order to get the general solution to the differential equation, so we need to find some method to get another solution. The standard method, and the one we apply here is \emph{reduction of order}. Let's see how this works through an example.
+
+\begin{example}
+Find two linearly independent solutions to the differential equation
+\begin{equation*}
+y'' + 2y' + y = 0.
+\end{equation*}
+\end{example}
+
+\begin{exampleSol}
+To start, we find the first solution using our original method. The characteristic equation here is $r^2 + 2r + 1 = 0$, which is $(r+1)^2$. Therefore, we have a double root at $r=-1$, so that $y_1(x) = e^{-x}$ is a solution.
+
+To find a second solution, the reduction of order method suggests that we try to plug in $y = v(x)e^{-x}$ for an unknown function $v(x)$. The goal is to figure out an equation that $v$ must satisfy to see if this leads us to a second solution to the original equation. We can compute the first two derivatives of $y = v(x) e^{-x}$ 
+\begin{equation*}
+\begin{split}
+y(x) &= v(x)e^{-x} \\
+y'(x) &= v'(x)e^{-x} - v(x)e^{-x} \\
+y''(x) &= v''(x)e^{-x} - 2v'(x)e^{-x} + v(x)e^{-x} 
+\end{split}
+\end{equation*}
+and then plug them into the original differential equation
+\begin{equation*}
+\begin{split}
+0 &= y'' + 2y' + y \\
+&= (v''(x)e^{-x} - 2v'(x)e^{-x} + v(x)e^{-x}) + 2(v'(x)e^{-x} - v(x)e^{-x}) + v(x)e^{-x} \\
+&= v''(x)e^{-x} + v'(x)(-2e^{-x}+2e^{-x}) + v(x)(e^{-x} - 2e^{-x} + e^{-x}) \\
+&= v''(x)e^{-x}
+\end{split}.
+\end{equation*}
+Since $e^{-x}$ is never zero, this means we must have $v''(x) = 0$. This is still a second order equation, but we know how to solve it. We can integrate both sides twice to get that $v(x) = Ax + B$ for any constants $A$ and $B$. 
+
+Our goal with all of this was to find a solution $y$ of the form $v(x)e^{-x}$. The set up here means that $y = (Ax + B)e^{-x}$ will solve the differential equation. Since we already knew that $Be^{-x}$ was a solution, the new information we gained here was that $Axe^{-x}$, or in particular, $xe^{-x}$ is a solution to the differential equation. Thus, our two solutions are $y_1(x) = e^{-x}$ and $y_2(x) = xe^{-x}$. 
+\end{exampleSol}
+
+\begin{exercise}
+Check that $e^{-x}$ and $xe^{-x}$ both solve $y'' + 2y' + y = 0$, and that these solutions are linearly independent.
+\end{exercise}
+
+The \emph{\myindex{reduction of
+order method}} applies more generally to any second order linear homogenous equation and the goal is the same: use one solution of the differential equation to generate another one.  The idea is that if we somehow found $y_1$ as a solution of
+$y'' + p(x) y' + q(x) y = 0$ we try a second
+solution of the form $y_2(x) = y_1(x) v(x)$.
+We just need to find $v$.  We plug $y_2$ into the equation:
+\begin{equation*}
+\begin{split}
+0 = 
+y_2'' + p(x) y_2' + q(x) y_2 & =
+y_1'' v + 2 y_1' v' + y_1 v''
++ p(x) ( y_1' v + y_1 v' )
++ q(z) y_1 v
+\\
+& =
+y_1 v''
++ (2 y_1' + p(x) y_1) v'
++
+\cancelto{0}{\bigl( y_1'' + p(x) y_1' + q(x) y_1 \bigr)} v .
+\end{split}
+\end{equation*}
+In other words,
+$y_1 v'' + (2 y_1' + p(x) y_1) v' = 0$.  Using $w = v'$ we have the
+first order linear equation
+$y_1 w' + (2 y_1' + p(x) y_1) w = 0$.  After solving this equation for $w$
+(integrating factor),
+we find $v$ by antidifferentiating $w$.  We then form $y_2$ by computing
+$y_1 v$.  For example, suppose we somehow know $y_1 = x$ is a solution
+to $y''+x^{-1}y'-x^{-2} y=0$.
+The equation for $w$ is then
+$xw' + 3 w = 0$.  We find a solution, $w = Cx^{-3}$, and we find an 
+antiderivative $v = \frac{-C}{2x^2}$.
+Hence $y_2 = y_1 v = \frac{-C}{2x}$.
+Any $C$ works and so $C=-2$ makes $y_2 = \nicefrac{1}{x}$.  Thus, the
+general solution is $y = C_1 x + C_2\nicefrac{1}{x}$.
+
+% Since we have a formula for the solution to the first order linear equation,
+% we can write a formula for $y_2$:
+% \begin{equation*}
+% y_2(x) = y_1(x) \int \frac{e^{-\int p(x)\,dx}}{{\bigl(y_1(x)\bigr)}^2} \,dx
+% \end{equation*}
+% However,
+The easiest way to work out these problems is to remember that we need to try $y_2(x) =
+y_1(x) v(x)$ and find $v(x)$ as we did above.  Also, the technique
+works for higher order equations too: you get to reduce the order for each
+solution you find. 
+% So it is better to remember how to do
+% it rather than a specific formula.
+
+In summary, for constant coefficient equations with a repeated root, the reduction of order method will always give the equation $v'' = 0$, and so the solution is $v(x) = Ax + B$. Multiplying by the $y_1$ solution $e^{rx}$ gives that $xe^{rx}$ is the other solution. Therefore, the general solution for repeated root equations is always of the form
+\begin{equation*}
+y = C_1e^{r_1x} + C_2xr^{r_1x}.
+\end{equation*}
+
+% \TODO{This doesn't seem too great right now. Fix it.}
+
+\begin{example}
+Find the general solution of
+\begin{equation*}
+y'' -8 y' + 16 y = 0 .
+\end{equation*}
+\end{example}
+
+\begin{exampleSol}
+The characteristic equation is $r^2 - 8 r + 16 = {(r-4)}^2 = 0$.
+The equation has a 
+double root $r_1 = r_2 = 4$.  The general solution is, therefore,
+\begin{equation*}
+y = (C_1 + C_2 x)\, e^{4 x} = C_1 e^{4x} + C_2 x e^{4x} .
+\end{equation*}
+
+\begin{exercise}
+Check that $e^{4x}$ and $x e^{4x}$ are linearly independent.
+\end{exercise}
+
+That $e^{4x}$ solves the equation is clear.  If $x e^{4x}$ solves the
+equation, then we know we are done.  Let us compute
+$y' = e^{4x} + 4xe^{4x}$ and
+$y'' = 8 e^{4x} + 16xe^{4x}$.  Plug in
+\begin{equation*}
+y'' - 8 y' + 16 y = 
+8 e^{4x} + 16xe^{4x} - 8(e^{4x} + 4xe^{4x}) + 16 xe^{4x} = 
+0 .
+\end{equation*}
+\end{exampleSol}
+
+In some sense, a doubled root rarely happens.  If coefficients are 
+picked randomly, a doubled root is unlikely.
+There are, however, some natural phenomena 
+where a doubled root does happen, so we cannot just dismiss this case. In addition, there are specific physical applications that involve the double root problem, which we will discuss in Section \ref{sec:mv}. Finally, the solution with a doubled root can be thought of as an approximation of the solution with two roots that are very close together, and the behavior of this solution will approximate ``nearby'' solutions as well. 
+
+% \TODO{Better conclusion?}
+
+\begin{example}
+Find the solution $y(t)$ to the initial value problem
+\begin{equation*}
+y'' + 6y' + 9y = 0 \qquad y(0) = 2,\ y'(0) = -3.
+\end{equation*}
+\end{example}
+
+\begin{exampleSol}
+The characteristic polynomials for this differential equation is 
+\begin{equation*}
+r^2 + 6r + 9
+\end{equation*}
+which factors as $(r+3)^2$, so that we have a double root at $-3$. With the work done previously, we know that the general solution is
+\begin{equation*}
+y(t) = (C_1 + C_2t)e^{-3t} = C_1e^{-3t} + C_2te^{-3t}.
+\end{equation*} 
+
+If we use the initial conditions, we can set $t=0$ to get that
+\begin{equation*}
+2 = y(0) = C_1 e^0
+\end{equation*}
+so that $C_1 = 2$. Differentiating the general solution gives that
+\begin{equation*}
+y'(t) = -3C_1e^{-3t} + C_2e^{-3t} -3C_2te^{-3t}
+\end{equation*}
+and plugging in zero here gives
+\begin{equation*}
+-3 = y'(0) = -3C_1 + C_2.
+\end{equation*}
+Since $C_1 = 2$, this implies that $C_2 = 3$. Therefore, the solution to this initial value problem is
+\begin{equation*}
+y(t) = 2e^{-3t} + 3te^{-3t}.
+\end{equation*}
+\end{exampleSol}
+
+\subsection{Exercises}
+
+\begin{exercise}
+Find the general solution to $y'' + 4y' + 4y = 0$.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Find the general solution to
+$y''-6y'+9y=0$.
+\end{exercise}
+\exsol{%
+$y =
+C_1 e^{3x}
++
+C_2 x e^{3x}$
+}
+
+
+\begin{exercise}
+Find the solution to $y'' + 6y' + 9y = 0$ with $y(0) = 3$ and $y'(0) = -1$. 
+\end{exercise}
+
+\begin{exercise}
+Solve $y'' - 8y' + 16 y = 0$ for $y(0) = 2$, $y'(0) = 0$.
+\end{exercise}
+
+\begin{exercise}
+Find the general solution of $y'' = 0$ using the methods of this section.
+\end{exercise}
+
+\begin{exercise}
+The method of this section applies to equations of other orders than two.
+We will see
+higher orders later.  Try to solve the first order equation
+$2y' + 3y = 0$ using the methods of this section.
+\end{exercise}
+
+\begin{exercise}
+Consider the second-order DE 
+\begin{equation}
+ty''+(4t+2)y'+(4t+4)y=0. \label{eq:2_3_Exercise1}
+\end{equation}
+\begin{tasks}
+\task Does the {\it superposition principle} apply to this DE? Give a one- or two-sentence explanation wither way.
+\task Find a value of $r$ so that $y=e^{rt}$ is a solution to \eqref{eq:2_3_Exercise1}
+\task Using your result from the previous page, apply {\bf reduction of order} to find the general solution to \eqref{eq:2_3_Exercise1}.
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}[Euler Equations]\ansMark%
+Consider the differential equation $x^2y'' + 3xy' - 3y = 0$.
+\begin{tasks}
+\task Verify that $y_1(x) = x$ is a solution.
+\task Use reduction of order to find a second linearly independent solution.
+\task Write out the general solution. 
+\end{tasks}
+\end{exercise}
+\exsol{%
+c) $y(x) = C_1 x + C_2\frac{1}{x^3}$
+}
+
+\begin{exercise}[Euler Equations]\ansMark%
+Consider the differential equation $x^2y'' + 4xy' - 2y = 0$.
+\begin{tasks}
+\task Verify that $y_1(x) = \frac{1}{x}$ is a solution.
+\task Use reduction of order to find a second linearly independent solution.
+\task Write out the general solution. 
+\end{tasks}
+\end{exercise}
+\exsol{%
+c) $y(x) = C_1 \frac{1}{x} + C_2 \frac{1}{x^2}$
+}
+
+\begin{exercise}[Euler Equations]\ansMark%
+Consider the differential equation $x^2y'' -6xy' - 10y = 0$.
+\begin{tasks}
+\task Verify that $y_1(x) = x^2$ is a solution.
+\task Use reduction of order to find a second linearly independent solution.
+\task Write out the general solution. 
+\end{tasks}
+\end{exercise}
+\exsol{%
+c) $y(x) = C_1 x^2 + C_2 x^{5}$
+}
+
+\begin{exercise}
+Write down a differential equation with general solution $y=at^2+bt^{-3}$, or explain why there is no such thing.
+\end{exercise}
+
+\begin{exercise}
+Find the solution to
+$y''-(2\alpha) y' + \alpha^2 y=0$, $y(0) = a$, $y'(0)=b$,
+where $\alpha$, $a$, and $b$ are real numbers.
+\end{exercise}
+
+\begin{exercise}[reduction of order] \label{exercise:reductionoforder}
+Suppose $y_1$ is a solution to $y'' + p(x) y' + q(x) y = 0$.
+By directly plugging into the equation,
+show that
+\begin{equation*}
+y_2(x) = y_1(x) \int \frac{e^{-\int p(x)\,dx}}{{\bigl(y_1(x)\bigr)}^2} \,dx
+\end{equation*}
+is also a solution.
+\end{exercise}
+
+\begin{exercise}[\myindex{Chebyshev's equation of order 1}]
+Take 
+$(1-x^2)y''-xy' + y = 0$.
+\begin{tasks}
+\task Show that $y=x$ is a solution.
+\task Use reduction of order to find a second linearly independent solution.
+\task Write down the general solution.
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}[\myindex{Hermite's equation of order 2}]
+Take 
+$y''-2xy' + 4y = 0$.
+\begin{tasks}
+\task Show that $y=1-2x^2$ is a solution.  
+\task Use reduction of order to find a second linearly independent solution.
+(It's OK to leave a definite integral in the formula.)
+\task Write down the general solution.
+\end{tasks}
+\end{exercise}
+
+\noindent The rest of these exercises can be solved using any of the methods discussed in the last three sections. Pick the appropriate method in order to solve the problem.
+
+\begin{exercise}
+Find the general solution of $y'' + 5y' - 6y = 0$.
+\end{exercise}
+
+\begin{exercise}
+Find the general solution of $y'' - 2y' + 2y = 0$.
+\end{exercise}
+
+\begin{exercise}
+Find the general solution of $y'' + 4y' + 4y = 0$.
+\end{exercise}
+
+\begin{exercise}
+Find the general solution of $y'' + 4y' + 5y = 0$.
+\end{exercise}
+
+\begin{exercise}
+Find the solution to $y'' - 6y' + 13y = 0$ with $y(0) = 2$ and $y'(0) = 1$. 
+\end{exercise}
+
+\begin{exercise}
+Find the solution to $y'' + 4y' - 12y = 0$ with $y(0) = -1$ and $y'(0) = 3$. 
+\end{exercise}
+
+\begin{exercise}
+Find the solution to $y'' - 6y' + 9y = 0$ with $y(0) = -4$ and $y'(0) = -1$. 
+\end{exercise}
+
+
+

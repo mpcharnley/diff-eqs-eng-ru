@@ -1,0 +1,552 @@
+\section{Stability and classification of isolated critical points}
+\label{nlinstability:section}
+
+\LAtt{8.2}
+
+\subsection{Isolated critical points and almost linear systems}
+
+A critical point is
+\emph{isolated}\index{isolated critical point}
+if it is the only critical point in some small
+\myquote{neighborhood} of the point.  That is, if we zoom in far enough it is the
+only critical point we see.  In the example above, the critical point was
+isolated.  If on the other hand there would be a whole curve of critical
+points, then it would not be isolated.
+
+A system is called \emph{\myindex{almost linear}} at a critical point
+$(x_0,y_0)$, if the critical point is isolated and the Jacobian matrix at the point
+is invertible, or equivalently if the linearized system has an isolated
+critical point. This is also equivalent to zero not being an eigenvalue of the Jacobian matrix at the critical point.
+In such a case, the nonlinear terms are very small
+and the system behaves like its linearization, at least if we are close
+to the critical point.
+
+For example, the system in
+Examples~\ref{example:nlin-1b-example} and \ref{example:nlin-1b-examplelin}
+has two isolated critical points $(0,0)$ and $(0,1)$, and
+is almost linear at both critical points as 
+the Jacobian matrices at both points,
+$\left[ \begin{smallmatrix} 0 & 1 \\ -1 & 0 \end{smallmatrix} \right]$ and
+$\left[ \begin{smallmatrix} 0 & 1 \\ 1 & 0 \end{smallmatrix} \right]$,
+are invertible.
+
+On the other hand, the system $x' = x^2$, $y' = y^2$ has an isolated
+critical point at $(0,0)$, however the Jacobian matrix
+\begin{equation*}
+\begin{bmatrix} 2x & 0 \\ 0 & 2y \end{bmatrix}
+\end{equation*}
+is zero when $(x,y) = (0,0)$.  So the system is not almost
+linear. 
+Even a worse example is the system $x' = x$, $y' = x^2$, which does not have 
+isolated critical points; $x'$ and $y'$ are both zero
+whenever $x=0$, that is, the entire $y$-axis.
+
+Fortunately, most often critical
+points are isolated, and the system is almost linear at the critical
+points.  So if we learn what happens there, we will have figured out the majority
+of situations that arise in applications.
+
+
+
+\subsection{Stability and classification of isolated critical points}
+
+Once we have an isolated critical point, the system is almost linear at
+that critical point, and we computed the
+associated linearized system, we can classify what happens to the 
+solutions.  We more or less use the classification for linear
+two-variable systems from \sectionref{sec:twodimaut}, with one minor
+caveat.
+Let us list the behaviors depending on the eigenvalues of
+the Jacobian matrix at the critical point in \tablevref{pln:behtab2}.
+This table is very similar to \tablevref{pln:behtab}, with
+the exception of missing \myquote{center} points.
+The repeated eigenvalue cases are also missing. They behave similarly to the real eigenvalue descriptions
+in the table below, but similar to centers, the behavior can change slightly.
+It can behave like either a spiral or a node, but will be either a source or sink based on the sign of the repeated eigenvalue. 
+%There is also a new column
+%that we will discuss.
+We will discuss centers later, as they are more complicated.
+
+\begin{table}[h!t]
+\mybeginframe
+\capstart
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Eigenvalues of the Jacobian matrix & Behavior & Stability \\
+\midrule
+real and both positive & source / unstable node & unstable \\
+real and both negative & sink / stable node & asymptotically stable \\
+real and opposite signs & saddle & unstable \\
+complex with positive real part & spiral source & unstable \\
+complex with negative real part & spiral sink & asymptotically stable \\
+\bottomrule
+\end{tabular}
+\end{center}
+\caption{Behavior of an almost linear system near an isolated critical
+point.  \label{pln:behtab2}}
+\myendframe
+\end{table}
+
+In the third column,
+we mark points as \emph{asymptotically stable} or \emph{unstable}.  Formally, a
+\emph{\myindex{stable critical point}} $(x_0,y_0)$ is one where given any small distance $\epsilon$ to
+$(x_0,y_0)$, and any initial condition within a perhaps smaller radius
+around $(x_0,y_0)$, the trajectory
+of the system never goes further away from $(x_0,y_0)$ than $\epsilon$.
+An \emph{\myindex{unstable critical point}} is one that is not stable.
+Informally, a point is stable if we start close to a critical point and
+follow a trajectory we either go towards, or at least not away
+from,
+this critical point.
+
+A stable critical point $(x_0,y_0)$ is called \emph{\myindex{asymptotically stable}} if
+given any initial condition sufficiently close to $(x_0,y_0)$ and any
+solution $\bigl( x(t), y(t) \bigr)$ satisfying that condition, then
+\begin{equation*}
+\lim_{t \to \infty} \bigl( x(t), y(t) \bigr) = (x_0,y_0) .
+\end{equation*}
+That is, the critical point is asymptotically stable
+if any trajectory for a sufficiently close initial condition
+goes towards the critical point $(x_0,y_0)$.
+
+\begin{example} \label{example:nlin-xplusy}
+Consider
+$x'=-y-x^2$,
+$y'=-x+y^2$.
+See \figurevref{fig:nlin-ex813-new} for the phase diagram.
+Let us find the critical points.  These are the points where
+$-y-x^2 = 0$ and $-x+y^2=0$.  The first equation means $y = -x^2$, and
+so $y^2 = x^4$.  Plugging into the second equation we obtain 
+$-x+x^4 = 0$.  Factoring we obtain $x(1-x^3)=0$.  Since we are looking only
+for real solutions we get either $x=0$ or $x=1$.  Solving for the
+corresponding $y$ using $y = -x^2$, we get two critical points, one being $(0,0)$
+and the other being $(1,-1)$.  Clearly the critical points are isolated.
+
+\begin{myfig}
+\capstart
+\diffyincludegraphics{width=3in}{width=4.5in}{nlin-ex813-new}
+\caption{The phase portrait with few sample trajectories of 
+$x'=-y-x^2$, $y'=-x+y^2$.  \label{fig:nlin-ex813-new}}
+\end{myfig}
+
+
+Let us compute the Jacobian matrix:
+\begin{equation*}
+\begin{bmatrix}
+-2x & -1 \\
+-1 & 2y
+\end{bmatrix} .
+\end{equation*}
+At the point $(0,0)$ we get the matrix
+$\left[ \begin{smallmatrix} 0 & -1 \\ -1 & 0 \end{smallmatrix} \right]$ and
+so the two eigenvalues are $1$ and $-1$.  As the matrix is invertible, the system is almost linear
+at $(0,0)$.  As the eigenvalues are real
+and of opposite signs, we get a saddle point, which is an unstable
+equilibrium point.
+
+At the point $(1,-1)$ we get the matrix
+$\left[ \begin{smallmatrix} -2 & -1 \\ -1 & -2 \end{smallmatrix} \right]$ and
+computing the eigenvalues we get $-1$, $-3$.
+The matrix is invertible, and so the system is almost linear at $(1,-1)$.
+As we have real eigenvalues and both negative, the critical
+point is a sink, and therefore an asymptotically stable equilibrium point.
+That is, if we start with any point $(x_i,y_i)$ close to $(1,-1)$ as
+an initial condition and plot a trajectory, it approaches $(1,-1)$.
+In other words,
+\begin{equation*}
+\lim_{t \to \infty} \bigl( x(t), y(t) \bigr) = (1,-1) .
+\end{equation*}
+As you can 
+see from the diagram, this behavior is true even for some
+initial points quite far from $(1,-1)$, but it is definitely not true for all
+initial points.
+\end{example}
+
+\begin{example} \label{example:nlin-withexp}
+Let us look at
+$x'=y+y^2e^x$,
+$y'=x$.  First let us find the critical points.  These are the points where
+$y+y^2e^x = 0$ and $x=0$.  Simplifying we get $0=y+y^2 = y(y+1)$.  So the
+critical points are $(0,0)$ and $(0,-1)$, and hence are isolated.  Let us
+compute the Jacobian matrix:
+\begin{equation*}
+\begin{bmatrix}
+y^2e^x & 1+2ye^x \\
+1 & 0
+\end{bmatrix}.
+\end{equation*}
+
+At the point $(0,0)$ we get the matrix
+$\left[ \begin{smallmatrix} 0 & 1 \\ 1 & 0 \end{smallmatrix} \right]$ and
+so the two eigenvalues are $1$ and $-1$.  As the matrix is invertible, the system is almost linear
+at $(0,0)$.  And, as the eigenvalues are real
+and of opposite signs, we get a saddle point, which is an unstable
+equilibrium point.
+
+At the point $(0,-1)$ we get the matrix
+$\left[ \begin{smallmatrix} 1 & -1 \\ 1 & 0 \end{smallmatrix} \right]$ whose
+eigenvalues are $\frac{1}{2} \pm i \frac{\sqrt{3}}{2}$.
+The matrix is invertible, and so the system is almost linear at $(0,-1)$.
+As we have complex eigenvalues with positive real part, the critical
+point is a spiral source, and therefore an unstable equilibrium point.
+
+\begin{myfig}
+\capstart
+\diffyincludegraphics{width=3in}{width=4.5in}{nlin-ex813}
+\caption{The phase portrait with few sample trajectories of 
+$x'=y+y^2e^x$, $y'=x$.  \label{fig:nlin-ex813}}
+\end{myfig}
+
+See \figurevref{fig:nlin-ex813} for the phase diagram.  Notice the two
+critical points, and the behavior of the arrows in the vector field around
+these points.
+\end{example}
+
+\subsection{The trouble with centers}
+
+Recall, a linear system with a center means that trajectories
+travel in closed elliptical orbits
+in some direction around the critical point.  Such
+a critical point we call a \emph{\myindex{center}} or
+a \emph{\myindex{stable center}}.  It is not an asymptotically 
+stable critical point, as the trajectories never approach the critical
+point, but at least if you start sufficiently close to the critical point,
+you stay close to the critical point.  The simplest example of such
+behavior is the linear system with a center.  Another
+example is the critical point $(0,0)$ in
+\examplevref{example:nlin-1b-example}.
+
+The trouble with a center in a nonlinear system is that whether the
+trajectory goes towards or away from the critical point is governed by the
+sign of the real part of the eigenvalues of the Jacobian matrix, and the Jacobian
+matrix
+in a nonlinear system changes from point to point.  Since this real
+part is zero at the critical point itself, it can have either sign nearby,
+meaning the trajectory could be pulled towards or away from the critical
+point.
+
+\begin{example}
+An example of such a problematic behavior is the system
+$x'=y, y' = -x+y^3$.  The only critical point
+is the origin $(0,0)$.  The Jacobian matrix is 
+\begin{equation*}
+\begin{bmatrix}
+0 & 1 \\
+-1 & 3 y^2 \\
+\end{bmatrix} .
+\end{equation*}
+At 
+$(0,0)$ the Jacobian matrix is
+$\left[ \begin{smallmatrix}
+0 & 1 \\
+-1 & 0 \\
+\end{smallmatrix} \right]$, which has eigenvalues $\pm i$.  So the
+linearization has a center.
+
+Using the quadratic equation, the eigenvalues of the
+Jacobian matrix at any point $(x,y)$ are
+\begin{equation*}
+\lambda = 
+\frac{3}{2}y^2 \pm
+i
+\frac{\sqrt{4-9y^4}}{2} .
+\end{equation*}
+At any point where $y \not= 0$ (so at most points near the origin), the eigenvalues have a positive real part ($y^2$ can
+never be negative).  This positive real part 
+pulls the trajectory away from the origin.  A sample trajectory for an
+initial condition near the origin is given in
+\figurevref{fig:nlin-unstable-center}.
+\begin{myfig}
+\capstart
+\diffyincludegraphics{width=3in}{width=4.5in}{nlin-unstable-centerfig}
+\caption{An unstable critical point (spiral source) at the origin
+for $x'=y, y' = -x+y^3$, even if the linearization has a center.  \label{fig:nlin-unstable-center}}
+\end{myfig}
+\end{example}
+
+The same process could be carried out with the system $x'=y, y' = -x-y^3$. This one will also have a center as the linearization at the origin, but the non-linear system will have a spiral sink at the origin. The moral of the example is that further analysis is needed when the
+linearization has a center.  The analysis will in general be more
+complicated than in the example above, and is more likely to involve
+case-by-case consideration.  Such a complication should not be
+surprising to you.  By now in your mathematical career, you have
+seen many places where a simple test is inconclusive, recall for example
+the second derivative test for maxima or minima, and requires more careful,
+and perhaps ad hoc analysis of the situation.
+
+\subsection{Conservative equations}
+
+An equation of the form
+\begin{equation*}
+x'' + f(x) = 0
+\end{equation*}
+for an arbitrary function $f(x)$ is called a
+\emph{\myindex{conservative equation}}.  For example the pendulum equation
+is a conservative equation.  The equations are conservative as there is no
+friction in the system so the energy in the system is \myquote{conserved.}
+Let us write this equation as a
+system of nonlinear ODE.
+\begin{equation*}
+x' = y, \qquad y' = -f(x) .
+\end{equation*}
+These types of equations have the
+advantage that we can solve for their trajectories easily.
+
+The trick is to first think of $y$ as a function of $x$ for a moment.  Then
+use the chain rule
+\begin{equation*}
+x'' = y' = \frac{dy}{dx} x' = y \frac{dy}{dx} ,
+\end{equation*}
+where the prime indicates a derivative with respect to $t$.  
+We obtain $y \frac{dy}{dx} + f(x) = 0$.  We integrate with respect to
+$x$ to get
+$\int y \frac{dy}{dx} \,dx + \int f(x)\, dx = C$.  In other words
+\begin{equation*}
+\frac{1}{2} y^2  + \int f(x)\, dx = C .
+\end{equation*}
+We obtained an implicit equation for the trajectories, with different $C$
+giving different trajectories.  The value of
+$C$ is conserved on any trajectory.  This expression is
+sometimes called the \emph{\myindex{Hamiltonian}} or the energy of the
+system.
+If you look back to \sectionref{exact:section}, you will notice
+that $y\frac{dy}{dx} + f(x) = 0$ is an exact equation, and
+we just found a potential function.
+
+\begin{example}
+Let us find the trajectories for the equation $x'' + x-x^2 = 0$,
+which is the equation from
+\examplevref{example:nlin-1b-example}.  The corresponding
+first order system is
+\begin{equation*}
+x' = y , \qquad y' = -x+x^2 .
+\end{equation*}
+Trajectories satisfy
+\begin{equation*}
+\frac{1}{2} y^2  + \frac{1}{2} x^2 - \frac{1}{3} x^3  = C .
+\end{equation*}
+We solve for $y$
+\begin{equation*}
+y = \pm \sqrt{-x^2 + \frac{2}{3} x^3  + 2C} .
+\end{equation*}
+
+Plotting these graphs we get exactly the trajectories in 
+\figurevref{fig:nlin-1b}.  In particular we notice that near the origin
+the trajectories are \emph{\myindex{closed curves}}: they keep going
+around the origin, never spiraling in or out.  Therefore we discovered a way
+to verify that the critical point at $(0,0)$ is a stable center.
+The critical point at $(0,1)$ is a saddle as we already noticed.
+This example is typical for conservative equations.
+\end{example}
+
+Consider an arbitrary
+conservative equation $x'' + f(x) = 0$.
+All critical points occur when $y=0$ (the
+$x$-axis), that is when $x' = 0$.  The critical points are 
+those points on the $x$-axis where $f(x) = 0$.
+The trajectories are given by
+\begin{equation*}
+y = \pm \sqrt{ - 2 \int f(x)\, dx + 2C} .
+\end{equation*}
+So all trajectories are mirrored across the $x$-axis.  In particular,
+there can be no spiral sources nor sinks.
+The Jacobian matrix is
+\begin{equation*}
+\begin{bmatrix}
+0 & 1 \\
+-f'(x) & 0
+\end{bmatrix} .
+\end{equation*}
+The critical point is almost linear if $f'(x) \not= 0$ at the critical 
+point.  Let $J$ denote the Jacobian matrix.
+The eigenvalues of $J$ are solutions to
+\begin{equation*}
+0 = \det(J - \lambda I) = \lambda^2 + f'(x) .
+\end{equation*}
+Therefore $\lambda = \pm \sqrt{-f'(x)}$.  In other words, either we get
+real eigenvalues of opposite signs (if $f'(x) < 0$),
+or we get purely imaginary eigenvalues (if $f'(x) > 0$).
+There are only two possibilities for critical points, either an \emph{unstable
+saddle point}, or a \emph{stable center}.
+There are never any sinks or sources.
+
+\subsection{Hamiltonian Systems}
+
+A generalization of conservative equations to systems is a \myindex{Hamiltonian} system. This type of system has all of the nice properties of conservative equations when converted into systems, but allows for more general interactions between $x$ and $y$. For these systems, the point is that the solution has a conserved quantity called a Hamiltonian, which does not change as the system evolves in time, which generally represents the energy of the system. Calling this function $H(x,y)$, this means that
+\[ \frac{d}{dt}H(x,y) = 0. \] By the chain rule, this is equivalent to
+\[ \frac{\partial H}{\partial x} \frac{dx}{dt} + \frac{\partial H}{\partial y} \frac{dy}{dt} = 0.\]
+
+One way to satisfy this is with 
+\begin{equation}
+\begin{split}
+\frac{dx}{dt} &= -\frac{\partial H}{\partial y} \\
+\frac{dy}{dt} &= \frac{\partial H}{\partial x}
+\end{split}
+\label{eq:HamilDef}
+\end{equation} 
+
+and this gives the definition of a \emph{Hamiltonian system}. That is, the system
+\begin{equation}
+\begin{split}
+\frac{dx}{dt} &=f(x,y) \\
+\frac{dy}{dt} &= g(x,y)
+\end{split}
+\end{equation} 
+is Hamiltonian if there is a function $H(x,y)$ so that $f(x,y) = -\frac{\partial H}{\partial y}$ and $g(x,y) = \frac{\partial H}{\partial x}$. 
+
+For solving these sorts of systems, we know that 
+\[ \frac{d}{dt}H(x,y) = 0, \]
+since that's how we defined the system. This means that the trajectories of this system are given by
+\[ H(x,y) = C \] for a constant $C$ determined by initial conditions. So if we can find the function $H$ that expresses the system in the form \eqref{eq:HamilDef}, then we are done.
+
+Finding this $H$ is a lot similar to finding solutions to exact equations in \sectionref{exact:section}. First, we need to determine if the system is Hamiltonian. Since we want to have that
+\[ f(x,y) = -\frac{\partial H}{\partial y} \qquad g(x,y) = \frac{\partial H}{\partial x} \]
+we know that
+\[ f_x(x,y) = -\frac{\partial^2 H}{\partial x \partial y} \qquad g_y(x,y) = \frac{\partial^2 H}{\partial x \partial y} \] which shows that
+\[ f_x + g_y = 0. \] This is what we can use to check if a system is Hamiltonian; compare to Theorem \ref{thm:Poincare} for exact equations.
+
+Once we know that a system is Hamiltonian, we can integrate the different components of the equation to find the function $H$. Since $f = -\frac{\partial H}{\partial y}$, then we can write
+\[ H(x,y) = -\int f(x,y)\ dy + A(x) \] where $A(x)$ is an unknown function, which can be determined by differentiating this in $x$ and setting equal to $g(x,y)$.
+
+\begin{example}
+Consider the system of differential equations given by
+\[ x' = -4x + 3y \qquad y' = 2x + 4y. \]
+Determine if this system is Hamiltonian and, if so, find the trajectories of the solution.
+
+We first check if $f_x + g_y = 0$ to see if the system is Hamiltonian. Since $f_x = -4$ and $g_y = 4$, this means we have a Hamiltonian system. In order to find the function $H$, we use that
+\[ \frac{\partial H}{\partial y} = -f(x,y) = 4x - 3y. \]
+Integrating both sides in $y$ gives that
+\[ H(x,y) = 4xy - \frac{3}{2}y^2 + A(x) \] for an unknown function $A(x)$. Differentiating this in $x$ gives 
+\[ \frac{\partial H}{\partial x} = 4y + A'(x) \] which we want to equal $2x + 4y$. This gives that $A'(x) = 2x$ so $A(x) = x^2$. Thus, the Hamiltonian is given by
+\[ H(x,y) = x^2 + 4xy - \frac{3}{2}y^2 \] so that the trajectories are defined by 
+\[ x^2 + 4xy - \frac{3}{2}y^2 = C\] for any constant $C$. These are sketched in \figureref{fig:HamilPlot}.
+
+\begin{myfig}
+\capstart
+\myincludegraphics{width=3in}{width=4.5in}{HamilPlot}
+\caption{Vector field and trajectories for a Hamiltonian System \label{fig:HamilPlot}}
+\end{myfig}
+\end{example}
+
+
+\subsection{Exercises}
+
+\begin{exercise}
+For the systems below, find and classify the critical points, also indicate
+if the equilibria are stable, asymptotically stable, or unstable.
+\begin{tasks}(2)
+\task $x'=-x+3x^2, y'=-y$
+\task $x'=x^2+y^2-1$, $y'=x$
+\task $x'=ye^x$, $y'=y-x+y^2$
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}
+\pagebreak[2]
+Find the implicit equations of the trajectories of the following
+conservative systems.  Next find their critical points (if any) and classify them.
+\begin{tasks}(2)
+\task $x''+ x+x^3 = 0$
+\task $\theta''+\sin \theta = 0$
+\task $z''+ (z-1)(z+1) = 0$
+\task $x''+ x^2+1 = 0$
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}
+Find and classify the critical point(s) of $x' = -x^2$, $y' = -y^2$.
+\end{exercise}
+
+\begin{samepage}
+\begin{exercise}
+Suppose $x'=-xy$, $y'=x^2-1-y$.
+\begin{tasks}
+\task
+Show there are two spiral sinks at
+$(-1,0)$ and $(1,0)$.
+\task
+For any initial point of the form $(0,y_0)$, find what is the trajectory.
+\task
+Can a trajectory starting at $(x_0,y_0)$ where $x_0 > 0$ spiral into 
+the critical point at $(-1,0)$?  Why or why not?
+\end{tasks}
+\end{exercise}
+\end{samepage}
+
+\begin{exercise} \label{exercise:increasing}
+In the example $x'=y$, $y'=y^3-x$ show that for any trajectory, the distance
+from the origin is an increasing function.
+Conclude
+that the origin behaves like is a spiral source.
+Hint: Consider $f(t) =
+{\bigl(x(t)\bigr)}^2 + 
+{\bigl(y(t)\bigr)}^2$ and show it has positive derivative.
+\end{exercise}
+
+
+\begin{exercise}
+Suppose $f$ is always positive.
+Find the trajectories of $x''+f(x') = 0$.
+Are there any critical points?
+\end{exercise}
+
+\begin{exercise}
+Suppose that $x' = f(x,y)$, $y' = g(x,y)$.  Suppose that $g(x,y) > 1$ for
+all $x$ and $y$.  Are there any critical points?  What can we say about the
+trajectories at $t$ goes to infinity?
+\end{exercise}
+
+\setcounter{exercise}{100}
+
+\begin{exercise}
+For the systems below, find and classify the critical points.
+\begin{tasks}(3)
+\task $x'=-x+x^2$, $y'=y$
+\task $x'=y-y^2-x$, $y'=-x$
+\task $x'=xy$, $y'=x+y-1$
+\end{tasks}
+\end{exercise}
+\exsol{%
+a) $(0,0)$: saddle (unstable), $(1,0)$: source (unstable), \qquad
+b) $(0,0)$: spiral sink (asymptotically stable), $(0,1)$: saddle (unstable), \qquad
+c) $(1,0)$: saddle (unstable), $(0,1)$: saddle (unstable)
+}
+
+\begin{exercise}
+Find the implicit equations of the trajectories of the following
+conservative systems.  Next find their critical points (if any) and classify them.
+\begin{tasks}(3)
+\task $x''+ x^2 = 4$
+\task $x''+ e^x = 0$
+\task $x''+ (x+1)e^x = 0$
+\end{tasks}
+\end{exercise}
+\exsol{%
+a) $\frac{1}{2}y^2 + \frac{1}{3}x^3 -4x = C$, critical points:
+$(-2,0)$, an unstable saddle, and $(2,0)$, a stable center. \quad
+b) $\frac{1}{2}y^2 + e^x = C$, no critical points. \quad
+c) $\frac{1}{2}y^2 + xe^x = C$, critical point at $(-1,0)$ is a stable center.
+}
+
+\begin{exercise}
+The conservative system $x''+x^3 = 0$ is not almost linear.  Classify
+its critical point(s) nonetheless.
+\end{exercise}
+\exsol{%
+Critical point at $(0,0)$.
+Trajectories are $y = \pm \sqrt{2C-(\nicefrac{1}{2})x^4}$, for $C > 0$, these give closed
+curves around the origin, so the critical point is a stable center.
+}
+
+\begin{exercise}
+Derive an analogous classification of critical points for equations in one dimension,
+such as $x'= f(x)$ based on the derivative.  A point $x_0$ is critical when $f(x_0) = 0$ and
+almost linear if in addition $f'(x_0) \not= 0$.  Figure out if the critical point is stable or unstable
+depending on the sign of $f'(x_0)$.  Explain.  Hint: see \sectionref{auteq:section}.
+\end{exercise}
+\exsol{%
+A critical point $x_0$ is stable if $f'(x_0) < 0$ and unstable when $f'(x_0)
+> 0$.
+}
+
+\TODO{Work on exercises if we change these topics? Like trajectories or Hamiltonians.}

@@ -1,0 +1,1761 @@
+
+\section{Matrix algebra}
+\label{matalg:section}
+
+\LAtt{A.2}
+
+\LO{
+\item Perform addition and multiplication operations on matrices,
+\item Compute inverses of $2\times 2$ matrices, and
+\item Identify triangular, diagonal, and symmetric matrices.
+}
+
+\subsection{One-by-one matrices}
+
+Let us motivate what we want to achieve with matrices. What do real-valued linear mappings look like? A linear function 
+of real numbers that you have seen in calculus is of the form
+\[ f(x) = mx + b. \] However, the properties of linear mappings discussed in the previous section are that
+\[ f(x+y) = f(x) + f(y) \qquad f(a x) = a f(x). \] Plugging in the definition from above gives that
+\[ 
+\begin{split}
+f(x+y) &= m(x+y) + b = mx + my + b \\
+f(ax) &= m(ax) + b = a(mx) + b
+\end{split}
+\]
+and neither of these match up appropriately, since
+\[
+\begin{split}
+f(x) + f(y) &= mx + b + my + b = mx + my + 2b \\
+af(x) &+ a(mx + b) = a(mx) + ab
+\end{split}.
+\]
+In order for these to work, we need to have $b=0$. Therefore, real-valued linear mappings of the real line, linear functions
+that eat numbers and spit out numbers, are just multiplications by a
+number.  
+
+Consider a mapping defined by multiplying by a
+number.  Let's call this number $\alpha$.   The mapping then takes $x$ to
+$\alpha x$.  What we can do is
+to \emph{add} such mappings.
+If we have another mapping $\beta$, then
+\begin{equation*}
+\alpha x + \beta x = (\alpha + \beta) x .
+\end{equation*}
+We get a new mapping $\alpha+\beta$ that multiplies $x$ by, well,
+$\alpha+\beta$.  If $D$ is a mapping that doubles things, 
+$Dx = 2x$, and $T$ is a mapping that triples, $Tx = 3x$, then
+$D+T$ is a mapping that multiplies by $5$, $(D+T)x = 5x$.
+
+Similarly we can \emph{compose} such mappings, that
+is, we could apply one and then the other.  We take $x$, we run it through
+the first mapping $\alpha$ to get $\alpha$ times $x$, then we run
+$\alpha x$ through the second mapping $\beta$.  In other words,
+\begin{equation*}
+\beta ( \alpha x ) = (\beta \alpha) x .
+\end{equation*}
+We just multiply those two numbers.  Using our doubling
+and tripling mappings, if we double and then triple, that is $T(Dx)$ then
+we obtain $3(2x) = 6x$.  The composition $TD$ is the mapping that multiplies
+by $6$.  For larger matrices, composition also ends up being a kind of
+multiplication.
+
+\subsection{Matrix addition and scalar multiplication}
+
+The mappings that multiply numbers by numbers are just $1 \times 1$ matrices.  The
+number $\alpha$ above could be written as a matrix $[\alpha]$.
+So perhaps we would want to do the same things to all matrices that we
+did to those $1 \times 1$ matrices at the start of this section above.
+First, let us add matrices.
+If we have a matrix $A$ and a matrix $B$ that are of the same size,
+say $m \times n$, then they are mappings from
+${\mathbb{R}}^n$ to ${\mathbb{R}}^m$.  The mapping $A+B$ should also be a mapping from
+${\mathbb{R}}^n$ to ${\mathbb{R}}^m$, and it should do the following to
+vectors:
+\begin{equation*}
+(A+B) \vec{x} = A\vec{x} + B \vec{x} .
+\end{equation*}
+It turns out you just add the matrices element-wise:  If the
+$ij^{\text{th}}$ entry of $A$ is $a_{ij}$, and the
+$ij^{\text{th}}$ entry of $B$ is $b_{ij}$, then the
+$ij^{\text{th}}$ entry of $A+B$ is $a_{ij} + b_{ij}$.  If
+\begin{equation*}
+A = 
+\begin{bmatrix}
+a_{11} & a_{12} & a_{13}  \\
+a_{21} & a_{22} & a_{23}
+\end{bmatrix}
+\qquad \text{and} \qquad
+B = 
+\begin{bmatrix}
+b_{11} & b_{12} & b_{13}  \\
+b_{21} & b_{22} & b_{23}
+\end{bmatrix} ,
+\end{equation*}
+then
+\begin{equation*}
+A+B = 
+\begin{bmatrix}
+a_{11} + b_{11} & a_{12} + b_{12} & a_{13} + b_{13}  \\
+a_{21} + b_{21} & a_{22} + b_{22} & a_{23} + b_{23}
+\end{bmatrix} .
+\end{equation*}
+Let us illustrate on a more concrete example:
+\begin{equation*}
+\begin{bmatrix}
+1 & 2 \\
+3 & 4 \\
+5 & 6
+\end{bmatrix}
++
+\begin{bmatrix}
+7 & 8 \\
+9 & 10 \\
+11 & -1
+\end{bmatrix}
+=
+\begin{bmatrix}
+1+7 & 2+8 \\
+3+9 & 4+10 \\
+5+11 & 6-1
+\end{bmatrix}
+=
+\begin{bmatrix}
+8 & 10 \\
+12 & 14 \\
+16 & 5
+\end{bmatrix} .
+\end{equation*}
+Let's check that this does the right thing to a vector.  Let's use some
+of the vector algebra that we already know, and
+regroup things:
+\begin{equation*}
+\begin{split}
+\begin{bmatrix}
+1 & 2 \\
+3 & 4 \\
+5 & 6
+\end{bmatrix}
+\begin{bmatrix}
+2 \\ -1
+\end{bmatrix}
++
+\begin{bmatrix}
+7 & 8 \\
+9 & 10 \\
+11 & -1
+\end{bmatrix}
+\begin{bmatrix}
+2 \\ -1
+\end{bmatrix}
+& =
+\left(
+2
+\begin{bmatrix}
+1 \\
+3 \\
+5
+\end{bmatrix}
+-
+\begin{bmatrix}
+2 \\
+4 \\
+6
+\end{bmatrix}
+\right)
++
+\left(
+2
+\begin{bmatrix}
+7 \\
+9 \\
+11
+\end{bmatrix}
+-
+\begin{bmatrix}
+8 \\
+10 \\
+-1
+\end{bmatrix}
+\right)
+\\
+& = 
+2
+\left(
+\begin{bmatrix}
+1 \\
+3 \\
+5
+\end{bmatrix}
++
+\begin{bmatrix}
+7 \\
+9 \\
+11
+\end{bmatrix}
+\right)
+-
+\left(
+\begin{bmatrix}
+2 \\
+4 \\
+6
+\end{bmatrix}
++
+\begin{bmatrix}
+8 \\
+10 \\
+-1
+\end{bmatrix}
+\right)
+\\
+& = 
+2
+\begin{bmatrix}
+1+7 \\
+3+9 \\
+5+11
+\end{bmatrix}
+-
+\begin{bmatrix}
+2+8 \\
+4+10 \\
+6-1
+\end{bmatrix}
+=
+2
+\begin{bmatrix}
+8 \\
+12 \\
+16
+\end{bmatrix}
+-
+\begin{bmatrix}
+10 \\
+14 \\
+5
+\end{bmatrix}
+\\
+& =
+\begin{bmatrix}
+8 & 10 \\
+12 & 14 \\
+16 & 5
+\end{bmatrix}
+\begin{bmatrix}
+2 \\
+-1
+\end{bmatrix} 
+\quad
+\left(
+=
+\begin{bmatrix}
+2(8)- 10 \\
+2(12) - 14 \\
+2(16) - 5
+\end{bmatrix}
+=
+\begin{bmatrix}
+6 \\
+10 \\
+27
+\end{bmatrix}
+\right) .
+\end{split}
+\end{equation*}
+If we replaced the numbers by letters that would constitute a proof!
+You'll notice that we didn't really have to even compute what the
+result is to convince ourselves that the two expressions were equal.
+
+If the sizes of the matrices do not match, then addition is not defined.
+If $A$ is $3 \times 2$ and $B$ is $2 \times 5$, then we cannot add
+these matrices.  We don't know what that could possibly mean.
+
+\medskip
+
+It is also useful to have a matrix that when added to any other matrix
+does nothing.  This is the zero matrix, the matrix of all zeros:
+\begin{equation*}
+\begin{bmatrix}
+1 & 2 \\
+3 & 4
+\end{bmatrix}
++
+\begin{bmatrix}
+0 & 0 \\
+0 & 0
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 & 2 \\
+3 & 4
+\end{bmatrix} .
+\end{equation*}
+We often denote the zero matrix
+by $0$ without specifying size.  We would then just write $A + 0$, where we
+just assume that $0$ is the zero matrix of the same size as $A$.
+
+\medskip
+
+There are really two things we can multiply matrices by.  We can multiply
+matrices by scalars or we can multiply by other matrices.  Let us first
+consider multiplication by scalars.
+For a matrix $A$ and a scalar $\alpha$ we want $\alpha A$ to be the matrix
+that accomplishes
+\begin{equation*}
+(\alpha A) \vec{x} = \alpha (A \vec{x}) .
+\end{equation*}
+That is just scaling the result by $\alpha$.  If you think about it,
+scaling every term in $A$ by $\alpha$ accomplishes just that:
+If
+\begin{equation*}
+A = 
+\begin{bmatrix}
+a_{11} & a_{12} & a_{13}  \\
+a_{21} & a_{22} & a_{23}
+\end{bmatrix},
+\qquad\text{then} \qquad
+\alpha A = 
+\begin{bmatrix}
+\alpha a_{11} & \alpha a_{12} & \alpha a_{13}  \\
+\alpha a_{21} & \alpha a_{22} & \alpha a_{23}
+\end{bmatrix} .
+\end{equation*}
+For example,
+\begin{equation*}
+2
+\begin{bmatrix}
+1 & 2 & 3 \\
+4 & 5 & 6
+\end{bmatrix} =
+\begin{bmatrix}
+2 & 4 & 6 \\
+8 & 10 & 12
+\end{bmatrix} .
+\end{equation*}
+
+Let us list some properties of matrix addition and scalar multiplication.
+Denote by $0$ the zero matrix, by
+$\alpha$, $\beta$ scalars, and by $A$, $B$, $C$ matrices.  Then:
+\begin{align*}
+A + 0 & = A = 0 + A , \\
+A + B & = B + A , \\
+(A + B) + C & = A + (B + C) , \\
+\alpha(A+B) & = \alpha A+\alpha B, \\
+(\alpha+\beta)A & = \alpha A + \beta A.
+\end{align*}
+These rules should look very familiar.
+
+\subsection{Matrix multiplication}
+
+As we mentioned above, composition of linear mappings is also a
+multiplication of matrices.  Suppose $A$ is an $m \times n$ matrix,
+that is, $A$ takes
+${\mathbb R}^n$ to
+${\mathbb R}^m$,
+and $B$ is an $n \times p$ matrix, that is, $B$ takes
+${\mathbb R}^p$ to
+${\mathbb R}^n$.  The composition $AB$ should work as follows
+\begin{equation*}
+AB\vec{x} = A(B\vec{x}) .
+\end{equation*}
+First, a vector $\vec{x}$ in ${\mathbb R}^p$ gets taken to 
+the vector $B\vec{x}$ in
+${\mathbb R}^n$.  Then the mapping $A$ takes it to the vector $A(B\vec{x})$
+in ${\mathbb R}^m$.  In other words, the composition $AB$ should be an $m
+\times p$ matrix.  In terms of sizes we should have
+\begin{equation*}
+%mbxSTARTIGNORE
+\text{``}
+%mbxENDIGNORE
+%mbxlatex \text{"}
+\quad
+[ m \times n ]
+\,
+[ n \times p ]
+=
+[ m \times p ] . \quad
+%mbxSTARTIGNORE
+\text{''}
+%mbxENDIGNORE
+%mbxlatex \text{"}
+\end{equation*}
+Notice how the middle size must match.
+
+OK\@, now we know what sizes of matrices we should be able to multiply,
+and what the product should be.
+Let us see how to actually compute matrix multiplication.
+We start with the so-called
+\emph{\myindex{dot product}} (or \emph{\myindex{inner product}}) of two vectors.
+Usually this is a row vector multiplied
+with a column vector of the same size.  Dot product multiplies
+each pair of entries from the first and the second vector and sums these
+products.  The result is a single number.
+For example,
+\begin{equation*}
+\begin{bmatrix}
+a_1 & a_2 & a_3
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+b_1 \\
+b_2 \\
+b_3
+\end{bmatrix}
+= a_1 b_1 + a_2 b_2 + a_3 b_3 .
+\end{equation*}
+And similarly for larger (or smaller) vectors.
+A dot product is really a product of two matrices: a $1 \times n$ matrix
+and an $n \times 1$ matrix resulting in a $1 \times 1$ matrix, that is, a
+number.
+
+Armed with the dot product we define the
+\emph{\myindex{product of matrices}}\index{matrix product}.
+First let us denote by $\operatorname{row}_i(A)$ the $i^{\text{th}}$ row
+of $A$ and by
+$\operatorname{column}_j(A)$ the $j^{\text{th}}$ column of $A$.
+For an $m \times n$ matrix $A$ and an $n \times p$ matrix $B$
+we can compute the product $AB$.  The matrix $AB$ is an $m \times p$
+matrix whose $ij^{\text{th}}$ entry is the dot product
+\begin{equation*}
+\operatorname{row}_i(A) \cdot
+\operatorname{column}_j(B) .
+\end{equation*}
+For example, given a $2 \times 3$ and a $3 \times 2$ matrix
+we should end up with a $2 \times 2$ matrix:
+\begin{equation} \label{linalg:eqmatrixmulex}
+\begin{bmatrix}
+a_{11} & a_{12} & a_{13} \\
+a_{21} & a_{22} & a_{23}
+\end{bmatrix}
+\begin{bmatrix}
+b_{11} & b_{12} \\
+b_{21} & b_{22} \\
+b_{31} & b_{32}
+\end{bmatrix}
+=
+\begin{bmatrix}
+a_{11} b_{11} + 
+a_{12} b_{21} + 
+a_{13} b_{31} & &
+a_{11} b_{12} + 
+a_{12} b_{22} + 
+a_{13} b_{32} \\
+a_{21} b_{11} + 
+a_{22} b_{21} + 
+a_{23} b_{31} & &
+a_{21} b_{12} + 
+a_{22} b_{22} + 
+a_{23} b_{32}
+\end{bmatrix} ,
+\end{equation}
+or with some numbers:
+\begin{equation*}
+\begin{bmatrix}
+1 & 2 & 3 \\
+4 & 5 & 6
+\end{bmatrix}
+\begin{bmatrix}
+-1 & 2 \\
+-7 & 0 \\
+1 & -1
+\end{bmatrix}
+=
+\begin{bmatrix}
+1\cdot (-1) + 2\cdot (-7) + 3 \cdot 1 &  &
+1\cdot 2 + 2\cdot 0 + 3 \cdot (-1) \\
+4\cdot (-1) + 5\cdot (-7) + 6 \cdot 1 &  &
+4\cdot 2 + 5\cdot 0 + 6 \cdot (-1)
+\end{bmatrix}
+=
+\begin{bmatrix}
+-12 & -1 \\
+-33 & 2
+\end{bmatrix} .
+\end{equation*}
+
+A useful consequence of the definition is that the evaluation
+$A \vec{x}$ for a matrix $A$
+and a (column) vector $\vec{x}$ is also matrix multiplication.
+That is really why we think of
+vectors as column vectors, or $n \times 1$ matrices.
+For example,
+\begin{equation*}
+\begin{bmatrix}
+1 & 2 \\ 3 & 4
+\end{bmatrix}
+\begin{bmatrix}
+2 \\ -1
+\end{bmatrix} 
+=
+\begin{bmatrix}
+1 \cdot 2 + 2 \cdot (-1) \\
+3 \cdot 2 + 4 \cdot (-1)
+\end{bmatrix}
+=
+\begin{bmatrix}
+0 \\ 2
+\end{bmatrix}  .
+\end{equation*}
+If you look at the last section, that is precisely the last
+example we gave.
+
+You should stare at the computation of multiplication of matrices $AB$
+and
+the previous definition of $A\vec{y}$ as a mapping
+for a moment.
+What we are doing with matrix multiplication is applying
+the mapping $A$ to the columns of $B$.  This is usually written as follows.
+Suppose we write the $n \times p$ matrix
+$B = [ \vec{b}_1 ~ \vec{b}_2 ~ \cdots ~ \vec{b}_p ]$, where
+$\vec{b}_1, \vec{b}_2, \ldots, \vec{b}_p$ are the columns of $B$.  Then
+for an $m \times n$ matrix $A$,
+\begin{equation*}
+AB = 
+A [ \vec{b}_1 ~ \vec{b}_2 ~ \cdots ~ \vec{b}_p ]
+=
+[ A\vec{b}_1 ~ A\vec{b}_2 ~ \cdots ~ A\vec{b}_p ] .
+\end{equation*}
+The columns of the $m \times p$ matrix $AB$
+are the
+vectors $A\vec{b}_1, A\vec{b}_2, \ldots, A\vec{b}_p$.
+For example, in \eqref{linalg:eqmatrixmulex},
+the columns of 
+\begin{equation*}
+\begin{bmatrix}
+a_{11} & a_{12} & a_{13} \\
+a_{21} & a_{22} & a_{23}
+\end{bmatrix}
+\begin{bmatrix}
+b_{11} & b_{12} \\
+b_{21} & b_{22} \\
+b_{31} & b_{32}
+\end{bmatrix}
+\end{equation*}
+are
+\begin{equation*}
+\begin{bmatrix}
+a_{11} & a_{12} & a_{13} \\
+a_{21} & a_{22} & a_{23}
+\end{bmatrix}
+\begin{bmatrix}
+b_{11} \\
+b_{21} \\
+b_{31}
+\end{bmatrix}
+\qquad
+\text{and}
+\qquad
+\begin{bmatrix}
+a_{11} & a_{12} & a_{13} \\
+a_{21} & a_{22} & a_{23}
+\end{bmatrix}
+\begin{bmatrix}
+b_{12} \\
+b_{22} \\
+b_{32}
+\end{bmatrix} .
+\end{equation*}
+This is a very useful way to understand what matrix multiplication is.
+It should also make it easier to remember how to perform matrix multiplication.
+
+\subsection{Some rules of matrix algebra}
+
+For multiplication we want an analogue of a 1.  That is,
+we desire a matrix that just leaves everything as it found it.
+This analogue is the
+so-called \emph{\myindex{identity matrix}}.
+The identity matrix is a square matrix with 1s on the
+main diagonal and zeros everywhere else.  It is usually denoted by $I$.
+For each size we have a different identity matrix and so sometimes we may denote
+the size as a subscript.  For example, the $I_3$ would be the $3 \times 3$
+identity matrix
+\begin{equation*}
+I = I_3 =
+\begin{bmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{bmatrix} .
+\end{equation*}
+Let us see how the matrix works on a smaller example,
+\begin{equation*}
+\begin{bmatrix}
+a_{11} & a_{12} \\
+a_{21} & a_{22} 
+\end{bmatrix}
+\begin{bmatrix}
+1 & 0 \\
+0 & 1
+\end{bmatrix} =
+\begin{bmatrix}
+a_{11} \cdot 1 + a_{12} \cdot 0
+& &
+a_{11} \cdot 0 + a_{12} \cdot 1
+\\
+a_{21} \cdot 1 + a_{22} \cdot 0
+& &
+a_{21} \cdot 0 + a_{22} \cdot 1
+\end{bmatrix}
+=
+\begin{bmatrix}
+a_{11} & a_{12} \\
+a_{21} & a_{22} 
+\end{bmatrix} .
+\end{equation*}
+Multiplication by the identity from the left looks similar, and also
+does not touch anything.
+
+\medskip
+
+We have the following rules for matrix multiplication.  Suppose that
+$A$, $B$, $C$ are matrices of the correct sizes so that the following
+make sense.  Let $\alpha$ denote a scalar (number).  Then
+\begin{align*}
+A(BC) & = (AB)C & & \text{(\myindex{associative law})} , \\
+A(B+C) & = AB + AC & & \text{(\myindex{distributive law})} , \\
+(B+C)A & = BA + CA & & \text{(distributive law)} , \\
+\alpha(AB) & = (\alpha A)B = A(\alpha B) , & &  \\
+IA & = A = AI & & \text{(identity)}.
+\end{align*}
+
+\begin{example}
+Let us demonstrate a couple of these rules.  For example, the associative
+law:
+\begin{equation*}
+\underbrace{
+\begin{bmatrix}
+-3 & 3 \\ 2 & -2
+\end{bmatrix}
+}_A
+\biggl(
+\underbrace{
+\begin{bmatrix}
+4 & 4 \\ 1 & -3
+\end{bmatrix}
+}_B
+\underbrace{
+\begin{bmatrix}
+-1 & 4 \\ 5 & 2
+\end{bmatrix}
+}_C
+\biggr)
+=
+\underbrace{
+\begin{bmatrix}
+-3 & 3 \\ 2 & -2
+\end{bmatrix}
+}_A
+\underbrace{
+\begin{bmatrix}
+16 & 24 \\ -16 & -2
+\end{bmatrix}
+}_{BC}
+=
+\underbrace{
+\begin{bmatrix}
+-96 & -78 \\ 64 & 52
+\end{bmatrix}
+}_{A(BC)} ,
+\end{equation*}
+and
+\begin{equation*}
+\biggl(
+\underbrace{
+\begin{bmatrix}
+-3 & 3 \\ 2 & -2
+\end{bmatrix}
+}_A
+\underbrace{
+\begin{bmatrix}
+4 & 4 \\ 1 & -3
+\end{bmatrix}
+}_B
+\biggr)
+\underbrace{
+\begin{bmatrix}
+-1 & 4 \\ 5 & 2
+\end{bmatrix}
+}_C
+=
+\underbrace{
+\begin{bmatrix}
+-9 & -21 \\ 6 & 14
+\end{bmatrix}
+}_{AB}
+\underbrace{
+\begin{bmatrix}
+-1 & 4 \\ 5 & 2
+\end{bmatrix}
+}_C
+=
+\underbrace{
+\begin{bmatrix}
+-96 & -78 \\ 64 & 52
+\end{bmatrix}
+}_{(AB)C} .
+\end{equation*}
+Or how about multiplication by scalars:
+\begin{equation*}
+10
+\biggl(
+\underbrace{
+\begin{bmatrix}
+-3 & 3 \\ 2 & -2
+\end{bmatrix}
+}_A
+\underbrace{
+\begin{bmatrix}
+4 & 4 \\ 1 & -3
+\end{bmatrix}
+}_B
+\biggr)
+=
+10
+\underbrace{
+\begin{bmatrix}
+-9 & -21 \\ 6 & 14
+\end{bmatrix}
+}_{A B} 
+=
+\underbrace{
+\begin{bmatrix}
+-90 & -210 \\ 60 & 140
+\end{bmatrix}
+}_{10 (AB)} ,
+\end{equation*}
+\begin{equation*}
+\biggl(
+10
+\underbrace{
+\begin{bmatrix}
+-3 & 3 \\ 2 & -2
+\end{bmatrix}
+}_A
+\biggr)
+\underbrace{
+\begin{bmatrix}
+4 & 4 \\ 1 & -3
+\end{bmatrix}
+}_B
+=
+\underbrace{
+\begin{bmatrix}
+-30 & 30 \\ 20 & -20
+\end{bmatrix}
+}_{10 A}
+\underbrace{
+\begin{bmatrix}
+4 & 4 \\ 1 & -3
+\end{bmatrix}
+}_B
+=
+\underbrace{
+\begin{bmatrix}
+-90 & -210 \\ 60 & 140
+\end{bmatrix}
+}_{(10 A)B} ,
+\end{equation*}
+and
+\begin{equation*}
+\underbrace{
+\begin{bmatrix}
+-3 & 3 \\ 2 & -2
+\end{bmatrix}
+}_A
+\biggl(
+10
+\underbrace{
+\begin{bmatrix}
+4 & 4 \\ 1 & -3
+\end{bmatrix}
+}_B
+\biggr)
+=
+\underbrace{
+\begin{bmatrix}
+-3 & 3 \\ 2 & -2
+\end{bmatrix}
+}_{A}
+\underbrace{
+\begin{bmatrix}
+40 & 40 \\ 10 & -30
+\end{bmatrix}
+}_{10B}
+=
+\underbrace{
+\begin{bmatrix}
+-90 & -210 \\ 60 & 140
+\end{bmatrix}
+}_{A(10B)} .
+\end{equation*}
+\end{example}
+
+A multiplication rule you have used since primary school on numbers
+is quite conspicuously missing for matrices.
+That is, matrix multiplication is
+not commutative.  Firstly, just because $AB$ makes sense, it may be
+that $BA$ is not even defined.  For example, if $A$ is $2 \times 3$, and
+$B$ is $3 \times 4$, the we can multiply $AB$ but not $BA$.
+
+Even if $AB$ and $BA$ are both defined, does not mean that they are equal.
+For example, take
+$A = \left[ \begin{smallmatrix} 1 & 1 \\ 1 & 1 \end{smallmatrix} \right]$
+and
+$B = \left[ \begin{smallmatrix} 1 & 0 \\ 0 & 2 \end{smallmatrix} \right]$:
+\begin{equation*}
+AB = 
+\begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix}
+\begin{bmatrix} 1 & 0 \\ 0 & 2 \end{bmatrix}
+=
+\begin{bmatrix} 1 & 2 \\ 1 & 2 \end{bmatrix}
+\qquad
+\not=
+\qquad
+\begin{bmatrix} 1 & 1 \\ 2 & 2 \end{bmatrix}
+=
+\begin{bmatrix} 1 & 0 \\ 0 & 2 \end{bmatrix}
+\begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix}
+=
+BA .
+\end{equation*}
+
+\subsection{Inverse}
+
+A couple of other algebra rules you know for numbers do not quite
+work on matrices:
+\begin{enumerate}[(i)]
+\item $AB = AC$ does not necessarily imply $B=C$, even if $A$ is not 0.
+\item $AB = 0$ does not necessarily mean that $A=0$ or $B=0$.
+\end{enumerate}
+For example:
+\begin{equation*}
+\begin{bmatrix} 0 & 1 \\ 0 & 0 \end{bmatrix}
+\begin{bmatrix} 0 & 1 \\ 0 & 0 \end{bmatrix}
+=
+\begin{bmatrix} 0 & 0 \\ 0 & 0 \end{bmatrix}
+=
+\begin{bmatrix} 0 & 1 \\ 0 & 0 \end{bmatrix}
+\begin{bmatrix} 0 & 2 \\ 0 & 0 \end{bmatrix} .
+\end{equation*}
+
+To make these rules hold, we do not just need one of the matrices to not be zero,
+we would need to \myquote{divide} by
+a matrix.  This is where the \emph{\myindex{matrix inverse}} comes in.
+
+\begin{definition}
+Suppose that $A$ and $B$ are $n \times n$ matrices such that
+\begin{equation*}
+AB = I = BA .
+\end{equation*}
+Then we call $B$ the inverse of $A$ and we denote $B$ by $A^{-1}$.
+
+If the inverse of $A$ exists, then we say $A$ is
+\emph{invertible\index{invertible matrix}}.
+If $A$ is not invertible, we say $A$ is
+\emph{singular\index{singular matrix}}.
+\end{definition}
+
+Perhaps not surprisingly, ${(A^{-1})}^{-1} = A$, since if the inverse of $A$ 
+is $B$, then the inverse of $B$ is $A$.
+
+If $A = [a]$ is a $1 \times 1$ matrix, then $A^{-1}$ is $a^{-1} =
+\frac{1}{a}$.  That is where the notation comes from.  The computation is not nearly as simple when $A$ is
+larger.
+
+%Singular matrices are those you cannot \myquote{divide by.}
+%So the mistake of \myquote{division by zero} is replaced by the mistake
+%\myquote{inverting a singular matrix.}
+
+The proper formulation of the cancellation rule is:
+\begin{center}
+\emph{If $A$ is invertible,
+then
+$AB = AC$ implies $B=C$.}
+\end{center}
+%Similarly:
+%\emph{If $A$ is invertible,
+%then
+%$BA = CA$ implies $B=C$.}
+The computation is what you would do in regular algebra with numbers,
+but you have to
+be careful never to commute matrices:
+\begin{align*}
+AB & = AC , \\
+A^{-1}AB & = A^{-1}AC , \\
+IB & = IC , \\
+B & = C .
+\end{align*}
+And similarly for cancellation on the right:
+\begin{center}
+\emph{If $A$ is invertible,
+then $BA = CA$ implies $B=C$.}
+\end{center}
+
+The rule says, among other things, that the
+inverse of a matrix is unique if it exists:  If $AB = I = AC$, then $A$ is
+invertible and $B=C$.
+
+We will see later how to compute an inverse of a matrix
+in general.  For now,
+let us note that there is a simple formula for the inverse of
+a $2 \times 2$ matrix
+\begin{equation*}
+\begin{bmatrix}
+a & b \\
+c & d
+\end{bmatrix}^{-1}
+=
+\frac{1}{ad-bc}
+\begin{bmatrix}
+d & -b \\
+-c & a
+\end{bmatrix} .
+\end{equation*}
+
+For example:
+\begin{equation*}
+\begin{bmatrix}
+1 & 1 \\
+2 & 4
+\end{bmatrix}^{-1}
+=
+\frac{1}{1\cdot 4-1 \cdot 2}
+\begin{bmatrix}
+4 & -1 \\
+-2 & 1
+\end{bmatrix}
+=
+\begin{bmatrix}
+2 & \nicefrac{-1}{2} \\
+-1 & \nicefrac{1}{2}
+\end{bmatrix} .
+\end{equation*}
+Let's try it:
+\begin{equation*}
+\begin{bmatrix}
+1 & 1 \\
+2 & 4
+\end{bmatrix}
+\begin{bmatrix}
+2 & \nicefrac{-1}{2} \\
+-1 & \nicefrac{1}{2}
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 & 0 \\
+0 & 1
+\end{bmatrix}
+\qquad
+\text{and}
+\qquad
+\begin{bmatrix}
+2 & \nicefrac{-1}{2} \\
+-1 & \nicefrac{1}{2}
+\end{bmatrix}
+\begin{bmatrix}
+1 & 1 \\
+2 & 4
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 & 0 \\
+0 & 1
+\end{bmatrix} .
+\end{equation*}
+Just as we cannot divide by every number, not every matrix is
+invertible.  In the case of matrices however we may have singular
+matrices that are not zero.  For example,
+\begin{equation*}
+\begin{bmatrix}
+1 & 1 \\
+2 & 2
+\end{bmatrix}
+\end{equation*}
+is a singular matrix.  But didn't we just give a formula for an inverse?
+Let us try it:
+\begin{equation*}
+\begin{bmatrix}
+1 & 1 \\
+2 & 2
+\end{bmatrix}^{-1}
+=
+\frac{1}{1\cdot 2-1 \cdot 2}
+\begin{bmatrix}
+2 & -1 \\
+-2 & 1
+\end{bmatrix}
+=
+%mbxSTARTIGNORE
+\text{\Huge ?}
+%mbxENDIGNORE
+%mbxlatex \text{???}
+\end{equation*}
+We get into a bit of trouble; we are trying to divide by zero.
+%The matrix is not invertible, it is singular.
+
+So a $2 \times 2$ matrix $A$ is invertible whenever
+\begin{equation*}
+ad - bc \not= 0
+\end{equation*}
+and otherwise it is singular.  The expression $ad-bc$ is called
+the \emph{determinant} and we will look at it 
+more carefully in a later section.
+There is a similar expression for a square
+matrix of any size.
+
+\subsection{Special types of matrices}
+
+A simple (and surprisingly useful) type of a square matrix is a so-called
+\emph{\myindex{diagonal matrix}}.  It is a matrix whose entries are all zero
+except those on the main diagonal from top left to bottom right.  For
+example a $4 \times 4$ diagonal matrix is of the form
+\begin{equation*}
+\begin{bmatrix}
+d_1 & 0 & 0 & 0 \\
+0 & d_2 & 0 & 0 \\
+0 & 0 & d_3 & 0 \\
+0 & 0 & 0 & d_4
+\end{bmatrix} .
+\end{equation*}
+Such matrices have nice properties when we multiply by them.  If we multiply
+them by a vector, they multiply the $k^{\text{th}}$ entry by $d_k$.  For
+example,
+\begin{equation*}
+\begin{bmatrix}
+1 & 0 & 0 \\
+0 & 2 & 0 \\
+0 & 0 & 3
+\end{bmatrix}
+\begin{bmatrix}
+4 \\ 5 \\ 6
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 \cdot 4 \\ 2 \cdot 5 \\ 3 \cdot 6
+\end{bmatrix}
+=
+\begin{bmatrix}
+4 \\ 10 \\ 18
+\end{bmatrix} .
+\end{equation*}
+Similarly, when they multiply another matrix from the left, they multiply
+the $k^{\text{th}}$ row by $d_k$.  For example,
+\begin{equation*}
+\begin{bmatrix}
+2 & 0 & 0 \\
+0 & 3 & 0 \\
+0 & 0 & -1
+\end{bmatrix}
+\begin{bmatrix}
+1 & 1 & 1 \\
+1 & 1 & 1 \\
+1 & 1 & 1 
+\end{bmatrix}
+=
+\begin{bmatrix}
+2 & 2 & 2 \\
+3 & 3 & 3 \\
+-1 & -1 & -1 
+\end{bmatrix} .
+\end{equation*}
+On the other hand, multiplying on the right, they multiply the columns:
+\begin{equation*}
+\begin{bmatrix}
+1 & 1 & 1 \\
+1 & 1 & 1 \\
+1 & 1 & 1 
+\end{bmatrix}
+\begin{bmatrix}
+2 & 0 & 0 \\
+0 & 3 & 0 \\
+0 & 0 & -1
+\end{bmatrix}
+=
+\begin{bmatrix}
+2 & 3 & -1 \\
+2 & 3 & -1 \\
+2 & 3 & -1 
+\end{bmatrix} .
+\end{equation*}
+And it is really easy to multiply two diagonal matrices together:
+\begin{equation*}
+\begin{bmatrix}
+1 & 0 & 0 \\
+0 & 2 & 0 \\
+0 & 0 & 3 
+\end{bmatrix}
+\begin{bmatrix}
+2 & 0 & 0 \\
+0 & 3 & 0 \\
+0 & 0 & -1
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 \cdot 2 & 0 & 0 \\
+0 & 2 \cdot 3 & 0 \\
+0 & 0 & 3 \cdot (-1) 
+\end{bmatrix}
+=
+\begin{bmatrix}
+2 & 0 & 0 \\
+0 & 6 & 0 \\
+0 & 0 & -3 
+\end{bmatrix} .
+\end{equation*}
+
+For this last reason, they are easy to invert, you simply invert
+each diagonal element:
+\begin{equation*}
+\begin{bmatrix}
+d_1 & 0 & 0 \\
+0 & d_2 & 0 \\
+0 & 0 & d_3 
+\end{bmatrix}^{-1}
+=
+\begin{bmatrix}
+d_1^{-1} & 0 & 0 \\
+0 & d_2^{-1} & 0 \\
+0 & 0 & d_3^{-1} 
+\end{bmatrix} .
+\end{equation*}
+Let us check an example
+\begin{equation*}
+\underbrace{
+\begin{bmatrix}
+2 & 0 & 0 \\
+0 & 3 & 0 \\
+0 & 0 & 4 
+\end{bmatrix}^{-1}
+}_{A^{-1}}
+\underbrace{
+\begin{bmatrix}
+2 & 0 & 0 \\
+0 & 3 & 0 \\
+0 & 0 & 4 
+\end{bmatrix}
+}_{A}
+=
+\underbrace{
+\begin{bmatrix}
+\frac{1}{2} & 0 & 0 \\
+0 & \frac{1}{3} & 0 \\
+0 & 0 & \frac{1}{4} 
+\end{bmatrix}
+}_{A^{-1}}
+\underbrace{
+\begin{bmatrix}
+2 & 0 & 0 \\
+0 & 3 & 0 \\
+0 & 0 & 4 
+\end{bmatrix}
+}_{A}
+=
+\underbrace{
+\begin{bmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1 
+\end{bmatrix}
+}_{I} .
+\end{equation*}
+It is no wonder that the way we solve many problems in linear algebra
+(and in differential equations) is to try to reduce the problem to the
+case of diagonal matrices.
+
+Another type of matrix that has similarly nice properties are \emph{\myindex{triangular}} matrices. A matrix is
+\emph{upper triangular} if all of the entries below the diagonal are zero. For a $3\times 3$ matrix, an upper triangular matrix 
+looks like
+\[ \begin{bmatrix} * & * & * \\ 0 & * & * \\ 0 & 0 & * \end{bmatrix} \] where the $*$ can be any number. Similarly, a \emph{lower triangular} matrix is one where all of the entries above the diagonal are zero, or, for a $3 \times 3$ matrix, something that looks like  
+\[ \begin{bmatrix} * & 0 & 0 \\ * & * & 0 \\ * & * & * \end{bmatrix}. \] A matrix that is both upper and lower triangular is diagonal, because only the entries on the diagonal can be non-zero. 
+
+\subsection{Transpose}
+
+Vectors do not always have to be column vectors,
+that is just a convention.
+Swapping rows and columns is from time to time needed.
+The operation that swaps rows and columns is the so-called
+\emph{\myindex{transpose}}.
+The transpose of $A$ is denoted by $A^T$.  Example:
+\begin{equation*}
+\begin{bmatrix}
+1 & 2 & 3 \\
+4 & 5 & 6
+\end{bmatrix}^T =
+\begin{bmatrix}
+1 & 4 \\
+2 & 5 \\
+3 & 6 
+\end{bmatrix} .
+\end{equation*}
+So transpose takes an $m \times n$ matrix to an $n \times m$ matrix.
+
+A key fact about the transpose is that if the product $AB$ makes sense
+then $B^TA^T$ also makes sense, at least from the point of view of sizes.
+In fact, we get precisely the transpose of $AB$.  That is:
+\begin{equation*}
+{(AB)}^T = B^TA^T .
+\end{equation*}
+For example,
+\begin{equation*}
+{\left(
+\begin{bmatrix}
+1 & 2 & 3 \\
+4 & 5 & 6
+\end{bmatrix}
+\begin{bmatrix}
+0 & 1 \\
+1 & 0 \\
+2 & -2
+\end{bmatrix}
+\right)}^T =
+\begin{bmatrix}
+0 & 1 & 2 \\
+1 & 0 & -2
+\end{bmatrix}
+\begin{bmatrix}
+1 & 4 \\
+2 & 5 \\
+3 & 6 
+\end{bmatrix} .
+\end{equation*}
+It is left to the reader to verify that computing the matrix product on the
+left and then transposing is the same as computing the matrix product on the
+right.
+
+If we have a column vector $\vec{x}$ to which we apply a matrix $A$
+and we transpose the result,
+then the row vector $\vec{x}^T$ applies to $A^T$ from the left:
+\begin{equation*}
+{(A\vec{x})}^T = \vec{x}^TA^T .
+\end{equation*}
+
+Another place where transpose is useful is when we wish to apply the dot
+product\footnote{As a side note, mathematicians
+write $\vec{y}^T\vec{x}$ and physicists
+write $\vec{x}^T\vec{y}$.  Shhh\ldots don't tell anyone, but the physicists
+are probably right on this.}
+to two column vectors:
+\begin{equation*}
+\vec{x} \cdot \vec{y} = \vec{y}^T \vec{x} .
+\end{equation*}
+That is the way that one often writes the dot product in software.
+
+We say a matrix $A$ is \emph{symmetric}\index{symmetric matrix}
+if $A = A^T$.  For example,
+\begin{equation*}
+\begin{bmatrix}
+1 & 2 & 3 \\
+2 & 4 & 5 \\
+3 & 5 & 6
+\end{bmatrix}
+\end{equation*}
+is a symmetric matrix.  Notice that a symmetric matrix is always
+square, that is, $n \times n$.  Symmetric matrices 
+have many nice properties\footnote{Although so far we have not learned
+enough about matrices to really appreciate them.},
+and come up quite often in applications.
+
+To end the section, we notice how $A \vec{x}$ can be written more succintly.
+Suppose
+\begin{equation*}
+A = 
+\begin{bmatrix}
+a_{11} & a_{12} & a_{13} \\
+a_{21} & a_{22} & a_{23}
+\end{bmatrix}
+\qquad \text{and} \qquad
+\vec{x} = 
+\begin{bmatrix}
+x_1 \\ x_2 \\ x_3 
+\end{bmatrix} .
+\end{equation*}
+Then
+\begin{equation*}
+A \vec{x} = 
+\begin{bmatrix}
+a_{11} & a_{12} & a_{13} \\
+a_{21} & a_{22} & a_{23}
+\end{bmatrix}
+\begin{bmatrix}
+x_1 \\ x_2 \\ x_3 
+\end{bmatrix} 
+=
+\begin{bmatrix}
+a_{11} x_1 + a_{12} x_2 + a_{13} x_3 \\
+a_{21} x_1 + a_{22} x_2 + a_{23} x_3
+\end{bmatrix}  .
+\end{equation*}
+For example,
+\begin{equation*}
+\begin{bmatrix}
+1 & 2 \\ 3 & 4
+\end{bmatrix}
+\begin{bmatrix}
+2 \\ -1
+\end{bmatrix} 
+=
+\begin{bmatrix}
+1 \cdot 2 + 2 \cdot (-1) \\
+3 \cdot 2 + 4 \cdot (-1)
+\end{bmatrix}
+=
+\begin{bmatrix}
+0 \\ 2
+\end{bmatrix}  .
+\end{equation*}
+
+In other words, you take a row of the matrix, you multiply them by the
+entries in your vector, you add things up, and that's the corresponding
+entry in the resulting vector.
+
+\subsection{Exercises}
+
+\begin{exercise}
+Add the following matrices
+\begin{tasks}(2)
+\task
+$\begin{bmatrix}
+-1 & 2 & 2 \\
+5 & 8 & -1
+\end{bmatrix}
++
+\begin{bmatrix}
+3 & 2 & 3 \\
+8 & 3 & 5
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+1 & 2 & 4 \\
+2 & 3 & 1 \\
+0 & 5 & 1
+\end{bmatrix}
++
+\begin{bmatrix}
+2 & -8 & -3 \\
+3 & 1 & 0 \\
+6 & -4 & 1
+\end{bmatrix}$
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Add the following matrices
+\begin{tasks}(2)
+\task
+$\begin{bmatrix}
+2 & 1 & 0 \\
+1 & 1 & -1
+\end{bmatrix}
++
+\begin{bmatrix}
+5 & 3 & 4 \\
+1 & 2 & 5
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+6 & -2 & 3 \\
+7 & 3 & 3 \\
+8 & -1 & 2
+\end{bmatrix}
++
+\begin{bmatrix}
+-1 & -1 & -3 \\
+6 & 7 & 3 \\
+-9 & 4 & -1
+\end{bmatrix}$
+\end{tasks}
+\end{exercise}
+\exsol{%
+a)~$\begin{bmatrix}
+7 & 4 & 4 \\
+2 & 3 & 4
+\end{bmatrix}$
+\quad
+b)~$\begin{bmatrix}
+5 & -3 & 0 \\
+13 & 10 & 6 \\
+-1 & 3 & 1
+\end{bmatrix}$
+}
+
+\begin{exercise}
+Compute
+\begin{tasks}(2)
+\task
+$3\begin{bmatrix}
+0 & 3 \\
+-2 & 2
+\end{bmatrix}
++
+6
+\begin{bmatrix}
+1 & 5 \\
+-1 & 5
+\end{bmatrix}$
+\task
+$2\begin{bmatrix}
+-3 & 1 \\
+2 & 2
+\end{bmatrix}
+-
+3
+\begin{bmatrix}
+2 & -1 \\
+3 & 2
+\end{bmatrix}$
+\end{tasks}
+\end{exercise}
+
+
+\begin{exercise}\ansMark%
+Compute
+\begin{tasks}(2)
+\task
+$2\begin{bmatrix}
+1 & 2 \\
+3 & 4
+\end{bmatrix}
++
+3
+\begin{bmatrix}
+-1 & 3 \\
+1 & 2
+\end{bmatrix}$
+\task
+$3\begin{bmatrix}
+2 & -1 \\
+1 & 3
+\end{bmatrix}
+-
+2
+\begin{bmatrix}
+2 & 1 \\
+-1 & 2
+\end{bmatrix}$
+\end{tasks}
+\end{exercise}
+\exsol{%
+a)~$\begin{bmatrix}
+-1 & 13 \\
+9 & 14
+\end{bmatrix}$
+\quad
+b)~$\begin{bmatrix}
+2 & -5 \\
+5 & 5
+\end{bmatrix}$
+}
+
+\begin{exercise}
+Multiply the following matrices
+\begin{tasks}(2)
+\task
+$\begin{bmatrix}
+-1 & 2 \\
+3 & 1 \\
+5 & 8
+\end{bmatrix}
+\begin{bmatrix}
+3 & -1 & 3 & 1 \\
+8 & 3 & 2 & -3
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+1 & 2 & 3 \\
+3 & 1 & 1 \\
+1 & 0 & 3
+\end{bmatrix}
+\begin{bmatrix}
+2 & 3 & 1 & 7 \\
+1 & 2 & 3 & -1 \\
+1 & -1 & 3 & 0
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+4 & 1 & 6 & 3 \\
+5 & 6 & 5 & 0 \\
+4 & 6 & 6 & 0
+\end{bmatrix}
+\begin{bmatrix}
+2 & 5 \\
+1 & 2 \\
+3 & 5 \\
+5 & 6
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+1 & 1 & 4 \\
+0 & 5 & 1
+\end{bmatrix}
+\begin{bmatrix}
+2 & 2 \\
+1 & 0 \\
+6 & 4
+\end{bmatrix}$
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}\ansMark%
+\pagebreak[2]
+Multiply the following matrices
+\begin{tasks}(2)
+\task
+$\begin{bmatrix}
+2 & 1 & 4 \\
+3 & 4 & 4
+\end{bmatrix}
+\begin{bmatrix}
+2 & 4 \\
+6 & 3 \\
+3 & 5
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+0 & 3 & 3 \\
+2 & -2 & 1 \\
+3 & 5 & -2
+\end{bmatrix}
+\begin{bmatrix}
+6 & 6 & 2 \\
+4 & 6 & 0 \\
+2 & 0 & 4
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+3 & 4 & 1 \\
+2 & -1 & 0 \\
+4 & -1 & 5
+\end{bmatrix}
+\begin{bmatrix}
+0 & 2 & 5 & 0 \\
+2 & 0 & 5 & 2 \\
+3 & 6 & 1 & 6
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+-2 & -2 \\
+5 & 3 \\
+2 & 1
+\end{bmatrix}
+\begin{bmatrix}
+0 & 3 \\
+1 & 3
+\end{bmatrix}$
+\end{tasks}
+\end{exercise}
+\exsol{%
+a)~$\begin{bmatrix}
+22 & 31 \\
+42 & 44
+\end{bmatrix}$
+\quad
+b)~$\begin{bmatrix}
+18 & 18 & 12 \\
+6 & 0 & 8 \\
+34 & 48 & -2
+\end{bmatrix}$
+\quad
+c)~$\begin{bmatrix}
+11 & 12 & 36 & 14 \\
+-2 & 4 & 5 & -2 \\
+13 & 38 & 20 & 28
+\end{bmatrix}$
+\quad
+d)~$\begin{bmatrix}
+-2 & -12 \\
+3 & 24 \\
+1 & 9
+\end{bmatrix}$
+}
+
+\pagebreak
+
+\begin{exercise}
+\ 
+\begin{tasks}
+\task How must the dimensions of two matrices line up in order to multiply them together? If they can be multiplied, what is the dimension of the product?
+\task If $A$ is a $3 \times 2$ matrix and the product $AB$ is a $3 \times 4$ matrix, then what are the dimensions of $B$?
+\task If $A$ is a $5 \times 3$ matrix, is it possible to find a matrix $B$ so that the product $AB$ is a $4 \times 3$ matrix? What about a matrix $C$ so that the product $CA$ is a $4 \times 3$ matrix?
+\end{tasks}
+\end{exercise}
+
+\begin{exercise} \label{ex:MatDims}
+Assume that $A$ is a $3\times 4$ matrix.
+\begin{tasks}
+\task What must the dimensions of $B$ be in order for the product $AB$ to be defined?
+\task What must the dimensions of $B$ be in order for the product $BA$ to be defined?
+\task What about if we want to compute $ABA$ or $BAB$?
+\end{tasks} 
+\end{exercise}
+
+\begin{exercise}
+Complete \exerciseref{ex:MatDims} but with $A$ being a $2 \times 2$ matrix.
+\end{exercise}
+
+\begin{exercise}
+Compute the inverse of the given matrices
+\begin{tasks}(4)
+\task
+$\begin{bmatrix}
+-3
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+0 & -1 \\
+1 & 0
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+1 & 4 \\
+1 & 3
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+2 & 2 \\
+1 & 4
+\end{bmatrix}$
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Compute the inverse of the given matrices
+\begin{tasks}(4)
+\task
+$\begin{bmatrix}
+2
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+0 & 1 \\
+1 & 0
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+1 & 2 \\
+3 & 5
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+4 & 2 \\
+4 & 4
+\end{bmatrix}$
+\end{tasks}
+\end{exercise}
+\exsol{%
+a)
+$\begin{bmatrix}
+\nicefrac{1}{2}
+\end{bmatrix}$
+\quad b)
+$\begin{bmatrix}
+0 & 1 \\
+1 & 0
+\end{bmatrix}$
+\quad c)
+$\begin{bmatrix}
+-5 & 2 \\
+3 & -1
+\end{bmatrix}$
+\quad d)
+$\begin{bmatrix}
+\nicefrac{1}{2} & \nicefrac{-1}{4} \\
+\nicefrac{-1}{2} & \nicefrac{1}{2}
+\end{bmatrix}$
+}
+
+\begin{exercise}
+Compute the inverse of the given matrices
+\begin{tasks}(3)
+\task
+$\begin{bmatrix}
+-2 & 0 \\
+0 & 1 
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+3 & 0 & 0 \\
+0 & -2 & 0 \\ 
+0 & 0 & 1
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+1 & 0 & 0 & 0 \\
+0 & -1 & 0 & 0 \\ 
+0 & 0 & 0.01 & 0 \\
+0 & 0 & 0 & -5
+\end{bmatrix}$
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Compute the inverse of the given matrices
+\begin{tasks}(3)
+\task
+$\begin{bmatrix}
+2 & 0 \\
+0 & 3 
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+4 & 0 & 0 \\
+0 & 5 & 0 \\ 
+0 & 0 & -1
+\end{bmatrix}$
+\task
+$\begin{bmatrix}
+-1 & 0 & 0 & 0 \\
+0 & 2 & 0 & 0 \\ 
+0 & 0 & 3 & 0 \\
+0 & 0 & 0 & 0.1
+\end{bmatrix}$
+\end{tasks}
+\end{exercise}
+\exsol{%
+a)~$\begin{bmatrix}
+\nicefrac{1}{2} & 0 \\
+0 & \nicefrac{1}{3} 
+\end{bmatrix}$
+\quad
+b)~$\begin{bmatrix}
+\nicefrac{1}{4} & 0 & 0 \\
+0 & \nicefrac{1}{5} & 0 \\ 
+0 & 0 & -1
+\end{bmatrix}$
+\quad
+c)~$\begin{bmatrix}
+-1 & 0 & 0 & 0 \\
+0 & \nicefrac{1}{2} & 0 & 0 \\ 
+0 & 0 & \nicefrac{1}{3} & 0 \\
+0 & 0 & 0 & 10
+\end{bmatrix}$
+}
+
+\begin{exercise}
+Consider the matrices
+\begin{equation*}
+A = \begin{bmatrix} 1 & 2 \\ 3 & 6 \end{bmatrix} \quad B = \begin{bmatrix} 1 & 1 \\ 0 & 2 \end{bmatrix} \quad C = \begin{bmatrix} 1 & 3 \\ 0 & 1 \end{bmatrix}.
+\end{equation*}
+\begin{tasks}
+\task Compute the products $AB$ and $AC$.
+\task Verify that for these matrices $AB = AC$, but $B \neq C$.
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}
+Consider the matrices
+\begin{equation*}
+A = \begin{bmatrix} 1 & -1 \\ -1 & 1 \end{bmatrix} \quad B = \begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix}.
+\end{equation*}
+Verify that $AB$ and $BA$ are both equal to zero, but neither of the matrices $A$ and $B$ are zero.
+\end{exercise}
+
+\begin{exercise}
+\
+\begin{tasks}
+\task Let $A$ be a $3 \times 4$ matrix. What dimension does the vector $\vec{v}$ need to be in order for the product $A\vec{v}$ to be defined? If this product is defined, what is the dimension of the product $A\vec{v}$?
+\task Let $B$ be a $3 \times 3$ matrix. What dimension does the vector $\vec{v}$ need to be in order for the product $B\vec{v}$ to be defined? If this product is defined, what is the dimension of the product $B\vec{v}$?
+\end{tasks}
+\end{exercise}
+
+\setcounter{exercise}{100}
+

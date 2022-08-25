@@ -1,0 +1,566 @@
+\section{Introduction to differential equations}
+\label{introde:section}
+
+\LAtt{0.2}
+
+\LO{
+\item Identify a differential equation and determine the order of a differential equation,
+\item Verify that a function is a solution to a differential equation, and 
+\item Solve some fundamental differential equations.
+}
+
+% \sectionnotes{more than 1 lecture\EPref{, \S1.1 in \cite{EP}}\BDref{, chapter 1 in \cite{BD}}}
+
+\subsection{Differential equations}
+
+Consider the following situation:
+\begin{quote}
+An object falling through the air has its velocity affected by two factors: gravity and a drag force. The velocity downward is increased at a rate of $9.8\ m/s^2$ due to gravity, and it is decreased by a rate equation to $0.3$ times the current velocity of the object. If the ball is initially thrown downwards at a speed of $2\ m/s$, what will the velocity be 10 seconds later?
+\end{quote}
+
+There might be enough information here to determine the velocity at any later point in time (it turns out, there is) but the information given isn't really about the velocity. Rather, information is given about the rate of change of the velocity. We know that the velocity will be increased at a rate of $9.8 m/s^2$ due to gravity. How can this be interpreted? The rate of change has been discussed previously way back in Calculus 1; this is the derivative. Thus, if we let the unknown function $v(t)$ represent the velocity of the object, the description above gives information about the derivative of this function for$v(t)$. Taking the two different factors (the increase and decrease of velocity) into account, we can write an expression for this derivative, giving that
+\begin{equation*}
+\frac{dv}{dt} = 9.8 - 0.3v.
+\end{equation*}
+Even though we don't know what $v(t)$ is, we know that it must affect the derivative of the velocity in this particular way, so we can write this equation. That's why we give a name to this function, so that we can use it in writing this equestion, which, since it is an equation involving the derivative of an unknown function $v(t)$, we call this a \myindex{differential equation}. Our goal here would be to use this information, plus the fact that the velocity at time zero is $v(0) = 2\ \text{m/s}$ to find the value of $v(10)$, or, more generally, the function $v(t)$ for any $t$. 
+
+The laws of physics, beyond just that of simple velocity, are generally written down as differential
+equations.  Therefore, all of science and engineering use
+differential equations to some degree.  Understanding
+differential equations is essential to understanding almost anything you will
+study in your science and engineering classes.
+You can think of mathematics as the language of science, and
+differential equations are one of the most important parts of this
+language as far as science and engineering are concerned.  As an analogy,
+suppose all your classes from now on were given half in Swahili and half in English.  
+It would be important to first learn Swahili, or you would have a very
+tough time getting a good grade in your classes. Without it, you might be able to make sense of some of what is going on, but would definitely be missing an important part of the picture. 
+
+
+\begin{definition}
+A \emph{\myindex{differential equation}} is an equation that involves one or more derivatives of an unknown function. For a differential equation, the \emph{\myindex{order}} of the differential equation is the highest order derivative that appears in the equation. 
+\end{definition}
+
+One example of a first order differential equation is
+\begin{equation} \label{eq1}
+\frac{dx}{dt} + x = 2 \cos t .
+\end{equation}
+Here $x$ is the \emph{\myindex{dependent variable}} and $t$ is the
+\emph{\myindex{independent variable}}. Note that we can use any letter we want for the dependent and independent variables. This equation arises from Newton's law of cooling where the ambient
+temperature oscillates with time. 
+
+To make sure that everything is well-defined, we will assume that we can always write our differential equation with the highest order derivative written as a function of all lower derivatives and the independent variable. For the previous example, since we can write \eqref{eq1} as
+\[ \frac{dx}{dt} = 2\cos t - x \] where the highest derivative $x'$ is written as a function of $t$ and $x$, we have a proper differential equation. On the other hand, something like
+\begin{equation}
+\left(\frac{dy}{dt}\right)^2 + y^2 = 1 \label{eqNonDiff}
+\end{equation}
+ is not a proper differential equation because we can't solve for $\frac{dy}{dt}$. This expression could either be written as
+\[ \frac{dy}{dt} = \sqrt{1 - y^2} \qquad \text{or} \qquad \frac{dy}{dt} = -\sqrt{1 - y^2}, \] and while both of these are proper differential equations, the version in \eqref{eqNonDiff} is not.   
+
+For some equations, like $y' = y^2$, the independent variable is not explicitly stated. We could be looking for a function $y(t)$ or a function $y(x)$ (or $y$ of any other variable) and without any other information, any of these is correct. Usually, there will be information in the problem statement to indicate that the independent variable is something like time, in which case everything should be written in terms of $t$. It is for this reason that Leibniz notation is preferred for derivatives; an equation like
+\[ \frac{dy}{dt} = y^2 \] is unambiguously looking for any answer $y(t)$.
+
+\begin{example}
+All of the below are differential equations
+\begin{equation*}
+\frac{dy}{dt} = e^t y \qquad \qquad z'' + z^2 = t\sin{z}
+\end{equation*}
+\begin{equation*}
+\frac{d^4f}{dx^4} - 3x \frac{d^2f}{dx^2} = x \qquad \qquad y''' + (y'')^2 - 3y = t^4.
+\end{equation*}
+Note that any letter can be used for the unknown function and its dependent variable. From the context of the equations, we can see that the unknown functions we are looking for in these examples are $y(t)$, $z(t)$, $y(x)$, and $y(t)$ respectively. The order of these equations are 1, 2, 4, and 3 respectively. 
+\end{example}
+
+
+\subsection{Solutions of differential equations}
+
+Solving the differential equation means finding the function that, when we plug it into the differential equation, gives a true statement. For example, take \eqref{eq1} from the previous section. In this case, this means that we want to find a function of $t$, which we call $x$, such that when
+we plug $x$, $t$, and $\frac{dx}{dt}$ into \eqref{eq1}, the equation holds;
+that is, the left hand side equals the right hand side.
+It is
+the same idea as it would be for a normal (algebraic) equation of just
+$x$ and $t$.  We claim that
+\begin{equation*}
+x = x(t) = \cos t + \sin t
+\end{equation*}
+is a \emph{\myindex{solution}}.
+How do we check?  We simply plug $x$ into equation \eqref{eq1}!  First we
+need to compute $\frac{dx}{dt}$.  We find that $\frac{dx}{dt} = 
+-\sin t + \cos t$.  Now let us compute the left-hand side
+of \eqref{eq1}.
+\begin{equation*}
+\frac{dx}{dt} + x = 
+\underbrace{(-\sin t + \cos t)}_{\frac{dx}{dt}}
++
+\underbrace{(\cos t + \sin t)}_{x}
+=
+2\cos t .
+\end{equation*}
+Yay!  We got precisely the right-hand side.
+But there is more!
+We claim
+$x = \cos t + \sin t + e^{-t}$ is also
+a solution.  Let us try,
+\begin{equation*}
+\frac{dx}{dt} = -\sin t + \cos t - e^{-t} .
+\end{equation*}
+We plug into the left-hand side of \eqref{eq1}
+\begin{equation*}
+\frac{dx}{dt} + x = 
+\underbrace{(-\sin t + \cos t - e^{-t})}_{\frac{dx}{dt}} +
+\underbrace{(\cos t + \sin t + e^{-t})}_{x}
+= 2\cos t .
+\end{equation*}
+
+\begin{mywrapfig}{2.75in}
+\capstart
+\diffyincludegraphics{width=2.5in}{width=4in}{intro-plots-alt}
+\caption{Few solutions of $\frac{dx}{dt} + x = 2 \cos t$.\label{intro:plotsfig}}
+\end{mywrapfig}%
+
+And it works yet again!
+
+So there can be many different solutions.  For this equation all
+solutions can be written in the form
+\begin{equation*}
+x = \cos t + \sin t + C e^{-t} ,
+\end{equation*}
+for some constant $C$.  Different constants $C$ will give different
+solutions, so there are really infinitely many possible solutions.
+See \figurevref{intro:plotsfig} for the graph of a
+few of these solutions. 
+We do not yet know how to find this solution, but we will get to that in the next chapter.
+
+\medskip
+
+Solving differential equations can be quite hard.  
+There is no general method that solves every differential equation.  We will
+generally focus on how to get exact formulas for solutions of certain
+differential
+equations, but we will also spend a little bit of time
+on getting approximate solutions.
+And we will spend some time on understanding the equations without solving
+them.
+
+Most of this book is dedicated to
+\emph{ordinary differential equations\index{ordinary differential equation}}
+or ODEs\index{ODE}, that is, equations with
+only one independent variable, where derivatives are only with respect to
+this one variable.
+If there are several independent variables, we get
+\emph{partial differential equations\index{partial differential equation}}
+or PDEs\index{PDE}.
+%We will briefly see these near the
+%end of the course.
+
+Even for ODEs, which are very well understood, it is not a simple question
+of turning a crank to get answers.  
+When you can find exact solutions, they are usually preferable to 
+approximate solutions.  It is important to understand how
+such solutions are found.
+Although in real applications you will
+leave much of the actual calculations to computers, you
+need to understand what they are doing.  It is often necessary
+to simplify or transform your equations into something that a computer can
+understand and solve.
+You may even need to make certain assumptions and changes in your
+model to achieve this.
+
+To be a successful engineer or scientist, you will be required to solve
+problems in your job that you have never seen before.  It is important to
+learn problem solving techniques, so that you may apply those techniques to
+new problems.  A common mistake is to expect to learn some prescription for
+solving all the problems you will encounter in your later career.  This
+course is no exception.
+
+\newpage
+
+\subsection{Differential equations in practice}
+
+\begin{mywrapfigsimp}{3.05in}{3.35in}
+\noindent
+\inputpdft{1-1-fig}
+\diffypdfversion{\par\vspace*{5pt}}
+\end{mywrapfigsimp}
+
+So how do we use differential equations in science and engineering?  The main way this takes place is through the process of mathematical modeling.
+First, we have some \emph{\myindex{real-world problem}} we wish
+to understand.
+We make some simplifying assumptions and create a
+\emph{\myindex{mathematical model}}, which is a translation of this real-world problem into a set of differential equations. Think back to the example at the beginning of this section. We took a physical situation (a falling object) with some knowledge about how it behaves and turned that into a differential equation that describes the velocity over time.
+Then we apply mathematics to get some sort of a
+\emph{\myindex{mathematical solution}}.
+Finally, we need to interpret our results, determining what this mathematical solution says about the real-world
+problem we started with. For instance, in the example at the start of the section, we could find the function $v(t)$, but then need to interpret that if we were to plug 10 into this function, we will get the velocity 10 seconds later. 
+
+Learning how to formulate the mathematical model and how to interpret the
+results is what your physics and engineering classes do.  In this
+course, we will focus mostly on the mathematical analysis. This will be interspersed with discussions of this modeling process to give some context to what we are doing, and give practice for what will be seen in future physics and engineering classes.
+
+Let us look at 
+an example of this process.
+One of the most basic differential equations
+is the standard \emph{\myindex{exponential growth model}}.
+Let $P$ denote the population 
+of some bacteria on a Petri dish.  We assume that there is enough food
+and enough space.  Then the rate of growth of bacteria is proportional
+to the population---a large population grows quicker.  Let $t$ denote
+time (say in seconds) and $P$ the population.  Our model
+is
+\begin{equation*}
+\frac{dP}{dt} = kP ,
+\end{equation*}
+for some positive constant $k > 0$.
+
+\begin{example}
+Suppose there are 100 bacteria at time 0 and 200 bacteria 10 seconds later.
+How many bacteria will there be 1 minute from time 0 (in 60 seconds)?
+\end{example}
+
+\begin{exampleSol}
+First we need to solve the equation.  We claim that a solution is given by
+\begin{equation*}
+P(t) = C e^{kt} ,
+\end{equation*}
+where $C$ is a constant.  Let us try:
+\begin{equation*}
+\frac{dP}{dt} = C k e^{kt} = k P .
+\end{equation*}
+And it really is a solution.
+
+OK\@, now what?  We do not know $C$, and we do not know $k$.  But we know
+something.  We know $P(0) = 100$, and we know \\
+$P(10) = 200$.  Let us plug these conditions in and see what happens.
+\begin{align*}
+& 100 = P(0) = C e^{k0} = C ,\\
+& 200 = P(10) = 100 \, e^{k10} .
+\end{align*}
+Therefore, $2 = e^{10k}$ or $\frac{\ln 2}{10} = k \approx 0.069$.
+So 
+\begin{equation*}
+P(t) = 100 \, e^{(\ln 2) t / 10} \approx 100 \, e^{0.069 t} .
+\end{equation*}
+
+%mbxSTARTIGNORE
+\begin{mywrapfig}{3.35in}
+\capstart
+\diffyincludegraphics{width=2.25in}{width=4.5in}{intro-plotbact}
+\caption{Bacteria growth in the first 60 seconds.\label{intro:plotbactfig}}
+\end{mywrapfig}
+%mbxENDIGNORE
+%
+% Make sure to keep the above and the mbx figure below in sync!
+%
+
+
+%mbxlatex \begin{myfig}
+%mbxlatex \capstart
+%mbxlatex \diffyincludegraphics{width=3in}{width=4.5in}{intro-plotbact}
+%mbxlatex \caption{Bacteria growth in the first 60 seconds.\label{intro:plotbactfig}}
+%mbxlatex \end{myfig}
+
+At one minute, $t=60$, the population is $P(60) = 6400$.  See
+\figurevref{intro:plotbactfig}.
+
+Let us talk about the interpretation of the results.  Does our solution
+mean that
+there must be exactly 6400 bacteria on the plate at 60s?  No!  We made
+assumptions that might not be true exactly, just approximately.
+If our assumptions are reasonable,
+then there will be approximately 6400 bacteria.
+Also, in real life $P$ is a
+discrete quantity, not a real number.  However, our model has no problem saying
+that for example at 61 seconds, $P(61) \approx 6859.35$.
+%Obviously there 
+%are either 6859 bacteria or 6860 bacteria.
+\end{exampleSol}
+
+Normally, the $k$ in $P' = kP$ is known,
+and we want to solve
+the equation for different \emph{initial conditions\index{initial condition}}.
+What does that mean?
+Take $k=1$ for simplicity.  Suppose we want to solve the equation
+$\frac{dP}{dt} = P$ 
+subject to $P(0) = 1000$ (the initial condition).
+Then the solution turns out to be (exercise)
+\begin{equation*}
+P(t) = 1000 \, e^t .
+\end{equation*}
+
+
+We call $P(t) = C e^t$ \emph{the \myindex{general solution}},
+as every solution
+of the equation can be written in this form for some constant $C$.  We
+need an initial condition to find out what $C$ is, in order to find the
+\emph{\myindex{particular solution}} we are looking for.  Generally, when we say
+\myquote{particular solution,} we just mean some solution.
+
+\subsection{Four fundamental equations} \label{subsection:fourfundamental}
+
+A few equations appear often and
+it is useful to know what
+their solutions are.
+Let us call them the \myindex{four fundamental equations}.
+Their solutions
+are reasonably easy
+to guess by recalling properties of exponentials, sines, and cosines.
+They are also simple to check, which is something that you should always do.
+No need to wonder if you remembered the solution correctly. It is good to have these as solutions that you ``know'' to build from when we learn solutions to other differential equations later on. In \Chapterref{fo:chapter} we will cover the first two, and the last two will be discussed in \Chapterref{ho:chapter}. 
+
+\medskip
+
+First such equation is
+\begin{equation*}
+\frac{dy}{dx} = k y ,
+\end{equation*}
+for some constant $k > 0$.
+Here $y$ is the dependent and $x$ the independent variable.
+The general solution for this equation is
+\begin{equation*}
+y(x) = C e^{kx} .
+\end{equation*}
+We saw above that this function is a solution, although we used different
+variable names.
+
+\medskip
+
+Next,
+\begin{equation*}
+\frac{dy}{dx} = -k y ,
+\end{equation*}
+for some constant $k > 0$.
+The general solution for this equation is
+\begin{equation*}
+y(x) = C e^{-kx} .
+\end{equation*}
+
+\begin{exercise}
+Check that the $y$ given is really a solution to the equation.
+\end{exercise}
+
+Next, take the
+\emph{\myindex{second order differential equation}}
+\begin{equation*}
+\frac{d^2y}{{dx}^2} = -k^2 y ,
+\end{equation*}
+for some constant $k > 0$.
+The general solution for this equation is
+\begin{equation*}
+y(x) = C_1 \cos(kx) + C_2 \sin(kx) .
+\end{equation*}
+Since the equation is a second order differential equation,
+we have two constants in our general solution.
+
+\begin{exercise}
+Check that the $y$ given is really a solution to the equation.
+\end{exercise}
+
+Finally, consider the second order differential equation
+\begin{equation*}
+\frac{d^2y}{{dx}^2} = k^2 y ,
+\end{equation*}
+for some constant $k > 0$.
+The general solution for this equation is
+\begin{equation*}
+y(x) = C_1 e^{kx} + C_2 e^{-kx} ,
+\end{equation*}
+or
+\begin{equation*}
+y(x) = D_1 \cosh(kx) + D_2 \sinh(kx) .
+\end{equation*}
+
+For those that do not know, $\cosh$ and $\sinh$ are defined by
+\begin{equation*}
+\cosh x = \frac{e^{x} + e^{-x}}{2} , \qquad
+\sinh x = \frac{e^{x} - e^{-x}}{2} .
+\end{equation*}
+They are called the
+\emph{\myindex{hyperbolic cosine}}
+and
+\emph{\myindex{hyperbolic sine}}.
+These functions are sometimes easier to
+work with than exponentials.  They have some nice familiar
+properties such as
+$\cosh 0 = 1$, $\sinh 0 = 0$, and $\frac{d}{dx} \cosh x = \sinh x$ (no that is
+not a typo)
+and $\frac{d}{dx} \sinh x = \cosh x$.
+
+\begin{exercise}
+Check that both forms of the $y$ given are
+really solutions to the equation.
+\end{exercise}
+
+\begin{example}
+In equations of higher order, you get more constants you must solve for to
+get a particular solution.  The equation $\frac{d^2y}{dx^2} = 0$ has the
+general solution $y = C_1 x + C_2$; simply integrate twice and don't forget
+about the constant of integration.  Consider the initial conditions $y(0) =
+2$ and $y'(0) = 3$.  We plug in our general solution and solve for the
+constants:
+\begin{equation*}
+2 = y(0) = C_1 \cdot 0 + C_2 = C_2, \qquad
+3 = y'(0) = C_1 .
+\end{equation*}
+In other words, $y = 3x + 2$ is the particular solution we seek.
+\end{example}
+
+%
+%An interesting note about $\cosh$:  The graph of $\cosh$ is the exact shape
+%of a hanging chain.  This shape is called
+%a \emph{\myindex{catenary}}.
+%Contrary to popular belief this is not a
+%parabola.  If you invert the graph of $\cosh$, it is also the ideal arch for
+%supporting its weight.
+%For example, the gateway arch in Saint Louis is an inverted graph of
+%$\cosh$---if it were just a parabola it might fall.  The formula
+%used in the design is
+%inscribed inside the arch:
+%\begin{equation*}
+%y = -127.7 \; \textrm{ft} \cdot \cosh({x / 127.7  \; \textrm{ft}}) + 757.7 \;
+%\textrm{ft} .
+%\end{equation*}
+
+
+
+\subsection{Exercises}
+
+%mbxSTARTIGNORE
+\noindent
+\emph{Note: Exercises marked with * have answers in the
+back of the book.}
+%mbxENDIGNORE
+
+%mbx <p><em>Note: Exercises marked with * have solutions.</em></p>
+
+\begin{exercise}
+Show that $x = e^{4t}$ is a solution to $x'''-12 x'' + 48 x' - 64 x = 0$.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Show that $x = e^{-2t}$ is a solution to $x'' + 4x' + 4x = 0$.
+\end{exercise}
+\exsol{%
+Compute $x' = -2e^{-2t}$ and $x'' = 4e^{-2t}$.  Then
+$(4e^{-2t}) + 4 (-2e^{-2t}) + 4 (e^{-2t}) = 0$.
+}
+
+\begin{exercise}
+Show that $x = e^{t}$ is not a solution to $x'''-12 x'' + 48 x' - 64 x = 0$.
+\end{exercise}
+
+\begin{exercise}
+Is $y = \sin t$ a solution to ${\left( \frac{dy}{dt} \right)}^2 = 1 - y^2$?
+Justify.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Is $y = x^2$ a solution to $x^2y'' - 2y = 0$?  Justify.
+\end{exercise}
+\exsol{%
+Yes.
+}
+
+\begin{exercise}
+Let $y'' + 2y' - 8y = 0$.  Now try a solution of the form $y = e^{rx}$ for
+some (unknown) constant $r$.  Is this a solution
+for some $r$?  If so, find all such $r$.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Let $xy'' - y' = 0$.  Try a solution of the form $y = x^r$.  Is this a
+solution for some $r$?  If so, find all such $r$.
+\end{exercise}
+\exsol{%
+$y=x^r$ is a solution for $r=0$ and $r=2$.
+}
+
+\begin{exercise}
+Verify that $x = C e^{-2t}$ is a solution to $x' = -2x$.
+Find $C$ to solve for the initial condition $x(0) = 100$.
+\end{exercise}
+
+\begin{exercise}
+Verify that $x = C_1 e^{-t} + C_2 e^{2t}$ is a solution to $x'' - x' -2 x =
+0$.  Find $C_1$ and $C_2$ to solve for the initial conditions $x(0) = 10$
+and $x'(0) = 0$.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Verify that $x=C_1e^t+C_2$ is a solution to $x''-x' = 0$.  Find $C_1$ and
+$C_2$ so that $x$ satisfies $x(0) = 10$ and $x'(0) = 100$.
+\end{exercise}
+\exsol{%
+$C_1 = 100$, $C_2 = -90$
+}
+
+\begin{exercise}
+Find a solution to
+${(x')}^2 + x^2 = 4$
+using your knowledge of derivatives of functions that you
+know from basic calculus.
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Solve $\frac{d\varphi}{ds} = 8 \varphi$ and $\varphi(0) = -9$.
+\end{exercise}
+\exsol{%
+$\varphi = -9 e^{8s}$
+}
+
+\begin{exercise}
+Solve:
+\begin{tasks}(2)
+\task $\dfrac{dA}{dt} = -10 A, \quad A(0)=5$
+\task $\dfrac{dH}{dx} = 3 H, \quad H(0)=1$
+\task $\dfrac{d^2y}{dx^2} = 4 y, \quad y(0)=0, \quad y'(0)=1$
+\task $\dfrac{d^2x}{dy^2} = -9 x, \quad x(0)=1, \quad x'(0)=0$
+\end{tasks}
+\end{exercise}
+
+\begin{exercise}\ansMark%
+Solve:
+\begin{tasks}(2)
+\task $\dfrac{dx}{dt} = -4x, \quad x(0)=9$
+\task $\dfrac{d^2x}{dt^2} = -4x, \quad x(0)=1, \quad x'(0)=2$
+\task $\dfrac{dp}{dq} = 3 p, \quad p(0)=4$
+\task $\dfrac{d^2T}{dx^2} = 4 T, \quad T(0)=0, \quad T'(0)=6$
+\end{tasks}
+\end{exercise}
+\exsol{%
+a)~$x=9e^{-4t}$ \quad
+b)~$x=\cos(2t)+\sin(2t)$ \quad
+c)~$p=4e^{3q}$ \quad
+d)~$T=3\sinh(2x)$
+}
+
+\begin{exercise}
+Is there a solution to $y' = y$, such that $y(0) = y(1)$?
+\end{exercise}
+
+\begin{exercise}
+The population of city X was 100 thousand 20 years ago, and 
+the population of city X was 120 thousand 10 years ago.  Assuming constant
+growth, you can use the exponential population model
+(like for the bacteria).  What do you estimate the population is now?
+\end{exercise}
+
+\begin{exercise}
+Suppose that a football coach gets a salary of
+one million dollars now, and a raise of $10\%$ every year
+(so exponential model, like population of bacteria).
+Let $s$ be the salary in millions of dollars, and $t$ is time in years.
+\begin{tasks}(2)
+\task
+What is $s(0)$ and $s(1)$.
+\task
+Approximately how many years will it take for the salary to be 10 million.
+\task
+Approximately how many years will it take for the salary to be 20 million.
+\task
+Approximately how many years will it take for the salary to be 30 million.
+\end{tasks}
+\end{exercise}
+
+\setcounter{exercise}{100}
+
+
