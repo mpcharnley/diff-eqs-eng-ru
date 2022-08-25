@@ -31,4 +31,8 @@ The tex sources require a very recent LaTeX, if your latex does not have a recen
 
 ## Extra Files
 
-At this point, there are many files here that came from Notes on Diffy Qs that are not included in the text. Several chapters have been omitted from the text and may be included at a later time. They are included here for consistency and continuity. 
+At this point, there are many files here that came from *Notes on Diffy Qs* that are not included in the text. Several chapters have been omitted from the text and may be included at a later time. They are included here for consistency and continuity. 
+
+## Old Files
+
+The ``old-sec`` folder contains previous section files, either original or from *Notes on Diffy Qs*, that were omitted as a part of this text development. Again, there are here for continuity. 
