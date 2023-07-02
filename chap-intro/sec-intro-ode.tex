@@ -435,6 +435,12 @@ back of the book.}
 \begin{exercise}
 Show that $x = e^{4t}$ is a solution to $x'''-12 x'' + 48 x' - 64 x = 0$.
 \end{exercise}
+\comboSol{%
+}
+{%
+Since $x' = 4e^{4t}$, $x'' = 16e^{4t}$, $x'' = 64e^{4t}$, we have
+$x''' - 12x'' + 15x' - 64x = 64e^{4t} - 12(16e^{4t}) + 48(4e^{4t}) - 64e^{4t} = 0$.
+}
 
 \begin{exercise}\ansMark%
 Show that $x = e^{-2t}$ is a solution to $x'' + 4x' + 4x = 0$.
@@ -447,11 +453,22 @@ $(4e^{-2t}) + 4 (-2e^{-2t}) + 4 (e^{-2t}) = 0$.
 \begin{exercise}
 Show that $x = e^{t}$ is not a solution to $x'''-12 x'' + 48 x' - 64 x = 0$.
 \end{exercise}
+\comboSol{%
+}
+{%
+All derivatives are $e^t$ so
+$x''' - 12x'' + 48x' - 64x = (1 - 12 + 48 - 64)e^t \neq 0$. Therefore, it is not a solution.
+}
 
 \begin{exercise}
 Is $y = \sin t$ a solution to ${\left( \frac{dy}{dt} \right)}^2 = 1 - y^2$?
 Justify.
 \end{exercise}
+\comboSol{%
+}
+{%
+$y' = \cos(t)$, which gives $\cos(t)^2 = 1 - \sin^2(t)$, which is a true statement. 
+}
 
 \begin{exercise}\ansMark%
 Is $y = x^2$ a solution to $x^2y'' - 2y = 0$?  Justify.
@@ -465,6 +482,11 @@ Let $y'' + 2y' - 8y = 0$.  Now try a solution of the form $y = e^{rx}$ for
 some (unknown) constant $r$.  Is this a solution
 for some $r$?  If so, find all such $r$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$r = 2, -4$
+}
 
 \begin{exercise}\ansMark%
 Let $xy'' - y' = 0$.  Try a solution of the form $y = x^r$.  Is this a
@@ -478,12 +500,22 @@ $y=x^r$ is a solution for $r=0$ and $r=2$.
 Verify that $x = C e^{-2t}$ is a solution to $x' = -2x$.
 Find $C$ to solve for the initial condition $x(0) = 100$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$C = 100$
+}
 
 \begin{exercise}
 Verify that $x = C_1 e^{-t} + C_2 e^{2t}$ is a solution to $x'' - x' -2 x =
 0$.  Find $C_1$ and $C_2$ to solve for the initial conditions $x(0) = 10$
 and $x'(0) = 0$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$C_1 = \frac{20}{3}$, $C_2 = \frac{10}{3}$.
+}
 
 \begin{exercise}\ansMark%
 Verify that $x=C_1e^t+C_2$ is a solution to $x''-x' = 0$.  Find $C_1$ and
@@ -499,6 +531,11 @@ ${(x')}^2 + x^2 = 4$
 using your knowledge of derivatives of functions that you
 know from basic calculus.
 \end{exercise}
+\comboSol{%
+}
+{%
+$x = 2\cos(t)$ or $x = 2\sin(t)$.
+}
 
 \begin{exercise}\ansMark%
 Solve $\frac{d\varphi}{ds} = 8 \varphi$ and $\varphi(0) = -9$.
@@ -516,6 +553,14 @@ Solve:
 \task $\dfrac{d^2x}{dy^2} = -9 x, \quad x(0)=1, \quad x'(0)=0$
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~$A(t) = 5e^{-10t}$\quad
+b)~$H(x) = e^{3x}$\quad
+c)~$y(x) = \frac{1}{2}\sinh(h) = \frac{1}{4}e^{2x} - \frac{1}{4}e^{-2x}$\quad
+d)~$x(y) = \cos(3y)$
+}
 
 \begin{exercise}\ansMark%
 Solve:
@@ -536,6 +581,11 @@ d)~$T=3\sinh(2x)$
 \begin{exercise}
 Is there a solution to $y' = y$, such that $y(0) = y(1)$?
 \end{exercise}
+\comboSol{%
+}
+{%
+No.
+}
 
 \begin{exercise}
 The population of city X was 100 thousand 20 years ago, and 
@@ -543,6 +593,11 @@ the population of city X was 120 thousand 10 years ago.  Assuming constant
 growth, you can use the exponential population model
 (like for the bacteria).  What do you estimate the population is now?
 \end{exercise}
+\comboSol{%
+}
+{%
+144
+}
 
 \begin{exercise}
 Suppose that a football coach gets a salary of
@@ -560,6 +615,14 @@ Approximately how many years will it take for the salary to be 20 million.
 Approximately how many years will it take for the salary to be 30 million.
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~$s(0) = 1$, $s(1) = 1.1$\quad
+b)~$\ln(10)/\ln(1.1) \approx 24.2$
+c)~$\ln(20)/\ln(1.1) \approx 31.4$
+d)~$\ln(30)/\ln(1.1) \approx 35.7$
+}
 
 \setcounter{exercise}{100}
 

@@ -133,6 +133,11 @@ order equations.
 different kinds of behavior here?
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~${\vec{x}}' = \left[\begin{smallmatrix} 0 & 1 \\ -k/m &-c/m \end{smallmatrix}\right]\vec{x}$ \quad b)~$c=0$ is center, $c^2 - 4mk < 0$ is spiral sink, $c^2 - 4mk = 0$ is improper sink, $c^2 - 4mk > 0$ is nodal sink. \quad c)~The forced positive coefficients restricts the behavior 
+}
 
 \begin{exercise}
 What happens in the case when $P = 
@@ -141,12 +146,22 @@ this case the eigenvalue is repeated and there is only one independent eigenvect
 What
 picture does this look like?
 \end{exercise}
+\comboSol{%
+}
+{%
+Improper nodal sink \hfill\raisebox{-0.5\height}{\includegraphics[height=1.5in]{Images/phaseportrait_1_1_0_1_sketch.png}}\hfill\hfill
+}
 
 \begin{exercise}
 What happens in the case when $P = 
 \left[ \begin{smallmatrix} 1 & 1 \\ 1 & 1 \end{smallmatrix} \right]$?
 Does this look like any of the pictures we have drawn?
 \end{exercise}
+\comboSol{%
+}
+{%
+It does not look like any of our previous pictures. \hfill\raisebox{-0.5\height}{\includegraphics[height=1.5in]{Images/phaseportrait_1_1_1_1_sketch.png}}\hfill\hfill
+}
 
 \begin{exercise}\ansMark%
 Describe the behavior of the following systems without solving:
@@ -175,6 +190,11 @@ Which behaviors are possible if $P$ is diagonal, that is
 $P = \left[ \begin{smallmatrix} a & 0 \\ 0 & b \end{smallmatrix} \right]$?
 You can assume that $a$ and $b$ are not zero.
 \end{exercise}
+\comboSol{%
+}
+{%
+Eigenvalues are $a$ and $b$, so any real eigenvalue behavior is possible. Saddle, source, sink.
+}
 
 \begin{exercise}\ansMark%
 Suppose that $\vec{x}\,' = A \vec{x}$ where $A$ is a 2 by 2 matrix
@@ -213,6 +233,11 @@ Consider the system of differential equations given by
 \task Find the general solution to this system of differential equations and verify that it matches the analysis in (a).
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+Spiral sink. $\vec{x}(t) = C_1e^{-2t}\left[\begin{smallmatrix} -\sin(3t) \\ \cos(3t) \end{smallmatrix}\right] + C_2e^{-2t} \left[\begin{smallmatrix} \cos(3t) \\ \sin(3t) \end{smallmatrix}\right]$.
+}
 
 \begin{exercise}
 Consider the system of differential equations given by 
@@ -224,6 +249,11 @@ Consider the system of differential equations given by
 \task Find the general solution to this system of differential equations and verify that it matches the analysis in (a).
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+Improper nodal source. $\vec{x}(t) = C_1 \left[\begin{smallmatrix} 1 \\ -1 \end{smallmatrix}\right]e^t + C_2\left(\left[\begin{smallmatrix} 1 \\ -1 \end{smallmatrix}\right]te^t + \left[\begin{smallmatrix} -1/3 \\ 0 \end{smallmatrix}\right]e^t \right)$
+}
 
 \begin{exercise}
 Take the system from \examplevref{sintro:closedbrine-example},
@@ -232,6 +262,11 @@ $x_2'=\frac{r}{V}(x_1-x_2)$.
 As we said, one of the eigenvalues is zero.  What is the other eigenvalue, how
 does the picture look like and what happens when $t$ goes to infinity.
 \end{exercise}
+\comboSol{%
+}
+{%
+All solutions flow directly to the line $y=x$.
+}
 
 \begin{exercise}\ansMark%
 Take

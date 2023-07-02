@@ -56,7 +56,7 @@ which we can solve for $k$ using logarithms. This will give that
 
 Finally, we can plug that constant into our equation to get the solution for the temperature at any time value,
 \begin{equation*}
-T(t) = 20+30e^{-\frac{t}{10}\ln{\frac{2}{3}}}. 
+T(t) = 20+30e^{\frac{t}{10}\ln{\frac{2}{3}}}. 
 \end{equation*}
 \end{exampleSol} 
 
@@ -154,6 +154,11 @@ where $T_0$ is the ambient temperature and $k$ is a constant depending on the ob
 \task If the coffee is too cold for Bob's taste once it reaches 35$^\circ$ C, how long is the acceptable window for Bob to drink his coffee?
 \end{tasks} 
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~ $\approx$ 0.06681 \quad b)~$\approx$ 6.42 min \quad c)~ $\approx$ 16 min.
+}
 
 \begin{exercise}
 Assume that a falling object has a velocity (in meters per second) that obeys the differential equation
@@ -167,6 +172,11 @@ where $\alpha$ represents the drag coefficient of the object.
 \task Assume that a second object hits the ground in 6 seconds. How does this change the value of $\alpha$?
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~ $v(t) = \frac{9.8}{\alpha}(1 - e^{-\alpha t})$ \quad b)~2.94 \quad c)~5.88
+}
 
 \begin{exercise}
 A restaurant is trying to analyze the to-go coffee cups that it uses in order to best serve their customers. They assume that the coffee follows Newton's Law of Cooling and place it in a room with ambient temperature 22$^\circ$ C. They record the following data for the temperature of the coffee as a function of time.
@@ -175,10 +185,10 @@ A restaurant is trying to analyze the to-go coffee cups that it uses in order to
     \begin{tabular}{|c|c|}\hline
          \textbf{t} (min)& \textbf{T} ($^\circ$ C)  \\ \hline
         0 & 80 \\
-         0.5 & 77.1624 \\
-         1.1 & 73.8082 \\
-         1.7 & 70.6800 \\
-         2.3 & 67.7996 \\ \hline
+         0.5 & 74 \\
+         1.1 & 67 \\
+         1.7 & 61 \\
+         2.3 & 56 \\ \hline
     \end{tabular}
 \end{table}
 \begin{tasks}
@@ -186,10 +196,11 @@ A restaurant is trying to analyze the to-go coffee cups that it uses in order to
 \task The restaurant determines that to avoid any potential legal issues, the coffee can be no warmer than 60 $^\circ$C when it is served. If the coffee comes out of the machine at 90 $^\circ C$, how long do they have to wait before they can serve the coffee?
 \end{tasks}
 \end{exercise}
-%\exsol{%
-% a) $k \approx .1027$.
-% b)
-% }
+\comboSol{%
+}
+{%
+a)~ $k \approx 0.2317$ \quad b)~$\approx 2.51$ min
+}
 
 \newpage
 
@@ -203,23 +214,23 @@ where the velocity is in \unitfrac{m}{s} and $\alpha$ represents the drag coeffi
 Use this data (and code) to estimate the value of $\alpha$ for this object. 
 \end{exercise} 
 \exsol{%
-$\alpha = .123$. The alpha value used before noise was added to the data is $0.124$, so very close, but not identically the same.%
+$\alpha = .1244$. The alpha value used before noise was added to the data is $0.124$, so very close, but not identically the same.%
 }
 \begin{minipage}{0.49\textwidth}
 \centering
     \begin{tabular}{|c|c|}\hline
          \textbf{t} (s)& \textbf{v} (m/s)  \\ \hline
         0 & 0 \\
-	0.1 &0.9762 \\
-	0.2 &  1.9341 \\
-	0.4 & 3.6597 \\
-	0.6 & 5.1613 \\
-	0.9 & 6.7847 \\
-	1.1 & 7.4103 \\
-	1.3 & 7.9471 \\
-	1.5 & 8.2975 \\
-	1.8 & 8.5739\\
-	2.1 & 8.7769  \\ \hline
+	0.1 &1.0 \\
+	0.2 &  1.9\\
+	0.4 & 3.6 \\
+	0.6 & 5.2 \\
+	0.9 & 6.8 \\
+	1.1 & 7.4 \\
+	1.3 & 7.9 \\
+	1.5 & 8.2 \\
+	1.8 & 8.5\\
+	2.1 & 8.8  \\ \hline
     \end{tabular}
     \captionof{table}{Data for \exerciseref{ex:ModelingParamVel}.}
 \end{minipage}%
@@ -228,13 +239,13 @@ $\alpha = .123$. The alpha value used before noise was added to the data is $0.1
     \begin{tabular}{|c|c|}\hline
          \textbf{t} (d)& \textbf{P} (thousands)  \\ \hline
         0 & 50 \\
-       7  & 58.6556 \\
-        14 & 68.4521 \\
-        28 & 91.4883 \\
-        37 & 108.5750 \\
-         50 & 135.7148 \\
-        78 & 197.3520 \\
-        100 & 239.9479
+       7  & 60 \\
+        14 & 70 \\
+        28 & 97 \\
+        37 & 117 \\
+         50 & 148 \\
+        78 & 220 \\
+        100 & 268
          \\ \hline
     \end{tabular}
     \captionof{table}{Data for \exerciseref{ex:ModelingParamPop}.}
@@ -247,14 +258,15 @@ Assume that a species of fish in a lake has a population that is modeled by the 
 \end{equation*}
 where $r$, $K$, and $\alpha$ are parameters, $r$ representing the growth rate, $K$ the carrying capacity, and $\alpha$ the harvesting rate, and the population $P$ is in thousands., with $t$ given in years. From previous studies, you know that the best value of $r$ is $3.12$. After studying the population over a period of time, you get the data given above.
 \begin{tasks}
-\task Your friend tells you that in a previous study, he found that the value of $K$ for this particular lake is $255.2$. Use code to determine the best value of $\alpha$ for this situation. Note that the equation expects $t$ in years, but the data is given in days. 
+\task Your friend tells you that in a previous study, he found that the value of $K$ for this particular lake is $450$. Use code to determine the best value of $\alpha$ for this situation. Note that the equation expects $t$ in years, but the data is given in days. Search for $\alpha$ in the range $(0, 400)$.
 \task That answer doesn't look great. Plot the solution with these parameters along with the data and compare them.
-\task The fit does not look great, so maybe your friend's value was not quite right. Run code to find best values for $K$ and $\alpha$ simultaneously. 
+\task The fit does not look great, so maybe your friend's value was not quite right. Run code to find best values for $K$ and $\alpha$ simultaneously. Use the range $(0, 400)$ for both $\alpha$ and $K$.
 \end{tasks}
 
 \end{exercise}
-\exsol{%
-a) $\alpha = 4.03\times 10^{-5}$, so $\alpha \approx 0$.
-c) $K = 324.07$ and $\alpha = 5.061$. 
-}%
+\comboSol{%
+}
+{%
+a)~ $\alpha = 337.55$ \quad c)~ $\alpha = 6.53$, $K = 350.45$. (The base data was $K = 350$, $\alpha = 3.79$.)
+}
 

@@ -200,7 +200,7 @@ We plug $y_p$ into the equation and we get
 +2 \underbrace{\bigl(-2A \sin (2x) + 2B \cos (2x)\bigr)}_{y_p'}
 \\
 +
-2 \underbrace{\bigl(A \cos (2x) + 2B \sin (2x)\bigr)}_{y_p}
+2 \underbrace{\bigl(A \cos (2x) + B \sin (2x)\bigr)}_{y_p}
 = \cos (2x) ,
 \end{multline*}
 or
@@ -369,31 +369,32 @@ y_p'' - 3y_p' - 4y_p &= (Axe^{-x} - 2Ae^{-x} - B\sin(x) - C\cos(x))\\
 \end{equation*}
 which can be simplified to
 \begin{equation*}
-y_p'' - 3y_p' - 4y_p = -5Ae^{-x} + (3B + 3C)\sin(x) + (3C - 3B)\cos(x).
+y_p'' - 3y_p' - 4y_p = -5Ae^{-x} + (3C - 5B)\sin(x) + (-3B-5C)\cos(x).
 \end{equation*}
-Since we want this to equal $2e^{-x} + 4\sin(x)$, this means that we need $-5A = 2$, so $A = -\nicefrac{2}{5}$, as well as $3B + 3C = 4$ and $3C - 3B = 0$. The second of these implies that $B = C$, and the first equation then gives that $6B = 4$ or $B = C = \nicefrac{2}{3}$. Therefore, the general solution to this non-homogeneous problem is
+Since we want this to equal $2e^{-x} + 4\sin(x)$, this means that we need $-5A = 2$, so $A = -\nicefrac{2}{5}$, as well as $3C - 5B = 4$ and $-3B-5C = 0$. The second of these implies that $3B = -5C$, or $B = -\nicefrac{5}{3}C$, so that the first equation gives $3C - 5(-\nicefrac{5}{3}C) = 4$. This implies that $(3 + \nicefrac{25}{3})C = 4$ so that \[ C = \frac{4}{(3 + \frac{25}{3})} = \frac{4}{\frac{34}{3}} = \frac{6}{17}.\] We can then find $B$ as
+\[ B = -\frac{5}{3}C = -\frac{5}{3} \cdot \frac{6}{17} = -\frac{10}{17}.\] Therefore, the general solution to this non-homogeneous problem is
 \begin{equation*}
-y(x) = C_1e^{4x} + C_2e^{-x} - \frac{2}{5}xe^{-x} + \frac{2}{3}\sin(x) + \frac{2}{3}\cos(x).
+y(x) = C_1e^{4x} + C_2e^{-x} - \frac{2}{5}xe^{-x} - \frac{10}{17}\sin(x) + \frac{6}{17}\cos(x).
 \end{equation*}
 
 Now we can look to meet the initial conditions. We want to differentiate this expression to get
 \begin{equation*}
-y'(x) = 4C_1e^{4x} - C_2e^{-x} - \frac{2}{5}e^{-x} + \frac{2}{5}xe^{-x} + \frac{2}{3}\cos(x) - \frac{2}{3}\sin(x)
+y'(x) = 4C_1e^{4x} - C_2e^{-x} - \frac{2}{5}e^{-x} + \frac{2}{5}xe^{-x} - \frac{10}{17}\cos(x) - \frac{6}{17}\sin(x)
 \end{equation*}
 and then plug zero into both $y$ and $y'$ to get that
 \begin{equation*}
 \begin{split}
-y(0) &= C_1 + C_2 + \frac{2}{3} = -2 \\
-y'(0) &= 4C_1 - C_2 - \frac{2}{5} + \frac{2}{3} = 1
+y(0) &= C_1 + C_2 + \frac{6}{17} = -2 \\
+y'(0) &= 4C_1 - C_2 - \frac{2}{5} - \frac{10}{17} = 1
 \end{split}
 \end{equation*}
 which gives rise to the system
 \begin{equation*}
-C_1 + C_2 = -\frac{8}{3} \qquad 4C_1 - C_2 = \frac{11}{15}.
+C_1 + C_2 = -\frac{40}{17} \qquad 4C_1 - C_2 = \frac{169}{85}.
 \end{equation*}
-Adding the equations together gives $5C_1 = - \frac{29}{15}$ so that $C_1 = -\frac{29}{75}$ and then $C_2 = -\frac{171}{75}$. Therefore the solution to the initial value problem is
+Adding the equations together gives $5C_1 = - \frac{31}{85}$ so that $C_1 = -\frac{31}{425}$ and then $C_2 = -\frac{969}{425} = -\frac{57}{25}$. Therefore the solution to the initial value problem is
 \begin{equation*}
-y(x) = -\frac{29}{75}e^{4x} - \frac{171}{75}e^{-x} - \frac{2}{5}xe^{-x} + \frac{2}{3}\sin(x) + \frac{2}{3}\cos(x).
+y(x) = -\frac{31}{425}e^{4x} - \frac{57}{25}e^{-x} - \frac{2}{5}xe^{-x} - \frac{10}{17}\sin(x) + \frac{6}{17}\cos(x).
 \end{equation*}
 \end{exampleSol}
 
@@ -619,11 +620,21 @@ which, after combining the terms, is the same as the solution that we obtained v
 Find a particular solution of
 $y''-y' -6y = e^{2x}$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$C_1e^{3x} + C_2e^{-2x} - \frac{1}{4}e^{2x}$
+}
 
 \begin{exercise}
 Find a particular solution of
 $y''-4y' +4y = e^{2x}$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$C_1e^{2x} + C_2xe^{2x} + \frac{1}{2}x^2e^{2x}$
+}
 
 \begin{exercise}\ansMark%
 Find a particular solution to $y''-y'+y=2\sin(3x)$
@@ -636,16 +647,31 @@ $y=\frac{-16\sin(3x)+6\cos(3x)}{73}$
 Solve the initial value problem
 $y''+9y = \cos (3x) + \sin (3x)$ for $y(0) = 2$, $y'(0) = 1$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$y(x) = 2\cos(3x) + \frac{7}{18}\sin(3x) - \frac{1}{6}x\cos(3x) + \frac{1}{6}x\sin(3x)$
+}
 
 \begin{exercise}
 Set up the form of the particular solution but do not solve
 for the coefficients for $y^{(4)}-2y'''+y'' = e^x$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$Ax^2e^x$
+}
 
 \begin{exercise}
 Set up the form of the particular solution but do not solve
 for the coefficients for $y^{(4)}-2y'''+y'' = e^x + x + \sin x$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$Ax^3 + Bx^2 + Cx^2e^x + D\sin(x) + E\cos(x)$
+}
 
 \begin{exercise}\ansMark%
 Solve $y''+2y'+y = x^2$, $y(0)=1$, $y'(0)=2$.
@@ -657,6 +683,11 @@ $y(x) = x^2-4 x+6+e^{-x}(x-5)$
 \begin{exercise}
 Use the {\it method of undetermined coefficients} to solve the DE $y''+4y'=2t+30$. %2.5
 \end{exercise}
+\comboSol{%
+}
+{%
+$y(t) = C_1 + C_2e^{-4t} + \frac{1}{4}t + \frac{59}{8}$
+}
 
 \begin{exercise}
 \pagebreak[2]
@@ -670,6 +701,11 @@ coefficients.
 See also \exerciseref{exercise:diffvarparunder}.
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+$\frac{x^2}{2}e^x$
+}
 
 \begin{samepage}
 \begin{exercise}\ansMark%
@@ -688,30 +724,65 @@ b) $y=C_1 \cos(\sqrt{2} x) + C_2 \sin(\sqrt{2} x) + \frac{2e^x+3x^3-9x}{6}$
 \begin{exercise}
 Find the general solution to $y'' - 3y' - 4y = e^{2t} + 1$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$y(t) = C_1e^{4t} + C_2e^{-t} - \frac{1}{6}e^{2t} - \frac{1}{4}$
+}
 
 \begin{exercise}
-Find the general solution to $y'' - 2y' - 5y = \sin(3t) + 2\cos(3t)$.
+Find the general solution to $y'' - 2y' + 5y = \sin(3t) + 2\cos(3t)$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$y(t) = C_1e^t\cos(2t) + C_2e^t\sin(2t) - \frac{4}{13}\sin(3t) - \frac{1}{26}\cos(3t)$
+}
 
 \begin{exercise}
 Find the general solution to $y'' - 4y' - 21y = e^{-3t} + e^{4t}$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$y(t) = C_1e^{7t} + C_2e^{-3t} - \frac{1}{10}te^{-3t} - \frac{1}{21}e^{4t}$
+}
 
 \begin{exercise}
 Find the general solution to $y'' - 2y' + y = e^t - t$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$y(t) = C_1e^t + C_2te^t + \frac{1}{2}t^2e^t - t - 2$
+}
 
 \begin{exercise}
 Find the general solution to $y'' + 4y = \sec(2t)$ using variation of parameters.
 \end{exercise}
+\comboSol{%
+}
+{%
+$y(t) = C_1\cos(2t) + C_2\sin(2t) + \frac{1}{4}\cos(2t)\ln(\cos(2t)) + \frac{1}{2}t\sin(2t)$
+}
 
 \begin{exercise}
 Find the solution of the initial value problem $y'' - 2y' - 15y = e^{5t} + 3$, $y(0) = 2$, $y'(0) = -1$. 
 \end{exercise}
+\comboSol{%
+}
+{%
+$y(t) = \frac{219}{320}e^{5t} + \frac{97}{64}e^{-3t} + \frac{1}{8}te^{5t} - \frac{1}{5}$
+}
 
 \begin{exercise}
 Find the solution of the initial value problem $y'' + 4y' + 5y = \cos(3t) + t$, $y(0) = 0$, $y'(0) = 2$.  
 \end{exercise}
+\comboSol{%
+}
+{%
+$y(t) = \frac{37}{200}e^{-2t}\cos(t) + \frac{389}{200}e^{-2t}\sin(t) - \frac{1}{40}\cos(3t) + \frac{3}{40}\sin(3t) + \frac{t}{5} - \frac{4}{25}$
+}
 
 \begin{exercise}
 The following differential equations are all related. Find the general solution to each of them and compare and contrast the different solutions and the methods used to approach them.
@@ -722,22 +793,38 @@ The following differential equations are all related. Find the general solution 
 \task $y'' - 2y' - 15y = 2e^{5t} - \sin(t)$
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~$C_1e^{5t} + C_2e^{-3t}  - \frac{1}{16}e^t + \frac{5}{9}e^{-4t}$ \quad b)~$C_1e^{5t} + C_2e^{-3t}  - \frac{2}{15}e^{2t} - \frac{3}{13}e^{-t}$ \\
+c)~$C_1e^{5t} + C_2e^{-3t}  - \frac{57}{377}\cos(2t) - \frac{12}{377}\sin(2t)$ \quad d)~$C_1e^{5t} + C_2e^{-3t}  + \frac{1}{4}te^{5t} - \frac{1}{130}\cos(t) + \frac{4}{65}\sin(t)$ \\
+}
 
 \begin{exercise}
 The following differential equations are all related. Find the general solution to each of them and compare and contrast the different solutions and the methods used to approach them.
 \begin{tasks}
-\task $y'' + 4y' + 3y = e^{2t} + 3e^{4t}$
+\task $y'' + 4y' + 3y = e^{2t} + 3e^{4t}$ 
 \task $y'' - 2y' + 5y = e^{2t} + 3e^{4t}$
-\task $y'' - 3y' - 10y = e^{2t} + 3e^{4t}$
+\task $y'' + 3y' - 10y = e^{2t} + 3e^{4t}$
 \task $y'' - 8y'  + 16y = e^{2t} + 3e^{4t}$
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~$C_1e^{-t} + C_2e^{-3t} + \frac{1}{11}e^{2t} + \frac{3}{35}e^{4t}$ \quad b)~$C_1e^{t}\cos(2t) + C_2e^t\sin(2t) + \frac{1}{20}e^{2t} + \frac{3}{13}e^{4t}$ \\ c)~$C_1e^{-5t} + C_2e^{2t} + \frac{1}{7}te^{2t} - \frac{1}{2}e^{4t}$ \quad d)~$C_1e^{4t} + C_2te^{4t} - \frac{1}{28}e^{2t} + \frac{3}{2}t^2e^{4t}$
+}
 
 \begin{exercise}
 Find a particular solution of
 $y''-2y' +y = \sin (x^2)$.  It is OK to leave the answer as a definite
 integral.
 \end{exercise}
+\comboSol{%
+}
+{%
+$e^x\int_0^x se^{-s}\sin(s^2)\ ds + xe^x\int_0^xe^{-s}\sin(s^2)\ ds$
+}
 
 \begin{exercise}
 Use variation of parameters to
@@ -754,6 +841,12 @@ Recall that a homogeneous \emph{\myindex{Euler equation}} is one of the form $t^
 \task Let $y_1$ and $y_2$ be a fundamental set for the above equation. Use the variation of parameters equations $\displaystyle u_1=-\int \frac{y_2\, g(t)}{y_1y_2' - y_2y_1'}\,dt$, $\displaystyle y_2=\int \frac{y_1\, g(t)}{y_1y_2' - y_2y_1'}\,dt$ to solve the non-homogeneous equation $\displaystyle y''-\frac{2}{t} - \frac{10}{t^2}=t^3$. \hfill\break (Do not attempt method of undetermined coefficients instead; it won't work.)
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~$y(t) = C_1t^5 + C_2t^{-2}$ \quad
+b)~$y(t) = C_1t^5 + C_2t^{-2} + t^5\left(\frac{1}{7}\ln(|t|) - \frac{1}{49}\right)$
+}
 
 \begin{exercise}
 For an arbitrary constant $c$ find the general solution
@@ -767,6 +860,11 @@ $y=\frac{-\sin(x+c)}{3}+C_1 e^{\sqrt{2}\,x}+C_2 e^{-\sqrt{2}\,x}$
 For an arbitrary constant $c$ find a particular solution
 to $y''-y=e^{cx}$.  Hint: Make sure to handle every possible real $c$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$c\neq \pm1$: $C_1e^x + C_2e^{-x} + \frac{1}{c^2 - 1}e^{cx}$, \ $c=1$: $C_1e^x + C_2e^{-x} + \frac{1}{2}xe^x$, \ $c=-1$: $C_1e^x + C_2e^{-x} - \frac{1}{2}xe^{-x}$
+}
 
 \begin{exercise} \label{exercise:diffvarparunder}
 \pagebreak[2]
@@ -780,5 +878,10 @@ coefficients.
 What is going on?
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~$\frac{1}{2}xe^x - \frac{1}{4}e^x$ \quad b)~$\frac{1}{2}xe^x$ \quad c)~They differ by a $Ce^x$ term
+}
 
 \setcounter{exercise}{100}

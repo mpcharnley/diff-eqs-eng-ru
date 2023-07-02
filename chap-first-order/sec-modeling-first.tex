@@ -326,6 +326,12 @@ concentration in the first lake be below \unit[0.001]{kg} per liter?
 concentration in the second lake be maximal?
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~$c_1(t) = \frac{1}{200}e^{-t/200}$\ $c_2(t) = \frac{1}{200}(e^{-t/400} - e^{-t/200})$ \quad
+b)~321.89 hours \quad c)~277.26 hours
+}
 
 \begin{exercise}
 \myindex{Newton's law of cooling} states that $\frac{dx}{dt} = -k(x-A)$ where
@@ -340,6 +346,12 @@ temperatures).
 initial conditions make much of a difference?  Why or why not?
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~$x(t) = kA_0 \left(\frac{\omega \sin(\omega t) + k\cos(\omega t)}{\omega^2 + k^2}\right) + Ce^{-kt}$ \quad
+b)~No. Only in $C$.
+}
 
 \begin{exercise}
 Initially 5 grams of salt are dissolved in 20 liters of water.  Brine
@@ -348,6 +360,11 @@ of 3 liters per minute.  The tank is mixed well and is drained at 3 liters
 per minute.  How long does the process have to continue until there are 20 grams
 of salt in the tank?
 \end{exercise}
+\comboSol{%
+}
+{%
+$\approx 3.73$ min
+}
 
 \begin{exercise}
 Initially a tank contains 10 liters of pure water.
@@ -357,6 +374,11 @@ The water is mixed well and drained at 1 liter per minute.
 In 20 minutes there are 15 grams of salt in the tank.  What is the
 concentration of salt in the incoming brine?
 \end{exercise}
+\comboSol{%
+}
+{%
+$\approx 1.735$ g/L
+}
 
 \begin{exercise}\ansMark%
 Suppose a water tank is being pumped out at \unitfrac[3]{L}{min}.  The
@@ -380,6 +402,14 @@ A 300 gallon well-mixed water tank initially starts with 200 gallons of water an
 \task Solve the initial value problem above and compare this to your answer to the previous part.
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~$\frac{dV}{dt} = 1$, $V(0) = 200$. $V(t) = 200+t$. \quad
+b)~$\frac{dQ}{dt} = 3 - \frac{2Q}{200+t}$, $Q(0) = 15$. \quad
+c)~No. Overflows at $t=100$. \quad
+d)~$Q(t) = (200+t) - \frac{185(200)^2}{(200+t)^2}$ This function is defined for all positive $t$.
+}
 
 \begin{exercise}
 A 500 gallon well-mixed water tank initially starts with 300 gallons of water and 200 lbs of salt. One stream with salt concentration of \unitfrac[0.5]{lb}{gal} flows into the tank at a rate of \unitfrac[5]{gal}{min} and water is removed from the well-mixed tank at a rate of \unitfrac[7]{gal}{min}.
@@ -390,6 +420,14 @@ A 500 gallon well-mixed water tank initially starts with 300 gallons of water an
 \task Solve the initial value problem above and compare this to your answer to the previous part.
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~$\frac{dV}{dt} = -2$, $V(0) = 300$. $V(t) = 300-2t$.\quad
+b)~$\frac{dQ}{dt} = 2.5 - \frac{7Q}{300-2t}$, $Q(0) = 200$ \quad
+c)~No, tank empties at $t = 150$. \quad
+d)~$Q(t) = 0.5(300-2t) + \frac{50}{(300)^{7/2}}(300-2t)^{7/2}$. $Q(t)$ is negative for $t > 150$. 
+}
 
 \begin{exercise}
 A 200 gallon well-mixed water tank initially starts with 150 gallons of water and 50 lbs of salt. One stream with salt concentration of \unitfrac[0.2]{lb}{gal} flows into the tank at a rate of \unitfrac[4]{gal}{min} and water is removed from the well-mixed tank at a rate of \unitfrac[4]{gal}{min}.
@@ -400,6 +438,14 @@ A 200 gallon well-mixed water tank initially starts with 150 gallons of water an
 \task Solve the initial value problem above and compare this to your answer to the previous part.
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~ $\frac{dV}{dt} = 0$, $V(0) = 150$. $V(t) = 150$.\quad
+b)~ $\frac{dQ}{dt} = 0.8 - \frac{4}{150}Q$, $Q(0) = 50$.\quad
+c)~Yes. Solution tends towards 30.\quad
+d)~ $Q(t) = 30 + 20e^{-2t/75}$. Matches.
+}
 
 \begin{exercise}\ansMark%
 Suppose we have bacteria on a plate and suppose that we are slowly adding
@@ -434,10 +480,20 @@ An object in free fall has a velocity that increases at a rate of 32 $ft/s^2$. D
 \task What will happen to the velocity if the object is dropped at $t=0$? What about if the object is thrown downwards at a rate of $10 ft/s$?
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~$\frac{dv}{dt} = 32-0.1v^2$ \quad b)~ $v = \sqrt{320}$ is asymptotically stable, $v = -\sqrt{320}$ is unstable. \quad c)~ Always tends towards $\sqrt{320}$
+}
 
 \begin{exercise}
-The number of people in a town that support a given measure decays at a constant rate of $10$ people per day. However, the support for the measure can be increased by individuals discussing the issue. This results in an increase of the support at a rate of $ay(1000 - y)$ people per day, where $y$ is the number of people who support the measure, and $a$ is a constant depending on the way in which the issue is being discussed. Write a differential equation to model this situation, and determine the amount of people who will support the measure long-term if $a$ is set to $2$.  
+The number of people in a town that support a given measure decays at a constant rate of $10$ people per day. However, the support for the measure can be increased by individuals discussing the issue. This results in an increase of the support at a rate of $ay(1000 - y)$ people per day, where $y$ is the number of people who support the measure, and $a$ is a constant depending on the way in which the issue is being discussed. Write a differential equation to model this situation, and determine the amount of people who will support the measure long-term if $a$ is set to $10^{-4}$.  
 \end{exercise}
+\comboSol{%
+}
+{%
+$\frac{dy}{dt} = ay(1000-y) - 10$, $=100(5 + \sqrt{15}) \approx 887.3$.
+}
 
 \begin{exercise}
 Newton's Law of Procrastination states that the rate at which one accomplishes a chore is {\it proportional to the amount of the chore not yet done}. Unbeknownst to Newton, this applies to robots too. A Roomba is attempting to vacuum a house measuring 1000 square feet. When none of the house is clean, the roomba can clean 200 square feet per hour. What makes this problem fun is that there is also a dog. It's whatever kind of dog you like, take your pick. The dog dirties the house at a constant rate of 50 square feet per hour.
@@ -446,26 +502,53 @@ Newton's Law of Procrastination states that the rate at which one accomplishes a
 \task How long will it take before the house is half clean? Will it ever be entirely clean? (Explain briefly.)
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~$\frac{dy}{dt} = \frac{1}{5}(1000 - y) - 50 = 150 - \frac{1}{5}y$. $y(t) = 750(1-e^{-t/5})$ \\
+b)~$t = 5\ln(3)$ for half clean. Never fully clean.
+}
 
 \begin{exercise}
-A student has a loan for \$50000 with 5\% interest. The student makes \$300 payments on the loan each month. 
+A student has a loan for \$50000 with 5\% interest. The student makes \$300 payments on the loan each month. The rate here is an annual rate, compounded continuously, and the differential equation you write should be in years.
 \begin{tasks}
 \task With this setup, how long does it take the student to pay off the loan? How much money does the student pay over this period of time?
 \task What is the minimal amount the student should pay each month if they want to pay off the loan within 5 years? How much does the student pay over this period?
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~$27.712$ years or 285 months. Pays approximately \$85,500 \quad b)~ $\approx \$942$
+}
 
 \begin{exercise}
 A factory pumps 6 tons of sludge per day into a nearby pond. The pond initially contains 100,000 gallons of water, and no sludge. Each day, 3,000 gallons of rain water falls into the pond, and 1,000 gallons per day leave the pond via a river. Assume, for no good reason, that the water leaving the pond has the same concentration of sludge as the pond as a whole. How much sludge will there be in the pond after 150 days? %1.10
 \end{exercise}
+\comboSol{%
+}
+{%
+700 gallons
+}
 
 \begin{exercise}
 In this exercise, we compare two different young people and their investment strategies. Both of these people are investing in an account with 7.5\% annual rate of return. Person 1 invests \$50 a month starting at age 20, and Person 2 invests \$100 per month starting at age 30. Write differential equations to model each of these account balances over time, and compute the amount of money in each account at age 50. Who has more money in the account? Who has invested more money? What would person 2 have to invest each month in order for the two balances to be equal at age 50?
 \end{exercise}
+\comboSol{%
+}
+{%
+Person 1 has more money ($\approx \$67,902$ compared to $\approx \$55,707$). Person 2 has invested more ($\$24,000$ compared to $\$18,000$). Person 2 needs to invest $\approx \$122$. 
+}
 
 \begin{exercise}
 Radioactive decay follows similar rules to interest, where a certain portion of the material decays over time, resulting in an equation of the form 
 \[ \frac{dy}{dt} = -ky \] for some constant $k$. The \emph{half-life} of a material is the amount of time that it takes for half of the material to have decayed away. Assume that the \emph{half-life} of a given substance is $T$ minutes. Find a formula for $k$, the coefficient in the decay equation, in terms of $T$.
 \end{exercise}
+
+\comboSol{%
+}
+{%
+$k = \frac{1}{T}\ln(2)$
+}
 
 

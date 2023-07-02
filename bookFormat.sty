@@ -196,7 +196,7 @@ transform},
 % \newtheorem{definition}{Definition}[section]
 
 
-\newcommand{\ansMark}{\hspace{-0.5em}\textbf{*}\hspace{0.5em}}
+\newcommand{\ansMark}{}%\hspace{-0.5em}\textbf{*}\hspace{0.5em}}
 % \newcommand{\noAnsMark}{\hspace{-0.5em}\textbf{:}\hspace{0.5em}}
 
 % Answers
@@ -205,12 +205,27 @@ transform},
 \newcommand{\theanswer}{\textbf{\theexercise:}}
 
 \newcommand{\exsol}[1]{\setbox\answerscollect=\vbox{\unvbox\answerscollect\medskip\par\noindent\theanswer\quad #1\par}}
+
+\newif\ifshowSolns
+\showSolnsfalse
+
+\newcommand{\printSolns}{\showSolnstrue}
+\newcommand{\hideSolns}{\showSolnsfalse}
+
+\newcommand{\comboSol}[2]{\ifshowSolns \exsol{#1} \else \exsol{#2} \fi}
+
 \def\printanswers{
  \cleardoublepage  
  \phantomsection
+ \ifshowSolns
+ \chapter*{Solutions to Selected Exercises}
+ \markboth{SOLUTIONS TO SELECTED EXERCISES}{SOLUTIONS TO SELECTED EXERCISES}
+ \addfakecontentsline{Solutions to Selected Exercises}
+ \else
  \chapter*{Answers to Selected Exercises}
  \markboth{ANSWERS TO SELECTED EXERCISES}{ANSWERS TO SELECTED EXERCISES}
  \addfakecontentsline{Answers to Selected Exercises}
+ \fi
  \unvbox\answerscollect\setbox\answerscollect=\vbox{}
 }
 

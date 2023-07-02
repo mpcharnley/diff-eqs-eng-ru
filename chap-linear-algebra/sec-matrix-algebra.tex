@@ -26,7 +26,7 @@ and neither of these match up appropriately, since
 \[
 \begin{split}
 f(x) + f(y) &= mx + b + my + b = mx + my + 2b \\
-af(x) &+ a(mx + b) = a(mx) + ab
+af(x) &= a(mx + b) = a(mx) + ab
 \end{split}.
 \]
 In order for these to work, we need to have $b=0$. Therefore, real-valued linear mappings of the real line, linear functions
@@ -1337,6 +1337,11 @@ $\begin{bmatrix}
 \end{bmatrix}$
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~$\left[\begin{smallmatrix} 2 & 4 & 5 \\ 13 & 11 & 4 \end{smallmatrix}\right]$ \quad b)~$\left[\begin{smallmatrix} 3 & -6 & 1 \\ 5 & 4 & 1 \\ 6 & 1 & 2 \end{smallmatrix}\right]$
+}
 
 \begin{exercise}\ansMark%
 Add the following matrices
@@ -1366,16 +1371,16 @@ $\begin{bmatrix}
 \end{tasks}
 \end{exercise}
 \exsol{%
-a)~$\begin{bmatrix}
+a)~$\left[\begin{smallmatrix}
 7 & 4 & 4 \\
 2 & 3 & 4
-\end{bmatrix}$
+\end{smallmatrix}\right]$
 \quad
-b)~$\begin{bmatrix}
+b)~$\left[\begin{smallmatrix}
 5 & -3 & 0 \\
 13 & 10 & 6 \\
 -1 & 3 & 1
-\end{bmatrix}$
+\end{smallmatrix}\right]$
 }
 
 \begin{exercise}
@@ -1405,6 +1410,11 @@ $2\begin{bmatrix}
 \end{bmatrix}$
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~ $\left[\begin{smallmatrix} 6 & 20 \\ -12 & 36 \end{smallmatrix}\right]$ \quad b)~ $\left[\begin{smallmatrix} -12 & 5 \\ -5 & 2 \end{smallmatrix}\right]$
+}
 
 
 \begin{exercise}\ansMark%
@@ -1435,15 +1445,15 @@ $3\begin{bmatrix}
 \end{tasks}
 \end{exercise}
 \exsol{%
-a)~$\begin{bmatrix}
+a)~$\left[\begin{smallmatrix}
 -1 & 13 \\
 9 & 14
-\end{bmatrix}$
+\end{smallmatrix}\right]$
 \quad
-b)~$\begin{bmatrix}
+b)~$\left[\begin{smallmatrix}
 2 & -5 \\
 5 & 5
-\end{bmatrix}$
+\end{smallmatrix}\right]$
 }
 
 \begin{exercise}
@@ -1494,6 +1504,12 @@ $\begin{bmatrix}
 \end{bmatrix}$
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~ $\left[\begin{smallmatrix} 13 & 7 & 1 & -7 \\ 17 & 0 & 11 & 0 \\79 & 19 & 31 & -19 \end{smallmatrix}\right]$\quad b)~$\left[\begin{smallmatrix} 7 & 4 & 16 & 5 \\ 8 & 10 & 9 & 20 \\ 5 & 0 & 10 & 7 \end{smallmatrix}\right]$ \quad
+c)~ $\left[\begin{smallmatrix} 42 & 70 \\31 & 62 \\ 32 & 62 \end{smallmatrix}\right]$ \quad d)~$\left[\begin{smallmatrix} 27 & 18 \\ 11 & 4 \end{smallmatrix}\right]$
+}
 
 \begin{exercise}\ansMark%
 \pagebreak[2]
@@ -1544,28 +1560,28 @@ $\begin{bmatrix}
 \end{tasks}
 \end{exercise}
 \exsol{%
-a)~$\begin{bmatrix}
+a)~$\left[\begin{smallmatrix}
 22 & 31 \\
 42 & 44
-\end{bmatrix}$
+\end{smallmatrix}\right]$
 \quad
-b)~$\begin{bmatrix}
+b)~$\left[\begin{smallmatrix}
 18 & 18 & 12 \\
 6 & 0 & 8 \\
 34 & 48 & -2
-\end{bmatrix}$
+\end{smallmatrix}\right]$
 \quad
-c)~$\begin{bmatrix}
+c)~$\left[\begin{smallmatrix}
 11 & 12 & 36 & 14 \\
 -2 & 4 & 5 & -2 \\
 13 & 38 & 20 & 28
-\end{bmatrix}$
+\end{smallmatrix}\right]$
 \quad
-d)~$\begin{bmatrix}
+d)~$\left[\begin{smallmatrix}
 -2 & -12 \\
 3 & 24 \\
 1 & 9
-\end{bmatrix}$
+\end{smallmatrix}\right]$
 }
 
 \pagebreak
@@ -1578,6 +1594,11 @@ d)~$\begin{bmatrix}
 \task If $A$ is a $5 \times 3$ matrix, is it possible to find a matrix $B$ so that the product $AB$ is a $4 \times 3$ matrix? What about a matrix $C$ so that the product $CA$ is a $4 \times 3$ matrix?
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~ Inner dimensions must match, outer give the product. \quad b)~$2 \times 4$ \quad c) $B$ not possible, $C$ is $4 \times 5$.
+}
 
 \begin{exercise} \label{ex:MatDims}
 Assume that $A$ is a $3\times 4$ matrix.
@@ -1587,10 +1608,20 @@ Assume that $A$ is a $3\times 4$ matrix.
 \task What about if we want to compute $ABA$ or $BAB$?
 \end{tasks} 
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~ $4 \times n$ for any $n$ \quad b)~ $n \times 3$ for any $n$ \quad c)~ Must be $4 \times 3$
+}
 
 \begin{exercise}
 Complete \exerciseref{ex:MatDims} but with $A$ being a $2 \times 2$ matrix.
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~ $2 \times n$ for any $n$ \quad b)~ $n \times 2$ for any $n$ \quad c)~ Must be $2 \times 2$
+}
 
 \begin{exercise}
 Compute the inverse of the given matrices
@@ -1616,6 +1647,11 @@ $\begin{bmatrix}
 \end{bmatrix}$
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~ $\left[\begin{smallmatrix} -1/3 \end{smallmatrix}\right]$ \quad b)~ $\left[\begin{smallmatrix} 0 & -1 \\ 1 & 0 \end{smallmatrix}\right]$ \quad c)~ $\left[\begin{smallmatrix} -3 & 4 \\ 1 & -1 \end{smallmatrix}\right]$ \quad d)~ $\frac{1}{6}\left[\begin{smallmatrix} 4 & -2 \\ -1 & 2 \end{smallmatrix}\right]$
+}
 
 \begin{exercise}\ansMark%
 Compute the inverse of the given matrices
@@ -1643,24 +1679,24 @@ $\begin{bmatrix}
 \end{exercise}
 \exsol{%
 a)
-$\begin{bmatrix}
+$\left[\begin{smallmatrix}
 \nicefrac{1}{2}
-\end{bmatrix}$
+\end{smallmatrix}\right]$
 \quad b)
-$\begin{bmatrix}
+$\left[\begin{smallmatrix}
 0 & 1 \\
 1 & 0
-\end{bmatrix}$
+\end{smallmatrix}\right]$
 \quad c)
-$\begin{bmatrix}
+$\left[\begin{smallmatrix}
 -5 & 2 \\
 3 & -1
-\end{bmatrix}$
+\end{smallmatrix}\right]$
 \quad d)
-$\begin{bmatrix}
+$\left[\begin{smallmatrix}
 \nicefrac{1}{2} & \nicefrac{-1}{4} \\
 \nicefrac{-1}{2} & \nicefrac{1}{2}
-\end{bmatrix}$
+\end{smallmatrix}\right]$
 }
 
 \begin{exercise}
@@ -1686,6 +1722,11 @@ $\begin{bmatrix}
 \end{bmatrix}$
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~$\left[\begin{smallmatrix} -1/2 & 0\\ 0 & 1 \end{smallmatrix}\right]$ \quad b)~ $\left[\begin{smallmatrix} 1/3 & 0 & 0 \\ 0 & -1/2 & 0 \\ 0 & 0 & 1 \end{smallmatrix}\right]$ \quad c)~ $\left[\begin{smallmatrix} 1 & 0 & 0 & 0 \\ 0 & -1 & 0 & 0 \\ 0 & 0 & 100  & 0 \\ 0 & 0 & 0 & -1/5 \end{smallmatrix}\right]$
+}
 
 \begin{exercise}\ansMark%
 Compute the inverse of the given matrices
@@ -1711,23 +1752,23 @@ $\begin{bmatrix}
 \end{tasks}
 \end{exercise}
 \exsol{%
-a)~$\begin{bmatrix}
+a)~$\left[\begin{smallmatrix}
 \nicefrac{1}{2} & 0 \\
 0 & \nicefrac{1}{3} 
-\end{bmatrix}$
+\end{smallmatrix}\right]$
 \quad
-b)~$\begin{bmatrix}
+b)~$\left[\begin{smallmatrix}
 \nicefrac{1}{4} & 0 & 0 \\
 0 & \nicefrac{1}{5} & 0 \\ 
 0 & 0 & -1
-\end{bmatrix}$
+\end{smallmatrix}\right]$
 \quad
-c)~$\begin{bmatrix}
+c)~$\left[\begin{smallmatrix}
 -1 & 0 & 0 & 0 \\
 0 & \nicefrac{1}{2} & 0 & 0 \\ 
 0 & 0 & \nicefrac{1}{3} & 0 \\
 0 & 0 & 0 & 10
-\end{bmatrix}$
+\end{smallmatrix}\right]$
 }
 
 \begin{exercise}
@@ -1740,6 +1781,11 @@ A = \begin{bmatrix} 1 & 2 \\ 3 & 6 \end{bmatrix} \quad B = \begin{bmatrix} 1 & 1
 \task Verify that for these matrices $AB = AC$, but $B \neq C$.
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+$AB = AC = \left[\begin{smallmatrix}  1 & 5 \\ 3 & 15 \end{smallmatrix}\right]$
+}
 
 \begin{exercise}
 Consider the matrices
@@ -1748,6 +1794,11 @@ A = \begin{bmatrix} 1 & -1 \\ -1 & 1 \end{bmatrix} \quad B = \begin{bmatrix} 1 &
 \end{equation*}
 Verify that $AB$ and $BA$ are both equal to zero, but neither of the matrices $A$ and $B$ are zero.
 \end{exercise}
+\comboSol{%
+}
+{%
+Yes
+}
 
 \begin{exercise}
 \
@@ -1756,6 +1807,12 @@ Verify that $AB$ and $BA$ are both equal to zero, but neither of the matrices $A
 \task Let $B$ be a $3 \times 3$ matrix. What dimension does the vector $\vec{v}$ need to be in order for the product $B\vec{v}$ to be defined? If this product is defined, what is the dimension of the product $B\vec{v}$?
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~ $\vec{v}$ must be 4 component, $A\vec{v}$ is $3$ component. \\
+b)~ $\vec{v}$ must be 3 component, $B\vec{v}$ is also $3$ component.
+}
 
 \setcounter{exercise}{100}
 

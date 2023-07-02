@@ -311,14 +311,29 @@ The Euler's method takes 60 steps in this computation, but is still not as accur
 Consider $\dfrac{dx}{dt} = {(2t-x)}^2$, $x(0)=2$.  Use Euler's method
 with step size $h=0.5$ to approximate $x(1)$.
 \end{exercise}
+\comboSol{%
+}
+{%
+17/2
+}
 
 \begin{exercise}
 Consider the differential equation $\frac{dy}{dt} = t^2 - 3y + 1$ with $y(1) = 4$. Approximate the solution at $t=3$ using Euler's method with a step size of $h=1$ and $h=0.5$. Compare these values with the actual solution at $t=3$. 
 \end{exercise}
+\comboSol{%
+}
+{%
+$h=1$: 17, $h=0.5$: 85/32, Actual: $\frac{52}{27} + \frac{94}{27}e^{-6} \approx 1.9346$
+}
 
 \begin{exercise}
 Consider the differential equation $\frac{dy}{dt} = 2ty + y^2$ with $y(0) = 1$. Approximate the solution at $t=2$ using Euler's method with a step size of $h=1$ and $h=0.5$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$h=1$: 10, $h=0.5$: $y(2) \approx 108.56$
+}
 
 \begin{samepage}
 \begin{exercise}
@@ -335,6 +350,13 @@ changed each time you halved the interval.
 \end{tasks}
 \end{exercise}
 \end{samepage}
+\comboSol{%
+}
+{%
+a)~ $h=1$, 0. $h=\nicefrac{1}{2}$, 0.5. $h = \nicefrac{1}{4}$,$ \frac{81}{128}$. $h = \nicefrac{1}{8}$ $x(1) \approx .6872$. \\
+b)~$x(t) = t-1+2e^{-t}$\\
+c)~Error decreases by factors of 0.32, 0.4365, 0.4723.
+}
 
 \begin{exercise}\ansMark%
 Let $x' = \sin(xt)$, and $x(0)=1$.
@@ -351,6 +373,11 @@ Approximate the value of $e$ by looking at the initial value problem
 $y'=y$ with $y(0)=1$ and approximating $y(1)$ using Euler's method with
 a step size of $0.2$.
 \end{exercise}
+\comboSol{%
+}
+{%
+2.4883
+}
 
 \begin{exercise}\ansMark%
 Let $x' = 2t$, and $x(0)=0$.
@@ -395,6 +422,11 @@ until the numbers you are getting
 start to stabilize (that is, until they start going towards zero).
 Note: You might want to use a calculator.
 \end{exercise}
+\comboSol{%
+}
+{%
+For $h=1$, $y_4 = 256$. $h=0.5$, $y_4 = 25.6289$, $h=0.25$ goes to zero, but oscillates. $h=0.125$ just goes to zero.
+}
 
 There is a simple way to improve Euler's method to make it a
 second order method by doing just one extra step.\index{Improved Euler's method}
@@ -484,6 +516,13 @@ $h=\nicefrac{1}{2}$.
 $y(1)$, and compare.
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~ $h=1$ gives 1.3906. $h=0.5$ gives 1.3953.
+b)~ $h=1$ gives 1. $h=0.5$ gives 1.125.
+c)~ Exact: 1.3956. Runge--Kutta matches three decimal places at $h=0.5$. Euler needs to go to $h=0.005$ to get the first two decimals right.
+}
 
 \setcounter{exercise}{100}
 

@@ -412,13 +412,13 @@ Now, to solve the non-homogeneous problem, we use the method of undetermined coe
 y_p(x) &= Axe^{2x} + Be^{4x} \\
 y_p'(x) &= Ae^{2x} + 2Axe^{2x} + 4Be^{4x} \\
 y_p''(x) &= 4Ae^{2x} + 4Axe^{2x} + 16Be^{4x} \\
-y_p'''(x) &= 12Ae^{2x} + 8Axe^{2x} + 64Be^{2x}
+y_p'''(x) &= 12Ae^{2x} + 8Axe^{2x} + 64Be^{4x}
 \end{split}.
 \]
 By putting this into the non-homogeneous equation we want to solve, we get
 \[
 \begin{split}
-(12Ae^{2x} &+ 8Axe^{2x} + 64Be^{2x}) + 2(4Ae^{2x} + 4Axe^{2x} + 16Be^{4x})\\
+(12Ae^{2x} &+ 8Axe^{2x} + 64Be^{4x}) + 2(4Ae^{2x} + 4Axe^{2x} + 16Be^{4x})\\
  & - 5(Ae^{2x} + 2Axe^{2x} + 4Be^{4x}) - 6(Axe^{2x} + Be^{4x} ) = 3e^{2x} + e^{4x}
 \end{split}.
 \]
@@ -460,6 +460,11 @@ There is also an extension of variation of parameters to higher order equations.
 \begin{exercise}
 Find the general solution for $y''' - y'' + y' - y = 0$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$y = C_1e^t + C_2\cos(t) + C_3\sin(t)$
+}
 
 \begin{exercise}\ansMark%
 Find the general solution of $y^{(5)}-y^{(4)}=0$.
@@ -471,10 +476,20 @@ $y=C_1 e^x +C_2 x^3 + C_3 x^2 +C_4 x + C_5$
 \begin{exercise}
 Find the general solution for $y^{(4)} - 5 y''' + 6 y'' = 0$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$y = C_1e^{3t} + C_2e^{2t} + C_3 + C_4t$
+}
 
 \begin{exercise}
 Find the general solution for $y''' + 2 y'' + 2 y' = 0$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$y = C_1 + C_2e^{-t}\cos(t) + C_3e^{-t}\sin(t)$
+}
 
 \begin{exercise}
 Suppose the characteristic equation for an ODE is
@@ -486,6 +501,11 @@ Find such a differential equation.
 Find its general solution.
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~ $y^{(4)} - 6y''' + 13y'' - 12y' + 4y = 0$ \quad b)~$y = C_1e^t + C_2te^t + C_3e^{2t} + C_4te^{2t}$
+}
 
 \begin{exercise} \label{hol:eqfromsolex}
 Suppose that a fourth order equation has a solution
@@ -498,6 +518,11 @@ Find the initial conditions that the given
 solution satisfies.
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~$y^{(4)} + 16y''' + 20y'' + 272y' + 289y = 0$ \quad b)~$y(0) = 0$, $y'(0) = 2$, $y''(0) = 16$, $y'''(0) = 90$
+}
 
 \begin{exercise}\ansMark
 \pagebreak[2]
@@ -525,6 +550,11 @@ c) $y = C_1 e^{3x} + C_2 \sin(2x) + C_3 \cos(2x)$
 \begin{exercise}
 Find the general solution for the equation of \exerciseref{hol:eqfromsolex}.
 \end{exercise}
+\comboSol{%
+}
+{%
+$y(x) = C_1e^{4x}\cos(x) + C_2xe^{4x}\cos(x) + C_3e^{4x}\sin(x) + C_4xe^{4x}\sin(x)$
+}
 
 \begin{exercise}\ansMark%
 Find the general solution of
@@ -542,7 +572,12 @@ Find the general solution of
 y''' - 6y'' + 13y' - 10y = 4e^x + 5e^{3x} - 20.
 \end{equation*}
 \end{exercise}
-% C_1 e^{2x} + C_2e^{2x}\cos(x) + C_3e^{2x}\sin(x)
+\comboSol{%
+}
+{%
+$y(x) = C_1 e^{2x} + C_2e^{2x}\cos(x) + C_3e^{2x}\sin(x) - 2e^x + \frac{1}{16}e^{3x} - 2$
+}
+
 
 \begin{exercise}
 Find the general solution of
@@ -550,7 +585,12 @@ Find the general solution of
 y''' - 3y' + 2y = 2e^{x} - e^{3x}.
 \end{equation*}
 \end{exercise}
-% (C_1 + C_2x)e^{x} + C_3e^{-2x} 
+\comboSol{%
+}
+{%
+$y(x) = (C_1 + C_2x)e^{x} + C_3e^{-2x} + \frac{1}{3}x^2e^x - \frac{1}{20}e^{3x}$
+}
+
 
 \begin{exercise}
 Find the general solution of
@@ -558,7 +598,11 @@ Find the general solution of
 y''' + 2y'' + y' + 2y = 3\cos(x) + x.
 \end{equation*}
 \end{exercise}
-% C_1e^{-2x} + C_2cos(x) + C_3sin(x)
+\comboSol{%
+}
+{%
+$y(x) =  C_1e^{-2x} + C_2cos(x) + C_3sin(x) - \frac{3}{10}x\cos(x) + \frac{3}{5}x\sin(x) + \frac{1}{2}x - \frac{1}{4}$
+}
 
 \begin{exercise}
 Find the general solution of 
@@ -567,12 +611,22 @@ y^{(4)}  + 2y'' + y = 4x\cos(x) - e^{3x} + 1
 \end{equation*}
 Hint: Remember, the guess needs to make sure that no terms in it solve the homogeneous equation.
 \end{exercise}
-% (C_1 + C_2x)cos(x) + (C_3 + C_4x)sin(x)
+\comboSol{%
+}
+{%
+$y(x) = (C_1 + C_2x)cos(x) + (C_3 + C_4x)sin(x) - \frac{1}{6}x^3\cos(x) + \frac{1}{2}x^2\sin(x) - \frac{1}{100}e^{3x} + 1$
+}
+
 
 \begin{exercise}
 Show that $y=\cos(2t)$ is a solution to $y^{(4)}+2y'''+9y''+8y'+20y=0$. %2.7
 This tells us something about the factorization of the characteristic polynomial of this DE. Factor the characteristic polynomial completely, and solve the DE.
 \end{exercise}
+\comboSol{%
+}
+{%
+$y(t) = C_1\cos(2t) + C_2\sin(2t) + C_3e^{-t}\cos(2t) + C_3e^{-t}\sin(2t)$
+}
 
 \begin{exercise}
 Consider 
@@ -585,6 +639,12 @@ y'''-y''-8y'+12y=0. \label{eq:2_7_Exercise1}
 \task Solve $y'''-y''-8y'+12y=e^{2t}$.
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+b)~ $y(t) = C_1e^{2t} + C_2te^{2t} + C_3e^{-3t}$ \\
+c)~$y(t) = C_1e^{2t} + C_2te^{2t} + C_3e^{-3t} + \frac{1}{10}t^2e^{2t}$
+}
 
 \begin{exercise}
 Let
@@ -593,6 +653,11 @@ Are $f(x)$, $g(x)$, and $h(x)$
 linearly independent?  If so, show
 it, if not, find a linear combination that works.
 \end{exercise}
+\comboSol{%
+}
+{%
+No
+}
 
 \begin{exercise}
 Let
@@ -601,6 +666,11 @@ Are $f(x)$, $g(x)$, and $h(x)$
 linearly independent?  If so, show
 it, if not, find a linear combination that works.
 \end{exercise}
+\comboSol{%
+}
+{%
+No
+}
 
 \begin{exercise}\ansMark%
 Are $e^{x}$, $e^{x+1}$, $e^{2x}$, $\sin(x)$ linearly independent?
@@ -615,12 +685,22 @@ Are $x$, $x^2$, and $x^4$
 linearly independent?  If so, show
 it, if not, find a linear combination that works.
 \end{exercise}
+\comboSol{%
+}
+{%
+Yes. (Hint: How many roots can a polynomial have?)
+}
 
 \begin{exercise}
 Are $e^x$, $xe^x$, and $x^2e^x$
 linearly independent?  If so, show
 it, if not, find a linear combination that works.
 \end{exercise}
+\comboSol{%
+}
+{%
+Yes. Factor out an $e^x$ first.
+}
 
 \begin{exercise}\ansMark%
 Are $\sin(x)$, $x$, $x\sin(x)$ linearly independent?
@@ -634,6 +714,11 @@ $x$ and $x\sin(x)$ cannot be multiples of each other.)
 \begin{exercise}
 Show that $\{e^t, te^t, e^{-t}, te^{-t}\}$ is a linearly independent set.
 \end{exercise}
+\comboSol{%
+}
+{%
+Hint: Try to find the $t$ value when they match, and determine that it can't be all $t$. 
+}
 
 \begin{exercise}\ansMark%
 Solve $1001y'''+3.2y''+\pi y'-\sqrt{4} y = 0$, $y(0)=0$, $y'(0) = 0$,
@@ -647,15 +732,30 @@ $y=0$
 Could $y=t^2\cos t$ be a solution of a homogeneous DE with constant real coefficients? %2.7
 If so, give the minimum possible order of such a DE, and state which functions must also be solutions. If not, explain why this is impossible.
 \end{exercise}
+\comboSol{%
+}
+{%
+Yes. Order 6. $\cos(t)$, $t\cos(t)$, $\sin(t)$, $t\sin(t)$, $t^2\sin(t)$
+}
 
 \begin{exercise}
-Find a linear DE with constant coefficients whose general solution is $$y=c_1e^{2t}+ c_2e^{-t}\cos(4t) + c_3e^{-t}\sin(2t),$$ %2.7
+Find a linear DE with constant real coefficients whose general solution is $$y=c_1e^{2t}+ c_2e^{-t}\cos(4t) + c_3e^{-t}\sin(2t),$$ %2.7
 or explain why there is no such thing.
 \end{exercise}
+\comboSol{%
+}
+{%
+Not possible.
+}
 
 \begin{exercise}
 Find an equation such that $y=xe^{-2x}\sin(3x)$ is a solution.
 \end{exercise}
+\comboSol{%
+}
+{%
+$y^{(4)} + 8y''' + 42y'' + 104y' + 169y = 0$
+}
 
 \begin{exercise}\ansMark%
 Find an equation of minimal order such that $y=\cos(x)$, $y=\sin(x)$, $y=e^x$ are solutions.
@@ -667,11 +767,21 @@ $y'''-y''+y'-y=0$
 \begin{exercise}
 Find an equation of minimal order such that $y=\cos(x)$, $y=\sin(2x)$, $y=e^{3x}$ are solutions.
 \end{exercise}
+\comboSol{%
+}
+{%
+$y^{(5)} - 3y^{(4)} + 5y^{(3)} - 15y'' + 4y' - 12y = 0$
+}
 
 \begin{exercise}
 Find a homogeneous DE with general solution %2.7
 $$y=c_1e^t+ c_2e^{-t}+ c_3\cos t+ c_4\sin t + c_5te^t+ c_6te^{-t}+ c_7t\cos t+ c_8t\sin t.$$
 \end{exercise}
+\comboSol{%
+}
+{%
+$y^{(8)} - 2y^{(4)} + y = 0$
+}
 
 
 

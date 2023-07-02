@@ -466,7 +466,7 @@ expect the behavior of the solution to change dramatically.
 If we keep making $\gamma$ larger, then
 at some point the solution should start looking 
 like the solution for critical damping or overdamping, where no oscillation
-happens.  So if $\gamma^2$ approaches $4km$, we want $\omega_1$ to approach 0. Since $\omega_1 = \sqrt{\omega_0^2 - p^2}$ with $p = \frac{\gamma}{2m}$ and $\omega_0 = \sqrt{k}{m}$, we have that
+happens.  So if $\gamma^2$ approaches $4km$, we want $\omega_1$ to approach 0. Since $\omega_1 = \sqrt{\omega_0^2 - p^2}$ with $p = \frac{\gamma}{2m}$ and $\omega_0 = \sqrt{\frac{k}{m}}$, we have that
 \begin{equation*}
 \omega_1 = \sqrt{\frac{k}{m} - \frac{\gamma^2}{4m^2}} = \sqrt{\frac{4mk - \gamma^2}{4m^2}},
 \end{equation*}
@@ -493,11 +493,22 @@ critically damped.
 \end{tasks}
 \end{exercise}
 \end{samepage}
+\comboSol{%
+}
+{%
+a)~$C_1e^{-t/4}\cos\left(\frac{\sqrt{23}}{4}t\right) + C_2e^{-t/4}\sin\left(\frac{\sqrt{23}}{4}t\right)$ \\
+b)~ Underdamped \quad c)~ $\gamma = 2\sqrt{6}$
+}
 
 \begin{exercise}
 Do \exerciseref{mv:ex1} for
 $m=3$, $k=12$, and $\gamma=12$.
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~ $C_1e^{-2t} + C_2te^{-2t}$ \quad b)~ Critically Damped
+}
 
 \begin{exercise} \label{mv:exwt1}
 Using the mks units (meters-kilograms-seconds)\index{mks units},
@@ -507,11 +518,16 @@ it to weigh items.  Assume no friction.  You place the mass on
 the spring and put it in motion.
 \begin{tasks}
 \task You count and find that the frequency is
-\unit[0.8]{Hz} (cycles per second).  What is the mass?
+\unit[0.8]{Hz} (cycles per second).  What is the mass? (Be careful with the units here, the frequency is given in cycles per second, not radians per second.)
 \task Find a formula for the mass $m$
 given the frequency $\omega$ in \unit{Hz}.
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~ 6.317 kg \quad b)~ $m = \frac{(2\pi \omega)^2}{4}$.
+}
 
 \begin{exercise}\ansMark%
 A mass of $2$ kilograms is on a spring with spring constant $k$ newtons per
@@ -541,6 +557,13 @@ object?  Suppose that you know that the mass of the unknown object
 is more than a kilogram.
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~$k =5.4\pi^2$, $\gamma=\pi\sqrt{2.24}$ \quad
+b)~ $m = \frac{21.6 \pm \sqrt{466.56 - 143.36H^2}}{32H^2}$, frequency is $H$ Hz \quad
+c)~ 33.65 kg
+}
 
 \begin{exercise}
 Suppose you wish to measure the friction a mass of \unit[0.1]{kg} experiences
@@ -550,6 +573,11 @@ to the mass and fix it to a wall.  Then you pull on the spring and let the
 mass go.  You find that the mass oscillates with quasi-frequency \unit[1]{Hz}.
 What is the friction?
 \end{exercise}
+\comboSol{%
+}
+{%
+$\gamma = .6487$
+}
 
 \begin{exercise}\ansMark%
 \pagebreak[2]
@@ -585,6 +613,12 @@ When attached to a spring, a \unit[2]{kg} mass stretches the spring by \unit[0.4
 \task For a next experiment, you attach a dampener of coefficient \unitfrac[16]{Ns}{m} to the system, and give the same initial condition. Set up and solve an initial value problem for the position of the mass. What type of ``dampening'' would be used to characterize this situation?
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~$k=40$ N/m \quad b)~$y = 0.4 \cos(\sqrt{20}t)$ \\
+c)~ $y = 0.4 e^{-4t}\cos(2t) + 0.8e^{-4t}\sin(2t)$, Underdamped
+}
 
 \begin{exercise}\ansMark%
 A mass of $m$ \unit{kg} is on a spring with $k=\unitfrac[3]{N}{m}$ and
@@ -627,10 +661,25 @@ For RLC circuits, we can use either charge or current to set up the equation. Le
 \task Now, we'll do the same in the other direction. Solve the initial value problem for current with $I(0) = 2 A$ and $I'(0) = 1 \unitfrac{A}{s}$, and see what the initial conditions would be for $Q(t)$ for this setup.    
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~$0.03Q'' + 0.12Q' + \frac{3}{20}Q = 0$ \quad
+b)~$0.03I'' + 0.12I' + \frac{3}{20}I = 0$ \quad
+c)~$Q(t) = C_1e^{-2t}\cos(t) + C_2e^{-2t}\sin(t)$ \quad
+d)~$Q(t) = \frac{1}{2}e^{-2t}\cos(t) + e^{-2t}\sin(t)$ \quad
+e)~$I(0) = 0$, $I'(0) = -\frac{5}{2}$ \quad
+f)~$I(t) = 2e^{-2t}\cos(t) + 5e^{-2t}\sin(t)$, $Q(0) = -\frac{9}{5}$, $Q'(0) = 2$
+}
 
 \begin{exercise}
 Assume that the system $my'' + \gamma y' + ky = 0$ is either critically or overdamped. Prove that the solution can pass through zero \emph{at most once}, regardless of initial conditions. \emph{Hint:} Try to find all values of $t$ for which $y(t) = 0$, given the form of the solution.
 \end{exercise}
+\comboSol{%
+}
+{%
+Overdamped: $t = \frac{1}{r_2 - r_1}\ln\left(-\frac{C_1}{C_2}\right)$, Critically Damped $t = -\frac{C_1}{C_2}$
+}
 
 \setcounter{exercise}{100}
 

@@ -372,6 +372,14 @@ conservative systems.  Next find their critical points (if any) and classify the
 \task $x''+ x^2+1 = 0$
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~$\frac{1}{2}y^2 + \frac{x^4}{4} + \frac{x^2}{2} = C$. $(0,0)$ is a center. \\
+b)~$\frac{1}{2}y^2 - \cos(\theta) = C$. $(n\pi, 0)$ is a saddle if $n$ is even, and a center if $n$ is odd. \\
+c)~$\frac{1}{2}y^2 + \frac{z^3}{3} - z = C$, $(1,0)$ is a center, $(-1, 0)$ is a saddle. \\
+d)~$\frac{1}{2}y^2 + \frac{x^3}{3} + x = C$, no critical points.
+}
 
 \begin{exercise}\ansMark%
 Find the implicit equations of the trajectories of the following
@@ -404,23 +412,45 @@ curves around the origin, so the critical point is a stable center.
 Determine if the following system is Hamiltonian. If it is, find the general solution in the form $H(x,y) = C$ and sketch some of the trajectories.
 \[ \frac{dx}{dt} = x - 2y \qquad \frac{dy}{dt} = 3x - y.\]
 \end{exercise}
+\comboSol{%
+}
+{%
+$H(x,y) = -\frac{3}{2}x^2 + xy - y^2$
+}
 
 \begin{exercise}
 Determine if the following system is Hamiltonian. If it is, find the general solution in the form $H(x,y) = C$ and sketch some of the trajectories.
 \[ \frac{dx}{dt} = 4x - 2y + 2 \qquad \frac{dy}{dt} = -5x + y - 1.\]
 \end{exercise}
+\comboSol{%
+}
+{%
+No
+}
 
 
 \begin{exercise}
 Determine if the following system is Hamiltonian. If it is, find the general solution in the form $H(x,y) = C$ and sketch some of the trajectories.
 \[ \frac{dx}{dt} = x^2 - 2xy + 3y^2 \qquad \frac{dy}{dt} = y^2 - 2xy + e^x .\]
 \end{exercise}
+\comboSol{%
+}
+{%
+$H(x,y) = x^2y - xy^2 + y^3 - e^x$
+}
 
 
 \begin{exercise}
 Determine if the following system is Hamiltonian. If it is, find the general solution in the form $H(x,y) = C$ and sketch some of the trajectories.
-\[ \frac{dx}{dt} = 3x - 2xy \qquad \frac{dy}{dt} = 2xy - 3y.\]
+\[ \frac{dx}{dt} = 3x - 4xy \qquad \frac{dy}{dt} = 5xy - y.\]
+Afterwards, do the same but with the system 
+\[ \frac{dx}{dt} = \frac{3}{y} - 4 \qquad \frac{dy}{dt} = 5 - \frac{3}{x}, \] noticing that this is the same as the first system with each equation divided by $xy$.
 \end{exercise}
+\comboSol{%
+}
+{%
+First is not Hamiltonian. Second is with $H(x,y) = 3\ln(|y|)  + \ln(|x|) - 5x - 4y$.
+}
 
 \begin{exercise} Consider a generic thing on a spring, with displacement $u$ and velocity $v$. Assume that $$mu''+ku=0,$$ where $m$ and $k$ are some positive constants.
 \begin{tasks}
@@ -430,18 +460,33 @@ Determine if the following system is Hamiltonian. If it is, find the general sol
 \task Does this system have a {\it basin of attraction}? Explain briefly. 
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~$u' = v$, $v'= -\frac{k}{m}u$ \quad b)~ $\frac{v^2}{2} + \frac{k}{m}u^2$ \quad c)~ Ellipses \quad d)~ No
+}
 
 \begin{exercise}
 Suppose $f$ is always positive.
 Find the trajectories of $x''+f(x') = 0$.
 Are there any critical points?
 \end{exercise}
+\comboSol{%
+}
+{%
+No.
+}
 
 \begin{exercise}
 Suppose that $x' = f(x,y)$, $y' = g(x,y)$.  Suppose that $g(x,y) > 1$ for
 all $x$ and $y$.  Are there any critical points?  What can we say about the
 trajectories at $t$ goes to infinity?
 \end{exercise}
+\comboSol{%
+}
+{%
+All will have $y\rightarrow \infty$. No critical points.
+}
 
 \begin{exercise}
 Here is the direction field for the system $\dfrac{dx}{dt}=y^2-3y, \dfrac{dy}{dt}=x^2-4x$. The critical points are $(0,0), (4,0), (0,3)$, and $(4,3)$. Draw the nullclines on the plot. What do the nullclines tell us about the critical points?
@@ -450,10 +495,21 @@ Here is the direction field for the system $\dfrac{dx}{dt}=y^2-3y, \dfrac{dy}{dt
 \includegraphics[width=0.6\textwidth]{Images/NLVF_1.png}
 \end{center}
 \end{exercise}
+\comboSol{%
+}
+{%
+
+\includegraphics[width=1.5in]{Images/NLVF_1_Soln.png}
+}
 
 \begin{exercise}
 Nullclines apply to linear systems as well, although since we can often solve those explicitly they're less necessary. Construct the nullcline diagram for the system $\dfrac{dx}{dt}=-3x+y$, $\dfrac{dy}{dt}=6x+2y$, and use it to classify (by type) the equilibrium point at the origin. What is the {\it linearization} of this system at $(0,0)$?
 \end{exercise}
+\comboSol{%
+}
+{%
+Saddle \hfill\raisebox{-0.5\height}{\includegraphics[height=1.2in]{Images/NullclineDiagramSoln1.png}}\hfill\hfill
+}
 
 \begin{exercise}
 Consider the system $\displaystyle \frac{dx}{dt}= -2x+y, \frac{dy}{dt}=-y+x^2$.
@@ -462,6 +518,11 @@ Consider the system $\displaystyle \frac{dx}{dt}= -2x+y, \frac{dy}{dt}=-y+x^2$.
 \task Sketch all nullclines for this system on a single diagram. Label each region, and use these results to classify each equilibrium point.
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+$(0,0)$ and $(2, 4)$. \hfill\raisebox{-0.5\height}{\includegraphics[height=1.2in]{Images/NullclineDiagramSoln2.png}}\hfill\hfill
+}
 
 \begin{exercise} Nullclines need not be lines. Consider the system
 $$\begin{bmatrix} \displaystyle \frac{dx}{dt}=4-y^2\\ \dfrac{dy}{dt}=8-x^2-y^2 \end{bmatrix}.$$
@@ -472,6 +533,15 @@ $$\begin{bmatrix} \displaystyle \frac{dx}{dt}=4-y^2\\ \dfrac{dy}{dt}=8-x^2-y^2 \
 \task Two critical points cannot be classified using the nullcline analysis. Classify these (again according to type) using the Jacobian. 
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+\begin{multicols}{2}
+\noindent a)~$(2, 2)$, $(2, -2)$, $(-2, 2)$, $(-2, -2)$ \quad b)~$(2,2)$ is a saddle, $(-2, -2)$ is a saddle. \quad c)~ $(-2, 2)$ is a spiral sink, $(2, -2)$ is a spiral source.
+
+\includegraphics[height=1.2in]{Images/NullclineDiagramSoln3.png}
+\end{multicols}
+}
 
 \begin{exercise}
 Consider the system
@@ -490,6 +560,16 @@ Consider the system
 \task Is there a conserved quantity (Hamiltonian function) for this system? If so, find one. If not, explain why not.
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+\begin{multicols}{2}
+\noindent a)~$(2, 2)$, $(-1, -1)$, $(2, -2)$, $(-1, 1)$ \quad b)~$(2, -2)$ is a saddle, $(-1, 1)$ is a saddle. \quad
+c)~$(2,2)$ is a spiral sink, $(-1, -1)$ is a spiral source. \quad d)~ No, can not have sources or sinks.
+
+\includegraphics[height=1.2in]{Images/NullclineDiagramSoln4.png}
+\end{multicols}
+}
 
 \begin{exercise}
  For a conflict between two armies, Lanchester's Law asserts that $\dfrac{dx}{dt}=-\alpha y$ and $\dfrac{dy}{dt}=-\beta x$, %5.2 (Hamiltonian, separatrix)
@@ -501,6 +581,11 @@ where $x$ and $y$ are the two populations, and $\alpha$ and $\beta$ are some pos
 \task Assume that we are just looking at the first quadrant, since the populations are non-negative. Find the curve along which the Hamiltonian function is zero, and explain its significance in terms of who wins the conflict.
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~ $\beta\frac{x^2}{2} - \alpha \frac{y^2}{2} = 0$ \quad b)~Saddle, these are hyperbolas. \quad c)~ $y = \sqrt{\frac{\beta}{\alpha}}x$, dividing line deciding who wins
+}
 
 \begin{exercise}
 Consider the non-linear system
@@ -513,6 +598,11 @@ Consider the non-linear system
 \task Classify the origin according to its {\it type} and {\it stability}.
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~Spiral Source \quad b)~Matrix is invertible \quad c)~Unstable spiral source
+}
 
 \begin{exercise} 
 Consider the system of differential equations
@@ -529,6 +619,16 @@ which has slope field sketched below.
 \task Do any of these critical points have a basin of attraction? If so, sketch out what regions of the plane correspond to a basin of attraction for those critical points. 
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+\begin{multicols}{2}
+\noindent $(1, -1)$ Nodal sink, $(-1, -1)$ Nodal source, $(1, 3)$ Nodal source, $(-1, 3)$ Nodal sink, $(0,0)$ Saddle. 
+ \quad c)~ Yes, bottom right goes to $(-1, 1)$, top left goes to $(-1, 3)$.
+ 
+ \includegraphics[width=1.2in]{Images/NLBoA_Ex1_Soln.png}
+\end{multicols}
+}
 
 \begin{exercise} 
 Consider the system of differential equations
@@ -545,5 +645,15 @@ which has slope field sketched below.
 \task Do any of these critical points have a basin of attraction? If so, sketch out what regions of the plane correspond to a basin of attraction for those critical points. 
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+\begin{multicols}{2}
+\noindent $(-2, 2)$ saddle, $(-2, -1)$ saddle, $(1, 2)$ saddle, $(1, -1)$ saddle, $(-1, 0)$ nodal source.
+ \quad c)~ No.
+ 
+ \includegraphics[width=1.2in]{Images/NLBoA_Ex2_Soln.png}
+\end{multicols}
+}
 
 \setcounter{exercise}{100}

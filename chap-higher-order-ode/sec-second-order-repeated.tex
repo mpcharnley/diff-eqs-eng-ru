@@ -185,6 +185,11 @@ y(t) = 2e^{-3t} + 3te^{-3t}.
 \begin{exercise}
 Find the general solution to $y'' + 4y' + 4y = 0$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$C_1e^{-2t} + C_2te^{-2t}$
+}
 
 \begin{exercise}\ansMark%
 Find the general solution to
@@ -201,14 +206,29 @@ C_2 x e^{3x}$
 \begin{exercise}
 Find the solution to $y'' + 6y' + 9y = 0$ with $y(0) = 3$ and $y'(0) = -1$. 
 \end{exercise}
+\comboSol{%
+}
+{%
+$y = 3e^{-3t} + 8te^{-3t}$
+}
 
 \begin{exercise}
 Solve $y'' - 8y' + 16 y = 0$ for $y(0) = 2$, $y'(0) = 0$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$y = 2e^{4t} - 8te^{4t}$
+}
 
 \begin{exercise}
 Find the general solution of $y'' = 0$ using the methods of this section.
 \end{exercise}
+\comboSol{%
+}
+{%
+$C_1 + C_2t$
+}
 
 \begin{exercise}
 The method of this section applies to equations of other orders than two.
@@ -216,6 +236,11 @@ We will see
 higher orders later.  Try to solve the first order equation
 $2y' + 3y = 0$ using the methods of this section.
 \end{exercise}
+\comboSol{%
+}
+{%
+$Ce^{-3t/2}$
+}
 
 \begin{exercise}
 Consider the second-order DE 
@@ -228,6 +253,11 @@ ty''+(4t+2)y'+(4t+4)y=0. \label{eq:2_3_Exercise1}
 \task Using your result from the previous page, apply {\bf reduction of order} to find the general solution to \eqref{eq:2_3_Exercise1}.
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~Yes, it is linear \quad b)~ $r=-2$ \quad c)~ $y = C_1e^{-2t} + C_2\frac{e^{-2t}}{t}$
+}
 
 \begin{exercise}[Euler Equations]\ansMark%
 Consider the differential equation $x^2y'' + 3xy' - 3y = 0$.
@@ -242,7 +272,7 @@ c) $y(x) = C_1 x + C_2\frac{1}{x^3}$
 }
 
 \begin{exercise}[Euler Equations]\ansMark%
-Consider the differential equation $x^2y'' + 4xy' - 2y = 0$.
+Consider the differential equation $x^2y'' + 4xy' + 2y = 0$.
 \begin{tasks}
 \task Verify that $y_1(x) = \frac{1}{x}$ is a solution.
 \task Use reduction of order to find a second linearly independent solution.
@@ -250,11 +280,11 @@ Consider the differential equation $x^2y'' + 4xy' - 2y = 0$.
 \end{tasks}
 \end{exercise}
 \exsol{%
-c) $y(x) = C_1 \frac{1}{x} + C_2 \frac{1}{x^2}$
+c) $y(x) = C_1 \frac{1}{x} + C_2 x^4$
 }
 
 \begin{exercise}[Euler Equations]\ansMark%
-Consider the differential equation $x^2y'' -6xy' - 10y = 0$.
+Consider the differential equation $x^2y'' -6xy' + 10y = 0$.
 \begin{tasks}
 \task Verify that $y_1(x) = x^2$ is a solution.
 \task Use reduction of order to find a second linearly independent solution.
@@ -268,12 +298,22 @@ c) $y(x) = C_1 x^2 + C_2 x^{5}$
 \begin{exercise}
 Write down a differential equation with general solution $y=at^2+bt^{-3}$, or explain why there is no such thing.
 \end{exercise}
+\comboSol{%
+}
+{%
+$x^2y'' + 2xy' - 6y = 0$
+}
 
 \begin{exercise}
 Find the solution to
 $y''-(2\alpha) y' + \alpha^2 y=0$, $y(0) = a$, $y'(0)=b$,
 where $\alpha$, $a$, and $b$ are real numbers.
 \end{exercise}
+\comboSol{%
+}
+{%
+$y = ae^{\alpha t} + (b - \alpha a)te^{\alpha t}$
+}
 
 \begin{exercise}[reduction of order] \label{exercise:reductionoforder}
 Suppose $y_1$ is a solution to $y'' + p(x) y' + q(x) y = 0$.
@@ -284,6 +324,11 @@ y_2(x) = y_1(x) \int \frac{e^{-\int p(x)\,dx}}{{\bigl(y_1(x)\bigr)}^2} \,dx
 \end{equation*}
 is also a solution.
 \end{exercise}
+\comboSol{%
+}
+{%
+Yes
+}
 
 \begin{exercise}[\myindex{Chebyshev's equation of order 1}]
 Take 
@@ -294,6 +339,11 @@ $(1-x^2)y''-xy' + y = 0$.
 \task Write down the general solution.
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~Works \quad b)~$y_2(x) = \sqrt{1 - x^2}$ \quad c)~ $C_1x + C_2\sqrt{1-x^2}$
+}
 
 \begin{exercise}[\myindex{Hermite's equation of order 2}]
 Take 
@@ -305,36 +355,76 @@ $y''-2xy' + 4y = 0$.
 \task Write down the general solution.
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~ Works \quad b)~$y_2(x) = (1-2x^2)\int_0^xe^{s^2}(2s^2 - 1)^{-2}\ ds$ \\ c)~ $C_1(1-2x^2) + C_2(1-2x^2)\int_0^xe^{s^2}(2s^2 - 1)^{-2}\ ds$
+}
 
 \noindent The rest of these exercises can be solved using any of the methods discussed in the last three sections. Pick the appropriate method in order to solve the problem.
 
 \begin{exercise}
 Find the general solution of $y'' + 5y' - 6y = 0$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$C_1e^{-6t} + C_2e^t$
+}
 
 \begin{exercise}
 Find the general solution of $y'' - 2y' + 2y = 0$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$C_1e^t\cos(t) + C_2e^t\sin(t)$
+}
 
 \begin{exercise}
 Find the general solution of $y'' + 4y' + 4y = 0$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$C_1e^{-2t} + C_2te^{-2t}$
+}
 
 \begin{exercise}
 Find the general solution of $y'' + 4y' + 5y = 0$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$C_1e^{-2t}\cos(t) + C_2e^{-2t}\sin(t)$
+}
 
 \begin{exercise}
 Find the solution to $y'' - 6y' + 13y = 0$ with $y(0) = 2$ and $y'(0) = 1$. 
 \end{exercise}
+\comboSol{%
+}
+{%
+$y = 2e^{3t}\cos(2t) - \frac{5}{2}e^{3t}\sin(2t)$
+}
 
 \begin{exercise}
 Find the solution to $y'' + 4y' - 12y = 0$ with $y(0) = -1$ and $y'(0) = 3$. 
 \end{exercise}
+\comboSol{%
+}
+{%
+$y= -\frac{4}{5}e^{-6t} - \frac{1}{5}e^{2t}$
+}
 
 \begin{exercise}
 Find the solution to $y'' - 6y' + 9y = 0$ with $y(0) = -4$ and $y'(0) = -1$. 
 \end{exercise}
+\comboSol{%
+}
+{%
+$y = -3e^{3t} + 11te^{3t}$
+}
 
 
 

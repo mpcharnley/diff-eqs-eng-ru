@@ -570,6 +570,11 @@ Explain what your findings mean, and if it agrees with what you
 expect in reality.
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~ $(n\pi, 0)$, $n$ is odd is a saddle, $n$ is even is a spiral sink. \quad b)~Same is true under those conditions. \quad c)~ Oscillates decaying to $\theta = 0$, which makes sense.
+}
 
 \begin{exercise}\ansMark%
 Take the damped nonlinear pendulum equation $\theta '' + \mu \theta' +
@@ -609,6 +614,11 @@ $\gamma=0.001$,
 $\gamma=0.01$.
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~ $(0,0)$ saddle, $(400, 0)$ saddle, $(100, 30)$ spiral sink. Both species survive. \quad b)~ $(0,0)$ saddle, $(40,0)$ nodal sink. Foxes die out.
+}
 
 \begin{exercise}\ansMark%
 Suppose we have the system predator-prey system where the foxes are also
@@ -674,11 +684,16 @@ axis somewhere and the number of hares will go to zero.
 The following system of differential equations models a pair of populations interacting. 
 \[ \frac{dx}{dt} = 4x - 2xy \qquad \frac{dy}{dt} = 3xy - y \]
 \begin{tasks}
-\task Does this system of differential equations better fit with a competing species model or a predator-prey model? If it is predator-prey, which species is the predator?
+\task Does this system of differential equations represent a competing species model or a predator-prey model? If it is predator-prey, which species is the predator?
 \task Find and classify the critical point (if it exists) with both $x>0$ and $y>0$.
-\task Describe what is going to happen to the population of these species over time. It this depends on the initial condition, say so.
+\task Describe what is going to happen to the population of these species over time. If this depends on the initial condition, say so.
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~Predator-prey, $x$ is prey \quad b)~$(2, 1/3)$ is a center \quad c)~Oscillates around this point
+}
 
 \begin{exercise}
 The following system of differential equations models a pair of populations interacting. 
@@ -689,6 +704,11 @@ The following system of differential equations models a pair of populations inte
 \task Describe what is going to happen to the population of these species over time. It this depends on the initial condition, say so.
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~Competing Species\quad b)~ $\left(\frac{6}{7}, \frac{10}{7}\right)$ is a saddle \quad c)~One of the two species will die off eventually, depending on the initial condition
+}
 
 \begin{exercise}
 The following system of differential equations models a pair of populations interacting. 
@@ -699,6 +719,11 @@ The following system of differential equations models a pair of populations inte
 \task Describe what is going to happen to the population of these species over time. It this depends on the initial condition, say so.
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~Competing Species\quad b)~$(1,2)$ is a nodal sink \quad c)~Tends towards coexistence equilibrium at $(1,2)$
+}
 
 \begin{exercise}
 \leavevmode
@@ -711,6 +736,11 @@ positive variables.  Show $\frac{y^a x^d}{e^{cx+by}}$
 attains a maximum at $(\nicefrac{d}{c},\nicefrac{a}{b})$.
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+Hint: Look at where the gradient is zero for the critical point, and look at the eigenvalues of the Hessian to determine if it is a maximum. Two negative eigenvalues means it is a maximum.
+}
 
 \begin{exercise}
 Suppose that for the pendulum equation we take a trajectory giving the
@@ -719,6 +749,11 @@ spinning-around motion, for example $\omega = \sqrt{\frac{2g}{L} \cos \theta
 angular velocity is $\omega_0^2$.  Find an integral expression for how long it takes
 the pendulum to go all the way around.
 \end{exercise}
+\comboSol{%
+}
+{%
+$T = \int_0^{2\pi} \frac{1}{\sqrt{\frac{2g}{L}\cos(\theta) + \frac{2g}{L} + \omega_0^2}}\ d\theta$
+}
 
 %Suppose we have the system predator-prey system where the foxes are also
 %hunted at a constant rate $hy$ proportional to the population.  That is,
@@ -733,6 +768,11 @@ Consider a predator-prey interaction where humans have gotten involved. The idea
 \task Find the location of the equilibrium system in each of the three cases in the previous part. Do this in terms of the constants $E_1$ and $E_2$ for all three cases. 
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a) $(\frac{d}{c},\ \frac{a}{b})$\quad b)~It will change the effective values of $a$ and $d$. \quad c)~$\left(\frac{d+E_2}{c}, \frac{a-E_1}{b}\right)$
+}
 
 \begin{exercise}
 The second version of this will deal with ``constant yield harvesting,'' which means that humans will remove animals from the populations at a fixed rate, no matter their population. This results in equations of the form
@@ -743,6 +783,12 @@ The second version of this will deal with ``constant yield harvesting,'' which m
 \task Find the location of the equilibrium system in each of the three cases in the previous part. Do this in terms of the constants $H_1$ and $H_2$ for all three cases. 
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a) $(\frac{d}{c},\ \frac{a}{b})$\quad b)~Any harvesting should increase the $x$ value and decrease the $y$ value. \\
+c)~ $\left( \frac{ad+bH_2 + cH_1 + \sqrt{(ad+bH_2 + cH_1)^2 - 4acdH_1}}{2ac}, \frac{ad-cH_1 - bH_2 + \sqrt{(ad-cH_1 - bH_2)^2 +4abdH_2}}{2bd}\right)$
+}
 
 \begin{exercise}
 The general competing species model has the form
@@ -753,6 +799,11 @@ The general competing species model has the form
 \task Suppose that $\rho_2/\gamma_2 > \rho_1/M_1$ and $\rho_1/\gamma_1 > \rho_2/M_2$. Show that there is a stable equilibrium where both species coexist. 
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+Hint: Solve for the critical point with neither population zero in terms of all of the parameters. Then, you want to classify the critical points at this non-zero value, as well as at $(0, y)$ and $(x,0)$ for the appropriate values of $x$ and $y$. This should give you enough to know what happens over time. For c), think about what these two inequalities tell you about $M_1M_2 - \gamma_1\gamma_2$.
+}
 
 \begin{exercise}[challenging]
 Take the pendulum, suppose the initial position is $\theta = 0$.
@@ -775,6 +826,11 @@ that is, the initial angle is 0, and the initial angular velocity is exactly
 $\omega_1$.
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~$\omega = \sqrt{\frac{2g}{L}\cos(\theta) - \frac{2g}{L} + \omega_0^2}$ \quad b)~$\omega_0 < 2\sqrt{\frac{g}{L}}$ \quad c)~It stops at the top.
+}
 
 \setcounter{exercise}{100}
 

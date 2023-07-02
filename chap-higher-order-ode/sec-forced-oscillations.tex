@@ -468,25 +468,50 @@ back to this section once we have learned about the ideas of Fourier series.
 \begin{exercise}
 Write $\cos(3x) - \cos(2x)$ as a product of two sine functions.
 \end{exercise}
+\comboSol{%
+}
+{%
+$-2\sin\left(\frac{5}{2}x\right)\sin\left(\frac{1}{2}x\right)$
+}
 
 \begin{exercise}
 Write $\cos(5x) - \cos(3x)$ as a product of two sine functions.
 \end{exercise}
+\comboSol{%
+}
+{%
+$-2\sin\left(4x\right)\sin\left(x\right)$
+}
 
 \begin{exercise}
 Write $\cos(3x) - \cos(\pi x)$ as a product of two sine functions.
 \end{exercise}
+\comboSol{%
+}
+{%
+$-2\sin\left(\frac{3+\pi}{2}x\right)\sin\left(\frac{3-\pi}{2}x\right)$
+}
 
 \begin{exercise}
 Derive a formula for $x_{sp}$ if the equation is
 $m x'' + \gamma x' + kx = F_0 \sin (\omega t)$.  Assume $\gamma > 0$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$x_{sp}(t) = \frac{F_0}{(\gamma \omega)^2 + (k - m\omega^2)^2}\left( (k - m\omega^2)\sin(\omega t) - \gamma \omega \cos(\omega t)\right)$
+}
 
 \begin{exercise}
 Derive a formula for $x_{sp}$ if the equation is
 $m x'' + \gamma x' + kx = F_0 \cos (\omega t) + F_1 \cos (3\omega t)$.
 Assume $\gamma > 0$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$x_{sp}(t) = \frac{F_0}{(\gamma \omega)^2 + (k - m\omega^2)^2}\left( (k - m\omega^2)\cos(\omega t) + \gamma \omega \sin(\omega t)\right)$ \\ $\ \ + \frac{F_1}{(3\gamma \omega)^2 + (k - 9m\omega^2)^2}\left( (k -9 m\omega^2)\cos(3\omega t) + 3\gamma \omega \sin(3\omega t)\right)$
+}
 
 \begin{exercise}\ansMark%
 Derive a formula for $x_{sp}$ for
@@ -511,6 +536,11 @@ For what values of $\gamma$ (solve in terms of $m$, $k$, and $F_0$) will there b
 practical resonance (that is, for what values of $\gamma$ is there no maximum of
 $C(\omega)$ for $\omega > 0$)?
 \end{exercise}
+\comboSol{%
+}
+{%
+$\gamma > \sqrt{2mk}$
+}
 
 \begin{exercise}
 Take $m x'' + \gamma x' + kx = F_0 \cos (\omega t)$.
@@ -519,6 +549,11 @@ For what values of $m$ (solve in terms of $\gamma$, $k$, and $F_0$) will there b
 practical resonance (that is, for what values of $m$ is there no maximum of
 $C(\omega)$ for $\omega > 0$)?
 \end{exercise}
+\comboSol{%
+}
+{%
+$m < \frac{\gamma^2}{2k}$
+}
 
 \begin{exercise}\ansMark%
 A mass of \unit[4]{kg} on a spring with $k=\unitfrac[4]{N}{m}$ and a damping
@@ -532,14 +567,20 @@ $C(\omega) = \frac{16}{3\sqrt{7}} \approx 2.016$
 }
 
 \begin{exercise}
-An infant is bouncing in a spring chair. The infant has a mass of \unit[8]{kg}, and the chair functions as a spring with spring constant \unitfrac[72]{N}{m}. The bouncing of the infant applies a force of the form $3 \cos(\omega t)$ for some frequency $\omega$. Assume that the infant starts at rest at the equilibrium position of the chair.
+An infant is bouncing in a spring chair. The infant has a mass of \unit[8]{kg}, and the chair functions as a spring with spring constant \unitfrac[72]{N}{m}. The bouncing of the infant applies a force of the form $6 \cos(\omega t)$ for some frequency $\omega$. Assume that the infant starts at rest at the equilibrium position of the chair.
 \begin{tasks}
 \task If there is no dampening coefficient, what frequency would the infant need to force at in order to generate pure resonance?
-\task Assume that the chair is built with a dampener with coefficient \unitfrac[5]{Ns}{m}. Set up an initial value problem for this situation if the child behaves in the same way.
+\task Assume that the chair is built with a dampener with coefficient \unitfrac[16]{Ns}{m}. Set up an initial value problem for this situation if the child behaves in the same way.
 \task Solve this initial value problem.
-\task There are several options for chairs you can buy. There is the one with dampening coefficient \unitfrac[5]{Ns}{m}, one with \unitfrac[1]{Ns}{m}, and one with \unitfrac[20]{Ns}{m}. Which of these would be most `fun' for the infant? How do you know?
+\task There are several options for chairs you can buy. There is the one with dampening coefficient \unitfrac[16]{Ns}{m}, one with \unitfrac[1]{Ns}{m}, and one with \unitfrac[30]{Ns}{m}. Which of these would be most `fun' for the infant? How do you know?
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~$3$ rad/s or $\frac{3}{2\pi}$ Hz \quad b)~$8y'' + 16y' + 72y = 6\cos(3t)$, $y(0) = y'(0) = 0$ \\
+c)~$y(t) = \frac{1}{8}\sin(3t) - \frac{3}{16\sqrt{2}}\sin(2\sqrt{2} t)$ \quad d)~1 is bouncier
+}
 
 \begin{exercise}
 \pagebreak[3]
@@ -569,6 +610,11 @@ tower moves more than 1.5 meter from the rest position, the tower collapses.
 Will the tower collapse?
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~$\omega)1 = \frac{1}{\sqrt{10}}$ \quad b)~$\frac{2A}{\frac{1}{10\omega^2} - 1}$ \quad c)~Yes
+}
 
 \begin{exercise}\ansMark%
 Suppose there is no damping in a mass and spring system with
@@ -595,6 +641,11 @@ Assume that a 2 kg mass is attached to a spring that is acted on by a forcing fu
 \task Assume that we set $k$ to be the value determined in (a), and that the rest of the problem is situated so that the system exhibits practical resonance. What would we expect to see for the amplitude of the solution? This should be a generic comment, not a specific value.
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~ 8 N/m \quad b)~ Add a small amount of damping (needs $\gamma < \sqrt{2mk}$) and keep $k$ close to 8 N/m \quad c)~Larger than $5/8$.
+}
 
 \begin{exercise}
 Assume that we have a mass-on-a-spring system defined by the equation
@@ -608,6 +659,12 @@ Assume that we have a mass-on-a-spring system defined by the equation
 \task Find the general solution of this problem.
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~$m = 3$ kg, $\gamma = 2$ Ns/m, $k = 18$ N/m \quad b)~Natural is $\sqrt{6}$ rad/s, Forcing is $5$ rad/s, Quasi-frequency is $\frac{\sqrt{53}}{3}$ rad/s \quad c)~Quasifrequency is in the transient, and forcing is in steady periodic. \\
+d)~ $C_1e^{-t/3}\cos\left(\frac{\sqrt{53}}{3}t\right) + C_2e^{-t/3}\sin\left(\frac{\sqrt{53}}{3}t\right) - \frac{228}{3349} \cos(5t) + \frac{40}{3349}\sin(5t)$
+}
 
 \begin{exercise}
 A circuit is built with an $L$ Henry inductor, and $R$ Ohm resistor, and a $C$ Farad capacitor. All of the units are correct, but you do not know any of their values. To study this circuit, you apply an external voltage source of $F(t) = 4 \cos\left(\frac{1}{2} t \right)$, and the circuit starts with no initial charge or current.
@@ -623,6 +680,11 @@ A circuit is built with an $L$ Henry inductor, and $R$ Ohm resistor, and a $C$ F
 \task What is the frequency of the steady-periodic oscillation that your friend mentioned above? 
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~$LQ'' + RQ' + \frac{1}{C}Q = 4\cos\left(\frac{1}{2}t\right)$ \quad b)~ (i) $C = 25$ F, (ii) $R > 0$ but small, (iii) $L \approx \frac{4}{25}$ \quad c)~ $\frac{1}{2}$
+}
 
 
 \setcounter{exercise}{100}

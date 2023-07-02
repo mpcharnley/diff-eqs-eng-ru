@@ -239,6 +239,11 @@ be able to find the solution in closed form.
 y' + y = e^{x^2-x}, \qquad y(0) = 10 .
 \end{equation*}
 \end{exercise}
+\comboSol{%
+}
+{%
+$y = e^{-x}\int_0^x e^{-s^2}\ ds + 10e^{-x}$
+}
 
 %\begin{remark}
 %Before we move on, we should note some interesting properties of linear
@@ -262,38 +267,83 @@ solution, you should give that.
 \begin{exercise}
 Solve $y' + xy = x$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$y = 1 + Ce^{-x^2}{2}$
+}
 
 \begin{exercise}
 Solve $y' + 6y = e^x$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$y = \frac{1}{7}e^x + Ce^{-6x}$
+}
 
 \begin{exercise}
 Solve $y' + 4y = x^2e^{-4x}$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$y = \frac{1}{3}x^3e^{-4x} + Ce^{-4x}$
+}
 
 \begin{exercise}
 Solve $y' - 3y = xe^x$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$y = -\frac{1}{2}xe^{x} - \frac{1}{4}e^x + Ce^{3x}$
+}
 
 \begin{exercise}
 Solve $y' + 3y = e^{4x} - e^{-2x}$ with $y(0) = -3$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$y = \frac{1}{7}e^{4x} - e^{-2} + \frac{27}{7}e^{-3x}$
+}
 
 \begin{exercise}
 Solve $y' - 2y = x + 4$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$y = -\frac{x}{2} - \frac{9}{4} + Ce^{2x}$
+}
 
 \begin{exercise}
 Solve $xy' + 4y = x^2 - \frac{1}{x^2}$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$y = \frac{x^2}{6} - \frac{1}{2x^2} + Cx^{-4}$
+}
 
 \begin{exercise}
 Solve $xy' - 3y = x-2$ with $y(1) = 3$. 
 \end{exercise}
+\comboSol{%
+}
+{%
+$y = -\frac{1}{2}x - \frac{2}{3} + \frac{25}{6}x^3$
+}
 
 \begin{exercise}
 Solve $y' - 4y = \cos{(3t)}$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$y = \frac{3}{25}\sin(3t) - \frac{4}{25}\cos(3t) + Ce^{4t}$
+}
 
 \begin{exercise}\ansMark%
 Solve $y'+3 x^2 y = x^2$.
@@ -305,22 +355,47 @@ $y = C e^{-x^3} + \nicefrac{1}{3}$
 \begin{exercise}
 Solve $y' + 3x^2y = \sin(x) \, e^{-x^3}$, with $y(0) = 1$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$y = (2-\cos(x))e^{-x^3}$
+}
 
 \begin{exercise}
 Solve $y' + \cos (x) y = \cos(x)$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$y = 1 + Ce^{-\sin(x)}$
+}
 
 \begin{exercise}
 Solve the IVP $4ty'+y=24\sqrt{t};\ y(10000)=100.$ %1.4
 \end{exercise}
+\comboSol{%
+}
+{%
+$y = 8\sqrt{t} - 7000t^{-1/4}$
+}
 
 \begin{exercise}
 Solve the IVP $(t^2+1)y' - 2ty = t^2+1; \ y(1)=0$. %1.4
 \end{exercise}
+\comboSol{%
+}
+{%
+$y = (t^2 + 1)\left(\tan^{-1}(t) - \frac{\pi}{4}\right)$
+}
 
 \begin{exercise}
 Solve $\frac{1}{x^2+1} \, y' + x y = 3$, with $y(0) = 0$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$y = e^{-\left(\frac{x^4}{4} + \frac{x^2}{2}\right)}\int_0^x 3e^{\frac{s^4}{4} + \frac{s^2}{2}}(s^2 + 1)\ ds$
+}
 
 \begin{exercise}\ansMark%
 Solve $y'+ 2\sin(2x) y = 2\sin(2x)$, $y(\nicefrac{\pi}{2}) = 3$.
@@ -331,12 +406,22 @@ $y = 2 e^{\cos(2x)+1} + 1$
 
 \begin{exercise}
 Consider the initial value problem
-\[ 5y' - 3y = e^{-2t} \qquad y(0) = a \] for an undetermined value $a$. Solve the problem and determine the dependence on the the value of $a$. How does the value of the solution as $t \rightarrow \infty$ depend on the value of $a$?
+\[ 5y' - 3y = e^{-2t} \qquad y(0) = a \] for an undetermined value $a$. Solve the problem and determine the dependence on the value of $a$. How does the value of the solution as $t \rightarrow \infty$ depend on the value of $a$?
 \end{exercise}
+\comboSol{%
+}
+{%
+$y = -\frac{1}{13}e^{-2t} + \left(a + \frac{1}{13}\right)e^{3/5}t$. If $a > -\frac{1}{13}$, the solution goes to $\infty$, if $a = -\frac{1}{13}$, the solution goes to 0, if $a < -\frac{1}{13}$, the solution goes to $-\infty$.
+}
 
 \begin{exercise}
 Find an expression for the general solution to $y' + 3y = \sin(t^2)$ with $y(0) = 2$. Simplfy your answer as much as possible. 
 \end{exercise}
+\comboSol{%
+}
+{%
+$y = 2e^{-3t} + e^{-3t}\int_0^t e^{3s}\sin(s^2)\ ds$
+}
 
 \setcounter{exercise}{100}
 

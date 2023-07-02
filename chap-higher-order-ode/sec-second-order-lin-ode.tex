@@ -445,7 +445,7 @@ Since $r_1 \neq r_2$, this expression is not zero, so the two solutions are line
 y = C_1e^{r_1x} + C_2e^{r_2x}.
 \end{equation*}
 Using the other formulation of linear independence of two functions, we would need to show that there is no constant $A$ so that 
-\[ e^{r_1x} = A e^{r_2x}. \] Since this can be rewritten as $A = e^{(r_2-r_1)x}$ and we know that $r_1 \neq r_2$, this is not a constant, so we again know that these functions are linearly independent and give rise to a general solution.
+\[ e^{r_1x} = A e^{r_2x}. \] Since this can be rewritten as $A = e^{(r_1-r_2)x}$ and we know that $r_1 \neq r_2$, this is not a constant, so we again know that these functions are linearly independent and give rise to a general solution.
 
 \begin{example}
 Solve the initial value problem
@@ -548,6 +548,11 @@ y(x) = \left(1 + \frac{1}{2\sqrt{2}}\right)e^{(1 + \sqrt{2})x} + \left(1 - \frac
 \begin{exercise}
 Show that $y=e^x$ and $y=e^{2x}$ are linearly independent.
 \end{exercise}
+\comboSol{%
+}
+{%
+Ratio is non-constant.
+}
 
 \begin{exercise}\ansMark%
 Are $\sin(x)$ and $e^x$ linearly independent?  Justify.
@@ -575,10 +580,20 @@ $y=5$
 \begin{exercise}
 Take $y'' + 5 y = 10 x + 5$.  Find (guess!) a solution.
 \end{exercise}
+\comboSol{%
+}
+{%
+$y = 2x+1$
+}
 
 \begin{exercise}
 Verify that $y_1(t) = e^t \cos(2t)$ and $y_2(t) = e^t \sin(2t)$ both solve $y'' - 2y' + 5y = 0$. Are these two solutions linearly independent? What does that mean about the general solution to $y'' - 2y' + 5y = 0$?
 \end{exercise}
+\comboSol{%
+}
+{%
+Yes. This means the general solution is $C_1e^{t}\cos(2t) + C_2\sin(2t)$.
+}
 
 \begin{exercise}
 Prove the superposition principle for nonhomogeneous equations.  Suppose that
@@ -586,17 +601,32 @@ $y_1$ is a solution to $L y_1 = f(x)$ and $y_2$ is a solution to
 $L y_2 = g(x)$ (same linear operator $L$).  Show that $y = y_1+y_2$ solves
 $Ly = f(x) + g(x)$.
 \end{exercise}
+\comboSol{%
+}
+{%
+Hint: Plug in $y_1 + y_2$ and see that it works correctly.
+}
 
 \begin{exercise}
 Determine the maximal interval of existence of the solution to the differential equation
 \[ (t - 5)y'' + \frac{1}{t+1}y' + e^t y = \frac{\cos(t)}{t^2 + 1} \] with initial condition $y(3) = 8$. What about if the initial condition is $y(-3) = 4$?
 \end{exercise}
+\comboSol{%
+}
+{%
+$(-1, 5)$ for $y(3) = 8$. $(-\infty, -1)$ for $y(-3) = 4$.
+}
 
 \begin{exercise}
 For the equation $x^2 y'' - x y' = 0$, find two solutions, show that they
 are linearly independent and find the general solution.
 Hint: Try $y = x^r$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$y = C_1 + C_2x^2$
+}
 
 \begin{exercise}\ansMark%
 Find the general solution to
@@ -609,31 +639,64 @@ $y=C_1 \ln(x) + C_2$
 \begin{exercise}
 Find the general solution of $2y'' + 2y' -4 y = 0$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$y = C_1e^{-2t} + C_2e^{t}$
+}
 
 \begin{exercise}
 Solve $y'' + 9y' = 0$ with $y(0) = 1$, $y'(0) = 1$.
 \end{exercise}
-
+\comboSol{%
+}
+{%
+$y = \frac{10}{9} - \frac{1}{9}e^{-9t}$
+}
 \begin{exercise}
 Find the general solution of $y'' + 9y' - 10 y = 0$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$y = C_1e^{-10t} + C_2e^t$
+}
 
 \begin{exercise}
 Find the general solution to $y'' - 3y' - 4y = 0$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$y = C_1e^{4t} + C_2e^{-t}$
+}
 
 \begin{exercise}
 Find the general solution to $y'' + 6y' + 8y = 0$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$y = C_1e^{-2t} + C_2e^{-4t}$
+}
 
 \begin{exercise}
 Find the solution to $y'' - 3y' + 2y = 0$ with $y(0) = 3$ and $y'(0) = -1$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$y = 7e^t - 4e^{2t}$
+}
 
 \begin{exercise}
 Find the solution to $y'' + y' -12y = 0$ with $y(0) = 1$ and $y'(0) = -2$.
 \end{exercise}
-
+\comboSol{%
+}
+{%
+$y = \frac{5}{7}e^{-4t} + \frac{2}{7}e^{3t}$
+}
 \begin{exercise}\ansMark%
 Find the general solution to
 $y''+4y'+2y=0$.
@@ -686,6 +749,11 @@ $y'' -y'-6y=0$
 \begin{exercise}
 Give an example of a 2nd-order DE whose general solution is $y=c_1e^{-2t}+c_2e^{-4t}$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$y'' + 6y' + 8y = 0$
+}
 
 \pagebreak[2]
 Equations of the form $a x^2 y'' + b x y' + c y = 0$ are called
@@ -704,6 +772,12 @@ $r$.
 \task What happens when ${(b-a)}^2-4ac = 0$ or ${(b-a)}^2-4ac < 0$?
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~$r_1 = \frac{(a-b) + \sqrt{(b-a)^2 - 4ac}}{2a}$, $r_2 = \frac{(a-b) - \sqrt{(b-a)^2 - 4ac}}{2a}$, General Solution: $y = C_1x^{r_1} + C_2x^{r_2}$. \\
+b)~ Only one solution or complex solutions.
+}
 
 We will revisit the case when ${(b-a)}^2-4ac < 0$ later.
 
@@ -713,6 +787,11 @@ Suppose ${(b-a)}^2-4ac = 0$.  Find a formula for the general solution
 of $a x^2 y'' + b x y' + c y = 0$.  Hint: Try $y=x^r \ln x$ for the second
 solution.
 \end{exercise}
+\comboSol{%
+}
+{%
+$y = C_1x^{\frac{a-b}{2a}} + C_2x^{\frac{a-b}{2a}}ln(x)$
+}
 
 
 \setcounter{exercise}{100}

@@ -312,6 +312,11 @@ Write the system $x_1' = 2 x_1 - 3t x_2 + \sin t$,
 $x_2' = e^t x_1 + 3 x_2 + \cos t$ in the form
 ${\vec{x}}' = P(t) \vec{x} + \vec{f}(t)$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$P(t) = \left[\begin{smallmatrix} 2 & -3t \\ e^t & 3 \end{smallmatrix}\right]$, $\vec{f}(t) = \left[\begin{smallmatrix}  \sin(t)\\ \cos(t) \end{smallmatrix}\right]$
+}
 
 \begin{exercise}\ansMark%
 Write $x'=3x-y+e^t$, $y'=tx$ in matrix notation.
@@ -341,6 +346,12 @@ y''' + (y'+1)^2 = e^y + \sin(t+1).
 \end{equation*}
 Convert this to a first order system and simplify as much as possible. Can you write this in the form $\vec{x}' = A\vec{x} + \vec{f}$? Why or why not?
 \end{exercise}
+\comboSol{%
+}
+{%
+No, it is non-linear.
+$\vec{u}' = \left[\begin{smallmatrix}  u_2 \\ u_3 \\ e^{u_1} - (u_2 + 1)^2 + \sin(t+1) \end{smallmatrix}\right]$
+}
 
 \begin{exercise}
 \leavevmode
@@ -363,6 +374,11 @@ Write down the general solution in the form $x_1 = ?$, $x_2 = ?$
 (i.e.\ write down a formula for each element of the solution).
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+b)~ $C_1\left[\begin{smallmatrix} 1 \\ 1 \end{smallmatrix}\right]e^{4t} + C_2\left[\begin{smallmatrix} 1 \\ -1 \end{smallmatrix}\right]e^{-2t}$ \\ c)~$x_1(t) = C_1e^{4t} + C_2e^{-2t},\ x_2(t) = C_1e^{4t} - C_2e^{-2t}$
+}
 
 \begin{exercise}
 Verify that
@@ -374,6 +390,11 @@ $\left[ \begin{smallmatrix}
 \end{smallmatrix} \right] e^{t}$ 
 are linearly independent.  Hint: Just plug in $t=0$.
 \end{exercise}
+\comboSol{%
+}
+{%
+Yes
+}
 
 
 \begin{exercise}\ansMark%
@@ -406,6 +427,11 @@ $\left[ \begin{smallmatrix}
 are linearly independent.  Hint: You must be a bit more tricky than in the
 previous exercises.
 \end{exercise}
+\comboSol{%
+}
+{%
+Yes. Write this out as three equations that all must equal zero, see what combining the first two gets you, then go from there.
+}
 
 \begin{exercise}\ansMark%
 Are
@@ -445,6 +471,11 @@ t^3 \\ t^4
 \end{smallmatrix} \right]$ 
 are linearly independent.
 \end{exercise}
+\comboSol{%
+}
+{%
+Yes, write out the equations and see when they can be zero.
+}
 
 \begin{exercise}
 Take the system $x_1' + x_2' = x_1$,
@@ -456,6 +487,11 @@ $A {\vec{x}}' = B \vec{x}$ for matrices $A$ and $B$.
 ${\vec{x}}' = P \vec{x}$.
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+$A = \left[\begin{smallmatrix}  1 & 1 \\ 1 & -1 \end{smallmatrix}\right]$, $B = \left[\begin{smallmatrix} 1 & 0 \\ 0 & 1 \end{smallmatrix}\right]$, $P = \left[\begin{smallmatrix} 1/2 & 1/2 \\ 1/2 & -1/2 \end{smallmatrix}\right]$
+}
 
 \begin{exercise}\ansMark%
 \leavevmode

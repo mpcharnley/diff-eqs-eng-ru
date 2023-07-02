@@ -195,12 +195,22 @@ Consider the differential equation
 Is it possible to solve the equation $y' = \frac{xy}{\cos x}$ for $y(0) = 1$?
 Justify.
 \end{exercise}
+\comboSol{%
+}
+{%
+Yes.
+}
 
 \begin{exercise}
 Is it possible to solve the equation $y' = y\sqrt{\lvert x\rvert}$ for
 $y(0) = 0$?  Is the solution unique?
 Justify.
 \end{exercise}
+\comboSol{%
+}
+{%
+Yes
+}
 
 \begin{exercise}
 Consider the differential equation $y' + \frac{1}{t-2}y = \frac{1}{t+3}$. 
@@ -210,6 +220,11 @@ Consider the differential equation $y' + \frac{1}{t-2}y = \frac{1}{t+3}$.
 \task What if we start with the initial condition $y(4) = 0$?
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~Linear \quad b)~$(-3,2)$ \quad c)~$(2,\infty)$
+}
 
 \begin{exercise}
 Consider the differential equation $y' + \frac{1}{t+2}y = \frac{\ln(|t|)}{t-4}$. 
@@ -220,6 +235,11 @@ Consider the differential equation $y' + \frac{1}{t+2}y = \frac{\ln(|t|)}{t-4}$.
 \task What happens if we want to start with $y(4) = 3$?
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~Linear \quad b)~$(-\infty, -2)$ \quad c)~$(0, 4)$\quad d)~Nothing is guaranteed.
+}
 
 \begin{exercise}
 Consider the differential equation $(t+3)y' + t^2 y = \frac{1}{t-2}$. 
@@ -230,6 +250,11 @@ Consider the differential equation $(t+3)y' + t^2 y = \frac{1}{t-2}$.
 \task What happens if we want to start with $y(4) = 2$?
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~Linear \quad b)~$(-3, 2)$ \quad c)~$(-\infty, -3)$\quad d)~$(2,\infty)$
+}
 
 \begin{exercise}
 Consider the differential equation $y' = y^2$. 
@@ -242,6 +267,12 @@ Consider the differential equation $y' = y^2$.
 \task Do any of these contradict your answer in (b)? 
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~Non-linear \quad b)~It will exist on some interval around $t=0$. \\ c)~ $y = \frac{-1}{t-1}$, $(-\infty, 1)$ \quad d)~ $y = \frac{-1}{t - \frac{1}{4}}$, $\left(-\infty, \frac{1}{4}\right)$ \quad e)~ $y = \frac{-1}{t+2}$, $(-2, \infty)$ \quad
+f)~ No. All of these are intervals containing zero.
+}
 
 \begin{exercise}
 Consider the differential equation $y' = y^2 + 4$. 
@@ -251,6 +282,11 @@ Consider the differential equation $y' = y^2 + 4$.
 \task Find the solution to this differential equation with $y(0) = 0$. Over what values of $x$ does this solution exist?
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~Non-linear \quad b)~Some interval around zero. \quad c)~$y = 2\tan(2t)$, Exists on $\left(-\frac{\pi}{4}, \frac{\pi}{4}\right)$
+}
 
 \begin{exercise}
 Consider the differential equation $y' = x(y+1)^2$. 
@@ -261,6 +297,12 @@ Consider the differential equation $y' = x(y+1)^2$.
 \task Find the solution to this differential equation with $y(0) = 1$. Over what values of $x$ does this solution exist?
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~Non-linear \qquad b)~Some interval around $t=0$ \quad c)~ $y = \frac{2}{1-x^2} - 1$, Exists on $(-1, 1)$
+}
+
 
 \begin{exercise}[challenging]
 Take $(y-x)y' = 0$, $y(0) = 0$.
@@ -269,10 +311,20 @@ Take $(y-x)y' = 0$, $y(0) = 0$.
 \task Explain why this does not violate Picard's theorem.  
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~$y=0$ and $y=x$ \quad b)~$f(x,y)$ is discontinuous when $x=y$, and $(0,0)$ is one such point.
+}
 
 \begin{exercise}
 Find a solution to $y' = \lvert y \rvert$, $y(0) = 0$.  Does Picard's theorem apply?
 \end{exercise}
+\comboSol{%
+}
+{%
+$y=0$ or $y = \text{sign}(x)\frac{x^2}{2}$. No.
+}
 
 \begin{exercise}
 Consider the IVP $y'\cos t+y\sin t=1; \, y(\pi/6)=1$.%1.4
@@ -281,6 +333,11 @@ Consider the IVP $y'\cos t+y\sin t=1; \, y(\pi/6)=1$.%1.4
 \task Find this solution explicitly.
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~ $\left(-\frac{\pi}{2}, \frac{\pi}{2}\right)$ \quad b)~$y = \sin(t) + \frac{1}{\sqrt{3}}\cos(t)$
+}
 
 \begin{exercise}
 Take an equation $y' = (y-2x) g(x,y) + 2$ for some function $g(x,y)$.
@@ -288,15 +345,25 @@ Can you solve the problem for the
 initial condition $y(0) = 0$,
 and if so what is the solution?
 \end{exercise}
+\comboSol{%
+}
+{%
+$y = 2x$
+}
 
 \begin{exercise}
-Consider the differential equation $y' = e^x(y-2)$.
+Consider the differential equation $y' = e^x(2-y)$.
 \begin{tasks}
 \task Verify that $y = 2$ is a solution to this differential equation.
 \task Assume that we look for the solution with $y(0) = 0$. Is it possible that $y(x) = 3$ for some later time $x$? Why or why not?
 \task Based on this, what do we know about the solution with $y(0) = 5$?
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~Yes \quad b)~No \quad c)~Must stay above $2$ for all $x$. Approaches 2.
+}
 
 \begin{exercise}[challenging]
 \pagebreak[2]
@@ -315,6 +382,11 @@ Given $y(0) = 0$, what can you say about the solution.  In particular,
 can $y(x) > 1$ for any $x$?  Can $y(x) = 1$ for any $x$?  Why or why not?
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~$y=1$ \quad b)~No \quad c)~Must stay below $y=1$
+}
 
 \begin{exercise}
 Consider the differential equation $y' = y^2 - 4$.
@@ -325,6 +397,11 @@ Consider the differential equation $y' = y^2 - 4$.
 \task Assume that we solve this differential equation with $y(0) = -1$. Is it possible for the solution to reach $y=-4$ at any point? Why or why not?
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~Yes \quad b)~Yes \quad c)~No \quad d)~No
+}
 
 \begin{exercise}\ansMark%
 Is it possible to solve $y' = xy$ for $y(0) = 0$?  Is the solution unique?
@@ -336,7 +413,7 @@ $\frac{\partial f}{\partial y} = x$, which is also continuous near $(0,0)$.
 So a solution exists and is unique.  (In fact $y=0$ is the solution).
 }
 
-\begin{exercise}
+\begin{exercise}\ansMark%
 Is it possible to solve $y' = \frac{x}{x^2-1}$ for $y(1) = 0$?
 \end{exercise}
 \exsol{%

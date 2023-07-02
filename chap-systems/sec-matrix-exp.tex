@@ -836,6 +836,11 @@ Using the matrix exponential,
 find a fundamental matrix solution for the system
 $x' = 3x+y$, $y' = x+3y$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$e^{tA} = \left[\begin{smallmatrix} \frac{1}{2}e^{2t} + \frac{1}{2}e^{4t} & \frac{1}{2}e^{4t} - \frac{1}{2}e^{2t} \\ -\frac{1}{2}e^{2t} + \frac{1}{2}e^{4t} & \frac{1}{2}e^{2t} + \frac{1}{2}e^{4t} \end{smallmatrix}\right]$
+}
 
 \begin{exercise}
 Find $e^{tA}$ for the matrix $A =
@@ -844,6 +849,11 @@ Find $e^{tA}$ for the matrix $A =
 0 & 2
 \end{smallmatrix} \right]$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$e^{tA} = \left[\begin{smallmatrix}  e^{2t} & 3te^{2t} \\ 0 & e^{2t} \end{smallmatrix}\right]$
+}
 
 \begin{exercise}\ansMark%
 Compute
@@ -924,21 +934,45 @@ $x_3' = -3x_1-2x_2- 5x_3$.  Then find the solution that
 satisfies $\vec{x}(0) = 
 \left[ \begin{smallmatrix} 0 \\ 1 \\ -2 \end{smallmatrix} \right]$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$\frac{1}{6}\left[\begin{smallmatrix} 10e^{3t} + 12e^t - 16 & 8e^{3t} - 8 & 16e^{3t} + 24e^t - 40 \\%
+5e^{3t} - 9e^t + 4 & 4e^{3t} + 2 & 8e^{3t} - 18e^t + 10 \\%
+-5e^{3t} - 3e^t + 8 & -4e^{3t} + 4 & -8e^{3t} - 6e^t + 20 \end{smallmatrix}\right]$, \quad $\vec{x}(t) = \frac{1}{6}\left[\begin{smallmatrix} 10e^{3t} + 12e^t - 16 & 8e^{3t} - 8 & 16e^{3t} + 24e^t - 40 \\%
+5e^{3t} - 9e^t + 4 & 4e^{3t} + 2 & 8e^{3t} - 18e^t + 10 \\%
+-5e^{3t} - 3e^t + 8 & -4e^{3t} + 4 & -8e^{3t} - 6e^t + 20 \end{smallmatrix}\right] \left[\begin{smallmatrix} 0 \\ 1 \\ 2 \end{smallmatrix}\right]$
+}
 
 \begin{exercise}
 Compute the matrix exponential $e^A$ for
 $A = \left[ \begin{smallmatrix} 1 & 2 \\ 0 & 1 \end{smallmatrix} \right]$.
 \end{exercise}
+\comboSol{%
+}
+{%
+$\left[\begin{smallmatrix} e^t & (1+2t)e^t \\ 0 & e^t \end{smallmatrix}\right]$
+}
 
 \begin{exercise}[challenging] \label{matexp:explawex}
 Suppose $AB = BA$.  Show that under this assumption, $e^{A+B} = e^A e^B$.
 \end{exercise}
+\comboSol{%
+}
+{%
+Hint: Consider the equation $X' = (A+B)X$. Show that both of the above solve this equation using that if $AB=BA$ then $A$ commutes with $e^B$ and vice versa.
+}
 
 \begin{exercise} \label{matexp:expinvex}
 Use \exerciseref{matexp:explawex}
 to show that ${(e^{A})}^{-1} = e^{-A}$.  In particular
 this means that $e^A$ is invertible even if $A$ is not.
 \end{exercise}
+\comboSol{%
+}
+{%
+Hint: $A$ commutes with $-A$.
+}
 
 \begin{exercise}
 Let $A$ be a $2 \times 2$ matrix with eigenvalues $-1$, $1$, and
@@ -961,6 +995,11 @@ $\left[ \begin{smallmatrix}
 \end{smallmatrix} \right]$ .
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~ $\left[\begin{smallmatrix} -1 & 0 \\ -2 & 1 \end{smallmatrix}\right]$ \quad b)~ $\left[\begin{smallmatrix} e^{-t} & 0 \\ e^{-t} - e^t & e^t \end{smallmatrix}\right]$ \quad c)~$\left[\begin{smallmatrix} 2e^{-t} \\ 2e^{-t} + e^t \end{smallmatrix}\right]$
+}
 
 \begin{exercise}
 Suppose that $A$ is an $n \times n$ matrix with a repeated eigenvalue
@@ -970,6 +1009,11 @@ the matrix is diagonal, in particular $A = \lambda I$.  Hint: Use
 diagonalization and the fact that the identity matrix commutes with every
 other matrix.
 \end{exercise}
+\comboSol{%
+}
+{%
+Hint: If there are $n$ linearly independent eigenvectors, then it can be diagonalized. What does $D$ look like?
+}
 
 \begin{exercise}
 Let $A = \left[ \begin{smallmatrix}
@@ -986,6 +1030,11 @@ ${\vec{x}}' = A \vec{x}$, $\vec{x}(0) =
 \end{smallmatrix} \right]$.
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~ $\left[\begin{smallmatrix} (1+t)e^{-2t} & -te^{-2t} \\ te^{-2t} & (1-t)e^{-2t} \end{smallmatrix}\right]$ \quad b)~$\left[\begin{smallmatrix} (1+3t)e^{-2t} \\(-2 + 3t)e^{-2t} \end{smallmatrix}\right]$
+}
 
 \begin{exercise}
 Let $A = \left[ \begin{smallmatrix}
@@ -995,6 +1044,11 @@ Let $A = \left[ \begin{smallmatrix}
 Approximate $e^{tA}$ by expanding the power series
 up to the third order.
 \end{exercise}
+\comboSol{%
+}
+{%
+$\left[\begin{smallmatrix} 1 + t + \frac{7}{2}t^2 + \frac{37}{6}t^3 & 2t + 5t^2 + 9t^3 \\ 3t + \frac{15}{2}t^2 + \frac{79}{6}t^3 & 1 + 4t + 11t^2 + 18t^3 \end{smallmatrix}\right]$
+}
 
 \begin{exercise}\ansMark%
 Compute the first 3 terms (up to the second degree) of the Taylor expansion of
@@ -1048,6 +1102,11 @@ $
 $
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~$\left[\begin{smallmatrix} 3^n & 0 \\ 0 & 9^n \end{smallmatrix}\right]$ \quad b)~ $3^{n-1}\left[\begin{smallmatrix} 2 + 3^n & -1 + 3^n \\ -2 + 2\cdot3^n & 1 + 2\cdot 3^n \end{smallmatrix}\right]$ \quad c)~ $A^0 = I$, $A^1 = A$, $A^n = 0$ for all $n \geq 2$ \quad d)~$\left[\begin{smallmatrix} 2^n & n2^{n-1} \\ 0 & 2^n \end{smallmatrix}\right]$
+}
 
 \begin{exercise}\ansMark%
 For any positive integer $n$,
@@ -1059,7 +1118,7 @@ $\begin{bmatrix}
 \end{bmatrix}$
 \task
 $\begin{bmatrix}
--3 & 4 \\ -6 & -7
+-3 & 4 \\ -6 & 7
 \end{bmatrix}$
 \task
 $\begin{bmatrix}
@@ -1069,36 +1128,41 @@ $\begin{bmatrix}
 \end{exercise}
 \exsol{%
 a)
-$\begin{bmatrix}
+$\left[\begin{smallmatrix}
 5 (3^n)-2^{n+2} & 4 (3^n)-2^{n+2}\\
 5 (2^n)-5 (3^n) & 5 (2^n)-4 (3^n)
-\end{bmatrix}$
+\end{smallmatrix}\right]$
 \qquad
 b)
-$\begin{bmatrix}3-2 (3^n) & 2 (3^n)-2\\
-3-3^{n+1} & 3^{n+1}-2\end{bmatrix}$
-\\
+$\left[\begin{smallmatrix}3-2 (3^n) & 2 (3^n)-2\\
+3-3^{n+1} & 3^{n+1}-2\end{smallmatrix}\right]$
+\quad
 c) 
-$\begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}$
+$\left[\begin{smallmatrix}1 & 0 \\ 0 & 1\end{smallmatrix}\right]$
 if $n$ is even,  and
-$\begin{bmatrix}0 & 1 \\ 1 & 0\end{bmatrix}$
+$\left[\begin{smallmatrix}0 & 1 \\ 1 & 0\end{smallmatrix}\right]$
 if $n$ is odd.
 }
 
 \begin{exercise}
 Solve the initial value problem
-\[ {\vec{x}}' = \begin{bmatrix} 5 & -6 \\ 3 & -1 \end{bmatrix}\vec{x} + \begin{bmatrix} t \\ 3 \end{bmatrix} \qquad \vec{x}(0) = \begin{bmatrix} 1 \\ -3 \end{bmatrix} \] using matrix exponentials.
-\end{exercise}
-
-\begin{exercise}
-Solve the initial value problem
 \[ {\vec{x}}' = \begin{bmatrix} -4 & 2 \\ -9 & 5 \end{bmatrix}\vec{x} + \begin{bmatrix} e^{3t} \\ e^t - 1 \end{bmatrix} \qquad \vec{x}(0) = \begin{bmatrix} 0 \\ 2 \end{bmatrix} \] using matrix exponentials.
 \end{exercise}
+\comboSol{%
+}
+{%
+$\vec{x}(t) = \left[\begin{smallmatrix} -\frac{1}{2}e^{3t} - e^t + 1 \\ -\frac{9}{4}e^{3t} - \frac{5}{2}e^t + 2 \end{smallmatrix}\right] + \frac{8}{3}\left[\begin{smallmatrix} 1 \\ 3 \end{smallmatrix}\right]e^{2t} - \frac{13}{12}\left[\begin{smallmatrix} 2 \\ 3 \end{smallmatrix}\right]e^{-t}$
+}
 
 \begin{exercise}
 Solve the initial value problem
 \[ {\vec{x}}' = \begin{bmatrix} 3 & 2 \\ 0 & 4 \end{bmatrix}\vec{x} + \begin{bmatrix} e^{4t} \\ e^{3t} - t \end{bmatrix} \qquad \vec{x}(0) = \begin{bmatrix} 2 \\ -1 \end{bmatrix} \] using matrix exponentials.
 \end{exercise}
+\comboSol{%
+}
+{%
+$\vec{x}(t) = \left[\begin{smallmatrix} -2t + \frac{88}{72} \\ -1 \end{smallmatrix}\right]e^{3t} + \left[\begin{smallmatrix} -\frac{1}{6}t - \frac{7}{72} \\ \frac{t}{4} + \frac{1}{16} \end{smallmatrix}\right] + \left[\begin{smallmatrix} \frac{7}{8} \\-\frac{1}{16} \end{smallmatrix}\right]e^{4t}$
+}
 
 \setcounter{exercise}{100}
 

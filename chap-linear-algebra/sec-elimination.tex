@@ -411,7 +411,7 @@ Subtract the last row from the first to get
 \end{array}
 \right] .
 \end{equation*}
-The entry above the pivot in the second row is already zero.
+The entries above the pivot in the third row is already zero.
 So we move onto the next pivot, the one in the second row.  We subtract
 this row from the top row to get
 \begin{equation*}
@@ -512,7 +512,7 @@ and the equations are \emph{\myindex{inconsistent}}.  There is no solution
 to $A \vec{x} = \vec{b}$.
 
 
-On the other hand, if we find a row echelon form
+On the other hand, if we find a row echelon form of
 \begin{equation*}
 \left[
 \begin{array}{ccc|c}
@@ -523,7 +523,7 @@ On the other hand, if we find a row echelon form
 \right] ,
 \end{equation*}
 then there is no issue with finding solutions.  In fact, we will find way too
-many.  Let us continue with backsubstitution (subtracting 3 times the third
+many.  Let us continue with backsubstitution (subtracting 3 times the second
 row from the first) to find the reduced row echelon form and let's mark the
 pivots.
 \begin{equation*}
@@ -553,7 +553,7 @@ The $x_2$ is called a \emph{\myindex{free variable}}.
 There are infinitely many solutions, one for every choice of $x_2$.
 For example, if we pick $x_2=0$,
 then $x_1 = -5$, and $x_3 = 3$ give a solution.  But we also get a solution
-by picking say $x_2 = 1$, in which case $x_1 = -9$ and $x_3 = 3$,
+by picking say $x_2 = 1$, in which case $x_1 = -7$ and $x_3 = 3$,
 or by picking $x_2 = -5$ in which case $x_1 = 5$ and $x_3 = 3$.
 
 \medskip
@@ -632,19 +632,19 @@ Looking at the matrix here, we see that row 3 is $-2$ times row 2. Therefore, if
 \end{array}
 \right].
 \end{equation*}
-Therefore, we have a situation where there are only two pivot columns, and the last row is all zeros. Since there are three variables and column 3 is not a pivot column, we can take $x_3$ as a free variable. If we do that, the second equation tells us that $-3x_2 + x_3 = 3$, or, since we are taking $x_3$ as a free variable, we can write $x_2 = -1 + \nicefrac{1}{3}x_3$. We can then take the first equation, which says that $x_1 - x_2 - 3x_3 = 3$ or, by rearranging
+Therefore, we have a situation where there are only two pivot columns, and the last row is all zeros. Since there are three variables and column 3 is not a pivot column, we can take $x_3$ as a free variable. If we do that, the second equation tells us that $-3x_2 + x_3 = 3$, or, since we are taking $x_3$ as a free variable, we can write $x_2 = -1 + \nicefrac{1}{3}x_3$. We can then take the first equation, which says that $x_1 - x_2 - 3x_3 = -3$ or, by rearranging
 \begin{equation*}
-x_1 = 3 + x_2 + 3x_3 = 3 + \left(-1 + \frac{1}{3}x_3\right) + 3x_3 = 2 + \frac{10}{3}x_3.
+x_1 = -3 + x_2 + 3x_3 = -3 + \left(-1 + \frac{1}{3}x_3\right) + 3x_3 = -4 + \frac{10}{3}x_3.
 \end{equation*}
 This means that for any value of $t$, our solution is determined by
 \begin{equation*}
 \begin{split}
-x_1 &=  2 + \frac{10}{3}t \\
+x_1 &=  -4 + \frac{10}{3}t \\
 x_2 &= -1 + \frac{1}{3}t  \\
 x_3 &= t
 \end{split}.
 \end{equation*}
-The use of $t$ here is just to separate it from the variable $x_3$. For example, we could pick $t=3$, in which case we would get $x_1 = 12$, $x_2 = 0$, $x_3 = 3$. 
+The use of $t$ here is just to separate it from the variable $x_3$. For example, we could pick $t=3$, in which case we would get $x_1 = 6$, $x_2 = 0$, $x_3 = 3$. 
 
 For the second version of the problem, we again set up the augmented matrix
 \begin{equation*}
@@ -751,6 +751,12 @@ $\begin{bmatrix}
 \end{tasks}
 \end{exercise}
 \end{samepage}
+\comboSol{%
+}
+{%
+a)~$\left[\begin{smallmatrix} 1 & 0 & -2 \\ 0 & 1 & 1 \end{smallmatrix}\right]$ \quad b)~$\left[\begin{smallmatrix} 1 & 0 \\ 0 & 1 \end{smallmatrix}\right]$ \quad c)~$\left[\begin{smallmatrix} 1 & 0 \\ 0 & 1 \end{smallmatrix}\right]$ \quad d)~$\left[\begin{smallmatrix} 1 & 1 & 0 & 1 \\ 0 & 0 & 1 & 1/7 \end{smallmatrix}\right]$ \\
+e)~$\left[\begin{smallmatrix} 1 & 0 & 0 & -1/2 \\ 0 & 1 & 0 & 13/6 \\ 0 & 0 & 1 & -1  \end{smallmatrix}\right]$ \quad f)~$\left[\begin{smallmatrix} 1 & 0 & 0 & -1/6 \\ 0 & 1 & 0 & 7/3 \\ 0 & 0 & 1 & -5/3 \end{smallmatrix}\right]$ \quad g)~$\left[\begin{smallmatrix} 1 & 0 & 11/6 \\ 0 & 1 & -1 \\ 0 & 0 & 0 \end{smallmatrix}\right]$ \quad h)~$\left[\begin{smallmatrix} 1 & 0 & -1/2 & 1 \\ 0 & 1 & 0 & -1/2 \\ 0 & 0 & 0 & 0 \end{smallmatrix}\right]$
+}
 
 \begin{exercise}\ansMark%
 Compute the reduced row echelon form for the following matrices:
@@ -801,41 +807,41 @@ $\begin{bmatrix}
 \end{tasks}
 \end{exercise}
 \exsol{%
-a)~$\begin{bmatrix}
+a)~$\left[\begin{smallmatrix}
 1 & 0 & 1 \\
 0 & 1 & 0
-\end{bmatrix}$
-\quad b)~$\begin{bmatrix}
+\end{smallmatrix}\right]$
+\quad b)~$\left[\begin{smallmatrix}
 1 & 0 \\
 0 & 1
-\end{bmatrix}$
-\quad c)~$\begin{bmatrix}
+\end{smallmatrix}\right]$
+\quad c)~$\left[\begin{smallmatrix}
 1 & 1 \\
 0 & 0
-\end{bmatrix}$
-\quad d)~$\begin{bmatrix}
+\end{smallmatrix}\right]$
+\quad d)~$\left[\begin{smallmatrix}
 1 & 0 & 0 \\
 0 & 1 & -1/3 \\
 0 & 0 & 0
-\end{bmatrix}$
-\quad e)~$\begin{bmatrix}
+\end{smallmatrix}\right]$
+\quad e)~$\left[\begin{smallmatrix}
 1 & 0 & 0 & 77/15 \\
 0 & 1 & 0 & -2/15 \\
 0 & 0 & 1 & -8/5
-\end{bmatrix}$
-\quad f)~$\begin{bmatrix}
+\end{smallmatrix}\right]$
+\quad f)~$\left[\begin{smallmatrix}
 1 & 0 & -1/2 & 0 \\
 0 & 1 & 1/2 & 1/2 \\
 0 & 0 & 0 & 0
-\end{bmatrix}$
-\quad g)~$\begin{bmatrix}
+\end{smallmatrix}\right]$
+\quad g)~$\left[\begin{smallmatrix}
 0 & 0 & 0 & 0 \\
 0 & 0 & 0 & 0
-\end{bmatrix}$
-\quad h)~$\begin{bmatrix}
+\end{smallmatrix}\right]$
+\quad h)~$\left[\begin{smallmatrix}
 1 & 2 & 3 & 0 \\
 0 & 0 & 0 & 1
-\end{bmatrix}$
+\end{smallmatrix}\right]$
 }
 
 \begin{exercise}
@@ -866,6 +872,12 @@ $\begin{aligned}
 \end{aligned}$
 \end{tasks}
 \end{exercise}
+\comboSol{%
+}
+{%
+a)~$x_1 = -2$, $x_2 = 2$ \quad b)~ $x_1 = -4$, $x_2 = -16$. $x_3 = 36$ \\
+c)~$x_1 = \frac{1}{2} - 2t$, $x_2 = t$, $x_3 = \frac{1}{2}$, any real $t$ \quad d)~ No solution
+}
 
 \begin{exercise}\ansMark%
 Solve (find all solutions), or show no solution exists
@@ -966,7 +978,7 @@ x_1 + 3x_2 + 3x_3 - 4x_4 &= -28 \\
 or determine that no solution exists. 
 \end{exercise}
 \exsol{%
-Infinitely many solutions of the form $x_1 = 19t-37$, $x_2 = 37-20t$, $x_3 = 15t-37$, $x_4 = t$ for any real number $t$.
+Infinitely many solutions of the form $x_1 = 19t-37$, $x_2 = 37-20t$, $x_3 = 15t-34$, $x_4 = t$ for any real number $t$.
 }%
 
 \begin{exercise}\ansMark%
@@ -1017,6 +1029,11 @@ Assume that you are solving a four component linear system of equations via row 
 \end{equation*}
 What is the next step in reducing this matrix? Carry out the rest of this problem to solve the corresponding system of equations. 
 \end{exercise}
+\comboSol{%
+}
+{%
+Swap rows 2 and 3, then cancel down. $x_1 = -\frac{15}{2}$, $x_2 = -\frac{3}{2}$, $x_3 = 3$, $x_4 = \frac{1}{2}$
+}
 
 \begin{exercise}\ansMark%
 Assume that someone else has provided you the solution to an augmented matrix reduction for solving a system of equations given below
@@ -1030,7 +1047,7 @@ Assume that someone else has provided you the solution to an augmented matrix re
 Is this work correct? If so, what does this say about the solution(s) to the system? If not, correct the work to solve the system.
 \end{exercise}
 \exsol{%
-The work is not correct. It looks like the author used row 1 to try to cancel the second column from rows 2 and 3, which we can not do. The correct method would be to use row 2 to cancel row 3, resulting in a solution $x_1 = 9$, $x_2 = -25$, and $x_3 = 10$.
+The work is not correct. It looks like the author used row 1 to try to cancel the second column from rows 2 and 3, which we can not do. (This work would say no solution) The correct method would be to use row 2 to cancel row 3, resulting in a solution $x_1 = 9$, $x_2 = -25$, and $x_3 = 10$.
 }
 
 \setcounter{exercise}{100}
