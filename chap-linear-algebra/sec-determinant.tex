@@ -7,7 +7,7 @@
 \LO{
 \item Compute the determinant of a $2\times 2$ matrix,
 \item Use cofactor expansion to compute the determinant of larger matrices, and
-\item Use the determinant to make statements about invertibility or rank of a matrix, and linear independence of the columns of that matrix. 
+\item Use the determinant to make statements about invertibility or linear independence of the columns of that matrix. 
 }
 
 For square matrices we define a useful quantity called the
@@ -603,17 +603,15 @@ Let $A$ be an $n \times n$ matrix. The following are equivalent:
 \item[(c)] There is a unique solution to $A\vec{x} = \vec{b}$ for every vector $\vec{b}$.
 \item[(d)] The only solution to $A\vec{x} = \vec{0}$ is $\vec{x} = \vec{0}$.
 \item[(e)] The reduced row echelon form of $A$ is $I_n$, the identity matrix.
-\item[(f)] The rank of $A$ is $n$.
-\item[(g)] The rows of $A$ are linearly independent.
-\item[(h)] The columns of $A$ are linearly independent.
+\item[(f)] The columns of $A$ are linearly independent.
 \end{enumerate}
 \end{theorem1}
 
 \begin{proof}
-Why is all of this true? For (a) and (b), we have Theorem \ref{thm:detInv} to say that they are equivalent. For (c), if $A$ is invertible, then the unique solution to $A\vec{x} = \vec{b}$ is $\vec{x} = A^{-1}\vec{b}$. If we take $\vec{b} = \vec{0}$ here, we get (d), that the solution is $\vec{x} = A^{-1}\vec{0} = \vec{0}$. This means that reducing the system of equations $A\vec{x} = 0$ gives $x_1 = 0$, $x_2 = 0$, ..., $x_n = 0$, which means the reduced row echelon form of $A$ is just the identity matrix, which is (e). This has $n$ pivot rows, so that the rank of $A$ is $n$. Finally, this means that the dimension of the column space and row space is both $n$, and since there are $n$ of these vectors, it means they are all linearly independent.
+Why is all of this true? For (a) and (b), we have Theorem \ref{thm:detInv} to say that they are equivalent. For (c), if $A$ is invertible, then the unique solution to $A\vec{x} = \vec{b}$ is $\vec{x} = A^{-1}\vec{b}$. If we take $\vec{b} = \vec{0}$ here, we get (d), that the solution is $\vec{x} = A^{-1}\vec{0} = \vec{0}$. This means that reducing the system of equations $A\vec{x} = 0$ gives $x_1 = 0$, $x_2 = 0$, ..., $x_n = 0$, which means the reduced row echelon form of $A$ is just the identity matrix, which is (e). Finally, this means that every column is a pivot column, so that all of the columns are linearly independent, giving (f).
 \end{proof}
 
-This is a massive theorem that forms most of the backbone of linear algebra. We will only be using a few parts of it later, but since we have seen all of the components, it is nice to see them all put together into one complete statement.
+This is a massive theorem that forms most of the backbone of linear algebra. We will only be using a few parts of it later and we can also add some other parts to it with different definitions from linear algebra, but since we have seen all of these components, it is nice to see them all put together into one complete statement.
 
 \subsection{Exercises}
 
@@ -865,25 +863,6 @@ Is the matrix $A$ below invertible? How do you know?
 {%
 Yes
 }
-
-\begin{exercise}\ansMark%
-Compute the rank of the matrix $A$ below.
-\[ A =  \begin{bmatrix} 0 & -3 & 2 & 4 \\ -5 & -4 &-5 & -1 \\ 1&4&-3 & -5\\ -2 & -3 &-2&1\end{bmatrix} \]
-What does this tell you about the invertibility of $A$? How about the solutions to $A\vec{x} = \vec{0}$? 
-\end{exercise}
-\exsol{%
-Rank is 3. Therefore $A$ is not invertible (since the rank is not $4$), and there are non-zero solutions to $A \vec{x} = \vec{0}$. 
-}
-
-\begin{exercise}\ansMark%
-Compute the rank of the matrix $A$ below.
-\[ A =  \begin{bmatrix} 3 & -5 & 5 \\ 2 &-3 & 3\\ 4 & 0 & -1 \end{bmatrix} \]
-What does this tell you about the invertibility of $A$? How about the solutions to $A\vec{x} = \begin{bmatrix} 1\\1\\1 \end{bmatrix}$? 
-\end{exercise}
-\exsol{%
-Rank is 3. Therefore $A$ is invertible, and there is exactly one solution to $A \vec{x} = \left[\begin{smallmatrix} 1 \\ 1 \\ 1\end{smallmatrix}\right]$, namely $A^{-1}\left[\begin{smallmatrix}1 \\ 1 \\ 1 \end{smallmatrix}\right]$.
-}
-
 
 \begin{exercise}\ansMark%
 Compute the determinant of the matrix

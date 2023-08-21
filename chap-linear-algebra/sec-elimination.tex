@@ -179,7 +179,7 @@ the following conditions are satisfied:
 \item The leading entry in any row is strictly to the right of
 the leading entry of the row above.
 \item Any zero rows are below all the nonzero rows.
-\item All leading entries are 1.
+\item All leading entries are 1.\footnote{Some books do not require this and allow the entries to be any non-zero number, putting this as a requirement for reduced row echelon form. I like leaving this here because it makes the process of row reduction seem more defined and algorithmic. They are equivalent though and with or without the 1 requirement can be used to answer the same questions.}
 \end{enumerate}
 A matrix is in \emph{\myindex{reduced row echelon form}}
 if furthermore the following condition is satisfied.
@@ -681,7 +681,19 @@ case.  As the elementary operations do not do anything to a zero column, it
 always stays a zero column.  Moreover, $A \vec{x} = \vec{0}$ always has at
 least one solution, namely $\vec{x} = \vec{0}$.  Such a system
 is always consistent.  It may have other solutions:  If you find
-any free variables, then you get infinitely many solutions.
+any free variables, then you get infinitely many solutions. As mentioned in the last section, this is directly connected to linear independence of the columns of $A$. If there are other solutions, then there are other linear combinations that give $\vec{0}$, and so the columns of $A$ are linearly dependent. Otherwise, if there are no such solutions outside of $\vec{x} = \vec{0}$, then the columns of $A$ are linearly independent.
+
+How would we determine this fact? We don't need to include the zero column on the far right, but we can apply the same operations to the matrix $A$ alone. In this case, we either get a pivot column in every column for the row echelon form, in which case the only solution is $\vec{x} = \vec{0}$, or we get at least one non-pivot column, which means that there are free variables, implying that non-zero solutions exist. This leads to a first equivalence statement we can make about the solution to homogeneous matrix equations.
+
+\begin{theorem}
+Let $A$ be a matrix. The following statements are equivalent (meaning if any one of them is true, so are all of the other ones):
+\begin{enumerate}
+\item The only solution to the matrix equation $A\vec{x} = \vec{0}$ is $\vec{x} = \vec{0}$. 
+\item The row echelon form of $A$ has a pivot element in every column.
+\item The reduced row echelon form of $A$ is an identity matrix, potentially with rows of zero on the bottom.
+\item The columns of $A$ are linearly independent.
+\end{enumerate}
+\end{theorem} 
 
 The set of solutions of $A \vec{x} = \vec{0}$ comes up quite often
 so people give it a name.  It is called the
@@ -1049,6 +1061,32 @@ Is this work correct? If so, what does this say about the solution(s) to the sys
 \exsol{%
 The work is not correct. It looks like the author used row 1 to try to cancel the second column from rows 2 and 3, which we can not do. (This work would say no solution) The correct method would be to use row 2 to cancel row 3, resulting in a solution $x_1 = 9$, $x_2 = -25$, and $x_3 = 10$.
 }
+
+\begin{exercise}
+Find the row echelon form of the matrix $A$ given below. What does this tell you about the solutions to the equation $A\vec{x} = \vec{0}$?
+\begin{equation*}
+A = \begin{bmatrix} 1 & 2 & 4 \\ -2 & -3 & -6 \\ 1 & 1 & 2 \end{bmatrix}
+\end{equation*}
+\end{exercise}
+\comboSol{%
+}
+{%
+There are infinitely many solutions. 
+}
+
+
+\begin{exercise}
+Find the row echelon form of the matrix $A$ given below. What does this tell you about the solutions to the equation $A\vec{x} = \vec{0}$?
+\begin{equation*}
+A = \begin{bmatrix} 1 & -1 & 4 & 1 \\ 2 & -3 & 10 & 2 \\ -3 & 4 & -15 & -4 \\ 3 & -5 & 17 & 3 \end{bmatrix}
+\end{equation*}
+\end{exercise}
+\comboSol{%
+}
+{%
+There is only one solution, $\vec{x} = \vec{0}$. 
+}
+
 
 \setcounter{exercise}{100}
 
