@@ -558,6 +558,25 @@ b_{32}
 This is a very useful way to understand what matrix multiplication is.
 It should also make it easier to remember how to perform matrix multiplication.
 
+We can go one step farther with this connection. The idea of a \myindex{linear combination} of vectors was defined in \sectionref{vecsandmaps:section}: for a set of vectors $\vec{y}_1$, $\vec{y}_2$, ..., $\vec{y}_n$, a linear combination of those vectors is a vector of the form $\alpha_1\vec{y}_1 + \alpha_2\vec{y}_2 + \cdots \alpha_n \vec{y}_n$ for some real numbers $\alpha_1$, ..., $\alpha_n$. If we write out the product from the end of the last example, we see
+\begin{equation*}
+\begin{bmatrix}
+a_{11} & a_{12} & a_{13} \\
+a_{21} & a_{22} & a_{23}
+\end{bmatrix}
+\begin{bmatrix}
+b_{12} \\
+b_{22} \\
+b_{32}
+\end{bmatrix} = \begin{bmatrix} a_{11}b_{12} + a_{12}b_{22} + a_{13}b_{32} \\ a_{21}b_{12} + a_{22}b_{22} + a_{23}b_{32} \end{bmatrix} = b_{12} \begin{bmatrix} a_{11} \\ a_{21} \end{bmatrix} + b_{22} \begin{bmatrix} a_{12} \\ a_{22} \end{bmatrix} + b_{32} \begin{bmatrix} a_{13} \\ a_{23} \end{bmatrix}.
+\end{equation*}
+Thus, computing the product of a matrix and a vector gives a new vector which is a linear combination of the columns of the matrix, where the coefficients are the entries in the vector. This gives two connections between matrix multiplication and linear independence and linear combinations.
+\begin{enumerate}
+\item If there is a solution to the vector equation $A\vec{x} = \vec{b}$, this means that the vector $\vec{b}$ can be written as a linear combination of the columns of $A$.
+\item If there is a non-zero solution to the equation $A\vec{x} = \vec{0}$, then the columns of $A$ are linearly dependent, and the solution $\vec{x}$ gives the coefficients necessary to give a linear combination that equals zero.
+\end{enumerate}
+We'll see a lot more about this, and how to determine it, in \sectionref{elim:section}.
+
 \subsection{Some rules of matrix algebra}
 
 For multiplication we want an analogue of a 1.  That is,
@@ -1583,8 +1602,6 @@ d)~$\left[\begin{smallmatrix}
 1 & 9
 \end{smallmatrix}\right]$
 }
-
-\pagebreak
 
 \begin{exercise}
 \ 
