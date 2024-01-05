@@ -425,6 +425,16 @@ See \figurevref{pln:spiral-sinkfig}.
 \caption{Example spiral sink vector field.\label{pln:spiral-sinkfig}}
 \end{myfig}
 
+There is one last important point to mention about drawing phase portraits, and that's how to determine which way the spiral is going to rotate. Whether the phase portrait is a center, spiral source, or spiral sink, it can rotate either clockwise or counterclockwise. There are two main ways that this can be determined. The first is using the real-valued solutions of the equation directly. We want to determine a few values of the individual solution curves to get an idea of which way they are rotating.
+
+For example, consider the phase portrait drawn in \figurevref{pln:spiral-sinkfig}, which has real-valued general solution given by \[ \vec{x}(t) = C_1 e^{-t}
+\begin{bmatrix} \cos (2t) \\ 2 \sin (2t)  \end{bmatrix} + C_2 e^{-t}
+\begin{bmatrix} -\sin (2t) \\ 2 \cos (2t) \end{bmatrix}.\] We want to pick some nice points on these curves to plot. $t=0$ is always a nice point to start with, and we see that the $C_1$ term of our general solution will be at the point $\left[\begin{smallmatrix} 1 \\ 0 \end{smallmatrix}\right]$. That point is nice because it makes cosine equal to 1 and sine equal to zero. The next $t$ value we want to choose is the first one that makes the sine terms equal to 1 and the cosines equal to zero. Because we have a $2t$ in the trigonometric functions, the point we want to look at is $t = \frac{\pi}{4}$. At this point, the $C_1$ term of our solution is at $e^{-\pi/4}\left[\begin{smallmatrix} 0 \\ 2 \end{smallmatrix}\right]$, which will be in the direction of $\left[\begin{smallmatrix} 0 \\ 2 \end{smallmatrix}\right]$, but closer to the origin. So, the initial point is on the positive x axis, and the second point is on the positive $y$ axis. Therefore, this solution is spiraling in a counter-clockwise direction. The reason that this works is because the first time that $\cos(2t)$ is zero is at $t = \frac{\pi}{4}$, so it has to go directly to the positive y-axis in the counter-clockwise direction. You can also check the $C_2$ term, and see that it is also going in the same direction.
+
+The other way to determine the directionality is by looking at the bottom-left entry of the original matrix. For this case, that entry is a 4, which is positive. Therefore, the solution rotates in the ``positive'' direction, which is counterclockwise. The reason that this works is because we can consider the point $\left[\begin{smallmatrix} 1 \\ 0 \end{smallmatrix}\right]$ and see which way the graph is moving at that point. The rate of change (or the direction of motion) is given by the derivative, which is our differential equation. If we plug in the point $\left[\begin{smallmatrix} 1 \\ 0 \end{smallmatrix}\right]$, the direction of motion is given by the first column of the matrix. Therefore, starting along the $x$-axis, the y coordinate is changing at the rate of the bottom left entry of the matrix. So, if that value is positive, the $y$ coordinate is increasing, which means the solution is moving in the counter-clockwise direction. If that value was negative, the $y$ coordinate is decreasing, and so the solution is moving in the clockwise direction. 
+
+Both of these methods work equally well to determine which way the solution is going, and they'll give the same answer every time. The direction of rotation is an important part of properly characterizing and drawing these phase portraits. This can be verified for the system drawn in \figurevref{pln:spiral-sourcefig} as well. 
+
 
 \subsection{Exercises}
 
@@ -464,7 +474,7 @@ A $2\times 2$ matrix $A$ has complex eigenvector $\displaystyle \vec{v}=\begin{b
 \comboSol{%
 }
 {%
-$\vec{x}(t) = C_1e^{-t}\left[\begin{smallmatrix} \cos(3t)\\ -\sin(3t) \end{smallmatrix}\right] + C)2e^{-t}\left[\begin{smallmatrix} \sin(3t)\\ \cos(3t) \end{smallmatrix}\right]$  \hfill\raisebox{-0.5\height}{\includegraphics[height=1.5in]{Images/phaseportrait_sketch_fromevec_complex.png}}\hfill\hfill
+$\vec{x}(t) = C_1e^{-t}\left[\begin{smallmatrix} \cos(3t)\\ -\sin(3t) \end{smallmatrix}\right] + C_2e^{-t}\left[\begin{smallmatrix} \sin(3t)\\ \cos(3t) \end{smallmatrix}\right]$  \hfill\raisebox{-0.5\height}{\includegraphics[height=1.5in]{Images/phaseportrait_sketch_fromevec_complex.png}}\hfill\hfill
 }
 
 \begin{exercise}\ansMark%

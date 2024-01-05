@@ -828,17 +828,17 @@ $e^x\int_0^x se^{-s}\sin(s^2)\ ds + xe^x\int_0^xe^{-s}\sin(s^2)\ ds$
 
 \begin{exercise}
 Use variation of parameters to
-find a particular solution of $y''-y = \frac{1}{e^x+e^{-x}}$.
+find a particular solution of $y''-y = \frac{1}{e^x+e^{-x}}$. \\ \textit{Hint:} To make this problem easier, you can use $C_1 (e^x + e^{-x}) + C_2 (e^{x} - e^{-x})$ as the general solution to the homogeneous problem. 
 \end{exercise}
 \exsol{%
-$y = \frac{2xe^x-(e^x+e^{-x})\log(e^{2x}+1)}{4}$
+$y = \frac{2xe^x-(e^x+e^{-x})\ln(e^{2x}+1)}{4} = -\frac{1}{4}\ln(e^x + e^{-x})(e^x + e^{-x}) + \frac{1}{4}x(e^x - e^{-x}$
 }
 
 \begin{exercise}
 Recall that a homogeneous \emph{\myindex{Euler equation}} is one of the form $t^2y'' + aty' + by = 0$ and is solved by using the guess $y(t) = t^r$ and solving for the potential values of $r$. 
 \begin{tasks}
 \task Solve $t^2y''-2ty'-10y=0$. %2.5, Euler eq
-\task Let $y_1$ and $y_2$ be a fundamental set for the above equation. Use the variation of parameters equations $\displaystyle u_1=-\int \frac{y_2\, g(t)}{y_1y_2' - y_2y_1'}\,dt$, $\displaystyle y_2=\int \frac{y_1\, g(t)}{y_1y_2' - y_2y_1'}\,dt$ to solve the non-homogeneous equation $\displaystyle y''-\frac{2}{t} - \frac{10}{t^2}=t^3$. \hfill\break (Do not attempt method of undetermined coefficients instead; it won't work.)
+\task Let $y_1$ and $y_2$ be the two linearly independent parts of a general solution for the above equation, so that the general solution is $C_1y_1 + C_2y_2$. Use the variation of parameters equations $\displaystyle u_1=-\int \frac{y_2\, g(t)}{y_1y_2' - y_2y_1'}\,dt$, $\displaystyle y_2=\int \frac{y_1\, g(t)}{y_1y_2' - y_2y_1'}\,dt$ to solve the non-homogeneous equation $\displaystyle y''-\frac{2}{t} - \frac{10}{t^2}=t^3$. \hfill\break (Do not attempt method of undetermined coefficients instead; it won't work.)
 \end{tasks}
 \end{exercise}
 \comboSol{%

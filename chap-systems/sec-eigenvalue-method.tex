@@ -319,6 +319,12 @@ Hence we call this type of picture a
 }
 \end{myfig}
 
+We also need to look at how the solution curves are drawn to determine the appropriate shape, even when we don't have the vector field. In this example, we have two positive eigenvalues, with $\left[\begin{smallmatrix} 1 \\ 0 \end{smallmatrix}\right]$ as an eigenvector for eigenvalue 1, and $\left[\begin{smallmatrix} 1 \\ 1 \end{smallmatrix}\right]$ as an eigenvector for eigenvalue 2, which gives rise to a general solution 
+\[ \vec{x}(t) = C_1 \begin{bmatrix} 1\\ 0 \end{bmatrix}e^t + C_2 \begin{bmatrix}  1 \\ 1 \end{bmatrix}e^{2t}.\]
+As $t$ gets larger, the term with $e^{2t}$ on it is larger and more important, so the solution curves should tend towards the $\left[\begin{smallmatrix} 1 \\ 1 \end{smallmatrix}\right]$ line as $t\rightarrow \infty$, which in this case, means as the solution goes away from the origin. In the other direction, as $t \rightarrow -\infty$, the $e^{2t}$ term vanishes first, meaning the $e^t$ term is more important. So the solution curves will leave from the origin (since this happens as $t \rightarrow -\infty$) in the direction of the $\left[\begin{smallmatrix} 1 \\ 0 \end{smallmatrix}\right]$ line. 
+
+That is exactly what we see in \figurevref{pln:source-fullfig}; the solutions leave the origin along the $\left[\begin{smallmatrix} 1 \\ 0 \end{smallmatrix}\right]$ line and then head to infinity along the $\left[\begin{smallmatrix} 1 \\ 1 \end{smallmatrix}\right]$ line. 
+
 \medskip
 
 \emph{Case 2.} Suppose both eigenvalues are negative.  For example, take
@@ -350,6 +356,8 @@ picture in \figurevref{pln:sink-fullfig}.  We call this kind of picture a
 }
 \end{myfig}
 
+In terms of the shape of the solution curves, the same type of argument works. This general solution will have terms involving $e^{-t}$ and $e^{-2t}$. The solution is tending towards the origin as $t \rightarrow \infty$, and as it does, the $e^{-2t}$ term vanishes first. Therefore, the solution goes to the origin along the line corresponding to $e^{-t}$, which is $\left[\begin{smallmatrix} 1 \\ 0 \end{smallmatrix}\right]$. As $t \rightarrow -\infty$, the reverse happens, and the $e^{-2t}$ term matters more, so the solution comes in from infinity along the $\left[\begin{smallmatrix} 1 \\ 1 \end{smallmatrix}\right]$ line. This is again what we see in \figurevref{pln:sink-fullfig}. 
+
 \medskip
 
 \emph{Case 3.} Suppose one eigenvalue is positive and one is negative.
@@ -361,6 +369,8 @@ $\left[ \begin{smallmatrix} 1 \\ -3 \end{smallmatrix} \right]$.  We reverse
 the arrows on one line (corresponding to the negative eigenvalue) and we
 obtain the picture in \figurevref{pln:saddle-fullfig}.  We call this picture a
 \emph{\myindex{saddle point}}.
+
+For saddle points, it is slightly more clear what the shape should be. The general solution for the system drawn in \figurevref{pln:saddle-fullfig} is \[ \vec{x}(t) = C_1 \begin{bmatrix} 1 \\ 0 \end{bmatrix}e^t + C_2 \begin{bmatrix} 1 \\ -3 \end{bmatrix}e^{-2t}.\] As $t\rightarrow \infty$, the $e^{-2t}$ term vanishes, so only the $\left[\begin{smallmatrix} 1 \\ 0 \end{smallmatrix}\right]e^t $ term remains, meanin the solution approaches the $\left[\begin{smallmatrix} 1 \\ 0 \end{smallmatrix}\right]$  line. In the other direction, as $t \rightarrow -\infty$, the $e^t$ term vanishes, meaning that our solution approaches the straight-line solution with negative eigenvalue, which in this case is the $\left[\begin{smallmatrix} 1 \\ -3 \end{smallmatrix}\right]$ line. 
 
 
 \subsection{Exercises}
@@ -534,6 +544,8 @@ $\displaystyle \vec{x}(t) = C_1 \left[\begin{smallmatrix} -4 \\ 3 \end{smallmatr
 \raisebox{-0.5\height}{\includegraphics[height=1.5in]{Images/phaseportrait_n13_n12_9_8_sketch.png}}\hfill\hfill
 }%
 
+
+
 \begin{exercise}\ansMark%
 Find the general solution of the system
 \begin{equation*}
@@ -583,6 +595,60 @@ Solve the initial value problem
 {%
 $\vec{x}(t) = \left[\begin{smallmatrix} 1 \\ -2 \\ 3 \end{smallmatrix}\right]e^{-t} + 7\left[\begin{smallmatrix} 0 \\ 0 \\ 1 \end{smallmatrix}\right]e^{-2t} - 4\left[\begin{smallmatrix} 1 \\ -1 \\ 2 \end{smallmatrix}\right]e^{3t}$
 }
+
+
+
+
+\begin{exercise}\ansMark%
+Find the general solution of the system
+\begin{equation*}
+{\vec{x}}' = \begin{bmatrix}
+-2 & 1 \\ 
+3 & -4 \\ 
+\end{bmatrix} \vec{x}
+\end{equation*}
+and draw a sketch for the phase portrait.
+\end{exercise}
+\exsol{%
+$\displaystyle \vec{x}(t) = C_1 \left[\begin{smallmatrix} 1 \\ 1 \end{smallmatrix}\right]e^{-t} + C_2 \left[\begin{smallmatrix} -1 \\ 3 \end{smallmatrix}\right] e^{-5t}$ \hfill
+\raisebox{-0.5\height}{\includegraphics[height=1.5in]{Images/PhasePortraitY1a-213-4.png}}\hfill\hfill
+}%
+
+
+\begin{exercise}\ansMark%
+Find the general solution of the system
+\begin{equation*}
+{\vec{x}}' =  \begin{bmatrix}
+3 & 6 \\ 
+2 & -1 \\ 
+\end{bmatrix}\vec{x}
+\end{equation*}
+and draw a sketch for the phase portrait.
+\end{exercise}
+\exsol{%
+$\displaystyle \vec{x}(t) = C_1 \left[\begin{smallmatrix} 3 \\ 1 \end{smallmatrix}\right]e^{5t} + C_2 \left[\begin{smallmatrix} -1 \\ 1 \end{smallmatrix}\right] e^{-3t}$ \hfill
+\raisebox{-0.5\height}{\includegraphics[height=1.5in]{Images/PhasePortraitY1a362-1.png}}\hfill\hfill
+}%
+
+
+\begin{exercise}\ansMark%
+Find the general solution of the system
+\begin{equation*}
+{\vec{x}}' = \begin{bmatrix}
+6 & -2 \\ 
+5 & -1 \\ 
+\end{bmatrix} \vec{x}
+\end{equation*}
+and draw a sketch for the phase portrait.
+\end{exercise}
+\exsol{%
+$\displaystyle \vec{x}(t) = C_1 \left[\begin{smallmatrix} 1 \\ 1 \end{smallmatrix}\right]e^{4t} + C_2 \left[\begin{smallmatrix} 2 \\ 5 \end{smallmatrix}\right] e^{t}$ \hfill
+\raisebox{-0.5\height}{\includegraphics[height=1.5in]{Images/PhasePortraitY1a6-25-1.png}}\hfill\hfill
+}%
+
+
+
+
 
 
 \setcounter{exercise}{100}
