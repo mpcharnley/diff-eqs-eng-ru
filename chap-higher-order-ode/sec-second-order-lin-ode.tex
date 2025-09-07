@@ -198,7 +198,7 @@ y = \frac{x^3}{6} + \frac{5}{2}x - \frac{2}{3}.
 
 For first-order equations, we have theorems that told us that solutions existed and were unique, at least on small intervals. Linear first-order equations in particular had a very nice existence and uniqueness theorem (Theorem \ref{exist:lin1thm}), guaranteeing existence on a full interval wherever the coefficient functions are continuous. Linear second-order equations have an existence and uniqueness theorem that gives the same type of result when the initial condition is stated properly.
 
-\begin{theorem1}{Existence and uniqueness}\index{existence and uniqueness}
+\begin{theorem1}[thm:secondEU]{Existence and uniqueness}\index{existence and uniqueness}
 Suppose $p, q, f$ are continuous functions on some interval
 $I$, $a$ is a number in $I$,
 and $a, b_0, b_1$ are constants.
@@ -211,6 +211,7 @@ has exactly one solution $y(x)$ defined on the same interval $I$ satisfying the 
 y(a) = b_0 , \qquad y'(a) = b_1 .
 \end{equation*}
 \end{theorem1}
+
 
 For example, the equation $y'' + k^2 y = 0$ with $y(0) = b_0$ and $y'(0) = b_1$
 has the solution
@@ -331,13 +332,41 @@ This polynomial factors as $(r-2)(r+5)$, so we know that values of $r=2$ and $r=
 
 \subsection{Linear Independence}
 
-Since $e^{2x}$ and $e^{-5x}$ solve the linear differential equation in the previous example, we know that superposition applies, so that $C_1e^{2x} + C_2e^{-5x}$ solves the differential equation for any $C_1$ and $C_2$. The last thing to check is that we can pick $C_1$ and $C_2$ in order to meet any initial condition that we want. If this is possible, then we know that our method using the characteristic equation to find $e^{2x}$ and $e^{-5x}$ as solutions was enough to always solve this problem. The end of this argument is done using the existence and uniqueness theorem as described previously.
+Since $e^{2x}$ and $e^{-5x}$ solve the linear differential equation in the previous example, we know that superposition applies, so that $C_1e^{2x} + C_2e^{-5x}$ solves the differential equation for any $C_1$ and $C_2$. The last thing to figure out is if this is \emph{all} of the solutions to this problem, namely if we can pick $C_1$ and $C_2$ in order to meet any possible initial condition $y(a) = b_0$ and $y'(a) = b_1$. If this is possible, then we know that our method using the characteristic equation to find $e^{2x}$ and $e^{-5x}$ as solutions was enough to always solve this problem. To begin, we'll define a structure that we'll use later in \Chapterref{linalg:appendix} and may seem a bit irrelevant now, but it will all tie together.
 
-Let's work this out. Assume that we are given $b_0$ and $b_1$ and want to solve the initial value problem
+\begin{definition}[Linear Independence]
+Let $y_1$, $y_2$, ... $y_n$ be any functions. We say that $\{ y_1, \ldots,  y_n\}$ are \index{linearly independent ! functions}\emph{linearly independent} if the only way to have the equation \[ C_1y_1 + C_2y_2 + \cdots + C_ny_n = 0 \] be true (as functions) is by choosing $C_1 = C_2 = \cdots = C_n = 0$. 
+\end{definition}
+
+Note that by having this true \emph{as functions}, we need to have that this combination is always zero, for all values of the independent variable. 
+
+\begin{example}
+The two functions above, $y_1 = e^{2x}$ and $y_2 = e^{-5x}$ are linearly independent. There are a few ways to reason this out. The first is by manipulating the combination
+\begin{equation*}
+C_1e^{2x} + C_2e^{-5x} = 0 \quad \Rightarrow \quad C_1e^{2x} = -C_2e^{-5x} \quad \Rightarrow \quad e^{7x} = -\frac{C_2}{C_1} 
+\end{equation*}
+which cannot be true for all values of $x$ because $e^{7x}$ is not a constant but $-\frac{C_2}{C_1}$ is. Another way is by taking the derivative of the combination and setting $x$ to zero in both the original and the derivative.
+\begin{equation*}
+\begin{split}
+C_1e^{2x} + C_2e^{-5x} &= 0 \\
+2C_1e^{2x} - 5C_2e^{-5x} &= 0\\
+\end{split}
+\quad \Rightarrow \quad 
+\begin{split}
+C_1 + C_2 &= 0\\
+2C_1 - 5C_2 &= 0\\
+\end{split}
+\end{equation*}
+and we can solve this last system to get that we must have $C_1 = C_2 = 0$. 
+\end{example}
+
+Based on this example and the first way we worked it out, we can also see that for two functions, they are linearly dependent if and only if they are constant multiples of each other. The ratio of the two functions must be a constant. However, this is not the case once you get beyond two functions; the relationship can get more complicated at that point.
+
+Now, what does this have to do with our initial conditions and showing that we can get all solutions via this method? The connection may not be obvious at first (without suitable experience in linear algebra) but we will get there. First, let's start by just seeing what needs to happen in order to meet any initial condition at $x=0$. Assume that we are given $b_0$ and $b_1$ and want to solve the initial value problem
 \begin{equation*}
 y'' + 3y' - 10y = 0 \qquad y(0) = b_0,\ y'(0) = b_1.
 \end{equation*}
-We want to do this by picking $C_1$ and $C_2$ in the expression $y=C_1e^{2x} + C_2e^{-5x}$ Since 
+We want to do this by picking $C_1$ and $C_2$ in the expression $y=C_1e^{2x} + C_2e^{-5x}$. Since 
 \begin{equation*}
 y' = 2C_1e^{2x} - 5C_2e^{-5x}
 \end{equation*}
@@ -378,10 +407,44 @@ b_0y_1'(x_0) - b_1y_1(x_0) = C_2(y_1'(x_0)y_2(x_0) - y_1(x_0)y_2'(x_0)).
 We want to solve for $C_2$ here, and once we do that, solving for $C_1$ happens by plugging back into one of the original equations. Most of the time, this will be completely fine, but there's one issue left. We can't divide by zero. So to be able to solve these equations for $C_1$ and $C_2$, we need to know that
 \begin{equation}
 y_1'(x_0)y_2(x_0) - y_1(x_0)y_2'(x_0) \neq 0.
-\label{eqn:linindep}
+\label{eqn:linindepW}
 \end{equation}
 
-The left side of this equation is often called the \emph{\myindex{Wronskian}} of the functions $y_1$ and $y_2$ at the point $x_0$. In general, the Wronskian is the function $y_1'(x)y_2(x) - y_2'(x)y_1(x)$ for two solutions to a second order differential equation. This relation (the Wronskian being non-zero) tells us that the two solutions $y_1$ and $y_2$ are different enough to allow us to meet every initial condition for the differential equation. This condition is so important to the study of second order linear equations that we give it a name. We say that two solutions $y_1$ and $y_2$ are \emph{\myindex{linearly independent} at $x_0$} if \eqref{eqn:linindep} holds, that is, if the Wronskian of the solutions is non-zero at that point. For two solutions of a differential equation (which is more specific than just having two random functions), two solutions being linearly independent is equivalent to \ref{eqn:linindep} holding for any\footnote{%
+The left side of this equation is often called the \emph{\myindex{Wronskian}} of the functions $y_1$ and $y_2$ at the point $x_0$. In general, the Wronskian is the function $y_1'(x)y_2(x) - y_2'(x)y_1(x)$ for two solutions to a second order differential equation. This relation (the Wronskian being non-zero) tells us that the two solutions $y_1$ and $y_2$ are different enough to allow us to meet every initial condition for the differential equation. 
+
+In order to bring everything together, the last statement we need to show is that if two solutions are linearly independent, then their Wronskian is zero, which will tell us that linear independence is enough to know that we can solve any initial value problem we want and have found all solutions to the problem in question. 
+
+\begin{theorem1}{Linear Independence and the Wronskian}
+Let $p, q$ be continuous functions. Let $y_1$ and $y_2$ be two solutions to the homogeneous equation \eqref{sol:eqlinhom}. Then $y_1$ and $y_2$ are \index{linearly independent ! functions}\emph{linearly independent} if and only if the Wronskian $W(x) = y_1'(x)y_2(x) - y_2'(x)y_1(x)$ is non-zero for all $x$ where the differential equation is defined. 
+\end{theorem1}
+
+\begin{proof}
+We'll provide a description of how this proof works in this particular case. Assume that $W(x)$ is never zero. Then, by the same methods we described previously, we can solve
+\begin{equation}
+\begin{split}
+0 &= C_1y_1(x) + C_2y_2(x) \\
+0 &= C_1y_1'(x)  + C_2y_2'(x)
+\end{split}
+\label{eqn:sysLinIndepW}
+\end{equation}
+as a function of $x$ using elimination, and we'll get that $C_1$ and $C_2$ must be zero. Since the second equation is the derivative of the first, if there was a non-zero solution for just the first equation (the one that defines linear independence), then that would apply to both equations. Therefore, the only way for that first equation to be true on its own is if $C_1$ and $C_2$ are zero, giving linear independence. 
+
+On the other hand, assume the solutions are linearly independent, and there is some point $x_0$ where $W(x_0) = 0$. This means that 
+\begin{equation*}
+y_1'(x_0)y_2(x_0) = y_1(x_0)y_2'(x_0) \quad \text{ or } \quad \frac{y_1'(x_0)}{y_1(x_0)} = \frac{y_2'(x_0)}{y_2(x_0)} \text{ assuming nothing is zero.}
+\end{equation*}
+This means that the pair of equations in \eqref{eqn:sysLinIndepW} are multiples of each other at $x_0$, meaning there is really only one equation, and so there are non-zero values of $C_1$ and $C_2$ that solve it. Letting $K_1$ and $K_2$ be these particular values, define
+\begin{equation*}
+\phi(x) = K_1y_1(x) + K_2y_2(x).
+\end{equation*} 
+Since $y_1$ and $y_2$ are solutions to \eqref{sol:eqlinhom} and the choice of $K_1$ and $K_2$ to solve \eqref{eqn:sysLinIndepW}, we know that $\phi$ solves \eqref{sol:eqlinhom} with $\phi(x_0) = \phi'(x_0) = 0$. However, $0$ is also a solution to this initial value problem and \thmref{thm:secondEU} says that solutions to this problem are unique. Therefore 
+\begin{equation*}
+0 = K_1y_1(x) + K_2y_2(x),
+\end{equation*} 
+contradicting the linear independence of $y_1$ and $y_2$. Therefore, $W(x)$ must be non-zero everywhere.
+\end{proof}
+
+Therefore, what this says is that for two solutions of a linear, homogeneous differential equation (which is more specific than just having two random functions), two solutions being linearly independent is equivalent to \eqref{eqn:linindepW} holding for any\footnote{%
 Abel's Theorem, another theoretical result, says that the Wronskian $y_1'y_2 - y_1y_2'$ is either always zero or never zero. That means that any one value can be checked to determine if two solutions are linearly independent. Picking $0$ is usually a convenient choice.} value $x_0$ where they are defined. Our work and calculations above leads to the following theorem: 
 
 \begin{theorem1}{}
@@ -396,9 +459,6 @@ y = C_1 y_1 + C_2 y_2
 \end{theorem1}
 
 Note that this theorem works for all linear homogeneous equations, not just constant coefficients ones. However, the methods that we have described here (and will in future sections) for \emph{finding} these solutions will generally only work for constant coefficient equations.
-
-This idea of linear independence can also be expressed in a different way: two solutions $y_1$ and $y_2$ are linearly independent if only way to make the expression \[c_1 y_1 + c_2 y_2 = 0 \] is by setting both $c_1 = 0$ and $c_2 = 0$. This comes from the idea of linear independence from linear algebra (see \Chapterref{linalg:appendix}) and uniqueness of solutions to differential equations. If there are such constants, we can also rearrange the equation to give
-\[ y_1 = -\frac{c_2}{c_1}y_2 \] which says that $y_1$ is a constant multiple of $y_2$, which holds for all values of $x$. Thus, if we have $y_1$ and $y_2$, and there is no constant $A$ so that $y_1 = Ay_2$, then these functions are linearly independent. 
 
 \begin{example}
 Find the general solution of the differential equation $y'' + y = 0$.
@@ -436,7 +496,7 @@ So $y = C_1 x^2 + C_2 \nicefrac{1}{x}$ is the general solution.
 
 \medskip
 
-Now, back to our discussion of constant coefficient equations. If $b^2 - 4ac > 0$, then we have two distinct real roots $r_1$ and $r_2$, giving rise to solutions of the form $y_1(x) = e^{r_1x}$ and $y_2(x) = e^{r_2x}$. Using condition \ref{eqn:linindep} with $x_0 = 0$, we compute
+Now, back to our discussion of constant coefficient equations. If $b^2 - 4ac > 0$, then we have two distinct real roots $r_1$ and $r_2$, giving rise to solutions of the form $y_1(x) = e^{r_1x}$ and $y_2(x) = e^{r_2x}$. Using condition \ref{eqn:linindepW} with $x_0 = 0$, we compute
 \begin{equation*}
 y_1'(0)y_2(0) - y_1(0)y_2'(0) = (r_1)(1) - (1)(r_2) = r_1 - r_2.
 \end{equation*}
