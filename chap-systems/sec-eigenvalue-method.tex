@@ -321,9 +321,9 @@ Hence we call this type of picture a
 
 We also need to look at how the solution curves are drawn to determine the appropriate shape, even when we don't have the vector field. In this example, we have two positive eigenvalues, with $\left[\begin{smallmatrix} 1 \\ 0 \end{smallmatrix}\right]$ as an eigenvector for eigenvalue 1, and $\left[\begin{smallmatrix} 1 \\ 1 \end{smallmatrix}\right]$ as an eigenvector for eigenvalue 2, which gives rise to a general solution 
 \[ \vec{x}(t) = C_1 \begin{bmatrix} 1\\ 0 \end{bmatrix}e^t + C_2 \begin{bmatrix}  1 \\ 1 \end{bmatrix}e^{2t}.\]
-As $t$ gets larger, the term with $e^{2t}$ on it is larger and more important, so the solution curves should tend towards the $\left[\begin{smallmatrix} 1 \\ 1 \end{smallmatrix}\right]$ line as $t\rightarrow \infty$, which in this case, means as the solution goes away from the origin. In the other direction, as $t \rightarrow -\infty$, the $e^{2t}$ term vanishes first, meaning the $e^t$ term is more important. So the solution curves will leave from the origin (since this happens as $t \rightarrow -\infty$) in the direction of the $\left[\begin{smallmatrix} 1 \\ 0 \end{smallmatrix}\right]$ line. 
+As $t$ gets larger, the term with $e^{2t}$ on it is larger and more important, so the solution curves move parallel to the $\left[\begin{smallmatrix} 1 \\ 1 \end{smallmatrix}\right]$ line as $t\rightarrow \infty$, which in this case, means as the solution goes away from the origin. In the other direction, as $t \rightarrow -\infty$, the $e^{2t}$ term vanishes first, meaning the $e^t$ term is more important. So the solution curves will leave from the origin (since this happens as $t \rightarrow -\infty$) in the direction of the $\left[\begin{smallmatrix} 1 \\ 0 \end{smallmatrix}\right]$ line. 
 
-That is exactly what we see in \figurevref{pln:source-fullfig}; the solutions leave the origin along the $\left[\begin{smallmatrix} 1 \\ 0 \end{smallmatrix}\right]$ line and then head to infinity along the $\left[\begin{smallmatrix} 1 \\ 1 \end{smallmatrix}\right]$ line. 
+That is exactly what we see in \figurevref{pln:source-fullfig}; the solutions leave the origin along the $\left[\begin{smallmatrix} 1 \\ 0 \end{smallmatrix}\right]$ line and then head to infinity parallel to the $\left[\begin{smallmatrix} 1 \\ 1 \end{smallmatrix}\right]$ line. Within the figure here, they don't quite get parallel to those lines, but they will get more and more parallel as they get farther away from the origin. 
 
 \medskip
 
@@ -356,7 +356,7 @@ picture in \figurevref{pln:sink-fullfig}.  We call this kind of picture a
 }
 \end{myfig}
 
-In terms of the shape of the solution curves, the same type of argument works. This general solution will have terms involving $e^{-t}$ and $e^{-2t}$. The solution is tending towards the origin as $t \rightarrow \infty$, and as it does, the $e^{-2t}$ term vanishes first. Therefore, the solution goes to the origin along the line corresponding to $e^{-t}$, which is $\left[\begin{smallmatrix} 1 \\ 0 \end{smallmatrix}\right]$. As $t \rightarrow -\infty$, the reverse happens, and the $e^{-2t}$ term matters more, so the solution comes in from infinity along the $\left[\begin{smallmatrix} 1 \\ 1 \end{smallmatrix}\right]$ line. This is again what we see in \figurevref{pln:sink-fullfig}. 
+In terms of the shape of the solution curves, the same type of argument works. This general solution will have terms involving $e^{-t}$ and $e^{-2t}$. The solution is tending towards the origin as $t \rightarrow \infty$, and as it does, the $e^{-2t}$ term vanishes first. Therefore, the solution goes to the origin along the line corresponding to $e^{-t}$, which is $\left[\begin{smallmatrix} 1 \\ 0 \end{smallmatrix}\right]$. As $t \rightarrow -\infty$, the reverse happens, and the $e^{-2t}$ term matters more, so the solution comes in from infinity parallel to the $\left[\begin{smallmatrix} 1 \\ 1 \end{smallmatrix}\right]$ line. Exactly where this ``parallel'' component of the line is depends on the initial condition. This is again what we see in \figurevref{pln:sink-fullfig}. 
 
 \medskip
 
