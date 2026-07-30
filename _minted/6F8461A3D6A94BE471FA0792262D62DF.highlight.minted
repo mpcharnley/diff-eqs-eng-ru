@@ -1,0 +1,8 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k}{function}\PYG{+w}{ }\PYG{n+nf}{phaseLine}\PYG{p}{(}f, ymin, ymax\PYG{p}{)}
+\PYG{c}{\PYGZpc{} This function draws a representation of the phaseline for the}
+\PYG{c}{\PYGZpc{} differential equation dy/dt = f(y). The graph is drawn from ymin to ymax,}
+\PYG{c}{\PYGZpc{} and looks for solutions to f(y) = 0 in that region to find equilibrium}
+\PYG{c}{\PYGZpc{} solutions. This requires the Optimization Toolbox fsolve to run}
+\PYG{c}{\PYGZpc{} correctly.}
+\end{MintedVerbatim}

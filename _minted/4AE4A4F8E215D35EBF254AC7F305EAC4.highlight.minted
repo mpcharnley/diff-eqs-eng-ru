@@ -1,0 +1,7 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k}{function}\PYG{+w}{ }\PYG{n+nf}{[t, y] = rungeKuttaMethod}\PYG{p}{(}f, dt, Tf, T0, y0\PYG{p}{)}
+\PYG{c}{\PYGZpc{} This method solves the ODE dy/dt = f(t, y) using the Runge Kutta method}
+\PYG{c}{\PYGZpc{} from t=T0 to t = Tf with time step dt and initial condition y0 at t = T0.}
+\PYG{c}{\PYGZpc{} In this case, f should be a function of two variables, t}
+\PYG{c}{\PYGZpc{} (time) and y.}
+\end{MintedVerbatim}

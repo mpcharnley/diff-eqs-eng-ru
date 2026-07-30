@@ -1,0 +1,11 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k}{function}\PYG{+w}{ }[S,I,R]\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nf}{SIRModel\PYGZus{}244}\PYG{p}{(}r, c, ICs, Tf\PYG{p}{)}
+\PYG{c}{\PYGZpc{} This code runs an SIR model for disease spread. The system of differential equations used here is}
+\PYG{c}{\PYGZpc{}   S\PYGZsq{} = \PYGZhy{}r*S*I}
+\PYG{c}{\PYGZpc{}   I\PYGZsq{} = r*S*I \PYGZhy{} cI}
+\PYG{c}{\PYGZpc{}   R\PYGZsq{} = c*I}
+\PYG{c}{\PYGZpc{}}
+\PYG{c}{\PYGZpc{} The solution is computed using the RungeKutta method, with the helper}
+\PYG{c}{\PYGZpc{} method rungeKuttaSystemMethod. The system is solved from t=0 to t=Tf,}
+\PYG{c}{\PYGZpc{} with initial conditions ICs given as a 3 component vector.}
+\end{MintedVerbatim}

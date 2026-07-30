@@ -494,7 +494,7 @@ function phasePortrait244(F, G, xmin, xmax, ymin, ymax, tmin, tmax, x0, y0)
 % will be drawn for each of them. The black dot will always be plotted at tmin.
 \end{matlab}
 
-This function draws a phase portrait for the two-component autonomous system $\frac{dx}{dt} = F(x,y)$ and $\frac{dy}{dt} = G(x,y)$. The axes are fixed at $x_{min} \leq x \leq x_{max}$ and $y_{min} \leq y \leq y_{max}$. Solution curves are drawn starting at the (potential list of) points $x_0$ and $y_0$, and will assume these happen at $t=0$. The curves are drawn from $t_min$ to $t_max$, and there will be a black dot plotted at $t_min$ to indicate the direction of flow. Example implementation:
+This function draws a phase portrait for the two-component autonomous system $\frac{dx}{dt} = F(x,y)$ and $\frac{dy}{dt} = G(x,y)$. The axes are fixed at $x_{min} \leq x \leq x_{max}$ and $y_{min} \leq y \leq y_{max}$. Solution curves are drawn starting at the (potential list of) points $x_0$ and $y_0$, and will assume these happen at $t=0$. The curves are drawn from $t_{min}$ to $t_{max}$, and there will be a black dot plotted at $t_{min}$ to indicate the direction of flow. Example implementation:
 
 \begin{matlab}
 f = @(x,y) 2.*x - 3.* y;
@@ -505,7 +505,7 @@ phasePortrait244(f, g, -3, 3, -3, 3, -2, 2, [1, 0, -1, 1, 0, -1], [1,1,1,-1,-1,-
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.7\textwidth]{Images/MatlabDemo_phasePortrait.png}
-    \caption{Sample output from the \texttt{phasePortrait} function.}
+    \caption{Sample output from the \texttt{phasePortrait244} function.}
     \label{fig:MatlabDemo_phasePortrait}
 \end{figure}
 

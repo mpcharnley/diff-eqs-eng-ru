@@ -1,0 +1,7 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{n}{omega0}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{440}\PYG{o}{*}\PYG{l+m+mi}{2}\PYG{o}{*}\PYG{n+nb}{pi}\PYG{p}{;}
+\PYG{n}{tVals}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{linspace}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{5}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{5}\PYG{o}{*}\PYG{l+m+mi}{8192}\PYG{p}{);}
+
+\PYG{n}{testSound}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{sin}\PYG{p}{(}\PYG{n}{omega0}\PYG{o}{*}\PYG{n}{tVals}\PYG{p}{);}
+\PYG{n+nb}{sound}\PYG{p}{(}\PYG{n}{testSound}\PYG{p}{);}
+\end{MintedVerbatim}

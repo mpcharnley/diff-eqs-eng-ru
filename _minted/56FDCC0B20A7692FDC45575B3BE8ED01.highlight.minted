@@ -1,0 +1,8 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k}{function}\PYG{+w}{ }[t,y]\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nf}{rungeKuttaSystemMethod}\PYG{p}{(}f, T0, Tf, dt, y0\PYG{p}{)}
+\PYG{c}{\PYGZpc{} This method solves the ODE system dy/dt = f(t, y) using the Runge Kutta method}
+\PYG{c}{\PYGZpc{} from t=T0 to t = Tf with time step dt and initial condition y0 at t = T0.}
+\PYG{c}{\PYGZpc{} In this case, f should be a vector valued function of two variables, t}
+\PYG{c}{\PYGZpc{} (time) and y (n\PYGZhy{}dimensional vector of unknowns). The length of the vector}
+\PYG{c}{\PYGZpc{} y0 will determine the size of the system.}
+\end{MintedVerbatim}

@@ -1,0 +1,20 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k}{function}\PYG{+w}{ }\PYG{n+nf}{quiver244}\PYG{p}{(}f, t\PYGZus{}min, t\PYGZus{}max, y\PYGZus{}min, y\PYGZus{}max, col\PYG{p}{)}
+\PYG{c}{\PYGZpc{} quiver244.m}
+\PYG{c}{\PYGZpc{} Author: Matt Charnley}
+\PYG{c}{\PYGZpc{}}
+\PYG{c}{\PYGZpc{} This function draws a quiver plot for the ODE dy/dt = f(t,y) for}
+\PYG{c}{\PYGZpc{} t\PYGZus{}min \PYGZlt{}= t \PYGZlt{}= t\PYGZus{}max and y\PYGZus{}min \PYGZlt{}= y \PYGZlt{}= y\PYGZus{}max. The function f should be}
+\PYG{c}{\PYGZpc{} passed in as an anonymous function, of two variables or as a function}
+\PYG{c}{\PYGZpc{} handle}
+\PYG{c}{\PYGZpc{}}
+\PYG{c}{\PYGZpc{} The function draws this quiver plot in color col and saves it on the}
+\PYG{c}{\PYGZpc{} current figure, and generates a normalized version}
+\PYG{c}{\PYGZpc{} (all vectors are the same length) as the next figure,}
+\PYG{c}{\PYGZpc{} so that it can be accessed outside of this function.}
+\PYG{c}{\PYGZpc{} For this second figure, the magnitude of the arrows does not mean}
+\PYG{c}{\PYGZpc{} anything, but it is easier to see the direction of them.}
+\PYG{c}{\PYGZpc{} so that it can be accessed outside of this function. It will start with}
+\PYG{c}{\PYGZpc{} hold on; and end with hold off;, so the figure needs to be cleared in the}
+\PYG{c}{\PYGZpc{} main file if needed.}
+\end{MintedVerbatim}

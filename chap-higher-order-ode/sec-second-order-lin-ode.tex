@@ -28,7 +28,7 @@ The general
 \begin{equation*}
 A(x) y'' + B(x)y' + C(x)y = F(x) .
 \end{equation*}
-This equation can be written in \emph{standard form} by dividing throuhg by $A(x)$ to get
+This equation can be written in \emph{standard form} by dividing through by $A(x)$ to get
 \begin{equation} \label{sol:eqlin}
 y'' + p(x)y' + q(x)y = f(x) ,
 \end{equation}
@@ -345,13 +345,17 @@ The two functions above, $y_1 = e^{2x}$ and $y_2 = e^{-5x}$ are linearly indepen
 \begin{equation*}
 C_1e^{2x} + C_2e^{-5x} = 0 \quad \Rightarrow \quad C_1e^{2x} = -C_2e^{-5x} \quad \Rightarrow \quad e^{7x} = -\frac{C_2}{C_1} 
 \end{equation*}
-which cannot be true for all values of $x$ because $e^{7x}$ is not a constant but $-\frac{C_2}{C_1}$ is. Another way is by taking the derivative of the combination and setting $x$ to zero in both the original and the derivative.
+which cannot be true for all values of $x$ because $e^{7x}$ is not a constant but $-\frac{C_2}{C_1}$ is. Another way is by taking the derivative of the combination to get
 \begin{equation*}
 \begin{split}
 C_1e^{2x} + C_2e^{-5x} &= 0 \\
 2C_1e^{2x} - 5C_2e^{-5x} &= 0\\
-\end{split}
-\quad \Rightarrow \quad 
+\end{split}.
+\end{equation*}
+
+Setting $x$ to zero in both the original and the derivative results in 
+
+\begin{equation*}
 \begin{split}
 C_1 + C_2 &= 0\\
 2C_1 - 5C_2 &= 0\\
@@ -412,7 +416,7 @@ y_1'(x_0)y_2(x_0) - y_1(x_0)y_2'(x_0) \neq 0.
 
 The left side of this equation is often called the \emph{\myindex{Wronskian}} of the functions $y_1$ and $y_2$ at the point $x_0$. In general, the Wronskian is the function $y_1'(x)y_2(x) - y_2'(x)y_1(x)$ for two solutions to a second order differential equation. This relation (the Wronskian being non-zero) tells us that the two solutions $y_1$ and $y_2$ are different enough to allow us to meet every initial condition for the differential equation. 
 
-In order to bring everything together, the last statement we need to show is that if two solutions are linearly independent, then their Wronskian is zero, which will tell us that linear independence is enough to know that we can solve any initial value problem we want and have found all solutions to the problem in question. 
+In order to bring everything together, the last statement we need to show is that if two solutions are linearly independent, then their Wronskian is non-zero, which will tell us that linear independence is enough to know that we can solve any initial value problem we want and have found all solutions to the problem in question. 
 
 \begin{theorem1}{Linear Independence and the Wronskian}
 Let $p, q$ be continuous functions. Let $y_1$ and $y_2$ be two solutions to the homogeneous equation \eqref{sol:eqlinhom}. Then $y_1$ and $y_2$ are \index{linearly independent ! functions}\emph{linearly independent} if and only if the Wronskian $W(x) = y_1'(x)y_2(x) - y_2'(x)y_1(x)$ is non-zero for all $x$ where the differential equation is defined. 

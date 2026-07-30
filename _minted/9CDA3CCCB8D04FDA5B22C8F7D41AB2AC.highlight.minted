@@ -1,0 +1,6 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k}{function}\PYG{+w}{ }[a,b]\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nf}{testFunction}\PYG{p}{(}x, y, z\PYG{p}{)}
+\PYG{+w}{    }\PYG{n}{a}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{x}\PYG{o}{+}\PYG{n}{y}\PYG{o}{+}\PYG{n}{z}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n}{b}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{x}\PYG{o}{*}\PYG{n}{y}\PYG{o}{*}\PYG{n}{z}\PYG{p}{;}
+\PYG{k}{end}
+\end{MintedVerbatim}

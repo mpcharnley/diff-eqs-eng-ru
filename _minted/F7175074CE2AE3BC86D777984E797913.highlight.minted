@@ -1,0 +1,12 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k}{function}\PYG{+w}{ }\PYG{n+nf}{samplePlots244}\PYG{p}{(}f, t\PYGZus{}min, t\PYGZus{}max, y\PYGZus{}min, y\PYGZus{}max, t\PYGZus{}0, y\PYGZus{}0, col\PYG{p}{)}
+\PYG{c}{\PYGZpc{} This function takes the ODE dy/dt = f(t,y) and plots sample solutions}
+\PYG{c}{\PYGZpc{} with initial value (t\PYGZus{}0, y\PYGZus{}0). It uses ode45 to sketch out the solutions.}
+\PYG{c}{\PYGZpc{} t\PYGZus{}0 must be between t\PYGZus{}min and t\PYGZus{}max. It also truncates the function f so}
+\PYG{c}{\PYGZpc{} that functions will not go off to infinity, causing this to work properly}
+\PYG{c}{\PYGZpc{} on vector inputs for initial conditions in y. The input y\PYGZus{}0 can be a vector}
+\PYG{c}{\PYGZpc{} of initial values, and this function will plot a curve}
+\PYG{c}{\PYGZpc{} for each of those values. If using a vector of initial}
+\PYG{c}{\PYGZpc{} conditions, the function must be written with vector element\PYGZhy{}wise}
+\PYG{c}{\PYGZpc{} operations.}
+\end{MintedVerbatim}

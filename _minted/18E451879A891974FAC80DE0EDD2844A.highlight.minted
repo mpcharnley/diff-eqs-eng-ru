@@ -1,0 +1,11 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k}{function}\PYG{+w}{ }\PYG{n+nf}{bifDiag244}\PYG{p}{(}f, a\PYGZus{}min, a\PYGZus{}max, y\PYGZus{}min, y\PYGZus{}max\PYG{p}{)}
+\PYG{c}{\PYGZpc{} This function draws a bifurcation diagram for the ode dy/dt = f(alpha, y)}
+\PYG{c}{\PYGZpc{} with parameter alpha running from a\PYGZus{}min to a\PYGZus{}max. The axes are}
+\PYG{c}{\PYGZpc{} constrained to be from a\PYGZus{}min to a\PYGZus{}max in the horizontal direction and}
+\PYG{c}{\PYGZpc{} y\PYGZus{}min to y\PYGZus{}max in the vertical direction.}
+\PYG{c}{\PYGZpc{}}
+\PYG{c}{\PYGZpc{} The black marks are for equilibrium solutions, the blue regions are where}
+\PYG{c}{\PYGZpc{} the solution will tend upwards, and the red region is where it will tend}
+\PYG{c}{\PYGZpc{} downwards.}
+\end{MintedVerbatim}

@@ -87,7 +87,7 @@ The division algorithm for polynomials has the same basic two steps but when we 
 
  &  &  -& \left(2 \cdot 10^3 \right. & + &  3 \cdot 10^2  & + & \left. 7 \cdot 10 \right) &  &  \downarrow \\ \hhline{~~~-----~~} 
  &  &  &   &  & 2 \cdot 10^2 & +  & 1 \cdot 10 & + & 5 \\ 
- &  &  &   & - & \left(1 \cdot 10^2 \right. & +  &  5 \cdot 10 &  + &\left.  8 \right) \\ \hhline{~~~~~---~~} 
+ &  &  &   & - & \left(1 \cdot 10^2 \right. & +  &  5 \cdot 10 &  + &\left.  8 \right) \\ \hhline{~~~~~-----} 
  &  &  &   &   &  & & 5 \cdot 10  & + & 7 \\
 
  
@@ -183,18 +183,14 @@ x & - & 2 \, \vline& x^3 & + & 4x^2 & - & 5x & - & 14 \\
 \setlength\extrarowheight{0pt}
 
 Finally, we `bring down' the last term of the dividend, namely $-14$, and repeat the process.  We divide $\frac{7x}{x} = 7$, add this to the quotient, multiply it by the divisor (which yields $7(x - 2) = 7x - 14$) and subtract.\setlength\arraycolsep{0.1pt}\setlength\extrarowheight{2pt}\[ \begin{array}{cccccccccc}
-
 & & & & & x^2 & + & 6x & + & 7 \\ \hhline{~~~|-------}
-
 x & - & 2 \, \vline& x^3 & + & 4x^2 & - & 5x & - & 14 \\
-
  &  &  -& \left(x^3 \right. & - & \left.  2x^2\right) &  &  &  &  \\ \hhline{~~~---~~~~} 
  &  &  &   &  & 6 x^2 & - & 5x &  &  \\ 
  &  &  &   & - & \left(6 x^2 \right. & - & \left. 12x \right) &  &  \\ \hhline{~~~~~---~~} 
  &  &  &   &   &  & & 7x  & - & 14 \\
  &  &  &   &   &  & - & \left( 7x \right. & - & \left. 14 \right) \\ \hhline{~~~~~~~---} 
  &   &  &  &  &  &  &  &  & 0
- 
 \end{array}\]
 \setlength\arraycolsep{5pt}
 \setlength\extrarowheight{0pt}
@@ -203,15 +199,10 @@ In this case, we get a quotient of $x^2 + 6x + 7$ with a remainder of $0$.  To c
 
 
 \item    To compute  $\left(2t +  7\right) \div \left(3t - 4\right)$, we start as before.  We find $\frac{2t}{3t} = \frac{2}{3}$, so that becomes the first (and only) term in the quotient.  We multiply the divisor $(3t-4)$ by $\frac{2}{3}$ and get $2t - \frac{8}{3}$.  We subtract this from the divided and get $\frac{29}{3}$.\setlength\arraycolsep{0.1pt}\setlength\extrarowheight{5pt}\[ \begin{array}{cccccc}
-
 & & & & & \dfrac{2}{3} \\ \hhline{~~~|---}
-
 3t & - & 4 \, \vline& 2t & + & 7  \\
-
  &  &  -& \left(2t\vphantom{\dfrac{8}{3}} \right. & - & \left.  \dfrac{8}{3}\right)  \\ \hhline{~~~---}
  &  &  &   &  & \dfrac{29}{3} \vphantom{\sqrt{\dfrac{7}{7}}} \\ 
-
- 
 \end{array}\]
 \setlength\arraycolsep{5pt}
 \setlength\extrarowheight{0pt}
@@ -219,16 +210,12 @@ In this case, we get a quotient of $x^2 + 6x + 7$ with a remainder of $0$.  To c
 Our answer is $\frac{2}{3}$ with a remainder of $\frac{29}{3}$.  To check our answer, we compute \[(3t-4) \left(\frac{2}{3}\right) + \frac{29}{3} = 2t - \frac{8}{3} + \frac{29}{3} = 2t + \frac{21}{3} = 2t + 7 \, \checkmark\]
 
 \item When we set-up the tableau for   $\left(6y^2 - 1 \right) \div \left(2y + 5\right)$, we must first issue a `placeholder' for the `missing' $y$-term in the dividend, $6y^2 -1 = 6y^2 + 0y - 1$.  We then proceed as before.  Since $\frac{6y^2}{2y} = 3y$, $3y$ is the first term in our quotient. We multiply $(2y+5)$ times $3y$ and subtract it from the dividend.  We bring down the $-1$, and repeat.  \setlength\arraycolsep{0.1pt}\setlength\extrarowheight{5pt}\[ \begin{array}{cccccccc}
-
 & & & & & 3y & - & \dfrac{15}{2}  \\ \hhline{~~~|-----}
-
 2y& + & 5 \, \vline& 6y^2 & + & 0y & - & 1  \\
-
  &  &  -& \left(6y^2 \right. & + & \left.  15y\right) &  & \downarrow  \\ \hhline{~~~---~~} 
  &  &  &   &  & -15y & - & 1  \\ 
  &  &  &   & - & \left(-15y\vphantom{\dfrac{75}{2}} \right. & - & \left. \dfrac{75}{2} \right) \\ \hhline{~~~~~---} 
  &  &  &   &   &  & & \dfrac{73}{2} \vphantom{\sqrt{\dfrac{73}{2}}}\\
- 
 \end{array}\]
 \setlength\arraycolsep{5pt}
 \setlength\extrarowheight{0pt}
@@ -244,14 +231,10 @@ Our answer is $3y - \frac{15}{2}$ with a remainder of $\frac{73}{2}$.  To check 
 \setlength\extrarowheight{2pt}
 
 \[ \begin{array}{cccccccccccc}
-
     &   &    &   &                    &     &   &      &   &  w &   & \\ \hhline{~~~~~|-------}
-
 w^2 & + & 0w & - & \sqrt{2} \, \vline & w^3 & + & 0w^2 & + & 0w & + & 0  \\
-    
 		&   &    &    &                  -&\left(w^3\vphantom{w\sqrt{2}} \right. & + & 0w^2 & - & \left.  w\sqrt{2} \right) & & \downarrow \\ \hhline{~~~~~-----~~}
     &   &    &    &                   &                                       &  &  0w^2     &  + &   w\sqrt{2}  & + & 0\\ 
- 
 \end{array}\]
 \setlength\arraycolsep{5pt}
 \setlength\extrarowheight{0pt}
@@ -280,7 +263,6 @@ This means that we need to find the roots (or at least a root) to know what to d
 The Rational Zeros Theorem gives us a list of numbers to try in our synthetic division and that is a lot nicer than simply guessing.  If none of the numbers in the list are zeros, then either the polynomial has no real zeros at all, or all of the real zeros are irrational numbers.
 
 \begin{example}  Let $f(x) = 2x^4+4x^3-x^2-6x-3$. Use the Rational Zeros Theorem to list all of the possible rational zeros of $f$.
-
 \end{example}
 
 \begin{exampleSol}To generate a complete list of rational zeros, we need to take each of the factors of constant term, $a_{\mbox{\tiny$0$}} = -3$, and divide them by each of the factors of the leading coefficient $a_{\mbox{\tiny$4$}} = 2$.  The factors of $-3$ are $\pm \, 1$ and $\pm \, 3$.  Since the Rational Zeros Theorem tacks on a $\pm$ anyway, for the moment, we consider only the positive factors $1$ and $3$.  The factors of $2$ are  $1$ and $2$, so the Rational Zeros Theorem gives the list $\left\{\pm \, \frac{1}{1}, \pm \, \frac{1}{2},  \pm \, \frac{3}{1}, \pm \, \frac{3}{2}\right\}$ or $\left\{\pm \, \frac{1}{2}, \pm \, 1, \pm \, \frac{3}{2}, \pm \, 3\right\}$.   
@@ -301,18 +283,14 @@ We start by way of example:  suppose we wish to determine the zeros of  $f(x) = 
 \setlength\extrarowheight{2pt}
 
 $\begin{array}{cccccccccc}
-
 & & & & & x^2 & + & 6x & + & 7 \\ \hhline{~~~|-------}
-
 x & - & 2 \, \vline& x^3 & + & 4x^2 & - & 5x & - & 14 \\
-
  &  &  -& \left(x^3 \right. & - & \left.  2x^2\right) &  &  &  &  \\ \hhline{~~~---~~~~} 
  &  &  &   &  & 6 x^2 & - & 5x &  &  \\ 
  &  &  &   & - & \left(6 x^2 \right. & - & \left. 12x \right) &  &  \\ \hhline{~~~~~---~~} 
  &  &  &   &   &  & & 7x  & - & 14 \\
  &  &  &   &   &  & - & \left( 7x \right. & - & \left. 14 \right) \\ \hhline{~~~~~~~---} 
  &   &  &  &  &  &  &  &  & 0
- 
 \end{array}$
 
 \setlength\arraycolsep{5pt}
@@ -337,18 +315,14 @@ If we want to find all of the roots of a polynomial in a reasonable way, we had 
 \setlength\extrarowheight{2pt}
 
 \[ \begin{array}{cccccccccc}
-
 & & & & & x^2 & + & 6x & + & 7 \\ \hhline{~~~|-------}
-
 x & - & 2 \, \vline& x^3 & + & 4x^2 & - & 5x & - & 14 \\
-
  &  &  &  -x^3  & + &   2x^2 &  &  &  &  \\ \hhline{~~~---~~~~} 
  &  &  &   &  & 6 x^2 & - & 5x &  &  \\ 
  &  &  &   & &-6 x^2  & + &  12x &  &  \\ \hhline{~~~~~---~~} 
  &  &  &   &   &  & & 7x  & - & 14 \\
  &  &  &   &   &  & & - 7x  & + &  14  \\ \hhline{~~~~~~~---} 
  &   &  &  &  &  &  &  &  & 0
- 
 \end{array}\]
 
 \setlength\arraycolsep{5pt}
@@ -362,18 +336,14 @@ Next, observe that the terms $-x^3$, $-6x^2$ and $-7x$ are the exact opposite of
 \setlength\extrarowheight{2pt}
 
 \[ \begin{array}{cccccccccc}
-
 & & & & & x^2 & + & 6x & + & 7 \\ \hhline{~~~|-------}
-
 x & - & 2 \, \vline& \, \, x^3 & + & 4x^2 & - & 5x & - & 14 \\
-
  &  &  &   &  &   2x^2 &  &  &  &  \\ \hhline{~~~---~~~~} 
  &  &  &   &  & 6 x^2 &  &  &  &  \\ 
  &  &  &   & &  &  &  12x &  &  \\ \hhline{~~~~~---~~} 
  &  &  &   &   &  & & 7x  &  &  \\
  &  &  &   &   &  & &   &  &  14  \\ \hhline{~~~~~~~---} 
  &   &  &  &  &  &  &  &  & 0
- 
 \end{array}\]
 
 \setlength\arraycolsep{5pt}
@@ -386,11 +356,8 @@ Let's move terms up a bit and copy the $x^3$ into the last row.
 \setlength\extrarowheight{2pt}
 
 \[ \begin{array}{cccccccccc}
-
 & & & & & x^2 & + & 6x & + & 7 \\ \hhline{~~~|-------}
-
 x & - & 2 \, \vline& \, \, x^3 & + & 4x^2 & - & 5x & - & 14 \\
-
  &  &  &   & &   2x^2 &  & 12x &  & 14 \\ \hhline{~~~-------} 
  &  &  & x^3  &  & 6 x^2 &  & 7x &  &0  \\  
 \end{array}\]
@@ -404,10 +371,7 @@ Note that by arranging things in this manner, each term in the last row is obtai
 \setlength\extrarowheight{2pt}
 
 \[ \begin{array}{cccccccccc}
-
-
  & & - 2 \, \, \vline& \, \, x^3 & + & 4x^2 & - & 5x & - & 14 \\
-
  &  &  &   & &   2x^2 &  & 12x &  & 14 \\ \hhline{~~~-------} 
  &  &  & x^3  &  & 6 x^2 &  & 7x &  &0  \\  
 \end{array}\]
@@ -420,10 +384,7 @@ We've streamlined things quite a bit so far, but we can still do more.  Let's ta
 
 
 \[ \begin{array}{rrrrr}
-
-
   2 \, \, \vline& 1 & 4 & -5  & -14 \\
-
    &&   2 &   12 &   14 \\ \hhline{~----} 
   & 1  &   6  &  7 &  0  \\  
 \end{array}\]
@@ -435,31 +396,19 @@ We have constructed a \index{polynomial division ! synthetic division}\index{syn
 \bigskip
 
 \begin{center}
-
 \begin{tabular}{cc}
-
 $ \begin{array}{rrrrr}
-
-
   2 \, \, \vline& 1 & 4 & -5  & -14 \\
-
    &  &    &    &  \\ \hhline{~----} 
   &   &     &   &    \\  
 \end{array}$  \hspace{1in}
 &
-
-
 $ \begin{array}{rrrrr}
-
-
   2 \, \, \vline& 1 & 4 & -5  & -14 \\
-
    & \downarrow &    &    &  \\ \hhline{~----} 
   & 1  &     &   &    \\  
 \end{array}$ \\
-
 \end{tabular}
-
 \end{center}
 
 \bigskip
@@ -469,30 +418,19 @@ Next, take the $2$ from the divisor and multiply by the $1$ that was `brought do
 \bigskip
 
 \begin{center}
-
 \begin{tabular}{cc}
-
 $ \begin{array}{rrrrr}
-
-
   2 \, \, \vline& 1 & 4 & -5  & -14 \\
-
    & \downarrow  &  2  &    &  \\ \hhline{~----} 
   & 1  &     &   &    \\  
 \end{array}$ \hspace{1in}
 &
-
 $ \begin{array}{rrrrr}
-
-
   2 \, \, \vline& 1 & 4 & -5  & -14 \\
-
    & \downarrow &  2  &    &  \\ \hhline{~----} 
   & 1  &   6  &   &    \\  
 \end{array}$ \\
-
 \end{tabular}
-
 \end{center}
 
 \bigskip
@@ -502,31 +440,18 @@ Now take the $2$ from the divisor times the $6$ to get $12$, and add it to the $
 \bigskip
 
 \begin{center}
-
 \begin{tabular}{cc}
-
-
 $ \begin{array}{rrrrr}
-
-
   2 \, \, \vline& 1 & 4 & -5  & -14 \\
-
    & \downarrow &  2  &  12  &  \\ \hhline{~----} 
   & 1  &   6  &   &    \\  
 \end{array}$ \hspace{1in}
-
 &
-
 $ \begin{array}{rrrrr}
-
-
   2 \, \, \vline& 1 & 4 & -5  & -14 \\
-
    & \downarrow &  2  &  12  &  \\ \hhline{~----} 
   & 1  &   6  & 7  &    \\  
 \end{array}$ \\
-
-
 \end{tabular}
 
 \end{center}
@@ -539,21 +464,13 @@ Finally, take the $2$ in the divisor times the $7$ to get $14$, and add it to th
 \begin{tabular}{cc}
 
 $ \begin{array}{rrrrr}
-
-
   2 \, \, \vline& 1 & 4 & -5  & -14 \\
-
    & \downarrow &  2  &  12  & 14 \\ \hhline{~----} 
   & 1  &   6  & 7  &    \\  
 \end{array}$ \hspace{1in} 
-
 &
-
 $ \begin{array}{rrrrr}
-
-
   2 \, \, \vline& 1 & 4 & -5  & -14 \\
-
    & \downarrow &  2  &  12  & 14 \\ \hhline{~----} 
   & 1  &   6  & 7  &  \fbox{$0$}  \\  
 \end{array}$ \\
@@ -597,10 +514,7 @@ Since the dividend was a third degree polynomial function, the quotient is a sec
 \item  To use synthetic division here, we rewrite $t+2$ as $t-(-2)$ and proceed as before
 
 \[ \begin{array}{rrrrr}
-
-
   -2 \, \, \vline& 1 & 0 & 0  & 8 \\
-
    & \downarrow &  -2  &  4  & -8 \\ \hhline{~----} 
   & 1  &   -2  & 4  &  \fbox{$0$}  \\  
 \end{array}\]

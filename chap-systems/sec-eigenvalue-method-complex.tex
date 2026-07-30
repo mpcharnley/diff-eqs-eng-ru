@@ -4,7 +4,8 @@
 \LAtt{3.4, 3.7}
 
 \LO{
-\item Use Euler's formula to find a real-valued general solution to a first order system with complex eigenvalues and
+\item Use Euler's formula to find a real-valued general solution to a first order system with complex eigenvalues,
+\item Sketch phase portraits for linear first order systems with complex eigenvalues, and
 \item Solve initial value problems from all of these cases once the general solution has been found. 
 }
 
@@ -73,7 +74,7 @@ the formula in a smarter way first to find independent real solutions.
 
 \medskip
 
-In this case, we only needed one of the two eigenvectors to get the general solution, which happens because the complex eigenvalues and eigenvectors always come in conjugate pairs. First a small detour.  The real part of
+In this case, we only needed one of the two eigenvectors to get the general solution, which happens because the complex eigenvalues and eigenvectors always come in conjugate pairs. First, a small detour.  The real part of
 a complex number $z$ can be computed as $\frac{z + \bar{z}}{2}$, where
 the bar above $z$ means $\overline{a+ib} = a -ib$.  This operation is called the
 \emph{\myindex{complex conjugate}}.
@@ -307,7 +308,7 @@ Finally, we need to solve the initial value problem. Plugging in $t=0$ gives
 
 The two equations that we get from here is $c_1 + c_2 = 1$ and $-c_1 = -2$, so that $c_1 = 2$ and $c_2 = -1$. Therefore, the solution to the initial value problem is
 \begin{equation*}
-\vec{x}(t) = 2\begin{bmatrix} e^{-t}\cos(2t) - e^{-t}\sin(2t) \\ -e^{-t}\cos(2t)\end{bmatrix} - \begin{bmatrix} e^{-t}\sin(2t) + e^{-t}\cos(2t) \\ -e^{-t}\sin(2t) \end{bmatrix} = \begin{bmatrix} 2e^{-t}\cos(2t) - 3e^{-t}\sin(2t) \\ -2e^{-t}\cos(2t) + e^{-t}\sin(2t) \end{bmatrix}.
+\vec{x}(t) = 2\begin{bmatrix} e^{-t}\cos(2t) - e^{-t}\sin(2t) \\ -e^{-t}\cos(2t)\end{bmatrix} - \begin{bmatrix} e^{-t}\sin(2t) + e^{-t}\cos(2t) \\ -e^{-t}\sin(2t) \end{bmatrix} = \begin{bmatrix} e^{-t}\cos(2t) - 3e^{-t}\sin(2t) \\ -2e^{-t}\cos(2t) + e^{-t}\sin(2t) \end{bmatrix}.
 \end{equation*}
 \end{exampleSol}
 
@@ -489,7 +490,7 @@ $A=\left[ \begin{smallmatrix}
 \task
 Solve the system $\vec{x}\,' = A\vec{x}$.
 \task 
-Sketch the phase portrait for this system
+Sketch the phase portrait for this system.
 \end{tasks}
 \end{exercise}
 \exsol{%

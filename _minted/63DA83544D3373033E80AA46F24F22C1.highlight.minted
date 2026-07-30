@@ -1,0 +1,16 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k}{function}\PYG{+w}{ }[S,I,Q,R,D]\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nf}{SIRQVModel\PYGZus{}244}\PYG{p}{(}alpha, beta, gamma, delta, eta, rho, zeta, ICs, Tf\PYG{p}{)}
+\PYG{c}{\PYGZpc{} This code runs a more complicated SIR model that adds in Q (a quarantined}
+\PYG{c}{\PYGZpc{} population) and D (a deceased population). The V component adds}
+\PYG{c}{\PYGZpc{} vaccination into the picture, where members are moved from S to R}
+\PYG{c}{\PYGZpc{} directly. The system of differential equations used here is}
+\PYG{c}{\PYGZpc{}   S\PYGZsq{} = \PYGZhy{}alpha*S*I \PYGZhy{} zeta*S}
+\PYG{c}{\PYGZpc{}   I\PYGZsq{} = alpha*S*I \PYGZhy{} (beta+gamma+delta)I}
+\PYG{c}{\PYGZpc{}   Q\PYGZsq{} = beta*I \PYGZhy{} (eta + rho)Q}
+\PYG{c}{\PYGZpc{}   R\PYGZsq{} = gamma*I + eta*Q+zeta*S}
+\PYG{c}{\PYGZpc{}   D\PYGZsq{} = delta*I + rho*Q}
+\PYG{c}{\PYGZpc{}}
+\PYG{c}{\PYGZpc{} The solution is computed using the RungeKutta method, with the helper}
+\PYG{c}{\PYGZpc{} method rungeKuttaSystemMethod. The system is solved from t=0 to t=Tf,}
+\PYG{c}{\PYGZpc{} with initial conditions ICs given as a 5 component vector.}
+\end{MintedVerbatim}
