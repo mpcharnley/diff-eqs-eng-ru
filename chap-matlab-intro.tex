@@ -73,11 +73,11 @@ ans =
 \end{matlab}
 as well as using `/' for division and `\^{ }' for exponentiation. Issues may arise when the code wants to compute products or powers of multiple values at the same time. Many MATLAB built-in functions will automatically combine multiple of the same type of calculation into a `vectorized' calculation, where if the code wanted to compute the sum of two numbers a bunch of times, it would put all of these numbers into arrays and then add the two vectors together. This completes the task of adding all of the different pairs of numbers together, but saves time by not doing them all individually. This works great for addition and subtraction, because addition and subtraction of arrays or matrices is done element-wise, which is the exact operation we wanted to compute in the first place.
 
-However, mutliplication is different. Matrix multiplication is a different operation that, in particular, is not element-wise multiplication. Beyond that, even if two matrices are the same size, it is possible that their product, in the normal matrix sense, is not defined. In MATLAB, the product
+However, multiplication is different. Matrix multiplication is a different operation that, in particular, is not element-wise multiplication. Beyond that, even if two matrices are the same size, it is possible that their product, in the normal matrix sense, is not defined. In MATLAB, the product
 \begin{matlab}
 [1 2 3] * [4 3 2];
 \end{matlab}
-will return an error because the matrices are not the correct size. From a human point of view, the output desired from this code was likely \texttt{[4 6 6]}, the product of each term individually. To obtain this in MATLAB, we need the elementwise operations `.*', `./' and `.\^{ }' for multipication, division, and exponentiation, respectively. Thus, the following computations can be made in MATLAB
+will return an error because the matrices are not the correct size. From a human point of view, the output desired from this code was likely \texttt{[4 6 6]}, the product of each term individually. To obtain this in MATLAB, we need the elementwise operations `.*', `./' and `.\^{ }' for multiplication, division, and exponentiation, respectively. Thus, the following computations can be made in MATLAB
 \begin{matlab}
 >> [1 2 3] .* [4 3 2]
 ans = 
@@ -169,7 +169,7 @@ Among many other possible variables, another type that can be stored is a handle
 
 \section{Functions and Anonymous Functions} \label{funMat:section}
 
-A key component to programming in MATLAB is the idea of functions. These are programming objects that will accept a number of inputs (called \emph{arguments}) and perform a given set of operations on those arguments, returning some set of ouputs back to the main program. These are mainly used to group code together that has a given purpose and can be called to carry out that purpose on a variety of outputs. An example of a built-in function like this is \texttt{sum(V)}. This function takes in a linear array and will return the number that is the sum of all of the elements in the array (if the array is multi-dimensional, it will only sum along one dimension). This is a piece of code that could be written fairly easily; it would just involve taking the array, looping through it and adding up the value at each index. However, putting it into a function allows it to be called more simply in one line, allowing the main script to focus on the task at hand. 
+A key component to programming in MATLAB is the idea of functions. These are programming objects that will accept a number of inputs (called \emph{arguments}) and perform a given set of operations on those arguments, returning some set of outputs back to the main program. These are mainly used to group code together that has a given purpose and can be called to carry out that purpose on a variety of outputs. An example of a built-in function like this is \texttt{sum(V)}. This function takes in a linear array and will return the number that is the sum of all of the elements in the array (if the array is multi-dimensional, it will only sum along one dimension). This is a piece of code that could be written fairly easily; it would just involve taking the array, looping through it and adding up the value at each index. However, putting it into a function allows it to be called more simply in one line, allowing the main script to focus on the task at hand. 
 
 There are two main ways that functions can be written in MATLAB. Functions can either be written at the bottom of the MATLAB script where they will be used or they can be written in their own separate script file. If written in a separate file, there can only be one function in each file, and the name of the file (once saved) must match the name given to the function. To write a function, the reserved word `function' is used:
 \begin{matlab}
@@ -195,7 +195,7 @@ function [a,b] = testFunction(x, y, z)
 end
 \end{matlab}
 
-These functions can be as complicated as necessary, including graphs, loops, calls to other functions, and many different components. However, if the function needed is a simple mathematical function, then this can be written in an shorter way with anonymous functions. For example, if the function $f(x,y) = x^2 + 4xy + y^2$ needed to be coded, it could be written as
+These functions can be as complicated as necessary, including graphs, loops, calls to other functions, and many different components. However, if the function needed is a simple mathematical function, then this can be written in a shorter way with anonymous functions. For example, if the function $f(x,y) = x^2 + 4xy + y^2$ needed to be coded, it could be written as
 \begin{matlab}
 f = @(x,y) x.^2 + 4.*x.*y + y.^2;
 \end{matlab}
@@ -494,7 +494,7 @@ function phasePortrait244(F, G, xmin, xmax, ymin, ymax, tmin, tmax, x0, y0)
 % will be drawn for each of them. The black dot will always be plotted at tmin.
 \end{matlab}
 
-This function draws a phase portrait for the two-component autonomous system $\frac{dx}{dt} = F(x,y)$ and $\frac{dy}{dt} = G(x,y)$. The axes are fixed at $x_{min} \leq x \leq x_{max}$ and $y_{min} \leq y \leq y_{max}$. Solution curves are drawn starting at the (potential list of) points $x_0$ and $y_0$, and will assume these happen at $t=0$. The curves are drawn from $t_min$ to $t_max$, and there will be a black dot plotted at $t_min$ to indicate the direction of flow. Example implementation:
+This function draws a phase portrait for the two-component autonomous system $\frac{dx}{dt} = F(x,y)$ and $\frac{dy}{dt} = G(x,y)$. The axes are fixed at $x_{min} \leq x \leq x_{max}$ and $y_{min} \leq y \leq y_{max}$. Solution curves are drawn starting at the (potential list of) points $x_0$ and $y_0$, and will assume these happen at $t=0$. The curves are drawn from $t_{min}$ to $t_{max}$, and there will be a black dot plotted at $t_{min}$ to indicate the direction of flow. Example implementation:
 
 \begin{matlab}
 f = @(x,y) 2.*x - 3.* y;
@@ -505,7 +505,7 @@ phasePortrait244(f, g, -3, 3, -3, 3, -2, 2, [1, 0, -1, 1, 0, -1], [1,1,1,-1,-1,-
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.7\textwidth]{Images/MatlabDemo_phasePortrait.png}
-    \caption{Sample output from the \texttt{phasePortrait} function.}
+    \caption{Sample output from the \texttt{phasePortrait244} function.}
     \label{fig:MatlabDemo_phasePortrait}
 \end{figure}
 

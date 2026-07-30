@@ -1,0 +1,5 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{o}{\PYGZgt{}\PYGZgt{}}\PYG{+w}{ }\PYG{l+m+mi}{4}\PYG{o}{*}\PYG{l+m+mi}{6}
+\PYG{n+nb}{ans}\PYG{+w}{ }\PYG{p}{=}
+\PYG{+w}{    }\PYG{l+m+mi}{24}
+\end{MintedVerbatim}

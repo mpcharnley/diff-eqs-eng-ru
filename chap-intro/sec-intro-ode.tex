@@ -15,14 +15,14 @@
 
 Consider the following situation:
 \begin{quote}
-An object falling through the air has its velocity affected by two factors: gravity and a drag force. The velocity downward is increased at a rate of $9.8\ m/s^2$ due to gravity, and it is decreased by a rate equation to $0.3$ times the current velocity of the object. If the ball is initially thrown downwards at a speed of $2\ m/s$, what will the velocity be 10 seconds later?
+An object falling through the air has its velocity affected by two factors: gravity and a drag force. The velocity downward is increased at a rate of $9.8\ m/s^2$ due to gravity, and it is decreased by a rate equal to $0.3$ times the current velocity of the object. If the ball is initially thrown downwards at a speed of $2\ m/s$, what will the velocity be 10 seconds later?
 \end{quote}
 
-There might be enough information here to determine the velocity at any later point in time (it turns out, there is) but the information given isn't really about the velocity. Rather, information is given about the rate of change of the velocity. We know that the velocity will be increased at a rate of $9.8 m/s^2$ due to gravity. How can this be interpreted? The rate of change has been discussed previously way back in Calculus 1; this is the derivative. Thus, if we let the unknown function $v(t)$ represent the velocity of the object, the description above gives information about the derivative of this function for$v(t)$. Taking the two different factors (the increase and decrease of velocity) into account, we can write an expression for this derivative, giving that
+There might be enough information here to determine the velocity at any later point in time (it turns out, there is) but the information given isn't really about the velocity. Rather, information is given about the rate of change of the velocity. We know that the velocity will be increased at a rate of $9.8 m/s^2$ due to gravity. How can this be interpreted? The rate of change has been discussed previously way back in Calculus 1; this is the derivative. Thus, if we let the unknown function $v(t)$ represent the velocity of the object, the description above gives information about the derivative of this function for $v(t)$. Taking the two different factors (the increase and decrease of velocity) into account, we can write an expression for this derivative, giving that
 \begin{equation*}
 \frac{dv}{dt} = 9.8 - 0.3v.
 \end{equation*}
-Even though we don't know what $v(t)$ is, we know that it must affect the derivative of the velocity in this particular way, so we can write this equation. That's why we give a name to this function, so that we can use it in writing this equestion, which, since it is an equation involving the derivative of an unknown function $v(t)$, we call this a \myindex{differential equation}. Our goal here would be to use this information, plus the fact that the velocity at time zero is $v(0) = 2\ \text{m/s}$ to find the value of $v(10)$, or, more generally, the function $v(t)$ for any $t$. 
+Even though we don't know what $v(t)$ is, we know that it must affect the derivative of the velocity in this particular way, so we can write this equation. That's why we give a name to this function, so that we can use it in writing this equation, which, since it is an equation involving the derivative of an unknown function $v(t)$, we call a \myindex{differential equation}. Our goal here would be to use this information, plus the fact that the velocity at time zero is $v(0) = 2\ \text{m/s}$ to find the value of $v(10)$, or, more generally, the function $v(t)$ for any $t$. 
 
 The laws of physics, beyond just that of simple velocity, are generally written down as differential
 equations.  Therefore, all of science and engineering use
@@ -58,7 +58,7 @@ To make sure that everything is well-defined, we will assume that we can always 
 \[ \frac{dy}{dt} = \sqrt{1 - y^2} \qquad \text{or} \qquad \frac{dy}{dt} = -\sqrt{1 - y^2}, \] and while both of these are proper differential equations, the version in \eqref{eqNonDiff} is not.   
 
 For some equations, like $y' = y^2$, the independent variable is not explicitly stated. We could be looking for a function $y(t)$ or a function $y(x)$ (or $y$ of any other variable) and without any other information, any of these is correct. Usually, there will be information in the problem statement to indicate that the independent variable is something like time, in which case everything should be written in terms of $t$. It is for this reason that Leibniz notation is preferred for derivatives; an equation like
-\[ \frac{dy}{dt} = y^2 \] is unambiguously looking for any answer $y(t)$.
+\[ \frac{dy}{dt} = y^2 \] is unambiguously looking for an answer $y(t)$.
 
 \begin{example}
 All of the below are differential equations
@@ -426,8 +426,8 @@ In other words, $y = 3x + 2$ is the particular solution we seek.
 
 %mbxSTARTIGNORE
 \noindent
-\emph{Note: Exercises marked with * have answers in the
-back of the book.}
+%\emph{Note: Exercises marked with * have answers in the
+% back of the book.}
 %mbxENDIGNORE
 
 %mbx <p><em>Note: Exercises marked with * have solutions.</em></p>

@@ -1,0 +1,10 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+
+\PYG{k}{global}\PYG{+w}{ }\PYG{n}{tVals}
+\PYG{k}{global}\PYG{+w}{ }\PYG{n}{vVals}
+
+\PYG{n}{tVals}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mf}{0.1}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mf}{0.3}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mf}{0.5}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mf}{0.8}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mf}{0.9}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mf}{1.0}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mf}{1.5}\PYG{p}{];}
+\PYG{n}{vVals}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{l+m+mf}{0.9797}\PYG{p}{,}\PYG{l+m+mf}{2.8625}\PYG{p}{,}\PYG{l+m+mf}{4.4750}\PYG{p}{,}\PYG{l+m+mf}{6.3828}\PYG{p}{,}\PYG{l+m+mf}{6.8360}\PYG{p}{,}\PYG{l+m+mf}{7.0334}\PYG{p}{,}\PYG{l+m+mf}{8.1612}\PYG{p}{];}
+
+\PYG{p}{[}\PYG{n}{aVal}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{errVal}\PYG{p}{]}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{fminbnd}\PYG{p}{(@(}\PYG{n}{a}\PYG{p}{)}\PYG{+w}{ }\PYG{n}{EstSqError}\PYG{p}{(}\PYG{n}{a}\PYG{p}{),}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{4}\PYG{p}{)}
+\end{MintedVerbatim}

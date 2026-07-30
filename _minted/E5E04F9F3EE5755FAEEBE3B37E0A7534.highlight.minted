@@ -1,0 +1,9 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k}{function}\PYG{+w}{ }\PYG{n+nf}{phasePortrait244}\PYG{p}{(}F, G, xmin, xmax, ymin, ymax, tmin, tmax, x0, y0\PYG{p}{)}
+\PYG{c}{\PYGZpc{} This function draws a 2 dimensional phase portrait for the system dx/dt =}
+\PYG{c}{\PYGZpc{} F(x,y) and dy/dt = G(x,y). The phase portrait will be draw with x bounds}
+\PYG{c}{\PYGZpc{} xmin \PYGZlt{}= x \PYGZlt{}= xmax and ymin \PYGZlt{}= y \PYGZlt{}= ymax. It is assumed that the initial}
+\PYG{c}{\PYGZpc{} conditions x0 and y0 are at \PYGZdl{}t=0\PYGZdl{}, with tmin \PYGZlt{}= 0 and tmax \PYGZgt{}=0. x0 and y0}
+\PYG{c}{\PYGZpc{} can be inputted as vectors that are the same length, and a sample curve}
+\PYG{c}{\PYGZpc{} will be drawn for each of them. The black dot will always be plotted at tmin.}
+\end{MintedVerbatim}

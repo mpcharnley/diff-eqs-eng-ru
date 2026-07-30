@@ -57,6 +57,8 @@ the following identities:
 \end{tasks}
 \end{exercise}
 
+The important part to keep in mind with complex numbers is that dividing by complex numbers is not as simple as one would hope. The process does not just involve inverting the real and imaginary parts and putting an $i$ in there, instead, the complex number in the denominator needs to be converted into a real number by multiplying the top and bottom by the complex conjugate, and then everything can be distributed and simplified. We use $\bar{z}$ to denote the complex conjugate of a complex number $z$, and for $z = a+bi$ the conjugate is defined as $\bar{z} = a - bi$. Thus, if we multiply a complex number $z = a+bi$ by its conjugate, \[ z\bar{z} = (a+bi)(a-bi) = a^2 + b^2, \] we always get a real number. That's why division works the way that it does.
+
 \pagebreak[2]
 In order to solve differential equations where the characteristic equation has complex roots, we need to deal with the exponential $e^{a+bi}$ of complex numbers. 
 We do this by writing down the Taylor series and plugging in the complex
@@ -159,7 +161,7 @@ so that both $u$ and $v$ solve the original differential equation.
 
 To use this to solve the problem at hand, we have our solution
 \begin{equation*}
-y_1(x) = e^{\alpha + i\beta x}
+y_1(x) = e^{(\alpha + i\beta) x}
 \end{equation*}
 and we need to split this into its real and imaginary parts. Since
 \begin{equation*}
@@ -176,7 +178,7 @@ which, by the previous theorem, we know are also solutions. These are two soluti
 
 On the other hand, assume that we take the other complex solution, which will be  
 \begin{equation*}
-y_2(x) = e^{\alpha - i\beta x}.
+y_2(x) = e^{(\alpha - i\beta) x}.
 \end{equation*}
 If we split this into real and imaginary parts, we will get 
 \begin{equation*}

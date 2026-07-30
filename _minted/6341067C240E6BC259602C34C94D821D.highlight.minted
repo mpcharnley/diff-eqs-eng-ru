@@ -1,0 +1,12 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{n}{omega}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{444}\PYG{o}{*}\PYG{l+m+mi}{2}\PYG{o}{*}\PYG{n+nb}{pi}\PYG{p}{;}
+
+\PYG{n}{syms}\PYG{+w}{ }\PYG{l+s}{ys(t)}\PYG{p}{;}
+\PYG{p}{[}\PYG{n}{V}\PYG{p}{]}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{odeToVectorField}\PYG{p}{(}\PYG{n+nb}{diff}\PYG{p}{(}\PYG{n}{ys}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{n}{omega0}\PYG{o}{\PYGZca{}}\PYG{l+m+mi}{2}\PYG{o}{*}\PYG{n}{ys}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{n}{omega0}\PYG{o}{*}\PYG{n+nb}{cos}\PYG{p}{(}\PYG{n}{omega}\PYG{o}{*}\PYG{n}{t}\PYG{p}{));}
+\PYG{n}{MS}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{matlabFunction}\PYG{p}{(}\PYG{n}{V}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}vars\PYGZsq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{p}{\PYGZob{}}\PYG{l+s}{\PYGZsq{}t\PYGZsq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}Y\PYGZsq{}}\PYG{p}{\PYGZcb{});}
+\PYG{n}{soln}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{ode45}\PYG{p}{(}\PYG{n}{MS}\PYG{p}{,}\PYG{+w}{ }\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{l+m+mi}{10}\PYG{p}{],}\PYG{+w}{ }\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{]);}
+
+\PYG{n}{ySound}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{deval}\PYG{p}{(}\PYG{n}{soln}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{tVals}\PYG{p}{);}
+\PYG{n}{ySound}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{ySound}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{p}{:);}
+\PYG{n+nb}{sound}\PYG{p}{(}\PYG{n}{ySound}\PYG{p}{);}
+\end{MintedVerbatim}

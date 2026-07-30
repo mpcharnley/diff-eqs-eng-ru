@@ -168,7 +168,7 @@ The substitution method for integration serves as the inverse operation to the C
 \[ du = u'(x) dx. \] Then we can substitute both $u$ and $du$ into the original expression to get that 
 \[ \int f'(u(x))u'(x)\ dx = \int f'(u)\ du = f(u) + C = f(u(x)) + C. \]
 
-The last component of this process is changing the limits of integration if a definite integral is being computed. The idea is that an integral in $x$ (denoted by $dx$) has its limits also in terms of $x$, where as the $du$ integral has endpoints given in terms of $u$. The main way this comes up in problems is that
+The last component of this process is changing the limits of integration if a definite integral is being computed. The idea is that an integral in $x$ (denoted by $dx$) has its limits also in terms of $x$, but the $du$ integral has endpoints given in terms of $u$. The main way this comes up in problems is that
 \[ \int_a^b f(u(x))u'(x)\ dx = \int_{u(a)}^{u(b)} f(u)\ du \] because we know that $u$ is written in terms of $x$ as $u = u(x)$. Thus if we plug the $x$ endpoints into this function, we will be the new $u$ endpoints.
 
 \begin{example}
@@ -210,7 +210,7 @@ The most important part of this process is picking the appropriate functions for
 \end{itemize}
 and you want to make $u$, the function that you are differentiating, the one that is higher on the list. The main reason for this list is that integration is much harder than differentiation, and so we generally want to integrate the part of the product that we have a formula for. This is why logarithms and inverses are on the top; we know how to differentiate them, but integration is difficult or impossible. Polynomials are good for both differentiation and integrals, but the benefit of differentiating them is that they eventually disappear, leaving us with an integral that we know how to solve. For example, $x^2$ becomes $2x$, and then differentiating a second time gives $2$, which is just a constant and can be removed from the integral. Trigonometric and Exponential functions are interchangeable, they are easy to differentiate and integrate, and they don't go away if we keep applying either operation.
 
-This method can also be performed mutliple times by redefining $u$ and $v$ and applying the same process to the integral that remains on the right-hand side. When doing this, it is important not to reverse the roles of $u$ and $v$, because then the process will just undo what was done in the first step. There are also some cases where circular reasoning is used, integrating by parts twice to get to the same expression on both sides of the equal sign, which can then be solved for. One of those will be shown in the examples below.
+This method can also be performed multiple times by redefining $u$ and $v$ and applying the same process to the integral that remains on the right-hand side. When doing this, it is important not to reverse the roles of $u$ and $v$, because then the process will just undo what was done in the first step. There are also some cases where circular reasoning is used, integrating by parts twice to get to the same expression on both sides of the equal sign, which can then be solved for. One of those will be shown in the examples below.
 
 \begin{example}
 Compute the following integrals.
