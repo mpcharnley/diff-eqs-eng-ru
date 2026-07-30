@@ -1,10 +1,11 @@
 # Differential Equations - An Introduction for Engineers
 
-A free online textbook for a first course in differential equations.  See https://sites.rutgers.edu/matthew-charnley/course-materials/differential-equations-an-introduction-for-engineers/. This book was created with the *Notes on Diffy Qs* text by Jiri Lebl as a starting point. This book has some additional content and was reordered to fit the class that is normally run. See https://www.jirka.org/diffyqs/ for information on that text. 
+A free online textbook for a first course in differential equations.  See [website coming soon]. This book was created with the *Notes on Diffy Qs* text by Jiri Lebl as a starting point. This book has some additional content and was reordered to fit the class that is normally run. See https://www.jirka.org/diffyqs/ for information on that text. 
 
 ## Branches:
 
-* ``master`` branch is the current working version, version 0.9.
+* ``master`` branch is the current working version, version 1.0.
+* ``V1.0-Archive`` version 1.0 of the book that will not be edited. (Currently up to date with master)
 
 ## Files
 
@@ -16,7 +17,7 @@ A free online textbook for a first course in differential equations.  See https:
 
 * Figures are in ``figures/``
 
-The shell(``.sh``) and Perl(``.pl``) scripts here are mostly really hacky ways to just do things.  Feel free to ignore them. These were untouched from Jiri Lebl's Notes on Diffy Qs. For this text, there is currently no web version available (yet). 
+The shell(``.sh``) and Perl(``.pl``) scripts here are mostly really hacky ways to just do things.  Feel free to ignore them. These were untouched from Jiri Lebl's Notes on Diffy Qs. For this text, there is a web (PreTeXt) version available at https://mpcharnley.github.io/diff-eqs-eng-book-pretext/frontmatter.html. 
 
 * ``runpdf.sh`` does a thorough job of compiling the source to a pdf
 * ``getstats.sh`` gets statistics about the current version like number of exercises, and such.
